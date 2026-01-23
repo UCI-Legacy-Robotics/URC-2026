@@ -46,7 +46,7 @@ class ArmTeleop : public rclcpp::Node {
       double roll   = get_axis_value(msg, roll_axis_);
       double pitch  = get_axis_value(msg, pitch_axis_);
       double yaw    = get_axis_value(msg, yaw_axis_);
-
+      
       // Now convert to velocities using the current max velocities
       double max_linear_vel = this->get_parameter("max_linear_velocity").as_double();
       double max_angular_vel = this->get_parameter("max_angular_velocity").as_double();
@@ -58,6 +58,12 @@ class ArmTeleop : public rclcpp::Node {
       out_msg.angular.y = compute_velocity_output(pitch, max_angular_vel);
       out_msg.angular.z = compute_velocity_output(yaw, max_angular_vel);
 
+      RCLCPP_INFO(get_logger(), "Arm x input: %.2f; x output (m/s): %.2f", x, out_msg.linear.x);
+      RCLCPP_INFO(get_logger(), "Arm y input: %.2f; y output (m/s): %.2f", x, out_msg.linear.y);
+      RCLCPP_INFO(get_logger(), "Arm z input: %.2f; z output (m/s): %.2f", x, out_msg.linear.z);
+      RCLCPP_INFO(get_logger(), "Arm roll input: %.2f; roll output (rad/s): %.2f", x, out_msg.angular.x);
+      RCLCPP_INFO(get_logger(), "Arm pitch input: %.2f; pitch output (rad/s): %.2f", x, out_msg.angular.y);
+      RCLCPP_INFO(get_logger(), "Arm yaw input: %.2f; yaw output (rad/s): %.2f", x, out_msg.angular.z);
       teleop_pub_->publish(out_msg);
     }
 
