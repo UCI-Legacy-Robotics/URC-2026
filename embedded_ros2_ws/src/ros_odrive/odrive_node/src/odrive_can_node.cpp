@@ -34,7 +34,7 @@ void ODriveCanNode::deinit() {
 bool ODriveCanNode::init(EpollEventLoop* event_loop) {
 
     node_id_ = rclcpp::Node::get_parameter("node_id").as_int();
-    pole_pairs = rclcpp::Node::get_parameter("pole_pairs").as_bool();
+    pole_pairs = rclcpp::Node::get_parameter("pole_pairs").as_int();
     std::string interface = rclcpp::Node::get_parameter("interface").as_string();
 
     if (!can_intf_.init(interface, event_loop, std::bind(&ODriveCanNode::recv_callback, this, _1))) {
@@ -60,11 +60,11 @@ void ODriveCanNode::recv_callback(const can_frame& frame) {
         case CmdId::kGetControllerData: {
             if (!verify_length("kControllerData", 8, frame.can_dlc)) break;
             std::lock_guard<std::mutex> guard(ctrl_stat_mutex_);
-            ctrl_stat_.pos_estimate_deg     = static_cast<float>(read_le<int16_t>(frame.data + 0)) / 10;
-            ctrl_stat_.vel_estimate_rpm     = static_cast<float>(read_le<int16_t>(frame.data + 2)) * 10 / pole_pairs;
-            ctrl_stat_.motor_current_amps   = static_cast<float>(read_le<int16_t>(frame.data + 4)) / 100;
-            ctrl_stat_.motor_temperature_c  = read_le<int8_t>(frame.data + 6);
-            ctrl_stat_.active_errors        = read_le<uint8_t>(frame.data + 7);
+            ctrl_stat_.pos_estimate_deg     = static_cast<float>(static_cast<int16_t>(uint16_t(frame.data[0]) << 8 | uint16_t(frame.data[1]))) / 10;
+            ctrl_stat_.vel_estimate_rpm     = static_cast<float>(static_cast<int16_t>(uint16_t(frame.data[2]) << 8 | uint16_t(frame.data[3]))) * 10 / pole_pairs;
+            ctrl_stat_.motor_current_amps   = static_cast<float>(static_cast<int16_t>(uint16_t(frame.data[4]) << 8 | uint16_t(frame.data[5]))) / 100;
+            ctrl_stat_.motor_temperature_c  = static_cast<int8_t>(frame.data[6]);
+            ctrl_stat_.active_errors        = static_cast<uint8_t>(frame.data[7]);
 
             ctrl_pub_flag_ = 1;
             break;
@@ -96,51 +96,70 @@ void ODriveCanNode::subscriber_callback(const ControlMessage::SharedPtr msg) {
 }
 
 void ODriveCanNode::ctrl_msg_callback() {
-
-    uint32_t control_mode;
+    
+    ControlMessage locked_msg;
     struct can_frame frame;
     {
         std::lock_guard<std::mutex> guard(ctrl_msg_mutex_);
-        control_mode = ctrl_msg_.control_mode;
+        locked_msg = ctrl_msg_;
     }
 
-    switch (control_mode) {
+    switch (locked_msg.control_mode) {
         case CmdId::kSetVelocityControl: {
             RCLCPP_DEBUG(rclcpp::Node::get_logger(), "input_vel");
             // Upper bytes are control message, lower byte is node id, MSB is extended frame flag
             frame.can_id = node_id_ | kSetVelocityControl << 8 | CAN_EFF_FLAG;
-            std::lock_guard<std::mutex> guard(ctrl_msg_mutex_); 
-            int32_t conv_vel_erpm = static_cast<int32_t>(ctrl_msg_.input_vel_rpm * pole_pairs);
-            write_le<int32_t>(conv_vel_erpm, frame.data);
+            int32_t conv_vel_erpm = static_cast<int32_t>(locked_msg.input_vel_rpm * pole_pairs);
+            uint32_t u = static_cast<uint32_t>(conv_vel_erpm); // Convert to unsigned to ensure bit shift doesn't mess up from arithmetic vs logical shift
+            frame.data[0] = (u >> 24) & 0xFF;
+            frame.data[1] = (u >> 16) & 0xFF;
+            frame.data[2] = (u >> 8) & 0xFF;
+            frame.data[3] = u & 0xFF;
             frame.can_dlc = 4;
             return;
         }
         case CmdId::kSetPositionControl: {
             RCLCPP_DEBUG(rclcpp::Node::get_logger(), "input_position");
             frame.can_id = node_id_ | kSetPositionControl << 8 | CAN_EFF_FLAG;
-            int32_t conv_pos_motor = static_cast<int32_t>(ctrl_msg_.input_pos_deg * 10000);
-            write_le<int32_t>(conv_pos_motor, frame.data);
+            int32_t conv_pos_motor = static_cast<int32_t>(locked_msg.input_pos_deg * 10000);
+            uint32_t u = static_cast<uint32_t>(conv_pos_motor); // Convert to unsigned to ensure bit shift doesn't mess up from arithmetic vs logical shift
+            frame.data[0] = (u >> 24) & 0xFF;
+            frame.data[1] = (u >> 16) & 0xFF;
+            frame.data[2] = (u >> 8) & 0xFF;
+            frame.data[3] = u & 0xFF;
             frame.can_dlc = 4;
             break;
         }
         case CmdId::kSetOriginMode: {
             RCLCPP_DEBUG(rclcpp::Node::get_logger(), "set_position");
             frame.can_id = node_id_ | kSetOriginMode << 8 | CAN_EFF_FLAG;
-            write_le<uint8_t>(ctrl_msg_.set_origin, frame.data);
+            frame.data[0] = static_cast<uint8_t>(locked_msg.set_origin);
             frame.can_dlc = 1;
             break;
         }
         case CmdId::kSetPositionVelocityMode: {
             RCLCPP_DEBUG(rclcpp::Node::get_logger(), "input_position_vel");
             frame.can_id = node_id_ | kSetPositionVelocityMode << 8 | CAN_EFF_FLAG;
-            std::lock_guard<std::mutex> guard(ctrl_msg_mutex_);
-            int32_t conv_pos_motor = static_cast<int32_t>(ctrl_msg_.input_pos_deg * 10000);
-            int16_t conv_vel_motor = static_cast<int16_t>(ctrl_msg_.set_vel_limit_rpm * pole_pairs / 10);
-            int16_t conv_accel_motor = static_cast<int16_t>(ctrl_msg_.set_accel_limit_rpm_s * pole_pairs / 10);
+            // Position
+            int32_t conv_pos_motor = static_cast<int32_t>(locked_msg.input_pos_deg * 10000);
+            uint32_t u_p = static_cast<uint32_t>(conv_pos_motor);
+            frame.data[0] = (u_p >> 24) & 0xFF;
+            frame.data[1] = (u_p >> 16) & 0xFF;
+            frame.data[2] = (u_p >> 8) & 0xFF;
+            frame.data[3] = u_p & 0xFF;
+            
+            // Velocity
+            int16_t conv_vel_motor = static_cast<int16_t>(locked_msg.set_vel_limit_rpm * pole_pairs / 10);
+            uint16_t u_v = static_cast<uint16_t>(conv_vel_motor);
+            frame.data[4] = (u_v >> 8) & 0xFF;
+            frame.data[5] = u_v & 0xFF;
 
-            write_le<int32_t>(conv_pos_motor,   frame.data);
-            write_le<int16_t>(conv_vel_motor,   frame.data + 4);
-            write_le<int16_t>(conv_accel_motor, frame.data + 6);
+            // Acceleration
+            int16_t conv_accel_motor = static_cast<int16_t>(locked_msg.set_accel_limit_rpm_s * pole_pairs / 10);
+            uint16_t u_a = static_cast<uint16_t>(conv_accel_motor);
+            frame.data[6] = (u_a >> 8) & 0xFF;
+            frame.data[7] = u_a & 0xFF;
+
             frame.can_dlc = 8;
             break;
         }    
@@ -148,7 +167,7 @@ void ODriveCanNode::ctrl_msg_callback() {
             break;
         }
         default: 
-            RCLCPP_ERROR(rclcpp::Node::get_logger(), "unsupported control_mode: %d", control_mode);
+            RCLCPP_ERROR(rclcpp::Node::get_logger(), "unsupported control_mode: %d", locked_msg.control_mode);
             return;
     }
 
