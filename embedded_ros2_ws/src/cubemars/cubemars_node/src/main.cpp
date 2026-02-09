@@ -1,4 +1,4 @@
-#include "odrive_can_node.hpp"
+#include "cubemars_can_node.hpp"
 #include "epoll_event_loop.hpp"
 #include "socket_can.hpp"
 #include <thread>
@@ -6,7 +6,7 @@
 int main(int argc, char* argv[]) {
     rclcpp::init(argc, argv);
     EpollEventLoop event_loop;
-    auto can_node = std::make_shared<ODriveCanNode>("ODriveCanNode");
+    auto can_node = std::make_shared<CubemarsCanNode>("CubeMarsCanNode");
 
     if (!can_node->init(&event_loop)) return -1;
 

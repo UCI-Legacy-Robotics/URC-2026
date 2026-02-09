@@ -1,7 +1,5 @@
-#include "odrive_can_node.hpp"
-#include "odrive_enums.h"
+#include "cubemars_can_node.hpp"
 #include "epoll_event_loop.hpp"
-#include "byte_swap.hpp"
 #include <sys/eventfd.h>
 #include <chrono>
 
@@ -13,7 +11,7 @@ enum CmdId : uint32_t {
     kSetPositionVelocityMode = 0x06
 };
 
-ODriveCanNode::ODriveCanNode(const std::string& node_name) : rclcpp::Node(node_name) {
+CubemarsCanNode::CubemarsCanNode(const std::string& node_name) : rclcpp::Node(node_name) {
     
     rclcpp::Node::declare_parameter<std::string>("interface", "can0");
     rclcpp::Node::declare_parameter<uint16_t>("node_id", 0);
@@ -23,25 +21,25 @@ ODriveCanNode::ODriveCanNode(const std::string& node_name) : rclcpp::Node(node_n
     ctrl_publisher_ = rclcpp::Node::create_publisher<ControllerStatus>("controller_status", ctrl_stat_qos);
 
     rclcpp::QoS ctrl_msg_qos(rclcpp::KeepAll{});
-    subscriber_ = rclcpp::Node::create_subscription<ControlMessage>("control_message", ctrl_msg_qos, std::bind(&ODriveCanNode::subscriber_callback, this, _1));
+    subscriber_ = rclcpp::Node::create_subscription<ControlMessage>("control_message", ctrl_msg_qos, std::bind(&CubemarsCanNode::subscriber_callback, this, _1));
 }
 
-void ODriveCanNode::deinit() {
+void CubemarsCanNode::deinit() {
     sub_evt_.deinit();
     can_intf_.deinit();
 }
 
-bool ODriveCanNode::init(EpollEventLoop* event_loop) {
+bool CubemarsCanNode::init(EpollEventLoop* event_loop) {
 
     node_id_ = rclcpp::Node::get_parameter("node_id").as_int();
     pole_pairs = rclcpp::Node::get_parameter("pole_pairs").as_int();
     std::string interface = rclcpp::Node::get_parameter("interface").as_string();
 
-    if (!can_intf_.init(interface, event_loop, std::bind(&ODriveCanNode::recv_callback, this, _1))) {
+    if (!can_intf_.init(interface, event_loop, std::bind(&CubemarsCanNode::recv_callback, this, _1))) {
         RCLCPP_ERROR(rclcpp::Node::get_logger(), "Failed to initialize socket can interface: %s", interface.c_str());
         return false;
     }
-    if (!sub_evt_.init(event_loop, std::bind(&ODriveCanNode::ctrl_msg_callback, this))) {
+    if (!sub_evt_.init(event_loop, std::bind(&CubemarsCanNode::ctrl_msg_callback, this))) {
         RCLCPP_ERROR(rclcpp::Node::get_logger(), "Failed to initialize subscriber event");
         return false;
     }
@@ -51,7 +49,7 @@ bool ODriveCanNode::init(EpollEventLoop* event_loop) {
     return true;
 }
 
-void ODriveCanNode::recv_callback(const can_frame& frame) {
+void CubemarsCanNode::recv_callback(const can_frame& frame) {
     // Ensure extended frame nd lower 8 bits representing node id match
     if((!(frame.can_id & CAN_EFF_FLAG)) || ((frame.can_id & 0xFF) != node_id_)) return;
 
@@ -89,13 +87,13 @@ void ODriveCanNode::recv_callback(const can_frame& frame) {
     
 }
 
-void ODriveCanNode::subscriber_callback(const ControlMessage::SharedPtr msg) {
+void CubemarsCanNode::subscriber_callback(const ControlMessage::SharedPtr msg) {
     std::lock_guard<std::mutex> guard(ctrl_msg_mutex_);
     ctrl_msg_ = *msg;
     sub_evt_.set();
 }
 
-void ODriveCanNode::ctrl_msg_callback() {
+void CubemarsCanNode::ctrl_msg_callback() {
     
     ControlMessage locked_msg;
     struct can_frame frame;
@@ -174,7 +172,7 @@ void ODriveCanNode::ctrl_msg_callback() {
     can_intf_.send_can_frame(frame);
 }
 
-inline bool ODriveCanNode::verify_length(const std::string&name, uint8_t expected, uint8_t length) {
+inline bool CubemarsCanNode::verify_length(const std::string&name, uint8_t expected, uint8_t length) {
     bool valid = expected == length;
     RCLCPP_DEBUG(rclcpp::Node::get_logger(), "received %s", name.c_str());
     if (!valid) RCLCPP_WARN(rclcpp::Node::get_logger(), "Incorrect %s frame length: %d != %d", name.c_str(), length, expected);

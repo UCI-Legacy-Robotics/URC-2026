@@ -1,10 +1,10 @@
 launch:
 
 - node:
-    pkg: "odrive_can"
-    exec: "odrive_can_node"
+    pkg: "cubemars_can"
+    exec: "cubemars_can_node"
     name: "can_node"
-    namespace: "odrive_axis0"
+    namespace: "cubemars_axis0"
     param:
     -
       name: "node_id"

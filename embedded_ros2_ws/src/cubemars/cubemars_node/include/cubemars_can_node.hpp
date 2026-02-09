@@ -1,13 +1,9 @@
-#ifndef ODRIVE_CAN_NODE_HPP
-#define ODRIVE_CAN_NODE_HPP
+#ifndef CUBEMARS_CAN_NODE_HPP
+#define CUBEMARS_CAN_NODE_HPP
 
 #include <rclcpp/rclcpp.hpp>
-#include <rclcpp/version.h>
-#include "odrive_can/msg/o_drive_status.hpp"
-#include "odrive_can/msg/controller_status.hpp"
-#include "odrive_can/msg/control_message.hpp"
-#include "odrive_can/srv/axis_state.hpp"
-#include "std_srvs/srv/empty.hpp"
+#include "cubemars_can/msg/controller_status.hpp"
+#include "cubemars_can/msg/control_message.hpp"
 #include "socket_can.hpp"
 
 #include <mutex>
@@ -20,25 +16,17 @@
 using std::placeholders::_1;
 using std::placeholders::_2;
 
-using ODriveStatus = odrive_can::msg::ODriveStatus;
-using ControllerStatus = odrive_can::msg::ControllerStatus;
-using ControlMessage = odrive_can::msg::ControlMessage;
+using ControllerStatus = cubemars_can::msg::ControllerStatus;
+using ControlMessage = cubemars_can::msg::ControlMessage;
 
-using AxisState = odrive_can::srv::AxisState;
-using Empty = std_srvs::srv::Empty;
-
-class ODriveCanNode : public rclcpp::Node {
+class CubemarsCanNode : public rclcpp::Node {
 public:
-    ODriveCanNode(const std::string& node_name);
+    CubemarsCanNode(const std::string& node_name);
     bool init(EpollEventLoop* event_loop); 
     void deinit();
 private:
     void recv_callback(const can_frame& frame);
     void subscriber_callback(const ControlMessage::SharedPtr msg);
-    void service_callback(const std::shared_ptr<AxisState::Request> request, std::shared_ptr<AxisState::Response> response);
-    void service_clear_errors_callback(const std::shared_ptr<Empty::Request> request, std::shared_ptr<Empty::Response> response);
-    void request_state_callback();
-    void request_clear_errors_callback();
     void ctrl_msg_callback();
     inline bool verify_length(const std::string&name, uint8_t expected, uint8_t length);
     
@@ -57,4 +45,4 @@ private:
     rclcpp::Subscription<ControlMessage>::SharedPtr subscriber_;
 };
 
-#endif // ODRIVE_CAN_NODE_HPP
+#endif // CUBEMARS_CAN_NODE_HPP
