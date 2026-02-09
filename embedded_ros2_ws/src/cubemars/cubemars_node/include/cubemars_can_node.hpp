@@ -1,0 +1,48 @@
+#ifndef CUBEMARS_CAN_NODE_HPP
+#define CUBEMARS_CAN_NODE_HPP
+
+#include <rclcpp/rclcpp.hpp>
+#include "cubemars_can/msg/controller_status.hpp"
+#include "cubemars_can/msg/control_message.hpp"
+#include "socket_can.hpp"
+
+#include <mutex>
+#include <condition_variable>
+#include <array>
+#include <algorithm>
+#include <linux/can.h>
+#include <linux/can/raw.h>
+
+using std::placeholders::_1;
+using std::placeholders::_2;
+
+using ControllerStatus = cubemars_can::msg::ControllerStatus;
+using ControlMessage = cubemars_can::msg::ControlMessage;
+
+class CubemarsCanNode : public rclcpp::Node {
+public:
+    CubemarsCanNode(const std::string& node_name);
+    bool init(EpollEventLoop* event_loop); 
+    void deinit();
+private:
+    void recv_callback(const can_frame& frame);
+    void subscriber_callback(const ControlMessage::SharedPtr msg);
+    void ctrl_msg_callback();
+    inline bool verify_length(const std::string&name, uint8_t expected, uint8_t length);
+    
+    uint16_t node_id_;
+    uint8_t pole_pairs;
+    SocketCanIntf can_intf_ = SocketCanIntf();
+    
+    short int ctrl_pub_flag_ = 0;
+    std::mutex ctrl_stat_mutex_;
+    ControllerStatus ctrl_stat_ = ControllerStatus();
+    rclcpp::Publisher<ControllerStatus>::SharedPtr ctrl_publisher_;
+
+    EpollEvent sub_evt_;
+    std::mutex ctrl_msg_mutex_;
+    ControlMessage ctrl_msg_ = ControlMessage();
+    rclcpp::Subscription<ControlMessage>::SharedPtr subscriber_;
+};
+
+#endif // CUBEMARS_CAN_NODE_HPP

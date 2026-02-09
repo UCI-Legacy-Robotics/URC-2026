@@ -1,0 +1,6 @@
+uint32 control_mode
+float32 input_vel_rpm
+float32 input_pos_deg
+float32 set_vel_limit_rpm
+float32 set_accel_limit_rpm_s
+uint8 set_origin
