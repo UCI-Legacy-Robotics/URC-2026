@@ -116,7 +116,7 @@ void ODriveCanNode::ctrl_msg_callback() {
             frame.data[2] = (u >> 8) & 0xFF;
             frame.data[3] = u & 0xFF;
             frame.can_dlc = 4;
-            return;
+            break;
         }
         case CmdId::kSetPositionControl: {
             RCLCPP_DEBUG(rclcpp::Node::get_logger(), "input_position");
