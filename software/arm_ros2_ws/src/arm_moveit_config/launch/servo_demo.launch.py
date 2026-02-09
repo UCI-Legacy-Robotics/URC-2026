@@ -63,6 +63,10 @@ def generate_launch_description():
         .planning_scene_monitor(publish_robot_description=True)
         .to_moveit_configs()
     )
+    
+    if use_fake_hardware:
+        #TODO spin arm hardware nodes!
+        ...
 
     # Get parameters for the Servo node
     # servo_yaml_path = os.path.join(
