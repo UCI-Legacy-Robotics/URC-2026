@@ -56,7 +56,7 @@ class ArmTeleop : public rclcpp::Node {
       // RCLCPP_INFO(get_logger(), "Joystick pitch: %.2f", pitch);
 
       // This comes from buttons, set default first
-      constexpr double YAW_SPEED = 0.4; // rad/s
+      constexpr double YAW_SPEED = 1.0; // rad/s
       double yaw    = 0.0;
 
       // Set yaw

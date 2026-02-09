@@ -8,12 +8,12 @@ in official MoveIt2 humble repo.
 import os
 import yaml
 from launch import LaunchDescription
-from launch_ros.actions import Node
+from launch_ros.actions import Node, ComposableNodeContainer
 from ament_index_python.packages import get_package_share_directory
 from moveit_configs_utils import MoveItConfigsBuilder
-from launch_ros.actions import ComposableNodeContainer
-from launch.actions import ExecuteProcess, RegisterEventHandler
+from launch.actions import DeclareLaunchArgument, ExecuteProcess, RegisterEventHandler
 from launch.event_handlers import OnProcessStart
+from launch.substitutions import LaunchConfiguration
 from launch_ros.descriptions import ComposableNode
 from launch_param_builder import ParameterBuilder
 
@@ -43,10 +43,20 @@ def load_yaml(package_name, file_path):
 
 
 def generate_launch_description():
+    # Setup launch arguments
+    use_fake_hardware_arg = DeclareLaunchArgument(
+        "use_fake_hardware",
+        default_value="true",
+        description="Use fake ros2_control hardware"
+    )
+    
+    use_fake_hardware = LaunchConfiguration("use_fake_hardware")
+    
     # Setup configs
+    # Note how we are passing in the launch arg into the robot description file
     moveit_config = (
         MoveItConfigsBuilder("arm", package_name="arm_moveit_config")
-        .robot_description(file_path="config/arm.urdf.xacro")
+        .robot_description(file_path="config/arm.urdf.xacro", mappings={"use_fake_hardware": use_fake_hardware})
         .robot_description_semantic(file_path="config/arm.srdf")
         .robot_description_kinematics(file_path="config/kinematics.yaml")
         .trajectory_execution(file_path="config/moveit_controllers.yaml")
@@ -207,6 +217,7 @@ def generate_launch_description():
 
     return LaunchDescription(
         [ 
+            use_fake_hardware_arg,
             rviz_node, 
             ros2_control_node,
             container,

@@ -4,11 +4,19 @@
         <xacro:property name="initial_positions" value="${load_yaml(initial_positions_file)['initial_positions']}"/>
 
         <ros2_control name="${name}" type="system">
-            <hardware>
-                <!-- TODO -->
-                <!-- By default, set up controllers for simulation. This won't work on real hardware -->
-                <plugin>mock_components/GenericSystem</plugin>
-            </hardware>
+            <!-- Conditionally create real vs. fake hardware -->
+            <xacro:if value="$(arg use_fake_hardware)">
+                <hardware>
+                    <!-- By default, set up controllers for simulation. This won't work on real hardware -->
+                    <plugin>mock_components/GenericSystem</plugin>
+                </hardware>
+            </xacro:if>
+            <xacro:unless value="$(arg use_fake_hardware)">
+                <hardware>
+                    <!-- TODO replace with real controller setup -->
+                    <plugin>mock_components/GenericSystem</plugin>
+                </hardware>
+            </xacro:unless>
             <joint name="base">
                 <command_interface name="position"/>
                 <command_interface name="velocity"/>
