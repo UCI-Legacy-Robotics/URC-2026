@@ -11,6 +11,8 @@ find_package(rclcpp REQUIRED)
 find_package(rclcpp_lifecycle REQUIRED)
 find_package(hardware_interface REQUIRED)
 find_package(pluginlib REQUIRED)
+find_package(cubemars_can REQUIRED)
+find_package(odrive_can REQUIRED)
 
 # Add shared library
 add_library(arm_hardware_interface SHARED
@@ -29,6 +31,8 @@ ament_target_dependencies(arm_hardware_interface
   rclcpp_lifecycle
   hardware_interface
   pluginlib
+  cubemars_can
+  odrive_can
 )
   
 # Install headers

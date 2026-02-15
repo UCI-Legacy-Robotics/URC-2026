@@ -146,14 +146,24 @@ ArmSystemWithODriveAndCubeMars::on_activate(const rclcpp_lifecycle::State& /*pre
 {
   RCLCPP_INFO(rclcpp::get_logger("arm_hardware_interface"), "Activating hardware");
 
+  //IMPORTANT get a pointer to the arm controller node before creating ROS interfaces
+  node_ = std::make_shared<rclcpp::Node>("arm_hardware_interface");
+
+  create_subscribers();
+  create_publishers();
+
   // TODO: zero encoders, read initial states
-  // TODO: setup publishers and subscribers to hardware nodes
 
   // Command and state should be equal when starting
   for (size_t i = 0; i < hw_velocities_.size(); i++)
   {
     hw_commands_[i] = hw_velocities_[i];
   }
+
+  // Start non-blocking executor thread to handle pubs/subs
+  executor_ = std::make_shared<rclcpp::executors::SingleThreadedExecutor>();
+  executor_->add_node(node_);
+  spin_thread = std::thread([this]() { executor_->spin(); });
 
   RCLCPP_INFO(rclcpp::get_logger("arm_hardware_interface"), "Successfully activated!");
 
@@ -197,6 +207,93 @@ hardware_interface::return_type ArmSystemWithODriveAndCubeMars::write(
   }
 
   return hardware_interface::return_type::OK;
+}
+
+// Create subscribers to motor statuses
+void ArmSystemWithODriveAndCubeMars::create_subscribers()
+{
+  // Note how mutex is locked as long as the subscription is occurring, and unlocks at the end
+  base_sub_ = node_->create_subscription<odrive_can::msg::ControllerStatus>(
+    "/base/controller_status", 10,
+    [this](const auto & msg)
+    {
+      std::lock_guard<std::mutex> lock(feedback_mutex_);
+      hw_positions_[0] = msg.pos_estimate;
+      hw_velocities[0] = msg.vel_estimate;
+  });
+
+  shoulder_sub_ = node_->create_subscription<cubemars::msg::ControllerStatus>(
+    "/shoulder/controller_status", 10,
+    [this](const auto & msg)
+    {
+      std::lock_guard<std::mutex> lock(feedback_mutex_);
+      hw_positions_[1] = msg.pos_estimate_deg;
+      hw_velocities[1] = msg.vel_estimate_rpm;
+  });
+
+  elbow_sub_ = node_->create_subscription<cubemars::msg::ControllerStatus>(
+    "/elbow/controller_status", 10,
+    [this](const auto & msg)
+    {
+      std::lock_guard<std::mutex> lock(feedback_mutex_);
+      hw_positions_[2] = msg.pos_estimate_deg;
+      hw_velocities[2] = msg.vel_estimate_rpm;
+  });
+
+  wrist_pitch_sub_ = node_->create_subscription<cubemars::msg::ControllerStatus>(
+    "/wrist_pitch/controller_status", 10,
+    [this](const auto & msg)
+    {
+      std::lock_guard<std::mutex> lock(feedback_mutex_);
+      hw_positions_[3] = msg.pos_estimate_deg;
+      hw_velocities[3] = msg.vel_estimate_rpm;
+  });
+
+  wrist_roll_sub = node_->create_subscription<odrive_can::msg::ControllerStatus>(
+    "/wrist_roll/controller_status", 10,
+    [this](const auto & msg)
+    {
+      std::lock_guard<std::mutex> lock(feedback_mutex_);
+      hw_positions_[4] = msg.pos_estimate;
+      hw_velocities[4] = msg.vel_estimate;
+  });
+
+  gripper_sub = node_->create_subscription<odrive_can::msg::ControllerStatus>(
+    "/gripper/controller_status", 10,
+    [this](const auto & msg)
+    {
+      std::lock_guard<std::mutex> lock(feedback_mutex_);
+      hw_positions_[5] = msg.pos_estimate;
+      hw_velocities[5] = msg.vel_estimate;
+  });
+}
+
+// Create publishers for motor commands
+void ArmSystemWithODriveAndCubeMars::create_publishers()
+{
+  base_pub_ = node->create_publisher<odrive_can::msg::ControlMessage>(
+    "/base/control_message", 10
+  );
+
+  shoulder_pub_ = node->create_publisher<cubemars_can::msg::ControlMessage>(
+    "/shoulder/control_message", 10
+  );
+
+  elbow_pub_ = node->create_publisher<cubemars_can::msg::ControlMessage>(
+    "/elbow/control_message", 10
+  );
+
+  wrist_pitch_pub_ = node->create_publisher<cubemars_can::msg::ControlMessage>(
+    "/wrist_pitch/control_message", 10
+  );
+
+  wrist_roll_pub_ = node->create_publisher<odrive_can::msg::ControlMessage>(
+    "/wrist_roll/control_message", 10
+  );
+
+  gripper_pub_ = node->create_publisher<odrive_can::msg::ControlMessage>(
+    "/gripper/control_message", 10
+  );
 }
 
 } // namespace arm_hardware_interface
