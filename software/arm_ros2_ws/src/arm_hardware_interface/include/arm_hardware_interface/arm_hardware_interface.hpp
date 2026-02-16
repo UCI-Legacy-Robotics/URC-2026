@@ -1,6 +1,7 @@
 #ifndef ARM_HARDWARE_INTERFACE_HPP_ // Header guard
 #define ARM_HARDWARE_INTERFACE_HPP_
 
+#include <chrono>
 #include <memory>
 #include <mutex>
 #include <string>
@@ -61,12 +62,18 @@ public:
 private:
   void create_subscribers();
   void create_publishers();
+  void start_publish_timers();
 
-  // Store the command and state interfaces for the robot
+  // Store the command and state interfaces for the robot (belongs to controller)
   size_t num_joints_;
   std::vector<double> hw_commands_;
   std::vector<double> hw_positions_;
   std::vector<double> hw_velocities_;
+
+  // Feedback and command buffers written by ROS callbacks and write() (belong to motors)
+  std::vector<double> position_feedback_;
+  std::vector<double> velocity_feedback_;
+  std::vector<double> command_buffer_;
 
   // ROS interfaces
   rclcpp::Node::SharedPtr node_;
@@ -86,6 +93,9 @@ private:
   rclcpp::Publisher<cubemars_can::msg::ControlMessage> wrist_pitch_pub_;
   rclcpp::Publisher<odrive_can::msg::ControlMessage> wrist_roll_pub_;
   rclcpp::Publisher<odrive_can::msg::ControlMessage> gripper_pub_;
+
+  // Command publisher timer
+  rclcpp::TimerBase::SharedPtr command_timer_;
 
   // Thread safety
   std::mutex feedback_mutex_;

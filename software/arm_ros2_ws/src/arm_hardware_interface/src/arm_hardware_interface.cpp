@@ -154,6 +154,8 @@ ArmSystemWithODriveAndCubeMars::on_activate(const rclcpp_lifecycle::State& /*pre
 
   // TODO: zero encoders, read initial states
 
+  start_publish_timers();
+
   // Command and state should be equal when starting
   for (size_t i = 0; i < hw_velocities_.size(); i++)
   {
@@ -185,11 +187,15 @@ ArmSystemWithODriveAndCubeMars::on_deactivate(const rclcpp_lifecycle::State& /*p
 hardware_interface::return_type ArmSystemWithODriveAndCubeMars::read(
   const rclcpp::Time& /*time*/, const rclcpp::Duration& /*period*/)
 {
-  // TODO lock mutex to prevent concurrent reads
+  // Lock feedback mutex to prevent race condition
+  std::lock_guard<std::mutex> lock(feedback_mutex_);
 
   for (size_t i = 0; i < num_joints_; i++)
   {
-    // TODO copy feedback buffers over to hw_positions_ and hw_velocities_
+    // Copy feedback buffers over to hw_positions_ and hw_velocities_
+    // This allows us to asynchronously get feedback from motors
+    hw_positions_[i] = position_feedback_[i];
+    hw_velocities_[i] = velocity_feedback_[i];
   }
 
   return hardware_interface::return_type::OK;
@@ -199,11 +205,14 @@ hardware_interface::return_type ArmSystemWithODriveAndCubeMars::read(
 hardware_interface::return_type ArmSystemWithODriveAndCubeMars::write(
   const rclcpp::Time& /*time*/, const rclcpp::Duration& /*period*/)
 {
-  // TODO lock mutex to prevent concurrent writes
+  // Lock mutex to prevent concurrent writes
+  std::lock_guard<std::mutex> lock(command_mutex_);
   
   for (size_t i = 0; i < num_joints_; i++)
   {
-    // TODO copy commands from hw_commands_ into cmd_buffer_ to send to hardware nodes
+    // Copy commands from hw_commands_ into command_buffer_ to send to hardware nodes
+    // Note this is NOT publishing as we want to be fast; this happens in start_publish_timers()
+    command_buffer_[i] = hw_commands_[i];
   }
 
   return hardware_interface::return_type::OK;
@@ -218,8 +227,8 @@ void ArmSystemWithODriveAndCubeMars::create_subscribers()
     [this](const auto & msg)
     {
       std::lock_guard<std::mutex> lock(feedback_mutex_);
-      hw_positions_[0] = msg.pos_estimate;
-      hw_velocities[0] = msg.vel_estimate;
+      position_feedback_[0] = msg.pos_estimate;
+      velocity_feedback_[0] = msg.vel_estimate;
   });
 
   shoulder_sub_ = node_->create_subscription<cubemars::msg::ControllerStatus>(
@@ -227,8 +236,8 @@ void ArmSystemWithODriveAndCubeMars::create_subscribers()
     [this](const auto & msg)
     {
       std::lock_guard<std::mutex> lock(feedback_mutex_);
-      hw_positions_[1] = msg.pos_estimate_deg;
-      hw_velocities[1] = msg.vel_estimate_rpm;
+      position_feedback_[1] = msg.pos_estimate_deg;
+      velocity_feedback_[1] = msg.vel_estimate_rpm;
   });
 
   elbow_sub_ = node_->create_subscription<cubemars::msg::ControllerStatus>(
@@ -236,8 +245,8 @@ void ArmSystemWithODriveAndCubeMars::create_subscribers()
     [this](const auto & msg)
     {
       std::lock_guard<std::mutex> lock(feedback_mutex_);
-      hw_positions_[2] = msg.pos_estimate_deg;
-      hw_velocities[2] = msg.vel_estimate_rpm;
+      position_feedback_[2] = msg.pos_estimate_deg;
+      velocity_feedback_[2] = msg.vel_estimate_rpm;
   });
 
   wrist_pitch_sub_ = node_->create_subscription<cubemars::msg::ControllerStatus>(
@@ -245,8 +254,8 @@ void ArmSystemWithODriveAndCubeMars::create_subscribers()
     [this](const auto & msg)
     {
       std::lock_guard<std::mutex> lock(feedback_mutex_);
-      hw_positions_[3] = msg.pos_estimate_deg;
-      hw_velocities[3] = msg.vel_estimate_rpm;
+      position_feedback_[3] = msg.pos_estimate_deg;
+      velocity_feedback_[3] = msg.vel_estimate_rpm;
   });
 
   wrist_roll_sub = node_->create_subscription<odrive_can::msg::ControllerStatus>(
@@ -254,8 +263,8 @@ void ArmSystemWithODriveAndCubeMars::create_subscribers()
     [this](const auto & msg)
     {
       std::lock_guard<std::mutex> lock(feedback_mutex_);
-      hw_positions_[4] = msg.pos_estimate;
-      hw_velocities[4] = msg.vel_estimate;
+      position_feedback_[4] = msg.pos_estimate;
+      velocity_feedback_[4] = msg.vel_estimate;
   });
 
   gripper_sub = node_->create_subscription<odrive_can::msg::ControllerStatus>(
@@ -263,8 +272,8 @@ void ArmSystemWithODriveAndCubeMars::create_subscribers()
     [this](const auto & msg)
     {
       std::lock_guard<std::mutex> lock(feedback_mutex_);
-      hw_positions_[5] = msg.pos_estimate;
-      hw_velocities[5] = msg.vel_estimate;
+      position_feedback_[5] = msg.pos_estimate;
+      velocity_feedback_[5] = msg.vel_estimate;
   });
 }
 
@@ -294,6 +303,55 @@ void ArmSystemWithODriveAndCubeMars::create_publishers()
   gripper_pub_ = node->create_publisher<odrive_can::msg::ControlMessage>(
     "/gripper/control_message", 10
   );
+}
+
+void ArmSystemWithODriveAndCubeMars::start_publish_timers()
+{
+  // Asynchronously publish command messages to prevent blocking feedback
+  command_timer_ = node_->create_wall_timer(
+    std::chrono::milliseconds(10), // 100Hz
+    [this]()
+    {
+      std::lock_guard<std::mutex> lock(command_mutex_); // Ensure command writing is safe
+
+      // Construct command messages for each motor
+      odrive_can::msg::ControlMessage base_msg;
+      cubemars_can::msg::ControlMessage shoulder_msg;
+      cubemars_can::msg::ControlMessage elbow_msg;
+      cubemars_can::msg::ControlMessage wrist_pitch_msg;
+      odrive_can::msg::ControlMessage wrist_roll_msg;
+      odrive_can::msg::ControlMessage gripper_msg;
+
+      // Set control modes
+      base_msg.control_mode         = 2 // ODrive velocity mode is 2
+      shoulder_msg.control_mode     = 3 // CubeMars velocity mode is 3
+      elbow_msg.control_mode        = 3
+      wrist_pitch_msg.controL_mode  = 3
+      wrist_roll_msg.controL_mode   = 2
+      gripper_msg.controL_mode      = 2
+
+      // Set input mode to velocity ramp for odrives
+      shoulder_msg.input_mode     = 2
+      elbow_msg.input_mode        = 2
+      wrist_pitch_msg.input_mode  = 2
+
+      // Copy in velocity commands from command buffer
+      base_msg.input_vel              = command_buffer_[0];
+      shoulder_msg.input_vel_rpm      = command_buffer_[1];
+      elbow_msg.input_vel_rpm         = command_buffer_[2];
+      wrist_pitch_msg.input_vel_rpm   = command_buffer_[3];
+      wrist_roll_msg.input_vel        = command_buffer_[4];
+      gripper_msg.input_vel           = command_buffer_[5];
+
+      // Publish messages
+      base_pub_->publish(base_msg);
+      shoulder_pub_->publish(shoulder_msg);
+      elbow_pub_->publish(elbow_msg);
+      wrist_pitch_pub_->publish(wrist_pitch_msg);
+      wrist_roll_pub_->publish(wrist_roll_msg);
+      gripper_pub_->publish(gripper_msg);
+    }
+  )
 }
 
 } // namespace arm_hardware_interface
