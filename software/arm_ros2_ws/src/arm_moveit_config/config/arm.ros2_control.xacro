@@ -13,8 +13,8 @@
             </xacro:if>
             <xacro:unless value="$(arg use_fake_hardware)">
                 <hardware>
-                    <!-- TODO replace with real controller setup -->
-                    <plugin>mock_components/GenericSystem</plugin>
+                    <!-- If real hardware is being used, load the hardware interface plugin -->
+                    <plugin>arm_hardware_interface/ArmSystemWithODriveAndCubeMars</plugin>
                 </hardware>
             </xacro:unless>
             <joint name="base">

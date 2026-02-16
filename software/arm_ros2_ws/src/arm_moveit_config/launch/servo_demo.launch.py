@@ -64,9 +64,56 @@ def generate_launch_description():
         .to_moveit_configs()
     )
     
-    if use_fake_hardware:
-        #TODO spin arm hardware nodes!
-        ...
+    if not use_fake_hardware:
+        # Create arm hardware nodes
+        base_node = Node(
+            package="odrive_can",
+            executable="odrive_can_node",
+            name="base_can_node",
+            namespace="base",
+            parameters=[{"node_id": 0, "interface": "can0"}]
+        )
+        
+        shoulder_node = Node(
+            package="cubemars_can",
+            executable="cubemars_can_node",
+            name="shoulder_can_node",
+            namespace="shoulder",
+            parameters=[{"node_id": 1, "interface": "can0", "pole_pairs": 14}]
+        )
+        
+        elbow_node = Node(
+            package="cubemars_can",
+            executable="cubemars_can_node",
+            name="elbow_can_node",
+            namespace="elbow",
+            parameters=[{"node_id": 2, "interface": "can0", "pole_pairs": 14}]
+        )
+        
+        wrist_pitch_node = Node(
+            package="cubemars_can",
+            executable="cubemars_can_node",
+            name="wrist_pitch_can_node",
+            namespace="wrist_pitch",
+            parameters=[{"node_id": 3, "interface": "can0", "pole_pairs": 14}]
+        )
+        
+        #TODO switch these to servo nodes when they are written
+        wrist_roll_node = Node(
+            package="odrive_can",
+            executable="odrive_can_node",
+            name="wrist_roll_can_node",
+            namespace="wrist_roll",
+            parameters=[{"node_id": 4, "interface": "can0"}]
+        )
+        
+        gripper_node = Node(
+            package="odrive_can",
+            executable="odrive_can_node",
+            name="gripper_can_node",
+            namespace="gripper",
+            parameters=[{"node_id": 5, "interface": "can0"}]
+        )
 
     # Get parameters for the Servo node
     # servo_yaml_path = os.path.join(
@@ -219,18 +266,42 @@ def generate_launch_description():
         )
     )
 
-    return LaunchDescription(
-        [ 
-            use_fake_hardware_arg,
-            rviz_node, 
-            ros2_control_node,
-            container,
-            move_group_node,
-            joint_state_broadcaster_spawner,
-            arm_controller_spawner,
-            gripper_controller_spawner,
-            servo_node,
-            gamepad_node, # Not running for now since I want to control separately
-            on_servo_start
-        ]
-    )
+    # Only include hardware nodes if using real hardware
+    if use_fake_hardware:
+        return LaunchDescription(
+            [ 
+                use_fake_hardware_arg,
+                rviz_node, 
+                ros2_control_node,
+                container,
+                move_group_node,
+                joint_state_broadcaster_spawner,
+                arm_controller_spawner,
+                gripper_controller_spawner,
+                servo_node,
+                gamepad_node,
+                on_servo_start
+            ]
+        )
+    else:
+        return LaunchDescription(
+            [ 
+                use_fake_hardware_arg,
+                rviz_node, 
+                ros2_control_node,
+                container,
+                move_group_node,
+                joint_state_broadcaster_spawner,
+                arm_controller_spawner,
+                gripper_controller_spawner,
+                servo_node,
+                gamepad_node,
+                on_servo_start,
+                base_node,
+                shoulder_node,
+                elbow_node,
+                wrist_pitch_node,
+                wrist_roll_node,
+                gripper_node
+            ]
+        )

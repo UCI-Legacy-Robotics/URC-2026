@@ -315,6 +315,7 @@ void ArmSystemWithODriveAndCubeMars::start_publish_timers()
       std::lock_guard<std::mutex> lock(command_mutex_); // Ensure command writing is safe
 
       // Construct command messages for each motor
+      //TODO switch wrist roll and gripper to servo nodes when they are written
       odrive_can::msg::ControlMessage base_msg;
       cubemars_can::msg::ControlMessage shoulder_msg;
       cubemars_can::msg::ControlMessage elbow_msg;
