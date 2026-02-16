@@ -8,7 +8,12 @@
     <!-- Import control_xacro -->
     <xacro:include filename="arm.ros2_control.xacro" />
 
-
-    <xacro:arm_ros2_control name="FakeSystem" initial_positions_file="$(arg initial_positions_file)"/>
+    <!-- Run arm_ros2_control macro, with name depending on fake hardware or not -->
+    <xacro:if value="$(arg use_fake_hardware)">
+        <xacro:arm_ros2_control name="FakeSystem" initial_positions_file="$(arg initial_positions_file)"/>
+    </xacro:if>
+    <xacro:unless value="$(arg use_fake_hardware)">
+        <xacro:arm_ros2_control name="ArmSystemWithRealHardware" initial_positions_file="$(arg initial_positions_file)"/>
+    </xacro:unless>
 
 </robot>

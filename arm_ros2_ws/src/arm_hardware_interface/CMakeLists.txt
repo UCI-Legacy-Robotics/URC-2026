@@ -34,6 +34,9 @@ ament_target_dependencies(arm_hardware_interface
   cubemars_can
   odrive_can
 )
+
+# Export plugin description file
+pluginlib_export_plugin_description_file(hardware_interface arm_hardware_interface.xml)
   
 # Install headers
 install(

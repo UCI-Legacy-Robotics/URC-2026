@@ -2,6 +2,7 @@
 #define ARM_HARDWARE_INTERFACE_HPP_
 
 #include <chrono>
+#include <iostream>
 #include <memory>
 #include <mutex>
 #include <string>
@@ -67,6 +68,7 @@ private:
   // Store the command and state interfaces for the robot (belongs to controller)
   size_t num_joints_;
   std::vector<double> hw_commands_;
+  std::vector<double> hw_unused_position_commands_;
   std::vector<double> hw_positions_;
   std::vector<double> hw_velocities_;
 
@@ -79,20 +81,20 @@ private:
   rclcpp::Node::SharedPtr node_;
 
   // Subscribers
-  rclcpp::Subscription<odrive_can::msg::ControllerStatus> base_sub_;
-  rclcpp::Subscription<cubemars_can::msg::ControllerStatus> shoulder_sub_;
-  rclcpp::Subscription<cubemars_can::msg::ControllerStatus> elbow_sub_;
-  rclcpp::Subscription<cubemars_can::msg::ControllerStatus> wrist_pitch_sub_;
-  rclcpp::Subscription<odrive_can::msg::ControllerStatus> wrist_roll_sub_;
-  rclcpp::Subscription<odrive_can::msg::ControllerStatus> gripper_sub_;
+  rclcpp::Subscription<odrive_can::msg::ControllerStatus>::SharedPtr base_sub_;
+  rclcpp::Subscription<cubemars_can::msg::ControllerStatus>::SharedPtr shoulder_sub_;
+  rclcpp::Subscription<cubemars_can::msg::ControllerStatus>::SharedPtr elbow_sub_;
+  rclcpp::Subscription<cubemars_can::msg::ControllerStatus>::SharedPtr wrist_pitch_sub_;
+  rclcpp::Subscription<odrive_can::msg::ControllerStatus>::SharedPtr wrist_roll_sub_;
+  rclcpp::Subscription<odrive_can::msg::ControllerStatus>::SharedPtr gripper_sub_;
 
   // Publishers
-  rclcpp::Publisher<odrive_can::msg::ControlMessage> base_pub_;
-  rclcpp::Publisher<cubemars_can::msg::ControlMessage> shoulder_pub_;
-  rclcpp::Publisher<cubemars_can::msg::ControlMessage> elbow_pub_;
-  rclcpp::Publisher<cubemars_can::msg::ControlMessage> wrist_pitch_pub_;
-  rclcpp::Publisher<odrive_can::msg::ControlMessage> wrist_roll_pub_;
-  rclcpp::Publisher<odrive_can::msg::ControlMessage> gripper_pub_;
+  rclcpp::Publisher<odrive_can::msg::ControlMessage>::SharedPtr base_pub_;
+  rclcpp::Publisher<cubemars_can::msg::ControlMessage>::SharedPtr shoulder_pub_;
+  rclcpp::Publisher<cubemars_can::msg::ControlMessage>::SharedPtr elbow_pub_;
+  rclcpp::Publisher<cubemars_can::msg::ControlMessage>::SharedPtr wrist_pitch_pub_;
+  rclcpp::Publisher<odrive_can::msg::ControlMessage>::SharedPtr wrist_roll_pub_;
+  rclcpp::Publisher<odrive_can::msg::ControlMessage>::SharedPtr gripper_pub_;
 
   // Command publisher timer
   rclcpp::TimerBase::SharedPtr command_timer_;
@@ -100,7 +102,7 @@ private:
   // Thread safety
   std::mutex feedback_mutex_;
   std::mutex command_mutex_;
-  rclcpp::executors::SingleThreadedExecutor executor_;
+  rclcpp::executors::SingleThreadedExecutor::SharedPtr executor_;
   std::thread spin_thread_;
 };
 

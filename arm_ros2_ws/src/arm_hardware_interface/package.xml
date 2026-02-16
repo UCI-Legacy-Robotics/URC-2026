@@ -18,7 +18,9 @@
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
 
+  <!-- Make sure to export plugin! -->
   <export>
     <build_type>ament_cmake</build_type>
+    <ros2_control plugin="${prefix}/arm_hardware_interface.xml" />
   </export>
 </package>

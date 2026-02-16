@@ -5,30 +5,47 @@
 
 namespace arm_hardware_interface
 {
+
+ArmSystemWithODriveAndCubeMars::ArmSystemWithODriveAndCubeMars() 
+{}
+
 // Occurs when initializing the interface, i.e. right away
 hardware_interface::CallbackReturn ArmSystemWithODriveAndCubeMars::on_init(
   const hardware_interface::HardwareInfo& info)
 {
+  // for (int i = 0; i < 10; i++) {
+  //   std::cout << "Hello ROS2!" << std::endl;
+  // }
+
   // Initialize the parent, checking for success
   if (
     hardware_interface::SystemInterface::on_init(info) !=
     hardware_interface::CallbackReturn::SUCCESS)
   {
+    std::cerr << "Hardware interface superclass failed to init!" << std::endl;
     return hardware_interface::CallbackReturn::ERROR;
   }
 
   // Note info_ is initialized in parent class when on_init is called
   num_joints_ = info_.joints.size();
 
+  // Resize vectors so they can fit all our values later
   hw_positions_.resize(num_joints_, std::numeric_limits<double>::quiet_NaN());
   hw_velocities_.resize(num_joints_, std::numeric_limits<double>::quiet_NaN());
   hw_commands_.resize(num_joints_, std::numeric_limits<double>::quiet_NaN());
+  hw_unused_position_commands_.resize(num_joints_, std::numeric_limits<double>::quiet_NaN());
+  position_feedback_.resize(num_joints_, std::numeric_limits<double>::quiet_NaN());
+  velocity_feedback_.resize(num_joints_, std::numeric_limits<double>::quiet_NaN());
+  command_buffer_.resize(num_joints_, std::numeric_limits<double>::quiet_NaN());
 
   for (const hardware_interface::ComponentInfo& joint : info_.joints)
   {
     // Arm has exactly two states and command interfaces on each joint
     if (joint.command_interfaces.size() != 2)
     {
+      for (int i = 0; i < 10; i++) {
+        std::cerr << "Joint " << joint.name.c_str() << " has " << joint.command_interfaces.size() << "command interfaces found. 2 expected." << std::endl;
+      }
       RCLCPP_FATAL(
         //IMPORTANT note we have to use standalone logger since we aren't in a node
         rclcpp::get_logger("arm_hardware_interface"), "Joint '%s' has %zu command interfaces found. 2 expected.",
@@ -39,6 +56,9 @@ hardware_interface::CallbackReturn ArmSystemWithODriveAndCubeMars::on_init(
     // Check command interfaces are exactly position and velocity
     if (joint.command_interfaces[0].name != hardware_interface::HW_IF_POSITION)
     {
+      for (int i = 0; i < 10; i++) {
+        std::cerr << "Joint " << joint.name.c_str() << " has " << joint.command_interfaces[0].name.c_str() << " command interface found. Position expected." << std::endl;
+      }
       RCLCPP_FATAL(
         rclcpp::get_logger("arm_hardware_interface"), "Joint '%s' has %s command interface found. '%s' expected.",
         joint.name.c_str(), joint.command_interfaces[0].name.c_str(),
@@ -48,15 +68,21 @@ hardware_interface::CallbackReturn ArmSystemWithODriveAndCubeMars::on_init(
 
     if (joint.command_interfaces[1].name != hardware_interface::HW_IF_VELOCITY)
     {
-      RCLCPP_FATAL(
+      for (int i = 0; i < 10; i++) {
+        std::cerr << "Joint " << joint.name.c_str() << " has " << joint.command_interfaces[1].name.c_str() << " command interface found. Velocity expected." << std::endl;
+      }
+        RCLCPP_FATAL(
         rclcpp::get_logger("arm_hardware_interface"), "Joint '%s' has %s command interface found. '%s' expected.",
-        joint.name.c_str(), joint.command_interfaces[0].name.c_str(),
+        joint.name.c_str(), joint.command_interfaces[1].name.c_str(),
         hardware_interface::HW_IF_VELOCITY);
       return hardware_interface::CallbackReturn::ERROR;
     }
 
     if (joint.state_interfaces.size() != 2)
     {
+      for (int i = 0; i < 10; i++) {
+        std::cerr << "Joint " << joint.name.c_str() << " has " << joint.state_interfaces.size() << " state interfaces found. 2 expected." << std::endl;
+      }
       RCLCPP_FATAL(
         rclcpp::get_logger("arm_hardware_interface"), "Joint '%s' has %zu state interface. 2 expected.", joint.name.c_str(),
         joint.state_interfaces.size());
@@ -66,17 +92,23 @@ hardware_interface::CallbackReturn ArmSystemWithODriveAndCubeMars::on_init(
     // Check state interfaces are exactly position and velocity
     if (joint.state_interfaces[0].name != hardware_interface::HW_IF_POSITION)
     {
+      for (int i = 0; i < 10; i++) {
+        std::cerr << "Joint " << joint.name.c_str() << " has " << joint.state_interfaces[0].name.c_str() << " state interface found. Position expected." << std::endl;
+      }
       RCLCPP_FATAL(
         rclcpp::get_logger("arm_hardware_interface"), "Joint '%s' havs %s state interface. '%s' expected.", joint.name.c_str(),
         joint.state_interfaces[0].name.c_str(), hardware_interface::HW_IF_POSITION);
       return hardware_interface::CallbackReturn::ERROR;
     }
 
-    if (joint.state_interfaces[0].name != hardware_interface::HW_IF_VELOCITY)
+    if (joint.state_interfaces[1].name != hardware_interface::HW_IF_VELOCITY)
     {
+      for (int i = 0; i < 10; i++) {
+        std::cerr << "Joint " << joint.name.c_str() << " has " << joint.state_interfaces[1].name.c_str() << " state interface found. Velocity expected." << std::endl;
+      }
       RCLCPP_FATAL(
         rclcpp::get_logger("arm_hardware_interface"), "Joint '%s' has %s state interface. '%s' expected.", joint.name.c_str(),
-        joint.state_interfaces[0].name.c_str(), hardware_interface::HW_IF_VELOCITY);
+        joint.state_interfaces[1].name.c_str(), hardware_interface::HW_IF_VELOCITY);
       return hardware_interface::CallbackReturn::ERROR;
     }
   }
@@ -95,6 +127,7 @@ hardware_interface::CallbackReturn ArmSystemWithODriveAndCubeMars::on_configure(
     hw_positions_[i] = 0;
     hw_velocities_[i] = 0;
     hw_commands_[i] = 0;
+    hw_unused_position_commands_[i] = 0;
   }
   RCLCPP_INFO(rclcpp::get_logger("arm_hardware_interface"), "Successfully configured!");
 
@@ -135,6 +168,11 @@ ArmSystemWithODriveAndCubeMars::export_command_interfaces()
     command_interfaces.emplace_back(
       hardware_interface::CommandInterface(
         info_.joints[i].name, hardware_interface::HW_IF_VELOCITY, &hw_commands_[i]));
+
+    // Just to make sure we fulfill promise of position commands; unused as of now
+    command_interfaces.emplace_back(
+      hardware_interface::CommandInterface(
+        info_.joints[i].name, hardware_interface::HW_IF_POSITION, &hw_unused_position_commands_[i]));
   }
 
   return command_interfaces;
@@ -147,27 +185,35 @@ ArmSystemWithODriveAndCubeMars::on_activate(const rclcpp_lifecycle::State& /*pre
   RCLCPP_INFO(rclcpp::get_logger("arm_hardware_interface"), "Activating hardware");
 
   //IMPORTANT get a pointer to the arm controller node before creating ROS interfaces
-  node_ = std::make_shared<rclcpp::Node>("arm_hardware_interface");
-
+  if (!node_) {
+    node_ = std::make_shared<rclcpp::Node>("arm_hardware_interface_node");
+  }
+  if (!executor_) {
+    executor_ = std::make_shared<rclcpp::executors::SingleThreadedExecutor>();
+  }
+  
   create_subscribers();
   create_publishers();
-
+  
   // TODO: zero encoders, read initial states
-
+  
   start_publish_timers();
 
   // Command and state should be equal when starting
   for (size_t i = 0; i < hw_velocities_.size(); i++)
   {
     hw_commands_[i] = hw_velocities_[i];
+    hw_unused_position_commands_[i] = hw_positions_[i];
+  }
+  
+  // Start non-blocking executor thread to handle pubs/subs
+  executor_->add_node(node_);
+  // Guard thread to ensure it's not already running
+  if (!spin_thread_.joinable()) {
+    spin_thread_ = std::thread([this]() { executor_->spin(); });
   }
 
-  // Start non-blocking executor thread to handle pubs/subs
-  executor_ = std::make_shared<rclcpp::executors::SingleThreadedExecutor>();
-  executor_->add_node(node_);
-  spin_thread = std::thread([this]() { executor_->spin(); });
-
-  RCLCPP_INFO(rclcpp::get_logger("arm_hardware_interface"), "Successfully activated!");
+  RCLCPP_INFO(rclcpp::get_logger("arm_hardware_interface"), "Hardware successfully activated!");
 
   return hardware_interface::CallbackReturn::SUCCESS;
 }
@@ -178,7 +224,18 @@ ArmSystemWithODriveAndCubeMars::on_deactivate(const rclcpp_lifecycle::State& /*p
 {
   RCLCPP_INFO(rclcpp::get_logger("arm_hardware_interface"), "Deactivating hardware");
 
-  // TODO: stop motors, close connections
+  // Stop the executor and join the thread
+  if (executor_) {
+    executor_->cancel();
+  }
+  if (spin_thread_.joinable()) {
+    spin_thread_.join();
+  }
+
+  // Clean up to allow clean re-activation
+  executor_.reset();
+  
+  RCLCPP_INFO(rclcpp::get_logger("arm_hardware_interface"), "Hardware Deactivated.");
 
   return hardware_interface::CallbackReturn::SUCCESS;
 }
@@ -194,8 +251,14 @@ hardware_interface::return_type ArmSystemWithODriveAndCubeMars::read(
   {
     // Copy feedback buffers over to hw_positions_ and hw_velocities_
     // This allows us to asynchronously get feedback from motors
-    hw_positions_[i] = position_feedback_[i];
-    hw_velocities_[i] = velocity_feedback_[i];
+
+    // Only update if the feedback is a valid number (not NaN)
+    if (!std::isnan(position_feedback_[i])) {
+      hw_positions_[i] = position_feedback_[i];
+    }
+    if (!std::isnan(position_feedback_[i])) {
+      hw_velocities_[i] = velocity_feedback_[i];
+    }
   }
 
   return hardware_interface::return_type::OK;
@@ -213,6 +276,8 @@ hardware_interface::return_type ArmSystemWithODriveAndCubeMars::write(
     // Copy commands from hw_commands_ into command_buffer_ to send to hardware nodes
     // Note this is NOT publishing as we want to be fast; this happens in start_publish_timers()
     command_buffer_[i] = hw_commands_[i];
+
+    //TODO this is where we would implement position control if used
   }
 
   return hardware_interface::return_type::OK;
@@ -224,52 +289,52 @@ void ArmSystemWithODriveAndCubeMars::create_subscribers()
   // Note how mutex is locked as long as the subscription is occurring, and unlocks at the end
   base_sub_ = node_->create_subscription<odrive_can::msg::ControllerStatus>(
     "/base/controller_status", 10,
-    [this](const auto & msg)
+    [this](const odrive_can::msg::ControllerStatus& msg)
     {
       std::lock_guard<std::mutex> lock(feedback_mutex_);
       position_feedback_[0] = msg.pos_estimate;
       velocity_feedback_[0] = msg.vel_estimate;
   });
 
-  shoulder_sub_ = node_->create_subscription<cubemars::msg::ControllerStatus>(
+  shoulder_sub_ = node_->create_subscription<cubemars_can::msg::ControllerStatus>(
     "/shoulder/controller_status", 10,
-    [this](const auto & msg)
+    [this](const cubemars_can::msg::ControllerStatus& msg)
     {
       std::lock_guard<std::mutex> lock(feedback_mutex_);
       position_feedback_[1] = msg.pos_estimate_deg;
       velocity_feedback_[1] = msg.vel_estimate_rpm;
   });
 
-  elbow_sub_ = node_->create_subscription<cubemars::msg::ControllerStatus>(
+  elbow_sub_ = node_->create_subscription<cubemars_can::msg::ControllerStatus>(
     "/elbow/controller_status", 10,
-    [this](const auto & msg)
+    [this](const cubemars_can::msg::ControllerStatus& msg)
     {
       std::lock_guard<std::mutex> lock(feedback_mutex_);
       position_feedback_[2] = msg.pos_estimate_deg;
       velocity_feedback_[2] = msg.vel_estimate_rpm;
   });
 
-  wrist_pitch_sub_ = node_->create_subscription<cubemars::msg::ControllerStatus>(
+  wrist_pitch_sub_ = node_->create_subscription<cubemars_can::msg::ControllerStatus>(
     "/wrist_pitch/controller_status", 10,
-    [this](const auto & msg)
+    [this](const cubemars_can::msg::ControllerStatus& msg)
     {
       std::lock_guard<std::mutex> lock(feedback_mutex_);
       position_feedback_[3] = msg.pos_estimate_deg;
       velocity_feedback_[3] = msg.vel_estimate_rpm;
   });
 
-  wrist_roll_sub = node_->create_subscription<odrive_can::msg::ControllerStatus>(
+  wrist_roll_sub_ = node_->create_subscription<odrive_can::msg::ControllerStatus>(
     "/wrist_roll/controller_status", 10,
-    [this](const auto & msg)
+    [this](const odrive_can::msg::ControllerStatus& msg)
     {
       std::lock_guard<std::mutex> lock(feedback_mutex_);
       position_feedback_[4] = msg.pos_estimate;
       velocity_feedback_[4] = msg.vel_estimate;
   });
 
-  gripper_sub = node_->create_subscription<odrive_can::msg::ControllerStatus>(
+  gripper_sub_ = node_->create_subscription<odrive_can::msg::ControllerStatus>(
     "/gripper/controller_status", 10,
-    [this](const auto & msg)
+    [this](const odrive_can::msg::ControllerStatus& msg)
     {
       std::lock_guard<std::mutex> lock(feedback_mutex_);
       position_feedback_[5] = msg.pos_estimate;
@@ -280,27 +345,27 @@ void ArmSystemWithODriveAndCubeMars::create_subscribers()
 // Create publishers for motor commands
 void ArmSystemWithODriveAndCubeMars::create_publishers()
 {
-  base_pub_ = node->create_publisher<odrive_can::msg::ControlMessage>(
+  base_pub_ = node_->create_publisher<odrive_can::msg::ControlMessage>(
     "/base/control_message", 10
   );
 
-  shoulder_pub_ = node->create_publisher<cubemars_can::msg::ControlMessage>(
+  shoulder_pub_ = node_->create_publisher<cubemars_can::msg::ControlMessage>(
     "/shoulder/control_message", 10
   );
 
-  elbow_pub_ = node->create_publisher<cubemars_can::msg::ControlMessage>(
+  elbow_pub_ = node_->create_publisher<cubemars_can::msg::ControlMessage>(
     "/elbow/control_message", 10
   );
 
-  wrist_pitch_pub_ = node->create_publisher<cubemars_can::msg::ControlMessage>(
+  wrist_pitch_pub_ = node_->create_publisher<cubemars_can::msg::ControlMessage>(
     "/wrist_pitch/control_message", 10
   );
 
-  wrist_roll_pub_ = node->create_publisher<odrive_can::msg::ControlMessage>(
+  wrist_roll_pub_ = node_->create_publisher<odrive_can::msg::ControlMessage>(
     "/wrist_roll/control_message", 10
   );
 
-  gripper_pub_ = node->create_publisher<odrive_can::msg::ControlMessage>(
+  gripper_pub_ = node_->create_publisher<odrive_can::msg::ControlMessage>(
     "/gripper/control_message", 10
   );
 }
@@ -324,17 +389,17 @@ void ArmSystemWithODriveAndCubeMars::start_publish_timers()
       odrive_can::msg::ControlMessage gripper_msg;
 
       // Set control modes
-      base_msg.control_mode         = 2 // ODrive velocity mode is 2
-      shoulder_msg.control_mode     = 3 // CubeMars velocity mode is 3
-      elbow_msg.control_mode        = 3
-      wrist_pitch_msg.controL_mode  = 3
-      wrist_roll_msg.controL_mode   = 2
-      gripper_msg.controL_mode      = 2
+      base_msg.control_mode         = 2; // ODrive velocity mode is 2
+      shoulder_msg.control_mode     = 3; // CubeMars velocity mode is 3
+      elbow_msg.control_mode        = 3;
+      wrist_pitch_msg.control_mode  = 3;
+      wrist_roll_msg.control_mode   = 2;
+      gripper_msg.control_mode      = 2;
 
       // Set input mode to velocity ramp for odrives
-      shoulder_msg.input_mode     = 2
-      elbow_msg.input_mode        = 2
-      wrist_pitch_msg.input_mode  = 2
+      base_msg.input_mode       = 2;
+      wrist_roll_msg.input_mode = 2;
+      gripper_msg.input_mode    = 2;
 
       // Copy in velocity commands from command buffer
       base_msg.input_vel              = command_buffer_[0];
@@ -352,7 +417,7 @@ void ArmSystemWithODriveAndCubeMars::start_publish_timers()
       wrist_roll_pub_->publish(wrist_roll_msg);
       gripper_pub_->publish(gripper_msg);
     }
-  )
+  );
 }
 
 } // namespace arm_hardware_interface
@@ -361,4 +426,6 @@ void ArmSystemWithODriveAndCubeMars::start_publish_timers()
 #include "pluginlib/class_list_macros.hpp"
 
 PLUGINLIB_EXPORT_CLASS(
-  arm_hardware_interface::ArmSystemWithODriveAndCubeMars, hardware_interface::SystemInterface)
+  arm_hardware_interface::ArmSystemWithODriveAndCubeMars,
+  hardware_interface::SystemInterface
+)
