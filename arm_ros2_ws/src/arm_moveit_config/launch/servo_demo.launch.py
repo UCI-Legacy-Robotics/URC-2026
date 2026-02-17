@@ -98,13 +98,17 @@ def generate_launch_description():
             parameters=[{"node_id": 3, "interface": "can0", "pole_pairs": 14}]
         )
         
-        #TODO switch these to servo nodes when they are written
         wrist_roll_node = Node(
-            package="odrive_can",
-            executable="odrive_can_node",
-            name="wrist_roll_can_node",
+            package="servo",
+            executable="servo_node",
+            name="wrist_roll_node",
             namespace="wrist_roll",
-            parameters=[{"node_id": 4, "interface": "can0"}]
+            parameters=[{"channel_id": 4, 
+                         "initial_angle_deg": 135,
+                         "min_angle_deg": 0,
+                         "max_angle_deg": 270,
+                         "min_pwm_micro_s": 500,
+                         "max_pwm_micro_s": 2500}]
         )
         
         gripper_node = Node(

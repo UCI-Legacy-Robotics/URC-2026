@@ -323,14 +323,14 @@ void ArmSystemWithODriveAndCubeMars::create_subscribers()
       velocity_feedback_[3] = msg.vel_estimate_rpm;
   });
 
-  wrist_roll_sub_ = node_->create_subscription<odrive_can::msg::ControllerStatus>(
-    "/wrist_roll/controller_status", 10,
-    [this](const odrive_can::msg::ControllerStatus& msg)
-    {
-      std::lock_guard<std::mutex> lock(feedback_mutex_);
-      position_feedback_[4] = msg.pos_estimate;
-      velocity_feedback_[4] = msg.vel_estimate;
-  });
+  // wrist_roll_sub_ = node_->create_subscription<odrive_can::msg::ControllerStatus>(
+  //   "/wrist_roll/controller_status", 10,
+  //   [this](const odrive_can::msg::ControllerStatus& msg)
+  //   {
+  //     std::lock_guard<std::mutex> lock(feedback_mutex_);
+  //     position_feedback_[4] = msg.pos_estimate;
+  //     velocity_feedback_[4] = msg.vel_estimate;
+  // });
 
   gripper_sub_ = node_->create_subscription<odrive_can::msg::ControllerStatus>(
     "/gripper/controller_status", 10,
@@ -361,7 +361,7 @@ void ArmSystemWithODriveAndCubeMars::create_publishers()
     "/wrist_pitch/control_message", 10
   );
 
-  wrist_roll_pub_ = node_->create_publisher<odrive_can::msg::ControlMessage>(
+  wrist_roll_pub_ = node_->create_publisher<servo::msg::ControlMessage>(
     "/wrist_roll/control_message", 10
   );
 
@@ -385,7 +385,7 @@ void ArmSystemWithODriveAndCubeMars::start_publish_timers()
       cubemars_can::msg::ControlMessage shoulder_msg;
       cubemars_can::msg::ControlMessage elbow_msg;
       cubemars_can::msg::ControlMessage wrist_pitch_msg;
-      odrive_can::msg::ControlMessage wrist_roll_msg;
+      servo::msg::ControlMessage wrist_roll_msg;
       odrive_can::msg::ControlMessage gripper_msg;
 
       // Set control modes
@@ -393,12 +393,12 @@ void ArmSystemWithODriveAndCubeMars::start_publish_timers()
       shoulder_msg.control_mode     = 3; // CubeMars velocity mode is 3
       elbow_msg.control_mode        = 3;
       wrist_pitch_msg.control_mode  = 3;
-      wrist_roll_msg.control_mode   = 2;
+      wrist_roll_msg.control_mode   = 0; // Servo velocity mode is 0
       gripper_msg.control_mode      = 2;
 
       // Set input mode to velocity ramp for odrives
       base_msg.input_mode       = 2;
-      wrist_roll_msg.input_mode = 2;
+      // wrist_roll_msg.input_mode = 2;
       gripper_msg.input_mode    = 2;
 
       // Copy in velocity commands from command buffer
@@ -406,7 +406,7 @@ void ArmSystemWithODriveAndCubeMars::start_publish_timers()
       shoulder_msg.input_vel_rpm      = command_buffer_[1];
       elbow_msg.input_vel_rpm         = command_buffer_[2];
       wrist_pitch_msg.input_vel_rpm   = command_buffer_[3];
-      wrist_roll_msg.input_vel        = command_buffer_[4];
+      wrist_roll_msg.input_vel_deg    = command_buffer_[4]; // Servo wants deg/s
       gripper_msg.input_vel           = command_buffer_[5];
 
       // Publish messages

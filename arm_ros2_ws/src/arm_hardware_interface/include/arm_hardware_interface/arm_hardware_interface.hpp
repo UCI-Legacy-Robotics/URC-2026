@@ -19,6 +19,7 @@
 #include "odrive_can/msg/controller_status.hpp"
 #include "odrive_can/msg/control_message.hpp"
 #include "odrive_can/srv/axis_state.hpp"
+#include "servo/msg/control_message.hpp"
 
 #include "rclcpp/clock.hpp"
 #include "rclcpp/executors/single_threaded_executor.hpp"
@@ -85,7 +86,7 @@ private:
   rclcpp::Subscription<cubemars_can::msg::ControllerStatus>::SharedPtr shoulder_sub_;
   rclcpp::Subscription<cubemars_can::msg::ControllerStatus>::SharedPtr elbow_sub_;
   rclcpp::Subscription<cubemars_can::msg::ControllerStatus>::SharedPtr wrist_pitch_sub_;
-  rclcpp::Subscription<odrive_can::msg::ControllerStatus>::SharedPtr wrist_roll_sub_;
+  // rclcpp::Subscription<odrive_can::msg::ControllerStatus>::SharedPtr wrist_roll_sub_;
   rclcpp::Subscription<odrive_can::msg::ControllerStatus>::SharedPtr gripper_sub_;
 
   // Publishers
@@ -93,7 +94,7 @@ private:
   rclcpp::Publisher<cubemars_can::msg::ControlMessage>::SharedPtr shoulder_pub_;
   rclcpp::Publisher<cubemars_can::msg::ControlMessage>::SharedPtr elbow_pub_;
   rclcpp::Publisher<cubemars_can::msg::ControlMessage>::SharedPtr wrist_pitch_pub_;
-  rclcpp::Publisher<odrive_can::msg::ControlMessage>::SharedPtr wrist_roll_pub_;
+  rclcpp::Publisher<servo::msg::ControlMessage>::SharedPtr wrist_roll_pub_;
   rclcpp::Publisher<odrive_can::msg::ControlMessage>::SharedPtr gripper_pub_;
 
   // Command publisher timer
