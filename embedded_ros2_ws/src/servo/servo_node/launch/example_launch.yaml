@@ -1,0 +1,26 @@
+launch:
+
+- node:
+    pkg: "servo"
+    exec: "servo_node"
+    name: "servo_node"
+    namespace: "wrist_roll"
+    param:
+    -
+      name: "channel_id"
+      value: 7
+    -
+      name: "initial_angle_deg"
+      value: 135
+    -
+      name: "min_angle_deg"
+      value: 0
+    -
+      name: "max_angle_deg"
+      value: 270
+    -
+      name: "min_pwm_micro_s"
+      value: 500
+    -
+      name: "max_pwm_micro_s"
+      value: 2500
