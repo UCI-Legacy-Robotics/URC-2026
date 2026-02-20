@@ -1,10 +1,10 @@
 launch:
 
 - node:
-    pkg: "odrive_can"
-    exec: "odrive_can_node"
+    pkg: "yellowjacket_can"
+    exec: "yellowjacket_node"
     name: "can_node"
-    namespace: "odrive_axis0"
+    namespace: "yellowjacket_axis0"
     param:
     -
       name: "node_id"

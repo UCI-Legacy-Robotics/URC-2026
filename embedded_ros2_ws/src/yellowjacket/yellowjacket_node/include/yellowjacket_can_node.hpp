@@ -1,12 +1,12 @@
-#ifndef ODRIVE_CAN_NODE_HPP
-#define ODRIVE_CAN_NODE_HPP
+#ifndef YELLOWJACKET_CAN_NODE_HPP
+#define YELLOWJACKET_CAN_NODE_HPP
 
 #include <rclcpp/rclcpp.hpp>
 #include <rclcpp/version.h>
-#include "odrive_can/msg/o_drive_status.hpp"
-#include "odrive_can/msg/controller_status.hpp"
-#include "odrive_can/msg/control_message.hpp"
-#include "odrive_can/srv/axis_state.hpp"
+#include "yellowjacket_can/msg/o_drive_status.hpp"
+#include "yellowjacket_can/msg/controller_status.hpp"
+#include "yellowjacket_can/msg/control_message.hpp"
+#include "yellowjacket_can/srv/axis_state.hpp"
 #include "std_srvs/srv/empty.hpp"
 #include "socket_can.hpp"
 
@@ -20,16 +20,16 @@
 using std::placeholders::_1;
 using std::placeholders::_2;
 
-using ODriveStatus = odrive_can::msg::ODriveStatus;
-using ControllerStatus = odrive_can::msg::ControllerStatus;
-using ControlMessage = odrive_can::msg::ControlMessage;
+using ODriveStatus = yellowjacket_can::msg::ODriveStatus;
+using ControllerStatus = yellowjacket_can::msg::ControllerStatus;
+using ControlMessage = yellowjacket_can::msg::ControlMessage;
 
-using AxisState = odrive_can::srv::AxisState;
+using AxisState = yellowjacket_can::srv::AxisState;
 using Empty = std_srvs::srv::Empty;
 
-class ODriveCanNode : public rclcpp::Node {
+class YellowjacketCanNode : public rclcpp::Node {
 public:
-    ODriveCanNode(const std::string& node_name);
+    YellowjacketCanNode(const std::string& node_name);
     bool init(EpollEventLoop* event_loop); 
     void deinit();
 private:
@@ -72,4 +72,4 @@ private:
 
 };
 
-#endif // ODRIVE_CAN_NODE_HPP
+#endif // YELLOWJACKET_CAN_NODE_HPP
