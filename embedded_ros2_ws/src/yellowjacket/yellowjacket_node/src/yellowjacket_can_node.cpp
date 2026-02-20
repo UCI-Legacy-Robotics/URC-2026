@@ -146,7 +146,7 @@ void YellowjacketCanNode::recv_callback(const can_frame& frame) {
     }
     
     //TBD: heart beat ANDDDD encoder estimates? 
-    if (ctrl_pub_flag_ == 0b0010) {
+    if (ctrl_pub_flag_ == 0b0011) {
         ctrl_publisher_->publish(ctrl_stat_);
         ctrl_pub_flag_ = 0;
     }
@@ -273,9 +273,15 @@ void YellowjacketCanNode::ctrl_msg_callback() {
         // add kyellow jacket control 
         case ControlMode::kYellowjacketControl: { 
             RCLCPP_DEBUG(rclcpp::Node::get_logger(), "input_yellowjacket_vel");
-            frame.can_id = node_id_ << 5 | kSetInputVel; // subject to change: if staement for dutycycle and vel maybe
-            std::lock_guard<std::mutex> guard(ctrl_msg_mutex_);
+            frame.can_id = node_id_ << 5 | kSetInputVel; 
+            std::lock_guard<std::mutex> guard(ctrl_msg_mutex_); // ^ 0: duty cycle, 3: input velocity
             // TODO the write_le
+            //            write_le<int8_t>(((int8_t)((ctrl_msg_.input_vel) * 1000)),    frame.data + 4);
+            // two motors 9 and 10 and can use broad cast 0x9 motor 0xA motor 2
+                
+            write_le<float>(ctrl_msg_.input_vel, frame.data); // float32
+            write_le<float>(ctrl_msg_.input_torque, frame.data + 4); // float32
+
             frame.can_dlc = 8;
             break;
         }
