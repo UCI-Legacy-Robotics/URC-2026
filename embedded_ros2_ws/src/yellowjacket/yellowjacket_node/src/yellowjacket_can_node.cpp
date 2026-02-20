@@ -22,10 +22,11 @@ enum CmdId : uint32_t {
 };
 
 enum ControlMode : uint64_t {
-    kVoltageControl,
-    kTorqueControl,
-    kVelocityControl,
-    kPositionControl,
+    kVoltageControl = 0,
+    kTorqueControl = 1,
+    kVelocityControl = 2,
+    kPositionControl = 3,
+    kYellowjacketControl = 5
 };
 
 YellowjacketCanNode::YellowjacketCanNode(const std::string& node_name) : rclcpp::Node(node_name) {
@@ -116,14 +117,6 @@ void YellowjacketCanNode::recv_callback(const can_frame& frame) {
             fresh_heartbeat_.notify_one();
             break;
         }
-        case CmdId::kGetError: {
-            if (!verify_length("kGetError", 8, frame.can_dlc)) break;
-            std::lock_guard<std::mutex> guard(odrv_stat_mutex_);
-            odrv_stat_.active_errors = read_le<uint32_t>(frame.data + 0);
-            odrv_stat_.disarm_reason = read_le<uint32_t>(frame.data + 4);
-            odrv_pub_flag_ |= 0b001;
-            break;
-        }
         case CmdId::kGetEncoderEstimates: {
             if (!verify_length("kGetEncoderEstimates", 8, frame.can_dlc)) break;
             std::lock_guard<std::mutex> guard(ctrl_stat_mutex_);
@@ -132,38 +125,12 @@ void YellowjacketCanNode::recv_callback(const can_frame& frame) {
             ctrl_pub_flag_ |= 0b0010;
             break;
         }
-        case CmdId::kGetIq: {
-            if (!verify_length("kGetIq", 8, frame.can_dlc)) break;
-            std::lock_guard<std::mutex> guard(ctrl_stat_mutex_);
-            ctrl_stat_.iq_setpoint = read_le<float>(frame.data + 0);
-            ctrl_stat_.iq_measured = read_le<float>(frame.data + 4);
-            ctrl_pub_flag_ |= 0b0100;
-            break;
-        }
-        case CmdId::kGetTemp: {
-            if (!verify_length("kGetTemp", 8, frame.can_dlc)) break;
-            std::lock_guard<std::mutex> guard(odrv_stat_mutex_);
-            odrv_stat_.fet_temperature   = read_le<float>(frame.data + 0);
-            odrv_stat_.motor_temperature = read_le<float>(frame.data + 4);
-            odrv_pub_flag_ |= 0b010;
-            break;
-        }
-        case CmdId::kGetBusVoltageCurrent: {
-            if (!verify_length("kGetBusVoltageCurrent", 8, frame.can_dlc)) break;
-            std::lock_guard<std::mutex> guard(odrv_stat_mutex_);
-            odrv_stat_.bus_voltage = read_le<float>(frame.data + 0);
-            odrv_stat_.bus_current = read_le<float>(frame.data + 4);
-            odrv_pub_flag_ |= 0b100;
-            break;
-        }
-        case CmdId::kGetTorques: {
-            if (!verify_length("kGetTorques", 8, frame.can_dlc)) break;
-            std::lock_guard<std::mutex> guard(ctrl_stat_mutex_);
-            ctrl_stat_.torque_target   = read_le<float>(frame.data + 0);
-            ctrl_stat_.torque_estimate = read_le<float>(frame.data + 4);
-            ctrl_pub_flag_ |= 0b1000; 
-            break;
-        }
+
+        case CmdId::kGetError:
+        case CmdId::kGetIq:
+        case CmdId::kGetTemp:
+        case CmdId::kGetBusVoltageCurrent:
+        case CmdId::kGetTorques:
         case CmdId::kSetAxisState:
         case CmdId::kSetControllerMode:
         case CmdId::kSetInputPos:
@@ -178,15 +145,12 @@ void YellowjacketCanNode::recv_callback(const can_frame& frame) {
         }
     }
     
-    if (ctrl_pub_flag_ == 0b1111) {
+    //TBD: heart beat ANDDDD encoder estimates? 
+    if (ctrl_pub_flag_ == 0b0010) {
         ctrl_publisher_->publish(ctrl_stat_);
         ctrl_pub_flag_ = 0;
     }
     
-    if (odrv_pub_flag_ == 0b111) {
-        odrv_publisher_->publish(odrv_stat_);
-        odrv_pub_flag_ = 0;
-    }
 }
 
 void YellowjacketCanNode::subscriber_callback(const ControlMessage::SharedPtr msg) {
@@ -267,7 +231,7 @@ void YellowjacketCanNode::ctrl_msg_callback() {
         std::lock_guard<std::mutex> guard(ctrl_msg_mutex_);
         write_le<uint32_t>(ctrl_msg_.control_mode, frame.data);
         write_le<uint32_t>(ctrl_msg_.input_mode,   frame.data + 4);
-        control_mode = ctrl_msg_.control_mode;
+        control_mode = ctrl_msg_.control_mode; 
     }
     frame.can_dlc = 8;
     can_intf_.send_can_frame(frame);
@@ -305,6 +269,17 @@ void YellowjacketCanNode::ctrl_msg_callback() {
             frame.can_dlc = 8;
             break;
         }    
+
+        // add kyellow jacket control 
+        case ControlMode::kYellowjacketControl: { 
+            RCLCPP_DEBUG(rclcpp::Node::get_logger(), "input_yellowjacket_vel");
+            frame.can_id = node_id_ << 5 | kSetInputVel; // subject to change: if staement for dutycycle and vel maybe
+            std::lock_guard<std::mutex> guard(ctrl_msg_mutex_);
+            // TODO the write_le
+            frame.can_dlc = 8;
+            break;
+        }
+
         default: 
             RCLCPP_ERROR(rclcpp::Node::get_logger(), "unsupported control_mode: %d", control_mode);
             return;
