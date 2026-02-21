@@ -120,8 +120,8 @@ void YellowjacketCanNode::recv_callback(const can_frame& frame) {
         case CmdId::kGetEncoderEstimates: {
             if (!verify_length("kGetEncoderEstimates", 8, frame.can_dlc)) break;
             std::lock_guard<std::mutex> guard(ctrl_stat_mutex_);
-            ctrl_stat_.pos_estimate = read_le<float>(frame.data + 0);
-            ctrl_stat_.vel_estimate = read_le<float>(frame.data + 4);
+            ctrl_stat_.pos_estimate = read_le<int32_t>(frame.data + 0);
+            ctrl_stat_.vel_estimate = read_le<int32_t>(frame.data + 4);
             ctrl_pub_flag_ |= 0b0010;
             break;
         }
