@@ -279,8 +279,8 @@ void YellowjacketCanNode::ctrl_msg_callback() {
             //            write_le<int8_t>(((int8_t)((ctrl_msg_.input_vel) * 1000)),    frame.data + 4);
             // two motors 9 and 10 and can use broad cast 0x9 motor 0xA motor 2
                 
-            write_le<float>(ctrl_msg_.input_vel, frame.data); // float32
-            write_le<float>(ctrl_msg_.input_torque, frame.data + 4); // float32
+            write_le<int32_t>(ctrl_msg_.input_vel, frame.data); 
+            write_le<int32_t>(ctrl_msg_.input_torque, frame.data + 4); 
 
             frame.can_dlc = 8;
             break;
