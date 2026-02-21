@@ -2,7 +2,7 @@ launch:
 
 - node:
     pkg: "yellowjacket_can"
-    exec: "yellowjacket_node"
+    exec: "yellowjacket_can_node"
     name: "can_node"
     namespace: "yellowjacket_axis0"
     param:
