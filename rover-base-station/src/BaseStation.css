@@ -1,0 +1,40 @@
+.container {
+  display: flex;                 /* use flexbox */
+  justify-content: center;       /* horizontal center */
+  align-items: flex-start ;          /* vertical center */
+  height: 100vh;                 /* full viewport height */
+}
+
+.title { /* this is for the legacy home screen*/
+  font-size: 50px;
+  color:#0064A4
+}
+
+.tab-button {
+  padding: 10px 10px;       /* text button size*/
+  font-size: 12px;           /* size of text */
+  background-color: #0064A4; /* background color */
+  color: white;              /* text color */
+  border: none;              /* remove default border */
+  border-radius: 8px;        /* rounded corners */
+  margin: 10px;              /* spacing between buttons */
+  cursor: pointer;           /* pointer on hover */
+  transition: 0.3s;          /* smooth hover effect */
+}
+
+
+.tab-button:hover {
+  background-color: #FFD200;
+  transform: scale(1.05);
+}
+
+.button-bar {
+  display: flex;
+  flex-direction: column;   /* stack vertically */
+  position: fixed;          /* fixed relative to viewport */
+  left: 20px;               /* distance from left */
+  top: 50%;                 /* roughly center vertically */
+  transform: translateY(-50%);  /* exact vertical center */
+  gap: 10px;
+}
+
