@@ -15,25 +15,26 @@ class SerialBridge(Node):
         super().__init__('serial_bridge')
         self.declare_parameter('serial_port', '/dev/ttyUSB0')
         self.declare_parameter('cmd_topic', 'chatter')
+        self.declare_parameter('sub_topic', 'chatter_remote')
         self.declare_parameter('telemetry_topic', 'chatter')
         self.declare_parameter('baud_rate', 57600)
         
         serial_port = self.get_parameter('serial_port').get_parameter_value().string_value
         cmd_topic = self.get_parameter('cmd_topic').get_parameter_value().string_value
+        sub_topic = self.get_parameter('sub_topic').get_parameter_value().string_value
         baud_rate = self.get_parameter('baud_rate').get_parameter_value().integer_value
         telemetry_topic = self.get_parameter('telemetry_topic').get_parameter_value().string_value
         self.ser = serial.Serial(serial_port, baud_rate, timeout=0.1)
         # -------------------------
         # Subscribers (incoming messages from ROS -> serial)
         # -------------------------
-        self.cmd_sub = self.create_subscription(String, cmd_topic, self.send_command, 10)
-        self.telemetry_sub = self.create_subscription(String, telemetry_topic, self.send_telemetry, 10)
+        self.sub = self.create_subscription(String, sub_topic, self.send_command, 10)
+        
 
         # -------------------------
         # Publishers (incoming serial -> ROS)
         # -------------------------
-        self.cmd_pub = self.create_publisher(String, cmd_topic, 10)
-        self.telemetry_pub = self.create_publisher(String, telemetry_topic, 10)
+        self.pub = self.create_publisher(String, cmd_topic, 10)
 
         # Timer to read serial
         self.create_timer(0.05, self.read_serial)  # <-- Adjust frequency if needed for faster/slower updates
@@ -73,7 +74,7 @@ class SerialBridge(Node):
                 if data.get('type') == 'demo':  # check the type
                     msg = String()
                     msg.data = data.get('data', '')  # get the string
-                    self.cmd_pub.publish(msg)  # publish to ROS topic
+                    self.pub.publish(msg)  # publish to ROS topic
                     self.get_logger().info(f"Received: {msg.data}")
             except Exception as e:
                 self.get_logger().warn(f"Failed to parse: {line} | {e}")
