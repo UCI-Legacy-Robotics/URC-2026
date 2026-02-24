@@ -25,12 +25,10 @@ private:
     void control_message_callback();
     void start_velocity_output_timer();
     float get_pwm_from_position(float input_pos_deg);
-
-    // ROS interface
-    rclcpp::Node::SharedPtr node_;
     
     // Node params
     uint8_t channel_id_;
+    bool use_hw_{true};
     uint16_t initial_angle_deg_;
     uint16_t min_angle_deg_;
     uint16_t max_angle_deg_;

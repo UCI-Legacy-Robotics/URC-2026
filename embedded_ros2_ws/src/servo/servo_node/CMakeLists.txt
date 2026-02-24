@@ -20,8 +20,7 @@ include_directories(include)
 
 add_executable(servo_node
   src/servo_node.cpp
-  src/main.cpp
-  include/servo_node/servo_node.hpp)
+  src/main.cpp)
 
 ament_target_dependencies(servo_node
   rclcpp
