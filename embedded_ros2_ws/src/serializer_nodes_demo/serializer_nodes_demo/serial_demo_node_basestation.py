@@ -77,13 +77,18 @@ class SerialBridge(Node):
                     self.get_logger().info(f"Received: {msg.data}")
             except Exception as e:
                 self.get_logger().warn(f"Failed to parse: {line} | {e}")
+            
 
 def main(args=None):
     rclpy.init(args=args)
     node = SerialBridge()
-    rclpy.spin(node)
-    node.destroy_node()
-    rclpy.shutdown()
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        node.destroy_node()
+        rclpy.shutdown()
 
 if __name__ == '__main__':
     main()
