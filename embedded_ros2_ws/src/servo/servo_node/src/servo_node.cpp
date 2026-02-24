@@ -135,15 +135,15 @@ bool ServoNode::init(/* EpollEventLoop* event_loop */) {
             return false;
         }
 
-        // MODE2 totem pole (good for servos)
-        (void)i2c_write8(MODE2, 0x04);
+        if (channel_id_ == 0) {
+            (void)i2c_write8(MODE2, 0x04); // Totem pole (push-pull) output
 
-        // Set servo frequency (50Hz)
-        if (!pca9685_set_freq_hz(50.0f)) {
-            RCLCPP_ERROR(this->get_logger(), "Failed to set PCA9685 frequency");
-            ::close(g_i2c_fd);
-            g_i2c_fd = -1;
-            return false;
+            if(!pca9685_set_freq_hz(50.0f)) {
+                RCLCPP_ERROR(this->get_logger(), "Failed to set PCA9685 frequency");
+                ::close(g_i2c_fd);
+                g_i2c_fd = -1;
+                return false;
+            }
         }
 
         // Write initial position immediately
