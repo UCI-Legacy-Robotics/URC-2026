@@ -11,7 +11,7 @@ setup(
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
     ],
-    install_requires=['setuptools'],
+    install_requires=['setuptools', 'rclpy',],
     zip_safe=True,
     maintainer='lenat',
     maintainer_email='lenat@todo.todo',
@@ -23,7 +23,7 @@ setup(
         ],
     },
     entry_points={
-        'console_scripts': [
+        'console_scripts': ["test_node = serializer_nodes_demo.listener_node_rover:main", 'serial=serializer_nodes_demo.serial_demo_node_basestation:main'
         ],
     },
 )

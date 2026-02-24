@@ -1,11 +1,13 @@
+
+#!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
 
 class MinimalSubscriber(Node):
     def __init__(self):
-        super().__init__('minimal_subscriber')
-
+        super().__init__('listener_node_rover')
+        self.get_logger().info('Started listener')
         self.subscription = self.create_subscription(
             String,              # message type
             'chatter',           # topic name
@@ -23,7 +25,6 @@ def main(args=None):
     rclpy.init(args=args)
     minimal_subscriber = MinimalSubscriber()
     rclpy.spin(minimal_subscriber)
-    minimal_subscriber.destroy_node()
     rclpy.shutdown()
 
 
