@@ -8,11 +8,12 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(control_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 
 add_executable(arm_teleop src/arm_teleop.cpp)
-ament_target_dependencies(arm_teleop rclcpp sensor_msgs geometry_msgs)
+ament_target_dependencies(arm_teleop rclcpp control_msgs sensor_msgs geometry_msgs)
 
 install(TARGETS
   arm_teleop
