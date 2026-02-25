@@ -1,0 +1,15 @@
+launch:
+
+- node:
+    pkg: "servo"
+    exec: "servo_node"
+    name: "servo_node"
+    namespace: "science_servos"
+    param:
+    - {name: "channel_id", value: 0}
+    - {name: "initial_angle_deg", value: 90}
+    - {name: "min_angle_deg", value: 0}
+    - {name: "max_angle_deg", value: 180}
+    - {name: "min_pwm_micro_s", value: 500}
+    - {name: "max_pwm_micro_s", value: 2500}
+    - {name: "use_hw", value: true}
