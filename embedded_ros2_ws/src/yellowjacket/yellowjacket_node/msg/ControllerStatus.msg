@@ -1,5 +1,5 @@
-float32 pos_estimate
-float32 vel_estimate
+int32 pos_estimate
+int32 vel_estimate
 float32 torque_target
 float32 torque_estimate
 float32 iq_setpoint
