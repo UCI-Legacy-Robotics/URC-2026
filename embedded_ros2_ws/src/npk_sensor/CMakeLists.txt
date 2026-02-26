@@ -23,4 +23,9 @@ install(PROGRAMS src/npk_sensor_node.py
         DESTINATION lib/${PROJECT_NAME} 
         RENAME npk_node)
 
+# Needed to allow usage of "ros2 launch" of any launch file in launch directory
+install(DIRECTORY launch
+  DESTINATION share/${PROJECT_NAME}
+)
+
 ament_package()
