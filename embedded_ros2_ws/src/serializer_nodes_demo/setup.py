@@ -23,7 +23,7 @@ setup(
         ],
     },
     entry_points={
-        'console_scripts': ["test_node = serializer_nodes_demo.listener_node_rover:main", 'serial=serializer_nodes_demo.serial_demo_node_basestation:main'
+        'console_scripts': ["test_node = serializer_nodes_demo.listener_node_rover:main", 'usb_serial_node=serializer_nodes_demo.serial_demo_node_basestation:main'
         ],
     },
 )
