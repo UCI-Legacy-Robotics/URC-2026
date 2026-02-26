@@ -12,14 +12,15 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 )
 
 # Install Python package
-ament_python_install_package(soil_sensor)
+# Specified directory must contain __init__.py
+# Name of directory doesn't have to be src, can be anything but src is clean
+ament_python_install_package(src)
 
 # 3. Create the "Console Entry" (The setup.py 'entry_points' equivalent)
 # This creates an executable named 'npk_node' in the lib folder
 # for use through ros2 run...
-install(PROGRAMS soil_sensor/npk_sensor_node.py 
+install(PROGRAMS src/npk_sensor_node.py 
         DESTINATION lib/${PROJECT_NAME} 
         RENAME npk_node)
 
-ament_export_dependencies(rosidl_default_runtime)
 ament_package()
