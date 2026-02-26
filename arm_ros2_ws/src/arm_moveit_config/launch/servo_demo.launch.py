@@ -111,11 +111,11 @@ def generate_launch_description():
                          "max_pwm_micro_s": 2500}]
         )
         
-        gripper_node = Node(
+        solenoid_actuator_node = Node(
             package="odrive_can",
             executable="odrive_can_node",
-            name="gripper_can_node",
-            namespace="gripper",
+            name="solenoid_actuator_can_node",
+            namespace="solenoid",
             parameters=[{"node_id": 5, "interface": "can0"}]
         )
 
@@ -306,6 +306,6 @@ def generate_launch_description():
                 elbow_node,
                 wrist_pitch_node,
                 wrist_roll_node,
-                gripper_node
+                solenoid_actuator_node
             ]
         )

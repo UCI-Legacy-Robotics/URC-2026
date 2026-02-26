@@ -14,20 +14,27 @@ find_package(pluginlib REQUIRED)
 find_package(cubemars_can REQUIRED)
 find_package(odrive_can REQUIRED)
 find_package(servo REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+
+# Add custom message
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/ArmTelemetry.msg"
+)
+ament_export_dependencies(rosidl_default_runtime)
 
 # Add shared library
-add_library(arm_hardware_interface SHARED
+add_library(${PROJECT_NAME}_plugin SHARED
   src/arm_hardware_interface.cpp
 )
 
 # Export include directory for library
-target_include_directories(arm_hardware_interface PUBLIC
+target_include_directories(${PROJECT_NAME}_plugin PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
 )
 
 # Add dependencies needed by library (same as package)
-ament_target_dependencies(arm_hardware_interface
+ament_target_dependencies(${PROJECT_NAME}_plugin
   rclcpp
   rclcpp_lifecycle
   hardware_interface
@@ -48,7 +55,7 @@ install(
 
 # Add targeted include directories for library
 install(
-  TARGETS arm_hardware_interface
+  TARGETS ${PROJECT_NAME}_plugin
   EXPORT export_arm_hardware_interface
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
@@ -57,12 +64,17 @@ install(
 
 # Export
 ament_export_include_directories(include)
-ament_export_libraries(arm_hardware_interface)
+ament_export_libraries(a${PROJECT_NAME}_plugine)
 ament_export_dependencies(hardware_interface rclcpp rclcpp_lifecycle pluginlib)
 
 # Add plugin description
 pluginlib_export_plugin_description_file(
   hardware_interface arm_hardware_interface.xml)
+
+rosidl_get_typesupport_target(cpp_typesupport_target
+  ${PROJECT_NAME} rosidl_typesupport_cpp)
+
+target_link_libraries(${PROJECT_NAME}_plugin "${cpp_typesupport_target}")
     
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

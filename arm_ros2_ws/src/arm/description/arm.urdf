@@ -415,4 +415,25 @@
       velocity="0.5" />
   </joint>
 
+  <link name="gripper_dummy"/>
+
+  <joint
+    name="gripper"
+    type="revolute">
+    <origin
+      xyz="-0.046784 0.030841 0.14058"
+      rpy="-0.18325 -0.49709 0.88442" />
+    <parent
+      link="wrist_roll_link" />
+    <child
+      link="gripper_dummy" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-3.14"
+      upper="3.14"
+      effort="20"
+      velocity="1.0" />
+  </joint>
+
 </robot>

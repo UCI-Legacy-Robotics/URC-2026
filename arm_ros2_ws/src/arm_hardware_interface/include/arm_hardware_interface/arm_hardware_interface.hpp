@@ -13,6 +13,7 @@
 #include "hardware_interface/hardware_info.hpp"
 #include "hardware_interface/system_interface.hpp"
 
+#include "arm_hardware_interface/msg/arm_telemetry.hpp"
 #include "cubemars_can/msg/controller_status.hpp"
 #include "cubemars_can/msg/control_message.hpp"
 #include "odrive_can/msg/o_drive_status.hpp"
@@ -90,6 +91,7 @@ private:
   rclcpp::Subscription<odrive_can::msg::ControllerStatus>::SharedPtr gripper_sub_;
 
   // Publishers
+  rclcpp::Publisher<arm_hardware_interface::msg::ArmTelemetry>::SharedPtr telemetry_pub_;
   rclcpp::Publisher<odrive_can::msg::ControlMessage>::SharedPtr base_pub_;
   rclcpp::Publisher<cubemars_can::msg::ControlMessage>::SharedPtr shoulder_pub_;
   rclcpp::Publisher<cubemars_can::msg::ControlMessage>::SharedPtr elbow_pub_;
@@ -99,6 +101,7 @@ private:
 
   // Command publisher timer
   rclcpp::TimerBase::SharedPtr command_timer_;
+  rclcpp::TimerBase::SharedPtr telemetry_timer_;
 
   // Thread safety
   std::mutex feedback_mutex_;

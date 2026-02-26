@@ -3,6 +3,7 @@
 initial_positions:
   base: 0
   elbow: -1.0
+  gripper: 0
   shoulder: 1.2134
   solenoid: 0
   wrist_pitch: 1.2735

@@ -345,6 +345,10 @@ void ArmSystemWithODriveAndCubeMars::create_subscribers()
 // Create publishers for motor commands
 void ArmSystemWithODriveAndCubeMars::create_publishers()
 {
+  telemetry_pub_ = node_->create_publisher<arm_hardware_interface::msg::ArmTelemetry>(
+    "/arm_telemetry", 10
+  );
+
   base_pub_ = node_->create_publisher<odrive_can::msg::ControlMessage>(
     "/base/control_message", 10
   );
@@ -416,6 +420,34 @@ void ArmSystemWithODriveAndCubeMars::start_publish_timers()
       wrist_pitch_pub_->publish(wrist_pitch_msg);
       wrist_roll_pub_->publish(wrist_roll_msg);
       gripper_pub_->publish(gripper_msg);
+    }
+  );
+
+  // Send telemetry
+  telemetry_timer_ = node_->create_wall_timer(
+    std::chrono::milliseconds(50), // 20Hz
+    [this]()
+    {
+      std::lock_guard<std::mutex> lock(feedback_mutex_); // Ensure state reading is safe
+
+      arm_hardware_interface::msg::ArmTelemetry msg;
+
+      msg.base_position         = position_feedback_[0];
+      msg.base_velocity         = velocity_feedback_[0];
+      msg.shoulder_position     = position_feedback_[1];
+      msg.shoulder_velocity     = velocity_feedback_[1];
+      msg.elbow_position        = position_feedback_[2];
+      msg.elbow_velocity        = velocity_feedback_[2];
+      msg.wrist_pitch_position  = position_feedback_[3];
+      msg.wrist_pitch_velocity  = velocity_feedback_[3];
+      msg.wrist_roll_position   = position_feedback_[4];
+      msg.wrist_roll_velocity   = velocity_feedback_[4];
+      msg.solenoid_position     = position_feedback_[5];
+      msg.solenoid_velocity     = velocity_feedback_[5];
+      msg.gripper_position      = position_feedback_[6];
+      msg.gripper_velocity      = velocity_feedback_[6];
+
+      telemetry_pub_->publish(msg);
     }
   );
 }

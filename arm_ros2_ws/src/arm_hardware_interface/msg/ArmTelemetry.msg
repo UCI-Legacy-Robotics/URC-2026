@@ -1,0 +1,14 @@
+float32 base_position
+float32 base_velocity
+float32 shoulder_position
+float32 shoulder_velocity
+float32 elbow_position
+float32 elbow_velocity
+float32 wrist_pitch_position
+float32 wrist_pitch_velocity
+float32 wrist_roll_position
+float32 wrist_roll_velocity
+float32 solenoid_position
+float32 solenoid_velocity
+float32 gripper_position
+float32 gripper_velocity

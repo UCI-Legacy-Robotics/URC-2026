@@ -33,6 +33,7 @@ gripper_controller:
   ros__parameters:
     joints:
       - solenoid
+      - gripper
     command_interfaces:
       - position
       - velocity
