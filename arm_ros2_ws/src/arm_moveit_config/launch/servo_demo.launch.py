@@ -71,7 +71,7 @@ def generate_launch_description():
             executable="odrive_can_node",
             name="base_can_node",
             namespace="base",
-            parameters=[{"node_id": 0, "interface": "can0"}]
+            parameters=[{"node_id": 16, "interface": "can0"}]
         )
         
         shoulder_node = Node(
@@ -79,7 +79,7 @@ def generate_launch_description():
             executable="cubemars_can_node",
             name="shoulder_can_node",
             namespace="shoulder",
-            parameters=[{"node_id": 1, "interface": "can0", "pole_pairs": 14}]
+            parameters=[{"node_id": 17, "interface": "can0", "pole_pairs": 14}]
         )
         
         elbow_node = Node(
@@ -87,7 +87,7 @@ def generate_launch_description():
             executable="cubemars_can_node",
             name="elbow_can_node",
             namespace="elbow",
-            parameters=[{"node_id": 2, "interface": "can0", "pole_pairs": 14}]
+            parameters=[{"node_id": 18, "interface": "can0", "pole_pairs": 14}]
         )
         
         wrist_pitch_node = Node(
@@ -95,7 +95,7 @@ def generate_launch_description():
             executable="cubemars_can_node",
             name="wrist_pitch_can_node",
             namespace="wrist_pitch",
-            parameters=[{"node_id": 3, "interface": "can0", "pole_pairs": 14}]
+            parameters=[{"node_id": 19, "interface": "can0", "pole_pairs": 14}]
         )
         
         wrist_roll_node = Node(
@@ -103,7 +103,7 @@ def generate_launch_description():
             executable="servo_node",
             name="wrist_roll_node",
             namespace="wrist_roll",
-            parameters=[{"channel_id": 4, 
+            parameters=[{"channel_id": 0, 
                          "initial_angle_deg": 135,
                          "min_angle_deg": 0,
                          "max_angle_deg": 270,
@@ -112,11 +112,24 @@ def generate_launch_description():
         )
         
         solenoid_actuator_node = Node(
-            package="odrive_can",
-            executable="odrive_can_node",
-            name="solenoid_actuator_can_node",
+            package="stepper_can",
+            executable="stepper_can_node",
+            name="solenoid_actuator_node",
             namespace="solenoid",
-            parameters=[{"node_id": 5, "interface": "can0"}]
+            parameters=[{"node_id": 20, "interface": "can0"}]
+        )
+        
+        gripper_node = Node(
+            package="servo",
+            executable="servo_node",
+            name="gripper_node",
+            namespace="gripper",
+            parameters=[{"channel_id": 1, 
+                         "initial_angle_deg": 135,
+                         "min_angle_deg": 0,
+                         "max_angle_deg": 270,
+                         "min_pwm_micro_s": 500,
+                         "max_pwm_micro_s": 2500}]
         )
 
     # Get parameters for the Servo node
@@ -315,6 +328,7 @@ def generate_launch_description():
                 elbow_node,
                 wrist_pitch_node,
                 wrist_roll_node,
-                solenoid_actuator_node
+                solenoid_actuator_node,
+                gripper_node
             ]
         )

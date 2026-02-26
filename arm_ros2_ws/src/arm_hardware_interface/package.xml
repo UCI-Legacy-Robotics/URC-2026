@@ -17,6 +17,7 @@
   <depend>pluginlib</depend>
   <depend>cubemars_can</depend>
   <depend>odrive_can</depend>
+  <depend>stepper_can</depend>
   <depend>servo</depend>
   <depend>std_msgs</depend>
   

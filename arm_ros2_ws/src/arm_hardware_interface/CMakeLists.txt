@@ -13,6 +13,7 @@ find_package(hardware_interface REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(cubemars_can REQUIRED)
 find_package(odrive_can REQUIRED)
+find_package(stepper_can REQUIRED)
 find_package(servo REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(std_msgs REQUIRED)
@@ -30,6 +31,7 @@ ament_target_dependencies(arm_driver_node
   rclcpp
   cubemars_can
   odrive_can
+  stepper_can
   servo
   std_msgs
 )

@@ -15,6 +15,8 @@
 #include "odrive_can/msg/control_message.hpp"
 #include "odrive_can/srv/axis_state.hpp"
 #include "servo/msg/control_message.hpp"
+#include "stepper_can/msg/control_message.hpp"
+#include "stepper_can/msg/controller_status.hpp"
 
 class ArmDriverNode : public rclcpp::Node
 {
@@ -41,8 +43,9 @@ class ArmDriverNode : public rclcpp::Node
     rclcpp::Subscription<cubemars_can::msg::ControllerStatus>::SharedPtr shoulder_sub_;
     rclcpp::Subscription<cubemars_can::msg::ControllerStatus>::SharedPtr elbow_sub_;
     rclcpp::Subscription<cubemars_can::msg::ControllerStatus>::SharedPtr wrist_pitch_sub_;
-    // rclcpp::Subscription<odrive_can::msg::ControllerStatus>::SharedPtr wrist_roll_sub_;
-    rclcpp::Subscription<odrive_can::msg::ControllerStatus>::SharedPtr gripper_sub_;
+    // rclcpp::Subscription<odrive_can::msg::ControllerStatus>::SharedPtr wrist_roll_sub_; // Wrist roll and gripper are servos and have no feedback
+    rclcpp::Subscription<stepper_can::msg::ControllerStatus>::SharedPtr solenoid_sub_;
+    // rclcpp::Subscription<odrive_can::msg::ControllerStatus>::SharedPtr gripper_sub_;
 
     // Publishers
     rclcpp::Publisher<arm_hardware_interface::msg::ArmTelemetry>::SharedPtr telemetry_pub_;
@@ -51,5 +54,6 @@ class ArmDriverNode : public rclcpp::Node
     rclcpp::Publisher<cubemars_can::msg::ControlMessage>::SharedPtr elbow_pub_;
     rclcpp::Publisher<cubemars_can::msg::ControlMessage>::SharedPtr wrist_pitch_pub_;
     rclcpp::Publisher<servo::msg::ControlMessage>::SharedPtr wrist_roll_pub_;
-    rclcpp::Publisher<odrive_can::msg::ControlMessage>::SharedPtr gripper_pub_;
+    rclcpp::Publisher<stepper_can::msg::ControlMessage>::SharedPtr solenoid_pub_;
+    rclcpp::Publisher<servo::msg::ControlMessage>::SharedPtr gripper_pub_;
 };

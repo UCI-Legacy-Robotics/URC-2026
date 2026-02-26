@@ -250,7 +250,7 @@ hardware_interface::return_type ArmSystemWithODriveAndCubeMars::write(
   for (size_t i = 0; i < num_joints_; i++)
   {
     // Copy commands from hw_commands_ into command_buffer_ to send to hardware nodes
-    // Note this is NOT publishing as we want to be fast; this happens in start_publish_timers()
+    // Note this is NOT publishing as we need to be fast and non-blocking; this happens in driver node
     shared_data_->commands[i] = hw_commands_[i];
 
     //TODO this is where we would implement position control if used

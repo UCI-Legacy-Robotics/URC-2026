@@ -38,7 +38,8 @@ void ArmDriverNode::command_timer_callback()
   cubemars_can::msg::ControlMessage elbow_msg;
   cubemars_can::msg::ControlMessage wrist_pitch_msg;
   servo::msg::ControlMessage wrist_roll_msg;
-  odrive_can::msg::ControlMessage gripper_msg;
+  stepper_can::msg::ControlMessage solenoid_msg;
+  servo::msg::ControlMessage gripper_msg;
 
   // Set control modes
   base_msg.control_mode         = 2; // ODrive velocity mode is 2
@@ -46,12 +47,14 @@ void ArmDriverNode::command_timer_callback()
   elbow_msg.control_mode        = 3;
   wrist_pitch_msg.control_mode  = 3;
   wrist_roll_msg.control_mode   = 0; // Servo velocity mode is 0
-  gripper_msg.control_mode      = 2;
+  solenoid_msg.control_mode     = 4; // Stepper mode is always 4
+  gripper_msg.control_mode      = 0;
 
   // Set input mode to velocity ramp for odrives
-  base_msg.input_mode       = 2;
-  // wrist_roll_msg.input_mode = 2;
-  gripper_msg.input_mode    = 2;
+  base_msg.input_mode = 2;
+  
+  // Set input mode to velocity for stepper
+  solenoid_msg.input_mode = 1;
 
   // Copy in velocity commands from command buffer
   base_msg.input_vel              = shared_data_->commands[0];
@@ -59,7 +62,8 @@ void ArmDriverNode::command_timer_callback()
   elbow_msg.input_vel_rpm         = shared_data_->commands[2];
   wrist_pitch_msg.input_vel_rpm   = shared_data_->commands[3];
   wrist_roll_msg.input_vel_deg    = shared_data_->commands[4]; // Servo wants deg/s
-  gripper_msg.input_vel           = shared_data_->commands[5];
+  solenoid_msg.input_vel          = static_cast<int>(shared_data_->commands[5]); // Stepper wants int
+  gripper_msg.input_vel_deg       = shared_data_->commands[6];
 
   // Publish messages
   base_pub_->publish(base_msg);
@@ -67,6 +71,7 @@ void ArmDriverNode::command_timer_callback()
   elbow_pub_->publish(elbow_msg);
   wrist_pitch_pub_->publish(wrist_pitch_msg);
   wrist_roll_pub_->publish(wrist_roll_msg);
+  solenoid_pub_->publish(solenoid_msg);
   gripper_pub_->publish(gripper_msg);
 }
 
@@ -101,7 +106,7 @@ void ArmDriverNode::create_subscribers()
 {
   // Note how mutex is locked as long as the subscription is occurring, and unlocks at the end
   base_sub_ = this->create_subscription<odrive_can::msg::ControllerStatus>(
-    "/base/controller_status", 10,
+    "/arm/base/controller_status", 10,
     [this](const odrive_can::msg::ControllerStatus& msg)
     {
       std::lock_guard<std::mutex> lock(shared_data_->feedback_mutex);
@@ -110,7 +115,7 @@ void ArmDriverNode::create_subscribers()
   });
 
   shoulder_sub_ = this->create_subscription<cubemars_can::msg::ControllerStatus>(
-    "/shoulder/controller_status", 10,
+    "/arm/shoulder/controller_status", 10,
     [this](const cubemars_can::msg::ControllerStatus& msg)
     {
       std::lock_guard<std::mutex> lock(shared_data_->feedback_mutex);
@@ -119,7 +124,7 @@ void ArmDriverNode::create_subscribers()
   });
 
   elbow_sub_ = this->create_subscription<cubemars_can::msg::ControllerStatus>(
-    "/elbow/controller_status", 10,
+    "/arm/elbow/controller_status", 10,
     [this](const cubemars_can::msg::ControllerStatus& msg)
     {
       std::lock_guard<std::mutex> lock(shared_data_->feedback_mutex);
@@ -128,7 +133,7 @@ void ArmDriverNode::create_subscribers()
   });
 
   wrist_pitch_sub_ = this->create_subscription<cubemars_can::msg::ControllerStatus>(
-    "/wrist_pitch/controller_status", 10,
+    "/arm/wrist_pitch/controller_status", 10,
     [this](const cubemars_can::msg::ControllerStatus& msg)
     {
       std::lock_guard<std::mutex> lock(shared_data_->feedback_mutex);
@@ -145,9 +150,9 @@ void ArmDriverNode::create_subscribers()
   //     shared_data_->velocity_feedback[4] = msg.vel_estimate;
   // });
 
-  gripper_sub_ = this->create_subscription<odrive_can::msg::ControllerStatus>(
-    "/gripper/controller_status", 10,
-    [this](const odrive_can::msg::ControllerStatus& msg)
+  solenoid_sub_ = this->create_subscription<stepper_can::msg::ControllerStatus>(
+    "/arm/solenoid/controller_status", 10,
+    [this](const stepper_can::msg::ControllerStatus& msg)
     {
       std::lock_guard<std::mutex> lock(shared_data_->feedback_mutex);
       shared_data_->position_feedback[5] = msg.pos_estimate;
@@ -162,27 +167,31 @@ void ArmDriverNode::create_publishers()
   );
 
   base_pub_ = this->create_publisher<odrive_can::msg::ControlMessage>(
-    "/base/control_message", 10
+    "/arm/base/control_message", 10
   );
 
   shoulder_pub_ = this->create_publisher<cubemars_can::msg::ControlMessage>(
-    "/shoulder/control_message", 10
+    "/arm/shoulder/control_message", 10
   );
 
   elbow_pub_ = this->create_publisher<cubemars_can::msg::ControlMessage>(
-    "/elbow/control_message", 10
+    "/arm/elbow/control_message", 10
   );
 
   wrist_pitch_pub_ = this->create_publisher<cubemars_can::msg::ControlMessage>(
-    "/wrist_pitch/control_message", 10
+    "/arm/wrist_pitch/control_message", 10
   );
 
   wrist_roll_pub_ = this->create_publisher<servo::msg::ControlMessage>(
-    "/wrist_roll/control_message", 10
+    "/arm/wrist_roll/control_message", 10
   );
 
-  gripper_pub_ = this->create_publisher<odrive_can::msg::ControlMessage>(
-    "/gripper/control_message", 10
+  solenoid_pub_ = this->create_publisher<stepper_can::msg::ControlMessage>(
+    "/arm/solenoid/control_message", 10
+  );
+
+  gripper_pub_ = this->create_publisher<servo::msg::ControlMessage>(
+    "/arm/gripper/control_message", 10
   );
 }
 
