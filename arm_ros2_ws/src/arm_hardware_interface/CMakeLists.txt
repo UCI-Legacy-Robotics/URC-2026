@@ -15,12 +15,24 @@ find_package(cubemars_can REQUIRED)
 find_package(odrive_can REQUIRED)
 find_package(servo REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
+find_package(std_msgs REQUIRED)
 
 # Add custom message
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/ArmTelemetry.msg"
+  DEPENDENCIES std_msgs # Ensures std_msgs are found for this custom message
 )
 ament_export_dependencies(rosidl_default_runtime)
+
+# Add executable node and dependencies
+add_executable(arm_driver_node src/arm_driver_node.cpp)
+ament_target_dependencies(arm_driver_node
+  rclcpp
+  cubemars_can
+  odrive_can
+  servo
+  std_msgs
+)
 
 # Add shared library
 add_library(${PROJECT_NAME}_plugin SHARED
@@ -29,8 +41,13 @@ add_library(${PROJECT_NAME}_plugin SHARED
 
 # Export include directory for library
 target_include_directories(${PROJECT_NAME}_plugin PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>
+$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+$<INSTALL_INTERFACE:include>
+)
+# Include for arm driver node too
+target_include_directories(arm_driver_node PUBLIC
+$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+$<INSTALL_INTERFACE:include>
 )
 
 # Add dependencies needed by library (same as package)
@@ -39,9 +56,6 @@ ament_target_dependencies(${PROJECT_NAME}_plugin
   rclcpp_lifecycle
   hardware_interface
   pluginlib
-  cubemars_can
-  odrive_can
-  servo
 )
 
 # Export plugin description file
@@ -61,10 +75,14 @@ install(
   ARCHIVE DESTINATION lib
   RUNTIME DESTINATION bin
 )
+install(
+  TARGETS arm_driver_node
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 # Export
 ament_export_include_directories(include)
-ament_export_libraries(a${PROJECT_NAME}_plugine)
+ament_export_libraries(a${PROJECT_NAME}_plugin)
 ament_export_dependencies(hardware_interface rclcpp rclcpp_lifecycle pluginlib)
 
 # Add plugin description
@@ -75,6 +93,7 @@ rosidl_get_typesupport_target(cpp_typesupport_target
   ${PROJECT_NAME} rosidl_typesupport_cpp)
 
 target_link_libraries(${PROJECT_NAME}_plugin "${cpp_typesupport_target}")
+target_link_libraries(arm_driver_node "${cpp_typesupport_target}")
     
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

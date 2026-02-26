@@ -129,6 +129,13 @@ def generate_launch_description():
     servo_params = {"moveit_servo": servo_yaml}
     
     # Define nodes below
+    
+    # Arm driver node
+    arm_driver_node = Node(
+        package="arm_hardware_interface",
+        executable="arm_driver_node",
+        name="arm_driver_node",
+    )
 
     # ros2_control using FakeSystem as hardware
     ros2_controllers_path = os.path.join(
@@ -276,6 +283,7 @@ def generate_launch_description():
             [ 
                 use_fake_hardware_arg,
                 rviz_node, 
+                arm_driver_node,
                 ros2_control_node,
                 container,
                 move_group_node,
@@ -292,6 +300,7 @@ def generate_launch_description():
             [ 
                 use_fake_hardware_arg,
                 rviz_node, 
+                arm_driver_node,
                 ros2_control_node,
                 container,
                 move_group_node,

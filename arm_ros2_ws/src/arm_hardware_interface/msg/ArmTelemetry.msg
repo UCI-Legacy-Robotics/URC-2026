@@ -1,3 +1,4 @@
+std_msgs/Header header
 float32 base_position
 float32 base_velocity
 float32 shoulder_position
