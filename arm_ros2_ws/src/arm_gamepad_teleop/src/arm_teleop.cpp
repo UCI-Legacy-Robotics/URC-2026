@@ -3,6 +3,7 @@
 
 #include <rclcpp/rclcpp.hpp>
 #include <control_msgs/msg/joint_jog.hpp>
+#include <trajectory_msgs/msg/joint_trajectory.hpp>
 #include <geometry_msgs/msg/twist_stamped.hpp>
 #include <sensor_msgs/msg/joy.hpp>
 
@@ -16,7 +17,7 @@ constexpr size_t ROS_QUEUE_SIZE = 10;
 
 const std::string CARTESIAN_TOPIC = "/arm_teleop/delta_twist_cmds";
 const std::string JOINT_TOPIC = "/arm_teleop/delta_joint_cmds";
-const std::string GRIPPER_TOPIC = "/arm_teleop/gripper_cmds";
+const std::string GRIPPER_TOPIC = "/gripper_controller/joint_trajectory"; // Directly publish to controller
 const std::string END_EFFECTOR_FRAME_ID = "wrist_roll_link";
 const std::string BASE_FRAME_ID = "base_dummy";
 
@@ -47,15 +48,21 @@ constexpr int TOUCHPAD_BUTTON       = 13;
 
 class ArmTeleop : public rclcpp::Node {
   public:
-    ArmTeleop() : Node("arm_teleop") {
+    ArmTeleop() : 
+      Node("arm_teleop"),
+      first_callback_(true),
+      last_callback_time_(this->now()),
+      solenoid_position_(0.0), 
+      gripper_position_(0.0)
+    {
       // Declare parameters
       x_axis_                 = this->declare_parameter("axes.x", LEFT_JOYSTICK_HORIZONTAL_AXIS);
       y_axis_                 = this->declare_parameter("axes.y", LEFT_JOYSTICK_VERTICAL_AXIS);
       z_axis_                 = this->declare_parameter("axes.z", RIGHT_JOYSTICK_VERTICAL_AXIS);
       roll_axis_              = this->declare_parameter("axes.roll", DPAD_HORIZONTAL_AXIS);
       pitch_axis_             = this->declare_parameter("axes.pitch", DPAD_VERTICAL_AXIS);
-      yaw_negative_button_    = this->declare_parameter("buttons.yaw_negative", SQUARE_BUTTON);
-      yaw_positive_button_    = this->declare_parameter("buttons.yaw_positive", CIRCLE_BUTTON);
+      yaw_negative_button_    = this->declare_parameter("buttons.yaw_negative", CIRCLE_BUTTON);
+      yaw_positive_button_    = this->declare_parameter("buttons.yaw_positive", SQUARE_BUTTON);
       solenoid_left_button_   = this->declare_parameter("buttons.solenoid_left_button", LEFT_BUMPER);
       solenoid_right_button_  = this->declare_parameter("buttons.solenoid_right_button", RIGHT_BUMPER);
       gripper_open_button_    = this->declare_parameter("buttons.gripper_open_button", X_BUTTON);
@@ -76,7 +83,7 @@ class ArmTeleop : public rclcpp::Node {
 
       teleop_cartesian_pub_ = this->create_publisher<geometry_msgs::msg::TwistStamped>(CARTESIAN_TOPIC, ROS_QUEUE_SIZE);
       teleop_joint_pub_     = this->create_publisher<control_msgs::msg::JointJog>(JOINT_TOPIC, ROS_QUEUE_SIZE);
-      gripper_pub_          = this->create_publisher<control_msgs::msg::JointJog>(GRIPPER_TOPIC, ROS_QUEUE_SIZE);
+      gripper_pub_          = this->create_publisher<trajectory_msgs::msg::JointTrajectory>(GRIPPER_TOPIC, ROS_QUEUE_SIZE);
       
       RCLCPP_INFO(get_logger(), "Arm teleop node started");
     }
@@ -93,6 +100,15 @@ class ArmTeleop : public rclcpp::Node {
       // Check whether we should switch from Cartesian to joint mode or vice versa
       bool mode_toggle_button_pressed = get_button_value(msg, mode_toggle_button_);
 
+      // Get time since last callback
+      auto current_time = this->now();
+      
+      rclcpp::Duration diff = current_time - last_callback_time_;
+      
+      last_callback_time_ = current_time;
+      first_callback_ = false;
+
+      // Publish
       if (cartesian_mode_) {
         publish_cartesian(
           msg,
@@ -114,7 +130,8 @@ class ArmTeleop : public rclcpp::Node {
       // The reason is we don't want to have the solenoid to be the target position, but rather the wrist/gripper
       publish_gripper(
         msg,
-        deadman_pressed
+        deadman_pressed,
+        diff.seconds()
       );
     }
 
@@ -134,14 +151,14 @@ class ArmTeleop : public rclcpp::Node {
       double z      = get_axis_value(msg, z_axis_);
 
       // These come from dpad
-      double roll   = get_axis_value(msg, roll_axis_);
+      double roll   = -get_axis_value(msg, roll_axis_);
       // RCLCPP_INFO(get_logger(), "Joystick roll: %.2f", roll);
       double pitch  = get_axis_value(msg, pitch_axis_);
       // RCLCPP_INFO(get_logger(), "Joystick pitch: %.2f", pitch);
 
       // These always come from buttons, set default first
       constexpr double YAW_SPEED = 1.0; // rad/s
-      double yaw                            = 0.0;
+      double yaw = 0.0;
 
       // Set yaw
       if (get_button_value(msg, yaw_negative_button_) == 1) {
@@ -196,12 +213,12 @@ class ArmTeleop : public rclcpp::Node {
       // Axes come from parameters
       // First get the value from each axis
       double base     = get_axis_value(msg, x_axis_);
-      double shoulder = -get_axis_value(msg, y_axis_);
+      double shoulder = get_axis_value(msg, y_axis_);
       double elbow    = get_axis_value(msg, z_axis_);
 
       // These come from dpad
-      double wrist_pitch  = get_axis_value(msg, roll_axis_);
-      double wrist_roll   = get_axis_value(msg, pitch_axis_);
+      double wrist_pitch  = -get_axis_value(msg, roll_axis_);
+      double wrist_roll   = -get_axis_value(msg, pitch_axis_);
 
       // Set the frame to jog joints relative to and the timestamp
       // In this case it's the base since these are joint velocities
@@ -236,17 +253,19 @@ class ArmTeleop : public rclcpp::Node {
 
     void publish_gripper(
       const sensor_msgs::msg::Joy::SharedPtr msg,
-      bool deadman_pressed
+      bool deadman_pressed,
+      double time_diff_seconds
     ) {
       // Gripper message is published in both control modes
       // Offers direct control of solenoid linear actuator and gripper actuation
-      auto gripper_msg = std::make_unique<control_msgs::msg::JointJog>();
+      auto gripper_msg = std::make_unique<trajectory_msgs::msg::JointTrajectory>();
+      trajectory_msgs::msg::JointTrajectoryPoint point;
 
       // Load in joint names
       gripper_msg->joint_names.push_back("solenoid");
       gripper_msg->joint_names.push_back("gripper");
 
-      constexpr double SOLENOID_SPEED = 0.05; // m/s
+      constexpr double SOLENOID_SPEED = -0.05; // m/s
       constexpr double GRIPPER_SPEED = 0.5; // rad/s
 
       double solenoid_linear_actuator_speed = 0.0;
@@ -271,15 +290,24 @@ class ArmTeleop : public rclcpp::Node {
       gripper_msg->header.frame_id = BASE_FRAME_ID;
       gripper_msg->header.stamp    = this->now();
 
+      // Integrate velocity
+      solenoid_position_ += solenoid_linear_actuator_speed * time_diff_seconds;
+      gripper_position_ += gripper_actuation_speed * time_diff_seconds;
+      point.positions.push_back(solenoid_position_);
+      point.positions.push_back(gripper_position_);
+
       if (deadman_pressed) {
         // Add respective joint velocities, angular if angular joint linear if linear joint
-        gripper_msg->velocities.push_back(solenoid_linear_actuator_speed);
-        gripper_msg->velocities.push_back(gripper_actuation_speed);
+        point.velocities.push_back(solenoid_linear_actuator_speed);
+        point.velocities.push_back(gripper_actuation_speed);
       } else {
         for (size_t i = 0; i < gripper_msg->joint_names.size(); i++) {
-          gripper_msg->velocities.push_back(0.0);
+          point.velocities.push_back(0.0);
         }
       }
+
+      point.time_from_start = rclcpp::Duration::from_seconds(0.1);
+      gripper_msg->points.push_back(point);
 
       RCLCPP_DEBUG(get_logger(), "Arm solenoid actuator input: %.2f", solenoid_linear_actuator_speed);
       RCLCPP_DEBUG(get_logger(), "Arm gripper input: %.2f", gripper_actuation_speed);
@@ -352,11 +380,17 @@ class ArmTeleop : public rclcpp::Node {
       return v;
     }
 
+    // States
+    bool first_callback_;
+    rclcpp::Time last_callback_time_;
+    double solenoid_position_;
+    double gripper_position_;
+
     // ROS interfaces
     rclcpp::Subscription<sensor_msgs::msg::Joy>::SharedPtr joy_sub_;
     rclcpp::Publisher<geometry_msgs::msg::TwistStamped>::SharedPtr teleop_cartesian_pub_;
     rclcpp::Publisher<control_msgs::msg::JointJog>::SharedPtr teleop_joint_pub_; // Joint-space commands
-    rclcpp::Publisher<control_msgs::msg::JointJog>::SharedPtr gripper_pub_; // Commands just for gripper, which are used both in cartesian and joint modes
+    rclcpp::Publisher<trajectory_msgs::msg::JointTrajectory>::SharedPtr gripper_pub_; // Commands just for gripper, which are used both in cartesian and joint modes
 
     // Parameters
     int x_axis_, y_axis_, z_axis_;

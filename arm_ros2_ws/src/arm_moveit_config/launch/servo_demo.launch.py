@@ -178,26 +178,6 @@ def generate_launch_description():
     # rviz_config_file = (
     #     get_package_share_directory("arm_moveit_config") + "/config/demo_rviz_config.rviz"
     # )
-    
-    # Note we are using default moveit.rviz config file below
-    rviz_node = Node(
-        package="rviz2",
-        executable="rviz2",
-        name="rviz2",
-        output="screen",
-        arguments=["-d", 
-                   os.path.join(
-                     moveit_config.package_path,
-                     "config",
-                     "moveit.rviz"
-                   )
-        ],
-        parameters=[
-            moveit_config.robot_description,
-            moveit_config.robot_description_semantic,
-            moveit_config.robot_description_kinematics,
-        ]
-    )
 
     # Define joint state broadcaster (for physical components)
     joint_state_broadcaster_spawner = Node(
@@ -288,6 +268,26 @@ def generate_launch_description():
             target_action=servo_node,
             on_start=[start_servo_service_call],
         )
+    )
+    
+    # Note we are using default moveit.rviz config file below
+    rviz_node = Node(
+        package="rviz2",
+        executable="rviz2",
+        name="rviz2",
+        output="screen",
+        arguments=["-d", 
+                   os.path.join(
+                     moveit_config.package_path,
+                     "config",
+                     "moveit.rviz"
+                   )
+        ],
+        parameters=[
+            moveit_config.robot_description,
+            moveit_config.robot_description_semantic,
+            moveit_config.robot_description_kinematics,
+        ]
     )
 
     # Only include hardware nodes if using real hardware
