@@ -37,6 +37,7 @@ private:
     void subscriber_callback(const ControlMessage::SharedPtr msg);
     void service_callback(const std::shared_ptr<AxisState::Request> request, std::shared_ptr<AxisState::Response> response);
     void service_clear_errors_callback(const std::shared_ptr<Empty::Request> request, std::shared_ptr<Empty::Response> response);
+    void client_callback();
     void request_state_callback();
     void request_clear_errors_callback();
     void ctrl_msg_callback();
@@ -66,6 +67,9 @@ private:
     std::mutex axis_state_mutex_;
     std::condition_variable fresh_heartbeat_;
     rclcpp::Service<AxisState>::SharedPtr service_;
+
+    rclcpp::Client<AxisState>::SharedPtr client_;
+    rclcpp::TimerBase::SharedPtr timer_;
 
     EpollEvent srv_clear_errors_evt_;
     rclcpp::Service<Empty>::SharedPtr service_clear_errors_;

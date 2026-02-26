@@ -57,6 +57,9 @@ ODriveCanNode::ODriveCanNode(const std::string& node_name) : rclcpp::Node(node_n
 
     service_ = rclcpp::Node::create_service<AxisState>("request_axis_state", std::bind(&ODriveCanNode::service_callback, this, _1, _2), srv_qos_profile);
     service_clear_errors_ = rclcpp::Node::create_service<Empty>("clear_errors", std::bind(&ODriveCanNode::service_clear_errors_callback, this, _1, _2), srv_qos_profile);
+
+    client_ = rclcpp::Node::create_client<AxisState>("send_axis_state");
+    timer_ = this->create_wall_timer(std::chrono::seconds(5), std::bind(&ODriveCanNode::client_callback, this));
 }
 
 void ODriveCanNode::deinit() {
@@ -219,6 +222,25 @@ void ODriveCanNode::service_callback(const std::shared_ptr<AxisState::Request> r
     response->axis_state = ctrl_stat_.axis_state;
     response->active_errors = ctrl_stat_.active_errors;
     response->procedure_result = ctrl_stat_.procedure_result;
+}
+
+void ODriveCanNode::client_callback() {
+    // Only call it once to set Closed Loop Control
+    timer_->cancel();
+
+    if (!client_->wait_for_service(std::chrono::seconds(7))) {
+        RCLCPP_ERROR(this->get_logger(), "Service not available");
+        return;
+    }
+
+    auto request = std::make_shared<AxisState::Request>();
+    request->axis_requested_state = 8; // Closed loop control
+
+    client_->async_send_request(request, 
+        [this](rclcpp::Client<AxisState>::SharedFuture future) {
+            auto response = future.get();
+            RCLCPP_INFO(this->get_logger(), "Set Axis State to CLOSED_LOOP_CONTROL");
+        });
 }
 
 void ODriveCanNode::service_clear_errors_callback(const std::shared_ptr<Empty::Request> request, std::shared_ptr<Empty::Response> response) {
