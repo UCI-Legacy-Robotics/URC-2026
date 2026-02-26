@@ -1,0 +1,61 @@
+.dashboardGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto auto 1fr;
+  grid-template-areas:
+    "header header header header"
+    "cam360 cam360 cam360 timer"
+    "leftCol leftCol rightCol rightCol";
+  gap: 1rem;
+  height: 100%;
+  min-height: 0;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+/* Base Card Style */
+.card {
+  background-color: #161616;
+  border: 1px solid #2A2A2A;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+/* Grid Areas */
+.headerCard {
+  grid-area: header;
+  text-align: center;
+  border-left: 4px solid #0064A4;
+  border-right: 4px solid #0064A4;
+}
+
+.cam360Area { grid-area: cam360; min-height: 120px; }
+.timerArea { grid-area: timer; }
+.leftCol { grid-area: leftCol; }
+.rightCol { grid-area: rightCol; }
+
+.headerTitle {
+  margin: 0;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #FFD200;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Flex Columns for dynamic vertical stacking */
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 0;
+}
+
+/* Thematic Accent Borders */
+.blueAccent { border-left: 3px solid #0064A4; }
+.goldAccent { border-left: 3px solid #FFD200; }
+.purpleAccent { border-left: 3px solid #c084fc; } /* Distinct color for science data */

@@ -1,0 +1,67 @@
+.dashboardGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header header"
+    "leftCol rightCol"
+    "footer footer";
+  gap: 1rem;
+  height: 100%;
+  min-height: 0; /* Strict adherence to the single-page lock */
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+/* Base Card Style */
+.card {
+  background-color: #161616;
+  border: 1px solid #2A2A2A;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+/* Specific Grid Areas */
+.headerCard {
+  grid-area: header;
+  text-align: center;
+  border-left: 4px solid #0064A4;
+  border-right: 4px solid #0064A4;
+}
+
+.headerTitle {
+  margin: 0;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #FFD200;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.footerCard {
+  grid-area: footer;
+  border-bottom: 4px solid #0064A4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Flex Columns for dynamic widget stacking */
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 0; /* Passes the height restriction down */
+}
+
+.leftCol { grid-area: leftCol; }
+.rightCol { grid-area: rightCol; }
+
+/* Thematic Accent Borders */
+.blueAccent { border-left: 3px solid #0064A4; }
+.goldAccent { border-left: 3px solid #FFD200; }
+.greenAccent { border-left: 3px solid #4ade80; }
