@@ -1,0 +1,14 @@
+launch:
+
+- node:
+    pkg: "yellowjacket_can"
+    exec: "yellowjacket_node"
+    name: "can_node"
+    namespace: "yellowjacket_axis0"
+    param:
+    -
+      name: "node_id"
+      value: 8
+    -
+      name: "interface"
+      value: "can0"
