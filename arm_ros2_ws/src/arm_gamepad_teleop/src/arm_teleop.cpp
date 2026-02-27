@@ -21,6 +21,12 @@ const std::string GRIPPER_TOPIC = "/gripper_controller/joint_trajectory"; // Dir
 const std::string END_EFFECTOR_FRAME_ID = "wrist_roll_link";
 const std::string BASE_FRAME_ID = "base_dummy";
 
+// Physical constants (to prevent overhead of loading entire URDF)
+constexpr double SOLENOID_MIN_LIMIT = -0.10;
+constexpr double SOLENOID_MAX_LIMIT = 0.10;
+constexpr double GRIPPER_MIN_LIMIT = -3.14;
+constexpr double GRIPPER_MAX_LIMIT = 3.14;
+
 // Buttons and axes
 constexpr int LEFT_JOYSTICK_HORIZONTAL_AXIS   = 0;
 constexpr int LEFT_JOYSTICK_VERTICAL_AXIS     = 1;
@@ -293,6 +299,11 @@ class ArmTeleop : public rclcpp::Node {
       // Integrate velocity
       solenoid_position_ += solenoid_linear_actuator_speed * time_diff_seconds;
       gripper_position_ += gripper_actuation_speed * time_diff_seconds;
+
+      // Clamp positions within limits
+      solenoid_position_ = std::clamp(solenoid_position_, SOLENOID_MIN_LIMIT, SOLENOID_MAX_LIMIT);
+      gripper_position_ = std::clamp(gripper_position_, GRIPPER_MIN_LIMIT, GRIPPER_MAX_LIMIT);
+
       point.positions.push_back(solenoid_position_);
       point.positions.push_back(gripper_position_);
 
