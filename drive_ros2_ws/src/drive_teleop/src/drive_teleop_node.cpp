@@ -15,10 +15,10 @@ constexpr int MAX_DRIVE_PWM = 32000;
 // Buttons and axes
 constexpr int LEFT_JOYSTICK_HORIZONTAL_AXIS   = 0;
 constexpr int LEFT_JOYSTICK_VERTICAL_AXIS     = 1;
-constexpr int RIGHT_JOYSTICK_HORIZONTAL_AXIS  = 2;
-constexpr int RIGHT_JOYSTICK_VERTICAL_AXIS    = 5;
-constexpr int LEFT_TRIGGER_AXIS               = 3;
-constexpr int RIGHT_TRIGGER_AXIS              = 4;
+constexpr int RIGHT_JOYSTICK_HORIZONTAL_AXIS  = 3;
+constexpr int RIGHT_JOYSTICK_VERTICAL_AXIS    = 4;
+constexpr int LEFT_TRIGGER_AXIS               = 2;
+constexpr int RIGHT_TRIGGER_AXIS              = 5;
 constexpr int DPAD_HORIZONTAL_AXIS            = 6;
 constexpr int DPAD_VERTICAL_AXIS              = 7;
 
