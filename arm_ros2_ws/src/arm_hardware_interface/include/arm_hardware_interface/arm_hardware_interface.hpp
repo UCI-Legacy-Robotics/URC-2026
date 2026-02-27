@@ -65,6 +65,7 @@ private:
   std::vector<double> hw_unused_position_commands_;
   std::vector<double> hw_positions_;
   std::vector<double> hw_velocities_;
+  std::vector<double> hw_gear_ratios_;
 };
 
 } // namespace arm_hardware_interface

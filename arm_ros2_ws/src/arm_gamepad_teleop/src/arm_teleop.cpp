@@ -1,6 +1,7 @@
 #include <chrono>
 #include <memory>
 
+#include <cmath>
 #include <rclcpp/rclcpp.hpp>
 #include <control_msgs/msg/joint_jog.hpp>
 #include <trajectory_msgs/msg/joint_trajectory.hpp>
@@ -26,6 +27,10 @@ constexpr double SOLENOID_MIN_LIMIT = -0.10;
 constexpr double SOLENOID_MAX_LIMIT = 0.10;
 constexpr double GRIPPER_MIN_LIMIT = -3.14;
 constexpr double GRIPPER_MAX_LIMIT = 3.14;
+
+constexpr double CARTESIAN_LINEAR_DEADBAND = 0.025; // m/s
+constexpr double JOINT_VELOCITY_DEADBAND = 0.05; // rad/s
+constexpr double GRIPPER_VELOCITY_DEADBAND = 0.025;
 
 // Buttons and axes
 constexpr int LEFT_JOYSTICK_HORIZONTAL_AXIS   = 0;
@@ -186,6 +191,14 @@ class ArmTeleop : public rclcpp::Node {
         cartesian_msg->twist.angular.y = compute_velocity_output(pitch, max_angular_vel);
         cartesian_msg->twist.angular.z = compute_velocity_output(yaw, max_angular_vel);
 
+        // Apply deadbands
+        cartesian_msg->twist.linear.x  = apply_deadband(cartesian_msg->twist.linear.x, CARTESIAN_LINEAR_DEADBAND);
+        cartesian_msg->twist.linear.y  = apply_deadband(cartesian_msg->twist.linear.y, CARTESIAN_LINEAR_DEADBAND);
+        cartesian_msg->twist.linear.z  = apply_deadband(cartesian_msg->twist.linear.z, CARTESIAN_LINEAR_DEADBAND);
+        cartesian_msg->twist.angular.x  = apply_deadband(cartesian_msg->twist.angular.x, JOINT_VELOCITY_DEADBAND);
+        cartesian_msg->twist.angular.y  = apply_deadband(cartesian_msg->twist.angular.y, JOINT_VELOCITY_DEADBAND);
+        cartesian_msg->twist.angular.z  = apply_deadband(cartesian_msg->twist.angular.z, JOINT_VELOCITY_DEADBAND);
+
         update_control_mode(msg, mode_toggle_button_pressed);
       }
 
@@ -238,6 +251,11 @@ class ArmTeleop : public rclcpp::Node {
         joint_msg->velocities.push_back(compute_velocity_output(elbow, max_angular_vel));
         joint_msg->velocities.push_back(compute_velocity_output(wrist_pitch, max_angular_vel));
         joint_msg->velocities.push_back(compute_velocity_output(wrist_roll, max_angular_vel));
+
+        // Apply deadbands
+        for (size_t i = 0; i < joint_msg->joint_names.size(); i++) {
+          joint_msg->velocities[i] = apply_deadband(joint_msg->velocities[i], JOINT_VELOCITY_DEADBAND);
+        }
 
         update_control_mode(msg, mode_toggle_button_pressed);
       } else {
@@ -389,6 +407,14 @@ class ArmTeleop : public rclcpp::Node {
       double v = expo_value * max_velocity;
 
       return v;
+    }
+
+    double apply_deadband(double value, double deadband) {
+      if (std::abs(value) < deadband) {
+        return 0.0;
+      } else {
+        return value;
+      }
     }
 
     // States

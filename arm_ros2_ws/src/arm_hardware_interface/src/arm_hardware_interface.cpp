@@ -6,8 +6,17 @@
 namespace arm_hardware_interface
 {
 
-#define COMMAND_PUBLISH_RATE_HZ 100.0
-#define TELEMETRY_PUBLISH_RATE_HZ 20.0
+constexpr double COMMAND_PUBLISH_RATE_HZ = 100.0;
+constexpr double TELEMETRY_PUBLISH_RATE_HZ = 20.0;
+
+// Define gear ratios
+constexpr double BASE_GEAR_RATIO = 4.0; // 4:1 gearbox
+constexpr double SHOULDER_GEAR_RATIO = 15.0 * 36.0; // 15:1 gearbox, 36:1 in Cubemars
+constexpr double ELBOW_GEAR_RATIO = 9.2 * 36.0; // 9.2:1 cables, 36:1 cubemars
+constexpr double WRIST_PITCH_GEAR_RATIO = 3.25 * 36.0; // 3.25:1 cables, 36:1 cubemars
+constexpr double WRIST_ROLL_GEAR_RATIO = 1.0; // Direct drive
+constexpr double SOLENOID_LINEAR_ACTUATOR_GEAR_RATIO = 1.0; // Direct drive
+constexpr double GRIPPER_GEAR_RATIO = 1.0; // Direct drive
 
 ArmSystemWithODriveAndCubeMars::ArmSystemWithODriveAndCubeMars() 
 {}
@@ -39,6 +48,15 @@ hardware_interface::CallbackReturn ArmSystemWithODriveAndCubeMars::on_init(
   hw_velocities_.resize(num_joints_, std::numeric_limits<double>::quiet_NaN());
   hw_commands_.resize(num_joints_, std::numeric_limits<double>::quiet_NaN());
   hw_unused_position_commands_.resize(num_joints_, std::numeric_limits<double>::quiet_NaN());
+
+  // Define hardware gear ratios
+  hw_gear_ratios_.push_back(BASE_GEAR_RATIO);
+  hw_gear_ratios_.push_back(SHOULDER_GEAR_RATIO);
+  hw_gear_ratios_.push_back(ELBOW_GEAR_RATIO);
+  hw_gear_ratios_.push_back(WRIST_PITCH_GEAR_RATIO);
+  hw_gear_ratios_.push_back(WRIST_ROLL_GEAR_RATIO);
+  hw_gear_ratios_.push_back(SOLENOID_LINEAR_ACTUATOR_GEAR_RATIO);
+  hw_gear_ratios_.push_back(GRIPPER_GEAR_RATIO);
 
   for (const hardware_interface::ComponentInfo& joint : info_.joints)
   {
@@ -227,11 +245,12 @@ hardware_interface::return_type ArmSystemWithODriveAndCubeMars::read(
     // This allows us to asynchronously get feedback from motors
 
     // Only update if the feedback is a valid number (not NaN)
+    // Note that gear ratios are divided since encoders report before gearing
     if (!std::isnan(shared_data_->position_feedback[i])) {
-      hw_positions_[i] = shared_data_->position_feedback[i];
+      hw_positions_[i] = shared_data_->position_feedback[i] / hw_gear_ratios_[i];
     }
     if (!std::isnan(shared_data_->velocity_feedback[i])) {
-      hw_velocities_[i] = shared_data_->velocity_feedback[i];
+      hw_velocities_[i] = shared_data_->velocity_feedback[i] / hw_gear_ratios_[i];
     }
   }
 
@@ -251,7 +270,8 @@ hardware_interface::return_type ArmSystemWithODriveAndCubeMars::write(
   {
     // Copy commands from hw_commands_ into command_buffer_ to send to hardware nodes
     // Note this is NOT publishing as we need to be fast and non-blocking; this happens in driver node
-    shared_data_->commands[i] = hw_commands_[i];
+    // Multiplied by gear ratio since encoder reports before gearing
+    shared_data_->commands[i] = hw_commands_[i] * hw_gear_ratios_[i];
 
     //TODO this is where we would implement position control if used
   }
