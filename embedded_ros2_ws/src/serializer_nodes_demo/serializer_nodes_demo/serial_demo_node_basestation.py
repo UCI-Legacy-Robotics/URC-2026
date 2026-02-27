@@ -14,8 +14,8 @@ class SerialBridge(Node):
     def __init__(self):
         super().__init__('serial_bridge')
         self.declare_parameter('serial_port', '/dev/ttyUSB0')
-        self.declare_parameter('cmd_topic', 'chatter')
-        self.declare_parameter('sub_topic', 'chatter_remote')
+        self.declare_parameter('cmd_topic', 'drive_control')
+        self.declare_parameter('sub_topic', 'drive_control')
         self.declare_parameter('telemetry_topic', 'chatter')
         self.declare_parameter('baud_rate', 57600)
         
@@ -79,6 +79,7 @@ class SerialBridge(Node):
             except Exception as e:
                 self.get_logger().warn(f"Failed to parse: {line} | {e}")
             
+
 
 def main(args=None):
     rclpy.init(args=args)
