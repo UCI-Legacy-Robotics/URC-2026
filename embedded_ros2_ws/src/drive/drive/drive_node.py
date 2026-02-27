@@ -8,32 +8,32 @@ from std_msgs.msg import Int32
 
 class DriveNode(Node):
     def __init__(self):
-        super().__init__('drive_pub')
+        super().__init__('drive_node')
+        self.get_logger().info(f"Started drive node")
+        # Init yellowjacket control stuff
         self.fl_pub = self.create_publisher(ControlMessage, 'drive_fl/control_message', 10)
         self.fr_pub = self.create_publisher(ControlMessage, 'drive_fr/control_message', 10)
         self.ml_pub = self.create_publisher(ControlMessage, 'drive_ml/control_message', 10)
         self.mr_pub = self.create_publisher(ControlMessage, 'drive_mr/control_message', 10)
+        self.bl_pub = self.create_publisher(ControlMessage, 'drive_bl/control_message', 10)
+        self.br_pub = self.create_publisher(ControlMessage, 'drive_br/control_message', 10)
         
-        timer_period = 0.5
-        self.timer = self.create_timer(timer_period, self.drive_forward)
+        # For other stuff like base station to control
+        self.drive_sub = self.create_subscription(Int32, "drive_control", self.subscriber_callback, 10)
         
-    def drive_forward(self):
-        try:
-            vel = int(input())
-        except Exception as e:
-            vel = 0
-            self.get_logger().info("IDIOT, NOT AN INTEGER")
-            
-        msg = ControlMessage()
-        msg.control_mode = 5
-        msg.input_mode = 1
-        msg.input_vel = vel
+    def subscriber_callback(self, msg):
+        new_msg = ControlMessage()
+        new_msg.control_mode = 5
+        new_msg.input_mode = 1
+        new_msg.input_vel = msg.data
         
-        self.fl_pub.publish(msg)
-        self.fr_pub.publish(msg)
-        self.ml_pub.publish(msg)
-        self.mr_pub.publish(msg)
-        self.get_logger().info(f"Sent velocity of {vel} to drive motors!")
+        self.fl_pub.publish(new_msg)
+        self.fr_pub.publish(new_msg)
+        self.ml_pub.publish(new_msg)
+        self.mr_pub.publish(new_msg)
+        self.bl_pub.publish(new_msg)
+        self.br_pub.publish(new_msg)
+        self.get_logger().info(f"Sent velocity of {msg.data} to drive motors!")
 
 
 
