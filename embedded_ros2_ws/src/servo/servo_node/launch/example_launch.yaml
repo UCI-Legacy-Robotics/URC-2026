@@ -13,7 +13,7 @@ launch:
     - {name: "max_angle_deg", value: 180}
     - {name: "min_pwm_micro_s", value: 500}
     - {name: "max_pwm_micro_s", value: 2500}
-    - {name: "use_hw", value: false}
+    - {name: "use_hw", value: true}
 
 - node:
     pkg: "servo"
@@ -27,5 +27,5 @@ launch:
     - {name: "max_angle_deg", value: 180}
     - {name: "min_pwm_micro_s", value: 500}
     - {name: "max_pwm_micro_s", value: 2500}
-    - {name: "use_hw", value: false}
+    - {name: "use_hw", value: true}
 
