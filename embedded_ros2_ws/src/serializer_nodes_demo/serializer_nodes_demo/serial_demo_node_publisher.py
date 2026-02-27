@@ -1,6 +1,6 @@
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import Int32
+from drive_teleop.msg import DriveControlMessage
 import serial
 import json
 
@@ -9,7 +9,7 @@ class SerialPublisher(Node):
         super().__init__('serial_publisher')
         
         self.declare_parameter('serial_port', '/dev/ttyUSB0')
-        self.declare_parameter('topic', 'drive_control')
+        self.declare_parameter('topic', 'drive_teleop_node/command')
         self.declare_parameter('baud_rate', 57600)
         
         port = self.get_parameter('serial_port').get_parameter_value().string_value
@@ -17,7 +17,7 @@ class SerialPublisher(Node):
         baud = self.get_parameter('baud_rate').get_parameter_value().integer_value
 
         self.ser = serial.Serial(port, baud, timeout=0.1)
-        self.pub = self.create_publisher(Int32, topic, 10)
+        self.pub = self.create_publisher(DriveControlMessage, topic, 10)
         self.create_timer(0.05, self.read_serial)
 
     def read_serial(self):
@@ -32,13 +32,14 @@ class SerialPublisher(Node):
                 #converts string named line into python dict  
                 data = json.loads(line)
                 #if correct data type, convert data to string
-                if data.get('type') == 'cmd':
-                    value = int(data.get('data', 0))
-                    msg = Int32()
-                    msg.data = value
-                    #publish message
+                if data.get('type') == 'drive_cmd':
+                    drive_input = data.get('data', 0).split(" ") # drive cmd data in format of "left_pwm right_pwm"
+                    msg = DriveControlMessage()
+                    msg.left_pwm_value = int(drive_input[0])
+                    msg.right_pwm_value = int(drive_input[1])
+                    # send mssage to yellowjackets
                     self.pub.publish(msg)
-                    #print out a message
+                    #print out message
                     self.get_logger().info(f"Published: {msg.data}")
             except Exception as e:
                 self.get_logger().warn(f"Failed to parse serial: {line} | {e}")

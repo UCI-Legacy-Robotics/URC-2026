@@ -1,7 +1,7 @@
 # serial_subscriber_node.py
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import Int32
+from drive_teleop.msg import DriveControlMessage
 import serial
 import json
 
@@ -9,7 +9,7 @@ class SerialSubscriber(Node):
     def __init__(self):
         super().__init__('serial_subscriber')
         self.declare_parameter('serial_port', '/dev/ttyUSB0')
-        self.declare_parameter('topic', 'drive_control')
+        self.declare_parameter('topic', 'drive_teleop_node/command')
         self.declare_parameter('baud_rate', 57600)
         
         port = self.get_parameter('serial_port').get_parameter_value().string_value
@@ -17,12 +17,13 @@ class SerialSubscriber(Node):
         baud = self.get_parameter('baud_rate').get_parameter_value().integer_value
 
         self.ser = serial.Serial(port, baud, timeout=0.1)
-        self.create_subscription(Int32, topic, self.send_serial, 10)
+        self.create_subscription(DriveControlMessage, topic, self.send_serial, 10)
 
-    def send_serial(self, msg: Int32):
-        line = json.dumps({'type': 'cmd', 'data': msg.data}) + '\n'
+    def send_serial(self, msg: DriveControlMessage):
+        message = f"{msg.left_input_pwm} {msg.right_input_pwm}"
+        line = json.dumps({'type': 'drive_cmd', 'data': message}) + '\n'
         self.ser.write(line.encode())
-        self.get_logger().info(f"Sent: {msg.data}")
+        self.get_logger().info(f"Sent: {message}")
 
 def main(args=None):
     rclpy.init(args=args)

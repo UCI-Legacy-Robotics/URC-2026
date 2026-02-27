@@ -12,7 +12,7 @@ setup(
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name + '/launch', ['launch/teleop_drive_launch.yaml']),
     ],
-    install_requires=['setuptools'],
+    install_requires=['setuptools', 'rclpy',],
     zip_safe=True,
     maintainer='dhrish',
     maintainer_email='dhrishreddyk@gmail.com',

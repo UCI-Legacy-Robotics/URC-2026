@@ -7,6 +7,7 @@
   <maintainer email="lenat@todo.todo">lenat</maintainer>
   <license>TODO: License declaration</license>
 
+  <exec_depend>drive_teleop</exec_depend>
   <depend>rclpy</depend>
 
   <test_depend>ament_copyright</test_depend>
