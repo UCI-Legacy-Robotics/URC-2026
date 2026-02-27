@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>arm_hardware_interface</name>
+  <version>0.0.0</version>
+  <description>ros2_control hardware interface for the arm's ODrive and CubeMars controllers.</description>
+  <maintainer email="ethansaddy@gmail.com">ethan</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>rosidl_default_generators</buildtool_depend>
+  <exec_depend>rosidl_default_runtime</exec_depend>
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <depend>rclcpp</depend>
+  <depend>hardware_interface</depend>
+  <depend>pluginlib</depend>
+  <depend>cubemars_can</depend>
+  <depend>odrive_can</depend>
+  <depend>stepper_can</depend>
+  <depend>servo</depend>
+  <depend>std_msgs</depend>
+  
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <!-- Make sure to export plugin! -->
+  <export>
+    <build_type>ament_cmake</build_type>
+    <ros2_control plugin="${prefix}/arm_hardware_interface.xml" />
+  </export>
+</package>

@@ -1,4 +1,4 @@
-#include "odrive_can_node.hpp"
+#include "yellowjacket_can_node.hpp"
 #include "odrive_enums.h"
 #include "epoll_event_loop.hpp"
 #include "byte_swap.hpp"
@@ -22,13 +22,14 @@ enum CmdId : uint32_t {
 };
 
 enum ControlMode : uint64_t {
-    kVoltageControl,
-    kTorqueControl,
-    kVelocityControl,
-    kPositionControl,
+    kVoltageControl = 0,
+    kTorqueControl = 1,
+    kVelocityControl = 2,
+    kPositionControl = 3,
+    kYellowjacketControl = 5
 };
 
-ODriveCanNode::ODriveCanNode(const std::string& node_name) : rclcpp::Node(node_name) {
+YellowjacketCanNode::YellowjacketCanNode(const std::string& node_name) : rclcpp::Node(node_name) {
     
     rclcpp::Node::declare_parameter<std::string>("interface", "can0");
     rclcpp::Node::declare_parameter<uint16_t>("node_id", 0);
@@ -41,7 +42,7 @@ ODriveCanNode::ODriveCanNode(const std::string& node_name) : rclcpp::Node(node_n
     odrv_publisher_ = rclcpp::Node::create_publisher<ODriveStatus>("odrive_status", odrv_stat_qos);
 
     rclcpp::QoS ctrl_msg_qos(rclcpp::KeepAll{});
-    subscriber_ = rclcpp::Node::create_subscription<ControlMessage>("control_message", ctrl_msg_qos, std::bind(&ODriveCanNode::subscriber_callback, this, _1));
+    subscriber_ = rclcpp::Node::create_subscription<ControlMessage>("control_message", ctrl_msg_qos, std::bind(&YellowjacketCanNode::subscriber_callback, this, _1));
 
     rclcpp::QoS srv_qos(rclcpp::KeepAll{});
 
@@ -55,14 +56,11 @@ ODriveCanNode::ODriveCanNode(const std::string& node_name) : rclcpp::Node(node_n
     auto srv_qos_profile = srv_qos.get_rmw_qos_profile();
 #endif
 
-    service_ = rclcpp::Node::create_service<AxisState>("request_axis_state", std::bind(&ODriveCanNode::service_callback, this, _1, _2), srv_qos_profile);
-    service_clear_errors_ = rclcpp::Node::create_service<Empty>("clear_errors", std::bind(&ODriveCanNode::service_clear_errors_callback, this, _1, _2), srv_qos_profile);
-
-    client_ = rclcpp::Node::create_client<AxisState>("request_axis_state");
-    timer_ = this->create_wall_timer(std::chrono::seconds(5), std::bind(&ODriveCanNode::client_callback, this));
+    service_ = rclcpp::Node::create_service<AxisState>("request_axis_state", std::bind(&YellowjacketCanNode::service_callback, this, _1, _2), srv_qos_profile);
+    service_clear_errors_ = rclcpp::Node::create_service<Empty>("clear_errors", std::bind(&YellowjacketCanNode::service_clear_errors_callback, this, _1, _2), srv_qos_profile);
 }
 
-void ODriveCanNode::deinit() {
+void YellowjacketCanNode::deinit() {
     if (axis_idle_on_shutdown_) {
         struct can_frame frame;
         frame.can_id = node_id_ << 5 | CmdId::kSetAxisState;
@@ -76,25 +74,25 @@ void ODriveCanNode::deinit() {
     can_intf_.deinit();
 }
 
-bool ODriveCanNode::init(EpollEventLoop* event_loop) {
+bool YellowjacketCanNode::init(EpollEventLoop* event_loop) {
 
     node_id_ = rclcpp::Node::get_parameter("node_id").as_int();
     axis_idle_on_shutdown_ = rclcpp::Node::get_parameter("axis_idle_on_shutdown").as_bool();
     std::string interface = rclcpp::Node::get_parameter("interface").as_string();
 
-    if (!can_intf_.init(interface, event_loop, std::bind(&ODriveCanNode::recv_callback, this, _1))) {
+    if (!can_intf_.init(interface, event_loop, std::bind(&YellowjacketCanNode::recv_callback, this, _1))) {
         RCLCPP_ERROR(rclcpp::Node::get_logger(), "Failed to initialize socket can interface: %s", interface.c_str());
         return false;
     }
-    if (!sub_evt_.init(event_loop, std::bind(&ODriveCanNode::ctrl_msg_callback, this))) {
+    if (!sub_evt_.init(event_loop, std::bind(&YellowjacketCanNode::ctrl_msg_callback, this))) {
         RCLCPP_ERROR(rclcpp::Node::get_logger(), "Failed to initialize subscriber event");
         return false;
     }
-    if (!srv_evt_.init(event_loop, std::bind(&ODriveCanNode::request_state_callback, this))) {
+    if (!srv_evt_.init(event_loop, std::bind(&YellowjacketCanNode::request_state_callback, this))) {
         RCLCPP_ERROR(rclcpp::Node::get_logger(), "Failed to initialize service event");
         return false;
     }
-    if (!srv_clear_errors_evt_.init(event_loop, std::bind(&ODriveCanNode::request_clear_errors_callback, this))) {
+    if (!srv_clear_errors_evt_.init(event_loop, std::bind(&YellowjacketCanNode::request_clear_errors_callback, this))) {
         RCLCPP_ERROR(rclcpp::Node::get_logger(), "Failed to initialize clear errors service event");
         return false;
     }
@@ -103,7 +101,7 @@ bool ODriveCanNode::init(EpollEventLoop* event_loop) {
     return true;
 }
 
-void ODriveCanNode::recv_callback(const can_frame& frame) {
+void YellowjacketCanNode::recv_callback(const can_frame& frame) {
 
     if(((frame.can_id >> 5) & 0x3F) != node_id_) return;
 
@@ -119,54 +117,20 @@ void ODriveCanNode::recv_callback(const can_frame& frame) {
             fresh_heartbeat_.notify_one();
             break;
         }
-        case CmdId::kGetError: {
-            if (!verify_length("kGetError", 8, frame.can_dlc)) break;
-            std::lock_guard<std::mutex> guard(odrv_stat_mutex_);
-            odrv_stat_.active_errors = read_le<uint32_t>(frame.data + 0);
-            odrv_stat_.disarm_reason = read_le<uint32_t>(frame.data + 4);
-            odrv_pub_flag_ |= 0b001;
-            break;
-        }
         case CmdId::kGetEncoderEstimates: {
             if (!verify_length("kGetEncoderEstimates", 8, frame.can_dlc)) break;
             std::lock_guard<std::mutex> guard(ctrl_stat_mutex_);
-            ctrl_stat_.pos_estimate = read_le<float>(frame.data + 0);
-            ctrl_stat_.vel_estimate = read_le<float>(frame.data + 4);
+            ctrl_stat_.pos_estimate = read_le<int32_t>(frame.data + 0);
+            ctrl_stat_.vel_estimate = read_le<int32_t>(frame.data + 4);
             ctrl_pub_flag_ |= 0b0010;
             break;
         }
-        case CmdId::kGetIq: {
-            if (!verify_length("kGetIq", 8, frame.can_dlc)) break;
-            std::lock_guard<std::mutex> guard(ctrl_stat_mutex_);
-            ctrl_stat_.iq_setpoint = read_le<float>(frame.data + 0);
-            ctrl_stat_.iq_measured = read_le<float>(frame.data + 4);
-            ctrl_pub_flag_ |= 0b0100;
-            break;
-        }
-        case CmdId::kGetTemp: {
-            if (!verify_length("kGetTemp", 8, frame.can_dlc)) break;
-            std::lock_guard<std::mutex> guard(odrv_stat_mutex_);
-            odrv_stat_.fet_temperature   = read_le<float>(frame.data + 0);
-            odrv_stat_.motor_temperature = read_le<float>(frame.data + 4);
-            odrv_pub_flag_ |= 0b010;
-            break;
-        }
-        case CmdId::kGetBusVoltageCurrent: {
-            if (!verify_length("kGetBusVoltageCurrent", 8, frame.can_dlc)) break;
-            std::lock_guard<std::mutex> guard(odrv_stat_mutex_);
-            odrv_stat_.bus_voltage = read_le<float>(frame.data + 0);
-            odrv_stat_.bus_current = read_le<float>(frame.data + 4);
-            odrv_pub_flag_ |= 0b100;
-            break;
-        }
-        case CmdId::kGetTorques: {
-            if (!verify_length("kGetTorques", 8, frame.can_dlc)) break;
-            std::lock_guard<std::mutex> guard(ctrl_stat_mutex_);
-            ctrl_stat_.torque_target   = read_le<float>(frame.data + 0);
-            ctrl_stat_.torque_estimate = read_le<float>(frame.data + 4);
-            ctrl_pub_flag_ |= 0b1000; 
-            break;
-        }
+
+        case CmdId::kGetError:
+        case CmdId::kGetIq:
+        case CmdId::kGetTemp:
+        case CmdId::kGetBusVoltageCurrent:
+        case CmdId::kGetTorques:
         case CmdId::kSetAxisState:
         case CmdId::kSetControllerMode:
         case CmdId::kSetInputPos:
@@ -181,24 +145,21 @@ void ODriveCanNode::recv_callback(const can_frame& frame) {
         }
     }
     
-    if (ctrl_pub_flag_ == 0b1111) {
+    //TBD: heart beat ANDDDD encoder estimates? 
+    if (ctrl_pub_flag_ == 0b0011) {
         ctrl_publisher_->publish(ctrl_stat_);
         ctrl_pub_flag_ = 0;
     }
     
-    if (odrv_pub_flag_ == 0b111) {
-        odrv_publisher_->publish(odrv_stat_);
-        odrv_pub_flag_ = 0;
-    }
 }
 
-void ODriveCanNode::subscriber_callback(const ControlMessage::SharedPtr msg) {
+void YellowjacketCanNode::subscriber_callback(const ControlMessage::SharedPtr msg) {
     std::lock_guard<std::mutex> guard(ctrl_msg_mutex_);
     ctrl_msg_ = *msg;
     sub_evt_.set();
 }
 
-void ODriveCanNode::service_callback(const std::shared_ptr<AxisState::Request> request, std::shared_ptr<AxisState::Response> response) {
+void YellowjacketCanNode::service_callback(const std::shared_ptr<AxisState::Request> request, std::shared_ptr<AxisState::Response> response) {
     {
         std::unique_lock<std::mutex> guard(axis_state_mutex_);
         axis_state_ = request->axis_requested_state;
@@ -224,31 +185,12 @@ void ODriveCanNode::service_callback(const std::shared_ptr<AxisState::Request> r
     response->procedure_result = ctrl_stat_.procedure_result;
 }
 
-void ODriveCanNode::client_callback() {
-    // Only call it once to set Closed Loop Control
-    timer_->cancel();
-
-    if (!client_->wait_for_service(std::chrono::seconds(10))) {
-        RCLCPP_ERROR(this->get_logger(), "Service not available");
-        return;
-    }
-
-    auto request = std::make_shared<AxisState::Request>();
-    request->axis_requested_state = 8; // Closed loop control
-
-    client_->async_send_request(request, 
-        [this](rclcpp::Client<AxisState>::SharedFuture future) {
-            auto response = future.get();
-            RCLCPP_INFO(this->get_logger(), "Set Axis State to CLOSED_LOOP_CONTROL");
-        });
-}
-
-void ODriveCanNode::service_clear_errors_callback(const std::shared_ptr<Empty::Request> request, std::shared_ptr<Empty::Response> response) {
+void YellowjacketCanNode::service_clear_errors_callback(const std::shared_ptr<Empty::Request> request, std::shared_ptr<Empty::Response> response) {
     RCLCPP_INFO(rclcpp::Node::get_logger(), "clearing errors");
     srv_clear_errors_evt_.set();
 }
 
-void ODriveCanNode::request_state_callback() {
+void YellowjacketCanNode::request_state_callback() {
     uint32_t axis_state;
     {
         std::unique_lock<std::mutex> guard(axis_state_mutex_);
@@ -272,7 +214,7 @@ void ODriveCanNode::request_state_callback() {
     can_intf_.send_can_frame(frame);
 }
 
-void ODriveCanNode::request_clear_errors_callback() {
+void YellowjacketCanNode::request_clear_errors_callback() {
     struct can_frame frame;
     frame.can_id = node_id_ << 5 | CmdId::kClearErrors;
     write_le<uint8_t>(0, frame.data);
@@ -280,7 +222,7 @@ void ODriveCanNode::request_clear_errors_callback() {
     can_intf_.send_can_frame(frame);
 }
 
-void ODriveCanNode::ctrl_msg_callback() {
+void YellowjacketCanNode::ctrl_msg_callback() {
 
     uint32_t control_mode;
     struct can_frame frame;
@@ -289,7 +231,7 @@ void ODriveCanNode::ctrl_msg_callback() {
         std::lock_guard<std::mutex> guard(ctrl_msg_mutex_);
         write_le<uint32_t>(ctrl_msg_.control_mode, frame.data);
         write_le<uint32_t>(ctrl_msg_.input_mode,   frame.data + 4);
-        control_mode = ctrl_msg_.control_mode;
+        control_mode = ctrl_msg_.control_mode; 
     }
     frame.can_dlc = 8;
     can_intf_.send_can_frame(frame);
@@ -327,6 +269,23 @@ void ODriveCanNode::ctrl_msg_callback() {
             frame.can_dlc = 8;
             break;
         }    
+
+        // add kyellow jacket control 
+        case ControlMode::kYellowjacketControl: { 
+            RCLCPP_DEBUG(rclcpp::Node::get_logger(), "input_yellowjacket_vel");
+            frame.can_id = node_id_ << 5 | kSetInputVel; 
+            std::lock_guard<std::mutex> guard(ctrl_msg_mutex_); // ^ 0: duty cycle, 3: input velocity
+            // TODO the write_le
+            //            write_le<int8_t>(((int8_t)((ctrl_msg_.input_vel) * 1000)),    frame.data + 4);
+            // two motors 9 and 10 and can use broad cast 0x9 motor 0xA motor 2
+                
+            write_le<int32_t>(ctrl_msg_.input_vel, frame.data); 
+            write_le<int32_t>(ctrl_msg_.input_torque, frame.data + 4); 
+
+            frame.can_dlc = 8;
+            break;
+        }
+
         default: 
             RCLCPP_ERROR(rclcpp::Node::get_logger(), "unsupported control_mode: %d", control_mode);
             return;
@@ -335,7 +294,7 @@ void ODriveCanNode::ctrl_msg_callback() {
     can_intf_.send_can_frame(frame);
 }
 
-inline bool ODriveCanNode::verify_length(const std::string&name, uint8_t expected, uint8_t length) {
+inline bool YellowjacketCanNode::verify_length(const std::string&name, uint8_t expected, uint8_t length) {
     bool valid = expected == length;
     RCLCPP_DEBUG(rclcpp::Node::get_logger(), "received %s", name.c_str());
     if (!valid) RCLCPP_WARN(rclcpp::Node::get_logger(), "Incorrect %s frame length: %d != %d", name.c_str(), length, expected);
