@@ -26,6 +26,7 @@ class DriveNode(Node):
             
         msg = ControlMessage()
         msg.control_mode = 5
+        msg.input_mode = 1
         msg.input_vel = vel
         
         self.fl_pub.publish(msg)
