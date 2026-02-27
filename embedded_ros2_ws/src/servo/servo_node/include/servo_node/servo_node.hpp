@@ -28,12 +28,15 @@ private:
     
     // Node params
     uint8_t channel_id_;
-    bool use_hw_{true};
+    bool use_hw_;
     uint16_t initial_angle_deg_;
     uint16_t min_angle_deg_;
     uint16_t max_angle_deg_;
     uint16_t min_pwm_micro_s_;
     uint16_t max_pwm_micro_s_;
+
+    // Hardware I2C
+    int i2c_fd_;
 
     // Pseudo-velocity control
     rclcpp::TimerBase::SharedPtr velocity_command_timer_;

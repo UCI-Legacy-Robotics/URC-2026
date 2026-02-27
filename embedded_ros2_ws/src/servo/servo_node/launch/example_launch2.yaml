@@ -1,13 +1,13 @@
-# This launch file is for arm servos
+# This launch file is for science payload servos
 launch:
 
 - node:
     pkg: "servo"
     exec: "servo_node"
     name: "servo_node"
-    namespace: "wrist_roll"
+    namespace: "science_cache"
     param:
-    - {name: "channel_id", value: 0}
+    - {name: "channel_id", value: 2}
     - {name: "initial_angle_deg", value: 90}
     - {name: "min_angle_deg", value: 0}
     - {name: "max_angle_deg", value: 180}
@@ -19,9 +19,9 @@ launch:
     pkg: "servo"
     exec: "servo_node"
     name: "servo_node"
-    namespace: "arm_claw"
+    namespace: "science_scooper"
     param:
-    - {name: "channel_id", value: 1}
+    - {name: "channel_id", value: 3}
     - {name: "initial_angle_deg", value: 90}
     - {name: "min_angle_deg", value: 0}
     - {name: "max_angle_deg", value: 180}

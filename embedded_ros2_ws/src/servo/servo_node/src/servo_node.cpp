@@ -10,43 +10,42 @@
 #include <linux/i2c-dev.h>
 
 // ---------- PCA9685 minimal helper (file-local) ----------
-static int g_i2c_fd = -1;
 static constexpr uint8_t PCA9685_ADDR = 0x40;   // default address
 static constexpr uint8_t MODE1 = 0x00;
 static constexpr uint8_t MODE2 = 0x01;
 static constexpr uint8_t PRESCALE = 0xFE;
 static constexpr uint8_t LED0_ON_L = 0x06;
 
-static bool i2c_write8(uint8_t reg, uint8_t val) {
+static bool i2c_write8(int fd, uint8_t reg, uint8_t val) {
     uint8_t buf[2] = {reg, val};
-    return (::write(g_i2c_fd, buf, 2) == 2);
+    return (::write(fd, buf, 2) == 2);
 }
 
-static bool i2c_read8(uint8_t reg, uint8_t &val) {
-    if (::write(g_i2c_fd, &reg, 1) != 1) return false;
-    return (::read(g_i2c_fd, &val, 1) == 1);
+static bool i2c_read8(int fd, uint8_t reg, uint8_t &val) {
+    if (::write(fd, &reg, 1) != 1) return false;
+    return (::read(fd, &val, 1) == 1);
 }
 
 // Set PWM frequency (servo typical ~50Hz)
-static bool pca9685_set_freq_hz(float hz) {
+static bool pca9685_set_freq_hz(int fd, float hz) {
     constexpr float osc = 25000000.0f;
     float prescale_f = (osc / (4096.0f * hz)) - 1.0f;
     uint8_t prescale = (uint8_t)std::floor(prescale_f + 0.5f);
 
     uint8_t oldmode{};
-    if (!i2c_read8(MODE1, oldmode)) return false;
+    if (!i2c_read8(fd, MODE1, oldmode)) return false;
 
     // sleep
-    if (!i2c_write8(MODE1, (oldmode & 0x7F) | 0x10)) return false;
-    if (!i2c_write8(PRESCALE, prescale)) return false;
+    if (!i2c_write8(fd, MODE1, (oldmode & 0x7F) | 0x10)) return false;
+    if (!i2c_write8(fd,PRESCALE, prescale)) return false;
     // wake + auto-increment
-    if (!i2c_write8(MODE1, (oldmode & 0xEF) | 0x20)) return false;
+    if (!i2c_write8(fd, MODE1, (oldmode & 0xEF) | 0x20)) return false;
 
     ::usleep(5000);
     return true;
 }
 
-static bool pca9685_set_pulse_us(uint8_t channel, float pulse_us, float hz) {
+static bool pca9685_set_pulse_us(int fd, uint8_t channel, float pulse_us, float hz) {
     if (channel > 15) return false;
 
     float period_us = 1000000.0f / hz;
@@ -64,7 +63,7 @@ static bool pca9685_set_pulse_us(uint8_t channel, float pulse_us, float hz) {
         (uint8_t)((off >> 8) & 0x0F) // OFF_H
     };
 
-    return (::write(g_i2c_fd, buf, 5) == 5);
+    return (::write(fd, buf, 5) == 5);
 }
 
 enum CommandType : uint8_t {
@@ -72,7 +71,7 @@ enum CommandType : uint8_t {
     kPositionControl = 1
 };
 
-ServoNode::ServoNode(const std::string& node_name) : rclcpp::Node(node_name) {
+ServoNode::ServoNode(const std::string& node_name) : rclcpp::Node(node_name), i2c_fd_(-1) {
     
     rclcpp::Node::declare_parameter<uint8_t>("channel_id", 0);
     this->declare_parameter<bool>("use_hw", true);
@@ -89,9 +88,9 @@ ServoNode::ServoNode(const std::string& node_name) : rclcpp::Node(node_name) {
 void ServoNode::deinit() {
     // sub_evt_.deinit();
 
-    if (g_i2c_fd >= 0) {
-        ::close(g_i2c_fd);
-        g_i2c_fd = -1;
+    if (i2c_fd_ >= 0) {
+        ::close(i2c_fd_);
+        i2c_fd_ = -1;
     }
 }
 
@@ -121,32 +120,33 @@ bool ServoNode::init(/* EpollEventLoop* event_loop */) {
     RCLCPP_INFO(rclcpp::Node::get_logger(), "Servo min_pwm_micro_s: %d", min_pwm_micro_s_);
     RCLCPP_INFO(rclcpp::Node::get_logger(), "Servo max_pwm_micro_s: %d", max_pwm_micro_s_);
 
+    // To test w/o hardware, verifying node is working
     if (use_hw_) {
         // --- Open I2C and init PCA9685 ---
-        g_i2c_fd = ::open("/dev/i2c-1", O_RDWR);
-        if (g_i2c_fd < 0) {
+        i2c_fd_ = ::open("/dev/i2c-1", O_RDWR);
+        if (i2c_fd_ < 0) {
             RCLCPP_ERROR(this->get_logger(), "Failed to open /dev/i2c-1: %s", strerror(errno));
             return false;
         }
-        if (ioctl(g_i2c_fd, I2C_SLAVE, PCA9685_ADDR) < 0) {
+        if (ioctl(i2c_fd_, I2C_SLAVE, PCA9685_ADDR) < 0) {
             RCLCPP_ERROR(this->get_logger(), "Failed to set I2C addr 0x%02X: %s", PCA9685_ADDR, strerror(errno));
-            ::close(g_i2c_fd);
-            g_i2c_fd = -1;
+            ::close(i2c_fd_);
+            i2c_fd_ = -1;
             return false;
         }
 
-        (void)i2c_write8(MODE2, 0x04); // Totem pole (push-pull) output
+        (void)i2c_write8(i2c_fd_, MODE2, 0x04); // Totem pole (push-pull) output
 
-        if(!pca9685_set_freq_hz(50.0f)) {
+        if(!pca9685_set_freq_hz(i2c_fd_, 50.0f)) {
             RCLCPP_ERROR(this->get_logger(), "Failed to set PCA9685 frequency");
-            ::close(g_i2c_fd);
-            g_i2c_fd = -1;
+            ::close(i2c_fd_);
+            i2c_fd_ = -1;
             return false;
         }
 
         // Write initial position immediately
         float init_pwm = get_pwm_from_position(current_target_pos_deg_);
-        (void)pca9685_set_pulse_us(channel_id_, init_pwm, 50.0f);
+        (void)pca9685_set_pulse_us(i2c_fd_, channel_id_, init_pwm, 50.0f);
     } else {
         RCLCPP_WARN(this->get_logger(), "use_hw:=false -> DRY RUN (no I2C)");
         float init_pwm = get_pwm_from_position(current_target_pos_deg_);
@@ -198,7 +198,7 @@ void ServoNode::control_message_callback() {
             send_stepped_position_control_flag_ = true;
 
             if (use_hw_) {
-                (void)pca9685_set_pulse_us(channel_id_, pwm, 50.0f);
+                (void)pca9685_set_pulse_us(i2c_fd_, channel_id_, pwm, 50.0f);
             } else {
                 RCLCPP_INFO(this->get_logger(), "[DRY RUN] ch=%u pwm_us=%.1f", channel_id_, pwm);
             }
@@ -208,11 +208,19 @@ void ServoNode::control_message_callback() {
         case CommandType::kPositionControl: {
             RCLCPP_DEBUG(rclcpp::Node::get_logger(), "Servo position input: %.2f", locked_msg.input_pos_deg);
             
-            // Convert position to pwm
-            float pwm = get_pwm_from_position(locked_msg.input_pos_deg);
+            // clamp and save the target position so vel mode can continue from here
+            float target_pos = locked_msg.input_pos_deg;
+            if (target_pos < (float)min_angle_deg_) target_pos = (float)min_angle_deg_;
+            if (target_pos > (float)max_angle_deg_) target_pos = (float)max_angle_deg_;
+
+            current_target_pos_deg_ = target_pos;
+            current_target_vel_deg_ = 0.0f; // Stop velocity control if we were in that mode
+            send_stepped_position_control_flag_ = false; // No need to continously publish position in position control mode
+
+            float pwm = get_pwm_from_position(current_target_pos_deg_);
 
             if (use_hw_) {
-                (void)pca9685_set_pulse_us(channel_id_, pwm, 50.0f);
+                (void)pca9685_set_pulse_us(i2c_fd_, channel_id_, pwm, 50.0f);
             } else {
                 RCLCPP_INFO(this->get_logger(), "[DRY RUN] ch=%u pwm_us=%.1f", channel_id_, pwm);
             }
@@ -268,12 +276,26 @@ void ServoNode::start_velocity_output_timer() {
 
             current_target_pos_deg_ += current_target_vel_deg_ * elapsed_time_seconds;
 
+            // clamp and store so the internal state never deviates from valid range
+            if (current_target_pos_deg_ < (float)min_angle_deg_) {
+                current_target_pos_deg_ = (float)min_angle_deg_;
+                current_target_vel_deg_ = 0.0f; // Stop velocity control if we hit a limit
+            }
+
+            if (current_target_pos_deg_ > (float)max_angle_deg_) {
+                current_target_pos_deg_ = (float)max_angle_deg_;
+                current_target_vel_deg_ = 0.0f; // Stop velocity control if we hit a limit
+            }
+
             float pwm = get_pwm_from_position(current_target_pos_deg_);
 
             if (use_hw_) {
-                (void)pca9685_set_pulse_us(channel_id_, pwm, 50.0f);
+                (void)pca9685_set_pulse_us(i2c_fd_, channel_id_, pwm, 50.0f);
             } else {
-                RCLCPP_INFO(this->get_logger(), "[DRY RUN] ch=%u pwm_us=%.1f", channel_id_, pwm);
+                RCLCPP_INFO_THROTTLE(
+                    this->get_logger(), *this->get_clock(), 1000, 
+                    "[DRY RUN] ch=%u pwm_us=%.1f pos_deg=%.2f vel_deg_s=%.2f", 
+                    channel_id_, pwm, current_target_pos_deg_, current_target_vel_deg_);
             }
         }
     );
