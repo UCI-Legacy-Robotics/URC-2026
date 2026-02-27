@@ -8,7 +8,7 @@ launch:
     param:
     -
       name: "node_id"
-      value: 4
+      value: 6
     -
       name: "interface"
       value: "can0"
@@ -21,7 +21,7 @@ launch:
     param:
     -
       name: "node_id"
-      value: 5
+      value: 7
     -
       name: "interface"
       value: "can0"
@@ -34,7 +34,7 @@ launch:
     param:
     -
       name: "node_id"
-      value: 6
+      value: 8
     -
       name: "interface"
       value: "can0"
@@ -47,7 +47,7 @@ launch:
     param:
     -
       name: "node_id"
-      value: 7
+      value: 9
     -
       name: "interface"
       value: "can0"
@@ -60,7 +60,7 @@ launch:
     param:
     -
       name: "node_id"
-      value: 8
+      value: 4
     -
       name: "interface"
       value: "can0"
@@ -73,7 +73,13 @@ launch:
     param:
     -
       name: "node_id"
-      value: 9
+      value: 5
     -
       name: "interface"
       value: "can0"
+
+- node:
+    pkg: "drive_manager"
+    exec: "drive_manager_node"
+    name: "drive_node"
+    namespace: "drive_manager"
