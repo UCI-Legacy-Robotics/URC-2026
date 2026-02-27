@@ -19,16 +19,23 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 )
 ament_export_dependencies(rosidl_default_runtime)
 
-add_executable(drive_teleop src/drive_teleop_node.cpp)
-ament_target_dependencies(drive_teleop
+add_executable(drive_teleop_node src/drive_teleop_node.cpp)
+ament_target_dependencies(drive_teleop_node
   rclcpp
   sensor_msgs
   std_msgs
 )
 
 install(TARGETS
-  drive_teleop
-  DESTINATION lib/${PROJECT_NAME}
+  ${PROJECT_NAME}_node
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION lib
+)
+
+target_include_directories(drive_teleop_node PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
 )
 
 rosidl_get_typesupport_target(cpp_typesupport_target
