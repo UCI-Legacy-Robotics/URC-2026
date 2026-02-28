@@ -35,8 +35,8 @@ class SerialPublisher(Node):
                 if data.get('type') == 'drive_cmd':
                     drive_input = data.get('data', 0).split(" ") # drive cmd data in format of "left_pwm right_pwm"
                     msg = DriveControlMessage()
-                    msg.left_pwm_value = int(drive_input[0])
-                    msg.right_pwm_value = int(drive_input[1])
+                    msg.left_input_pwm = int(drive_input[0])
+                    msg.right_input_pwm = int(drive_input[1])
                     # send mssage to yellowjackets
                     self.pub.publish(msg)
                     #print out message
