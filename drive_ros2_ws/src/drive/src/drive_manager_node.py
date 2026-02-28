@@ -9,15 +9,15 @@ class DriveNode(Node):
         super().__init__('drive_manager_node')
         self.get_logger().info(f"Started drive manager node")
         # Init yellowjacket control stuff
-        self.fl_pub = self.create_publisher(ControlMessage, 'drive_fl/control_message', 10)
-        self.fr_pub = self.create_publisher(ControlMessage, 'drive_fr/control_message', 10)
-        self.ml_pub = self.create_publisher(ControlMessage, 'drive_ml/control_message', 10)
-        self.mr_pub = self.create_publisher(ControlMessage, 'drive_mr/control_message', 10)
-        self.bl_pub = self.create_publisher(ControlMessage, 'drive_bl/control_message', 10)
-        self.br_pub = self.create_publisher(ControlMessage, 'drive_br/control_message', 10)
+        self.fl_pub = self.create_publisher(ControlMessage, '/drive_fl/control_message', 10)
+        self.fr_pub = self.create_publisher(ControlMessage, '/drive_fr/control_message', 10)
+        self.ml_pub = self.create_publisher(ControlMessage, '/drive_ml/control_message', 10)
+        self.mr_pub = self.create_publisher(ControlMessage, '/drive_mr/control_message', 10)
+        self.bl_pub = self.create_publisher(ControlMessage, '/drive_bl/control_message', 10)
+        self.br_pub = self.create_publisher(ControlMessage, '/drive_br/control_message', 10)
         
         # For other stuff like base station to control
-        self.drive_sub = self.create_subscription(DriveControlMessage, "drive_teleop_node/command", self.subscriber_callback, 10)
+        self.drive_sub = self.create_subscription(DriveControlMessage, "/drive_manager/drive_teleop_node/command", self.subscriber_callback, 10)
         
     def subscriber_callback(self, msg):
         new_msg = ControlMessage()

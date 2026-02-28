@@ -9,7 +9,7 @@ class SerialPublisher(Node):
         super().__init__('serial_publisher')
         
         self.declare_parameter('serial_port', '/dev/ttyUSB0')
-        self.declare_parameter('topic', 'drive_teleop_node/command')
+        self.declare_parameter('topic', '/drive_manager/drive_teleop_node/command')
         self.declare_parameter('baud_rate', 57600)
         
         port = self.get_parameter('serial_port').get_parameter_value().string_value
@@ -40,7 +40,7 @@ class SerialPublisher(Node):
                     # send mssage to yellowjackets
                     self.pub.publish(msg)
                     #print out message
-                    self.get_logger().info(f"Published: {msg.data}")
+                    self.get_logger().info(f"Published: {msg}")
             except Exception as e:
                 self.get_logger().warn(f"Failed to parse serial: {line} | {e}")
 

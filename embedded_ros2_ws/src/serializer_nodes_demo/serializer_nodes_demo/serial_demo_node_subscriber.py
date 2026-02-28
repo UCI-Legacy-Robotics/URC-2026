@@ -9,7 +9,7 @@ class SerialSubscriber(Node):
     def __init__(self):
         super().__init__('serial_subscriber')
         self.declare_parameter('serial_port', '/dev/ttyUSB0')
-        self.declare_parameter('topic', 'drive_teleop_node/command')
+        self.declare_parameter('topic', '/drive_manager/drive_teleop_node/command')
         self.declare_parameter('baud_rate', 57600)
         
         port = self.get_parameter('serial_port').get_parameter_value().string_value

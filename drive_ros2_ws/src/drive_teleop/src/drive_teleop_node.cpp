@@ -70,7 +70,7 @@ void DriveTeleopNode::joy_callback(const sensor_msgs::msg::Joy::SharedPtr msg)
 {
   // Get max velocities to cap outputs at
   // int max_pwm = this->get_parameter("max_pwm").as_int();
-  double max_pwm = 8000.0;
+  double max_pwm = 32000.0;
 
   // Make output message
   auto drive_msg = std::make_unique<drive_teleop::msg::DriveControlMessage>();
