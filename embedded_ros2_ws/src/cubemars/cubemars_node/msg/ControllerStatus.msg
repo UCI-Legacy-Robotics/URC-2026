@@ -1,5 +1,5 @@
 float32 pos_estimate_deg
-float32 vel_estimate_rpm
+float32 vel_estimate_deg_per_s
 float32 motor_current_amps
 int8 motor_temperature_c
 uint8 active_errors

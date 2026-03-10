@@ -59,7 +59,8 @@ void CubemarsCanNode::recv_callback(const can_frame& frame) {
             if (!verify_length("kControllerData", 8, frame.can_dlc)) break;
             std::lock_guard<std::mutex> guard(ctrl_stat_mutex_);
             ctrl_stat_.pos_estimate_deg     = static_cast<float>(static_cast<int16_t>(uint16_t(frame.data[0]) << 8 | uint16_t(frame.data[1]))) / 10;
-            ctrl_stat_.vel_estimate_rpm     = static_cast<float>(static_cast<int16_t>(uint16_t(frame.data[2]) << 8 | uint16_t(frame.data[3]))) * 10 / pole_pairs;
+            // Vel natively returned in erpm so convert to deg per sec
+            ctrl_stat_.vel_estimate_deg_per_s     = static_cast<float>(static_cast<int16_t>(uint16_t(frame.data[2]) << 8 | uint16_t(frame.data[3]))) * 10 / pole_pairs * 6.0;
             ctrl_stat_.motor_current_amps   = static_cast<float>(static_cast<int16_t>(uint16_t(frame.data[4]) << 8 | uint16_t(frame.data[5]))) / 100;
             ctrl_stat_.motor_temperature_c  = static_cast<int8_t>(frame.data[6]);
             ctrl_stat_.active_errors        = static_cast<uint8_t>(frame.data[7]);
@@ -107,7 +108,8 @@ void CubemarsCanNode::ctrl_msg_callback() {
             RCLCPP_DEBUG(rclcpp::Node::get_logger(), "input_vel");
             // Upper bytes are control message, lower byte is node id, MSB is extended frame flag
             frame.can_id = node_id_ | kSetVelocityControl << 8 | CAN_EFF_FLAG;
-            int32_t conv_vel_erpm = static_cast<int32_t>(locked_msg.input_vel_rpm * pole_pairs);
+            // Vel natively returned in erpm so convert from deg per sec
+            int32_t conv_vel_erpm = static_cast<int32_t>(locked_msg.input_vel_deg_per_s / 6.0 * pole_pairs);
             uint32_t u = static_cast<uint32_t>(conv_vel_erpm); // Convert to unsigned to ensure bit shift doesn't mess up from arithmetic vs logical shift
             frame.data[0] = (u >> 24) & 0xFF;
             frame.data[1] = (u >> 16) & 0xFF;
@@ -147,13 +149,15 @@ void CubemarsCanNode::ctrl_msg_callback() {
             frame.data[3] = u_p & 0xFF;
             
             // Velocity
-            int16_t conv_vel_motor = static_cast<int16_t>(locked_msg.set_vel_limit_rpm * pole_pairs / 10);
+            // Vel natively returned in erpm so convert from deg per sec
+            int16_t conv_vel_motor = static_cast<int16_t>(locked_msg.set_vel_limit_deg_per_s / 6.0 * pole_pairs / 10);
             uint16_t u_v = static_cast<uint16_t>(conv_vel_motor);
             frame.data[4] = (u_v >> 8) & 0xFF;
             frame.data[5] = u_v & 0xFF;
 
             // Acceleration
-            int16_t conv_accel_motor = static_cast<int16_t>(locked_msg.set_accel_limit_rpm_s * pole_pairs / 10);
+            // Accel natively returned in ERPM/s so convert from deg per sec^2
+            int16_t conv_accel_motor = static_cast<int16_t>(locked_msg.set_accel_limit_deg_per_s_squared * 6.0 * pole_pairs / 10);
             uint16_t u_a = static_cast<uint16_t>(conv_accel_motor);
             frame.data[6] = (u_a >> 8) & 0xFF;
             frame.data[7] = u_a & 0xFF;
