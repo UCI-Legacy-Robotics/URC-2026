@@ -8,6 +8,7 @@ namespace arm_hardware_interface
 
 constexpr double COMMAND_PUBLISH_RATE_HZ = 100.0;
 constexpr double TELEMETRY_PUBLISH_RATE_HZ = 20.0;
+constexpr double PI = 3.1415926535897932385;
 
 // Define gear ratios
 constexpr double BASE_GEAR_RATIO = 4.0; // 4:1 gearbox
@@ -211,7 +212,7 @@ ArmSystemWithODriveAndCubeMars::on_activate(const rclcpp_lifecycle::State& /*pre
   // Command and state should be equal when starting
   for (size_t i = 0; i < hw_velocities_.size(); i++)
   {
-    hw_commands_[i] = hw_velocities_[i];
+    hw_commands_[i] = hw_velocities_[i]; // Both in radians so don't convert
     hw_unused_position_commands_[i] = hw_positions_[i];
   }
 
@@ -246,11 +247,12 @@ hardware_interface::return_type ArmSystemWithODriveAndCubeMars::read(
 
     // Only update if the feedback is a valid number (not NaN)
     // Note that gear ratios are divided since encoders report before gearing
+    // Motor nodes report degrees, convert to radians for MoveIt
     if (!std::isnan(shared_data_->position_feedback[i])) {
-      hw_positions_[i] = shared_data_->position_feedback[i] / hw_gear_ratios_[i];
+      hw_positions_[i] = degrees_to_radians(shared_data_->position_feedback[i] / hw_gear_ratios_[i]);
     }
     if (!std::isnan(shared_data_->velocity_feedback[i])) {
-      hw_velocities_[i] = shared_data_->velocity_feedback[i] / hw_gear_ratios_[i];
+      hw_velocities_[i] = degrees_to_radians(shared_data_->velocity_feedback[i] / hw_gear_ratios_[i]);
     }
   }
 
@@ -271,12 +273,21 @@ hardware_interface::return_type ArmSystemWithODriveAndCubeMars::write(
     // Copy commands from hw_commands_ into command_buffer_ to send to hardware nodes
     // Note this is NOT publishing as we need to be fast and non-blocking; this happens in driver node
     // Multiplied by gear ratio since encoder reports before gearing
-    shared_data_->commands[i] = hw_commands_[i] * hw_gear_ratios_[i];
+    // Convert to degrees before sending to motors, since our ROS topics expect degrees but MoveIt uses radians
+    shared_data_->commands[i] = radians_to_degrees(hw_commands_[i] * hw_gear_ratios_[i]);
 
     //TODO this is where we would implement position control if used
   }
 
   return hardware_interface::return_type::OK;
+}
+
+double ArmSystemWithODriveAndCubeMars::degrees_to_radians(double degrees) {
+  return degrees * PI / 180.0;
+}
+
+double ArmSystemWithODriveAndCubeMars::radians_to_degrees(double radians) {
+  return radians * 180.0 / PI;
 }
 
 } // namespace arm_hardware_interface

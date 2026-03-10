@@ -56,6 +56,10 @@ public:
   hardware_interface::return_type write(
     const rclcpp::Time& time, const rclcpp::Duration& period) override;
 
+  double degrees_to_radians(double degrees);
+
+  double radians_to_degrees(double radians);
+
 private:
   // Shared data interface with arm_driver_node
   std::shared_ptr<ArmSharedData> shared_data_;
