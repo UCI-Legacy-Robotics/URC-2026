@@ -64,7 +64,7 @@ ODriveCanNode::ODriveCanNode(const std::string& node_name) : rclcpp::Node(node_n
 
 void ODriveCanNode::deinit() {
     if (axis_idle_on_shutdown_) {
-        struct can_frame frame;
+        struct can_frame frame = {};
         frame.can_id = node_id_ << 5 | CmdId::kSetAxisState;
         write_le<uint32_t>(ODriveAxisState::AXIS_STATE_IDLE, frame.data);
         frame.can_dlc = 4;
@@ -130,8 +130,8 @@ void ODriveCanNode::recv_callback(const can_frame& frame) {
         case CmdId::kGetEncoderEstimates: {
             if (!verify_length("kGetEncoderEstimates", 8, frame.can_dlc)) break;
             std::lock_guard<std::mutex> guard(ctrl_stat_mutex_);
-            ctrl_stat_.pos_estimate = read_le<float>(frame.data + 0);
-            ctrl_stat_.vel_estimate = read_le<float>(frame.data + 4);
+            ctrl_stat_.pos_estimate_deg = read_le<float>(frame.data + 0) * 360.0;
+            ctrl_stat_.vel_estimate_deg_per_s = read_le<float>(frame.data + 4) * 360.0;
             ctrl_pub_flag_ |= 0b0010;
             break;
         }
@@ -243,7 +243,7 @@ void ODriveCanNode::client_callback() {
         });
 }
 
-void ODriveCanNode::service_clear_errors_callback(const std::shared_ptr<Empty::Request> request, std::shared_ptr<Empty::Response> response) {
+void ODriveCanNode::service_clear_errors_callback(const std::shared_ptr<Empty::Request> /*request*/, std::shared_ptr<Empty::Response> /*response*/) {
     RCLCPP_INFO(rclcpp::Node::get_logger(), "clearing errors");
     srv_clear_errors_evt_.set();
 }
@@ -273,7 +273,7 @@ void ODriveCanNode::request_state_callback() {
 }
 
 void ODriveCanNode::request_clear_errors_callback() {
-    struct can_frame frame;
+    struct can_frame frame = {};
     frame.can_id = node_id_ << 5 | CmdId::kClearErrors;
     write_le<uint8_t>(0, frame.data);
     frame.can_dlc = 1;
@@ -312,7 +312,7 @@ void ODriveCanNode::ctrl_msg_callback() {
             RCLCPP_DEBUG(rclcpp::Node::get_logger(), "input_vel");
             frame.can_id = node_id_ << 5 | kSetInputVel;
             std::lock_guard<std::mutex> guard(ctrl_msg_mutex_);
-            write_le<float>(ctrl_msg_.input_vel,       frame.data);
+            write_le<float>(ctrl_msg_.input_vel_deg_per_s / 360.0, frame.data);
             write_le<float>(ctrl_msg_.input_torque, frame.data + 4);
             frame.can_dlc = 8;
             break;
@@ -321,8 +321,8 @@ void ODriveCanNode::ctrl_msg_callback() {
             RCLCPP_DEBUG(rclcpp::Node::get_logger(), "input_pos");
             frame.can_id = node_id_ << 5 | kSetInputPos;
             std::lock_guard<std::mutex> guard(ctrl_msg_mutex_);
-            write_le<float>(ctrl_msg_.input_pos,  frame.data);
-            write_le<int8_t>(((int8_t)((ctrl_msg_.input_vel) * 1000)),    frame.data + 4);
+            write_le<float>(ctrl_msg_.input_pos_deg / 360.0,  frame.data);
+            write_le<int8_t>(((int8_t)((ctrl_msg_.input_vel_deg_per_s / 360.0) * 1000)), frame.data + 4);
             write_le<int8_t>(((int8_t)((ctrl_msg_.input_torque) * 1000)), frame.data + 6);
             frame.can_dlc = 8;
             break;
