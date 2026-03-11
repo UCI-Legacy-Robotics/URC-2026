@@ -20,12 +20,6 @@ class DriveNode(Node):
         self.drive_sub = self.create_subscription(DriveControlMessage, "/drive_manager/drive_teleop_node/command", self.subscriber_callback, 10)
         
     def subscriber_callback(self, msg):
-        # Show diff of timestamps from radio to drive manager
-        current_time = self.get_clock().now()
-        input_time = msg.header.stamp
-        diff = current_time - input_time
-        self.get_logger.info(f"Time delay (s) from rover to drive manager: {diff}")
-        
         new_msg = ControlMessage()
         new_msg.control_mode = 5
         new_msg.input_mode = 1 # Duty cycle control, change to 0 for velocity control
