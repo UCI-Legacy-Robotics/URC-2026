@@ -37,14 +37,6 @@ class SerialPublisher(Node):
                     msg = DriveControlMessage()
                     msg.left_input_pwm = int(drive_input[0])
                     msg.right_input_pwm = int(drive_input[1])
-                    
-                    # Print out difference in timestamps and pass on current time
-                    input_timestamp = drive_input[2]
-                    current_time = self.get_clock().now()
-                    msg.header.stamp = current_time
-                    diff = current_time - input_timestamp
-                    self.get_logger.info(f"Time delay (s) from base station to rover: {diff}")
-                    
                     # send mssage to yellowjackets
                     self.pub.publish(msg)
                     #print out message

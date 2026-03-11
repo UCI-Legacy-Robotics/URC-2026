@@ -20,13 +20,7 @@ class SerialSubscriber(Node):
         self.create_subscription(DriveControlMessage, topic, self.send_serial, 10)
 
     def send_serial(self, msg: DriveControlMessage):
-        # Print out difference in timestamps and pass on current time
-        input_timestamp = msg.header.stamp
-        current_time = self.get_clock().now()
-        diff = current_time - input_timestamp
-        self.get_logger.info(f"Time delay (s) from drive_teleop_node to base radio: {diff}")
-        
-        message = f"{msg.left_input_pwm} {msg.right_input_pwm} {current_time}"
+        message = f"{msg.left_input_pwm} {msg.right_input_pwm}"
         line = json.dumps({'type': 'drive_cmd', 'data': message}) + '\n'
         self.ser.write(line.encode())
         self.get_logger().info(f"Sent: {message}")
