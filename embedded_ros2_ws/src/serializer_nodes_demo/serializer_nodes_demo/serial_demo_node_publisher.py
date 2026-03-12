@@ -18,7 +18,7 @@ class SerialPublisher(Node):
 
         self.ser = serial.Serial(port, baud, timeout=0.1)
         self.pub = self.create_publisher(DriveControlMessage, topic, 10)
-        self.create_timer(0.05, self.read_serial)
+        self.create_timer(0.01, self.read_serial)
 
     def read_serial(self):
         #ser in waiting is the bytes in the serial buffer 
