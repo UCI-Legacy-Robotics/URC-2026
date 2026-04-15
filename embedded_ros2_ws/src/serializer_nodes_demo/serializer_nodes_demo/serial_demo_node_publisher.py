@@ -11,14 +11,16 @@ class SerialPublisher(Node):
         self.declare_parameter('serial_port', '/dev/ttyUSB0')
         self.declare_parameter('topic', '/drive_manager/drive_teleop_node/command')
         self.declare_parameter('baud_rate', 57600)
+        self.declare_parameter('update_rate_hz', 50)
         
         port = self.get_parameter('serial_port').get_parameter_value().string_value
         topic = self.get_parameter('topic').get_parameter_value().string_value
         baud = self.get_parameter('baud_rate').get_parameter_value().integer_value
+        update_rate = self.get_parameter('update_rate').get_parameter_value().integer_value
 
         self.ser = serial.Serial(port, baud, timeout=0.1)
         self.pub = self.create_publisher(DriveControlMessage, topic, 10)
-        self.create_timer(0.01, self.read_serial)
+        self.create_timer(1/update_rate, self.read_serial) # Run really fast at 200 Hz for continuous updates
 
     def read_serial(self):
         #ser in waiting is the bytes in the serial buffer 
