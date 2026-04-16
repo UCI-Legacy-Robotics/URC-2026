@@ -16,7 +16,7 @@ class SerialPublisher(Node):
         port = self.get_parameter('serial_port').get_parameter_value().string_value
         topic = self.get_parameter('topic').get_parameter_value().string_value
         baud = self.get_parameter('baud_rate').get_parameter_value().integer_value
-        update_rate = self.get_parameter('update_rate').get_parameter_value().integer_value
+        update_rate = self.get_parameter('update_rate_hz').get_parameter_value().integer_value
 
         self.ser = serial.Serial(port, baud, timeout=0.1)
         self.pub = self.create_publisher(DriveControlMessage, topic, 10)
