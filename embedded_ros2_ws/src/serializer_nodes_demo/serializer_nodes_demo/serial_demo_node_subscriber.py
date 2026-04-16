@@ -25,8 +25,7 @@ class SerialSubscriber(Node):
         self.create_timer(1/update_rate, self.send_callback) # Send messages over radio at 50 Hz
         
     def sub_callback(self, msg: DriveControlMessage):
-        if self.latest_msg is not None:
-            self.latest_msg = msg
+        self.latest_msg = msg
         
     def send_callback(self):
         if self.latest_msg is not None:
