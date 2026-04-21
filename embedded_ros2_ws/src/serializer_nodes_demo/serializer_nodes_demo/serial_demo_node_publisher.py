@@ -42,7 +42,7 @@ class SerialPublisher(Node):
                     # send mssage to yellowjackets
                     self.pub.publish(msg)
                     #print out message
-                    self.get_logger().info(f"Published: {msg}")
+                    self.get_logger().info(f"Received: {drive_input}")
             except Exception as e:
                 self.get_logger().warn(f"Failed to parse serial: {line} | {e}")
 

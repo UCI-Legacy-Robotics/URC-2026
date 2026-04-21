@@ -24,12 +24,16 @@ class SerialSubscriber(Node):
         self.create_subscription(DriveControlMessage, topic, self.sub_callback, 10)
         self.create_timer(1/update_rate, self.send_callback) # Send messages over radio at 50 Hz
         
+        self.more_data = []
+        for i in range(10000):
+            self.more_data.append(i)
+        
     def sub_callback(self, msg: DriveControlMessage):
         self.latest_msg = msg
         
     def send_callback(self):
         if self.latest_msg is not None:
-            message = f"{self.latest_msg.left_input_pwm} {self.latest_msg.right_input_pwm}"
+            message = f"{self.latest_msg.left_input_pwm} {self.latest_msg.right_input_pwm} {self.more_data}"
             line = json.dumps({'type': 'drive_cmd', 'data': message}) + '\n'
             self.ser.write(line.encode())
             self.get_logger().info(f"Sent: {message}")
