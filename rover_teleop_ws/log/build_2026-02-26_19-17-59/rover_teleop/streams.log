@@ -1,0 +1,33 @@
+[0.650s] Invoking command in '/home/lenat/URC-2026/rover_teleop_ws/src/rover_teleop': PYTHONPATH=/home/lenat/URC-2026/rover_teleop_ws/build/rover_teleop/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/lenat/URC-2026/rover_teleop_ws/install/rover_teleop/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/rover_teleop build --build-base /home/lenat/URC-2026/rover_teleop_ws/build/rover_teleop/build install --record /home/lenat/URC-2026/rover_teleop_ws/build/rover_teleop/install.log --single-version-externally-managed install_data
+[0.862s] running egg_info
+[0.862s] creating ../../build/rover_teleop/rover_teleop.egg-info
+[0.862s] writing ../../build/rover_teleop/rover_teleop.egg-info/PKG-INFO
+[0.863s] writing dependency_links to ../../build/rover_teleop/rover_teleop.egg-info/dependency_links.txt
+[0.863s] writing entry points to ../../build/rover_teleop/rover_teleop.egg-info/entry_points.txt
+[0.863s] writing requirements to ../../build/rover_teleop/rover_teleop.egg-info/requires.txt
+[0.863s] writing top-level names to ../../build/rover_teleop/rover_teleop.egg-info/top_level.txt
+[0.863s] writing manifest file '../../build/rover_teleop/rover_teleop.egg-info/SOURCES.txt'
+[0.864s] reading manifest file '../../build/rover_teleop/rover_teleop.egg-info/SOURCES.txt'
+[0.864s] writing manifest file '../../build/rover_teleop/rover_teleop.egg-info/SOURCES.txt'
+[0.865s] running build
+[0.865s] running build_py
+[0.865s] creating /home/lenat/URC-2026/rover_teleop_ws/build/rover_teleop/build
+[0.865s] creating /home/lenat/URC-2026/rover_teleop_ws/build/rover_teleop/build/lib
+[0.866s] creating /home/lenat/URC-2026/rover_teleop_ws/build/rover_teleop/build/lib/rover_teleop
+[0.866s] copying rover_teleop/__init__.py -> /home/lenat/URC-2026/rover_teleop_ws/build/rover_teleop/build/lib/rover_teleop
+[0.866s] running install
+[0.866s] running install_lib
+[0.867s] creating /home/lenat/URC-2026/rover_teleop_ws/install/rover_teleop/lib/python3.10/site-packages/rover_teleop
+[0.867s] copying /home/lenat/URC-2026/rover_teleop_ws/build/rover_teleop/build/lib/rover_teleop/__init__.py -> /home/lenat/URC-2026/rover_teleop_ws/install/rover_teleop/lib/python3.10/site-packages/rover_teleop
+[0.868s] byte-compiling /home/lenat/URC-2026/rover_teleop_ws/install/rover_teleop/lib/python3.10/site-packages/rover_teleop/__init__.py to __init__.cpython-310.pyc
+[0.868s] running install_data
+[0.868s] creating /home/lenat/URC-2026/rover_teleop_ws/install/rover_teleop/share/ament_index
+[0.868s] creating /home/lenat/URC-2026/rover_teleop_ws/install/rover_teleop/share/ament_index/resource_index
+[0.868s] creating /home/lenat/URC-2026/rover_teleop_ws/install/rover_teleop/share/ament_index/resource_index/packages
+[0.869s] copying resource/rover_teleop -> /home/lenat/URC-2026/rover_teleop_ws/install/rover_teleop/share/ament_index/resource_index/packages
+[0.869s] copying package.xml -> /home/lenat/URC-2026/rover_teleop_ws/install/rover_teleop/share/rover_teleop
+[0.869s] running install_egg_info
+[0.870s] Copying ../../build/rover_teleop/rover_teleop.egg-info to /home/lenat/URC-2026/rover_teleop_ws/install/rover_teleop/lib/python3.10/site-packages/rover_teleop-0.0.0-py3.10.egg-info
+[0.871s] running install_scripts
+[0.885s] writing list of installed files to '/home/lenat/URC-2026/rover_teleop_ws/build/rover_teleop/install.log'
+[0.902s] Invoked command in '/home/lenat/URC-2026/rover_teleop_ws/src/rover_teleop' returned '0': PYTHONPATH=/home/lenat/URC-2026/rover_teleop_ws/build/rover_teleop/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/lenat/URC-2026/rover_teleop_ws/install/rover_teleop/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/rover_teleop build --build-base /home/lenat/URC-2026/rover_teleop_ws/build/rover_teleop/build install --record /home/lenat/URC-2026/rover_teleop_ws/build/rover_teleop/install.log --single-version-externally-managed install_data

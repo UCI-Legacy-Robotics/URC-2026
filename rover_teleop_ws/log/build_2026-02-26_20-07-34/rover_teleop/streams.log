@@ -1,0 +1,24 @@
+[0.523s] Invoking command in '/home/lenat/URC-2026/rover_teleop_ws/src/rover_teleop': PYTHONPATH=/home/lenat/URC-2026/rover_teleop_ws/build/rover_teleop/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/lenat/URC-2026/rover_teleop_ws/install/rover_teleop/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/rover_teleop build --build-base /home/lenat/URC-2026/rover_teleop_ws/build/rover_teleop/build install --record /home/lenat/URC-2026/rover_teleop_ws/build/rover_teleop/install.log --single-version-externally-managed install_data
+[0.700s] running egg_info
+[0.700s] writing ../../build/rover_teleop/rover_teleop.egg-info/PKG-INFO
+[0.701s] writing dependency_links to ../../build/rover_teleop/rover_teleop.egg-info/dependency_links.txt
+[0.701s] writing entry points to ../../build/rover_teleop/rover_teleop.egg-info/entry_points.txt
+[0.701s] writing requirements to ../../build/rover_teleop/rover_teleop.egg-info/requires.txt
+[0.701s] writing top-level names to ../../build/rover_teleop/rover_teleop.egg-info/top_level.txt
+[0.702s] reading manifest file '../../build/rover_teleop/rover_teleop.egg-info/SOURCES.txt'
+[0.703s] writing manifest file '../../build/rover_teleop/rover_teleop.egg-info/SOURCES.txt'
+[0.703s] running build
+[0.703s] running build_py
+[0.703s] copying rover_teleop/velocity_publisher_node.py -> /home/lenat/URC-2026/rover_teleop_ws/build/rover_teleop/build/lib/rover_teleop
+[0.704s] running install
+[0.704s] running install_lib
+[0.705s] copying /home/lenat/URC-2026/rover_teleop_ws/build/rover_teleop/build/lib/rover_teleop/velocity_publisher_node.py -> /home/lenat/URC-2026/rover_teleop_ws/install/rover_teleop/lib/python3.10/site-packages/rover_teleop
+[0.706s] byte-compiling /home/lenat/URC-2026/rover_teleop_ws/install/rover_teleop/lib/python3.10/site-packages/rover_teleop/velocity_publisher_node.py to velocity_publisher_node.cpython-310.pyc
+[0.706s] running install_data
+[0.707s] running install_egg_info
+[0.708s] removing '/home/lenat/URC-2026/rover_teleop_ws/install/rover_teleop/lib/python3.10/site-packages/rover_teleop-0.0.0-py3.10.egg-info' (and everything under it)
+[0.709s] Copying ../../build/rover_teleop/rover_teleop.egg-info to /home/lenat/URC-2026/rover_teleop_ws/install/rover_teleop/lib/python3.10/site-packages/rover_teleop-0.0.0-py3.10.egg-info
+[0.710s] running install_scripts
+[0.724s] Installing velocity_node script to /home/lenat/URC-2026/rover_teleop_ws/install/rover_teleop/lib/rover_teleop
+[0.724s] writing list of installed files to '/home/lenat/URC-2026/rover_teleop_ws/build/rover_teleop/install.log'
+[0.742s] Invoked command in '/home/lenat/URC-2026/rover_teleop_ws/src/rover_teleop' returned '0': PYTHONPATH=/home/lenat/URC-2026/rover_teleop_ws/build/rover_teleop/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/lenat/URC-2026/rover_teleop_ws/install/rover_teleop/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/rover_teleop build --build-base /home/lenat/URC-2026/rover_teleop_ws/build/rover_teleop/build install --record /home/lenat/URC-2026/rover_teleop_ws/build/rover_teleop/install.log --single-version-externally-managed install_data
