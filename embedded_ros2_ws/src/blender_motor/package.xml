@@ -8,7 +8,7 @@
   <license>TODO: License declaration</license>
 
   <depend>rclpy</depend>
-  <depend>std_srvs</depend>
+  <depend>std_msgs</depend>
 
   <exec_depend>python3-gpiozero</exec_depend>
 
