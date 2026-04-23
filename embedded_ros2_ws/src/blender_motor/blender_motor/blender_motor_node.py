@@ -41,6 +41,7 @@ class BlenderMotorNode(Node):
         try:
             self.pwm = PWMOutputDevice(
                 self.gpio_pin, 
+                active_high=False, # active low for motor control
                 initial_value=0.0, # motor is off at startup
                 frequency=self.pwm_frequency
             )
