@@ -11,8 +11,8 @@ def generate_launch_description():
            output='screen',
            parameters=[
                {'gpio_pin': 12},
+               {'pwm_frequency': 100},
                {'duty_cycle': 0.5},
-               {'enable_on_start': False},
            ],
        ),
    ])
