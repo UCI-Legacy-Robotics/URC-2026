@@ -63,8 +63,11 @@ bool ServoNode::init(/* EpollEventLoop* event_loop */) {
 }
 
 void ServoNode::subscriber_callback(const ControlMessage::SharedPtr msg) {
-    std::lock_guard<std::mutex> guard(control_message_mutex_);
-    control_message_ = *msg;
+    {
+        std::lock_guard<std::mutex> guard(control_message_mutex_);
+        control_message_ = *msg;
+    }
+    control_message_callback();
     // sub_evt_.set();
 }
 
@@ -94,9 +97,10 @@ void ServoNode::control_message_callback() {
             
             // Enable repeated position streaming when in velocity mode
             send_stepped_position_control_flag_ = true;
-
+            
             //TODO copy target pwm into an output message to the driver
-
+            RCLCPP_INFO(this->get_logger(), "Velocity control mode: target_vel_deg=%.2f, current_target_pos_deg=%.2f, pwm=%.2f", 
+                        current_target_vel_deg_, current_target_pos_deg_, pwm);
             break;
         }
         case CommandType::kPositionControl: {
@@ -106,7 +110,8 @@ void ServoNode::control_message_callback() {
             float pwm = get_pwm_from_position(locked_msg.input_pos_deg);
 
             //TODO copy this target pwm into an output message to the driver
-
+            RCLCPP_INFO(this->get_logger(), "Position control mode: input_pos_deg=%.2f, pwm=%.2f", 
+                        locked_msg.input_pos_deg, pwm);
             break;
         }
         default: 
@@ -137,7 +142,7 @@ float ServoNode::get_pwm_from_position(float input_pos_deg) {
 
 void ServoNode::start_velocity_output_timer() {
     // Asynchronously publish position command messages
-    velocity_command_timer_ = node_->create_wall_timer(
+    velocity_command_timer_ = this->create_wall_timer(
         std::chrono::milliseconds(20), // 50Hz
         [this]()
         {
@@ -156,7 +161,8 @@ void ServoNode::start_velocity_output_timer() {
             current_target_pos_deg_ += current_target_vel_deg_ * elapsed_time_seconds;
 
             float pwm = get_pwm_from_position(current_target_pos_deg_);
-
+            RCLCPP_INFO(this->get_logger(), "Velocity loop update: target_vel_deg=%.2f, current_target_pos_deg=%.2f, pwm=%.2f", 
+            current_target_vel_deg_, current_target_pos_deg_, pwm);
             //TODO write out pwm command to servo driver
         }
     );
