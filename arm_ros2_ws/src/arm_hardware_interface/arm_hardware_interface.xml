@@ -1,6 +1,6 @@
 <library path="arm_hardware_interface_plugin">
-  <class name="arm_hardware_interface/ArmSystemWithODriveAndCubeMars"
-         type="arm_hardware_interface::ArmSystemWithODriveAndCubeMars"
+  <class name="arm_hardware_interface/ArmHardwareInterface"
+         type="arm_hardware_interface::ArmHardwareInterface"
          base_class_type="hardware_interface::SystemInterface">
     <description>
       ODrive and CubeMars hardware interface for rover arm.

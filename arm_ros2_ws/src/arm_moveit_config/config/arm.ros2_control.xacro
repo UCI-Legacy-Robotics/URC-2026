@@ -14,7 +14,7 @@
             <xacro:unless value="$(arg use_fake_hardware)">
                 <hardware>
                     <!-- If real hardware is being used, load the hardware interface plugin -->
-                    <plugin>arm_hardware_interface/ArmSystemWithODriveAndCubeMars</plugin>
+                    <plugin>arm_hardware_interface/ArmHardwareInterface</plugin>
                 </hardware>
             </xacro:unless>
             <joint name="base">

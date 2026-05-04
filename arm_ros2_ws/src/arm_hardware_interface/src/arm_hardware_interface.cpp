@@ -19,11 +19,11 @@ constexpr double WRIST_ROLL_GEAR_RATIO = 1.0; // Direct drive
 constexpr double SOLENOID_LINEAR_ACTUATOR_GEAR_RATIO = 1.0; // Direct drive
 constexpr double GRIPPER_GEAR_RATIO = 1.0; // Direct drive
 
-ArmSystemWithODriveAndCubeMars::ArmSystemWithODriveAndCubeMars() 
+ArmHardwareInterface::ArmHardwareInterface() 
 {}
 
 // Occurs when initializing the interface, i.e. right away
-hardware_interface::CallbackReturn ArmSystemWithODriveAndCubeMars::on_init(
+hardware_interface::CallbackReturn ArmHardwareInterface::on_init(
   const hardware_interface::HardwareInfo& info)
 {
   // for (int i = 0; i < 10; i++) {
@@ -139,7 +139,7 @@ hardware_interface::CallbackReturn ArmSystemWithODriveAndCubeMars::on_init(
   return hardware_interface::CallbackReturn::SUCCESS;
 }
 
-hardware_interface::CallbackReturn ArmSystemWithODriveAndCubeMars::on_configure(
+hardware_interface::CallbackReturn ArmHardwareInterface::on_configure(
   const rclcpp_lifecycle::State& /*previous_state*/)
 {
   // Reset values always when configuring hardware
@@ -157,7 +157,7 @@ hardware_interface::CallbackReturn ArmSystemWithODriveAndCubeMars::on_configure(
 
 // Define the state interface that the hardware offers
 std::vector<hardware_interface::StateInterface>
-ArmSystemWithODriveAndCubeMars::export_state_interfaces()
+ArmHardwareInterface::export_state_interfaces()
 {
   std::vector<hardware_interface::StateInterface> state_interfaces;
 
@@ -182,7 +182,7 @@ ArmSystemWithODriveAndCubeMars::export_state_interfaces()
 
 // Define the command interfaces to control the hardware
 std::vector<hardware_interface::CommandInterface>
-ArmSystemWithODriveAndCubeMars::export_command_interfaces()
+ArmHardwareInterface::export_command_interfaces()
 {
   std::vector<hardware_interface::CommandInterface> command_interfaces;
 
@@ -203,11 +203,11 @@ ArmSystemWithODriveAndCubeMars::export_command_interfaces()
 
 // Activate hardware (prepare to be used)
 hardware_interface::CallbackReturn
-ArmSystemWithODriveAndCubeMars::on_activate(const rclcpp_lifecycle::State& /*previous_state*/)
+ArmHardwareInterface::on_activate(const rclcpp_lifecycle::State& /*previous_state*/)
 {
   RCLCPP_INFO(rclcpp::get_logger("arm_hardware_interface"), "Activating hardware");
   
-  // TODO: zero encoders, read initial states
+  // TODO: zero encoders, read initial states 
 
   // Command and state should be equal when starting
   for (size_t i = 0; i < hw_velocities_.size(); i++)
@@ -223,7 +223,7 @@ ArmSystemWithODriveAndCubeMars::on_activate(const rclcpp_lifecycle::State& /*pre
 
 // Deactivate hardware (safely shut donw)
 hardware_interface::CallbackReturn
-ArmSystemWithODriveAndCubeMars::on_deactivate(const rclcpp_lifecycle::State& /*previous_state*/)
+ArmHardwareInterface::on_deactivate(const rclcpp_lifecycle::State& /*previous_state*/)
 {
   RCLCPP_INFO(rclcpp::get_logger("arm_hardware_interface"), "Deactivating hardware");
 
@@ -234,7 +234,7 @@ ArmSystemWithODriveAndCubeMars::on_deactivate(const rclcpp_lifecycle::State& /*p
 }
 
 // Read hardware states
-hardware_interface::return_type ArmSystemWithODriveAndCubeMars::read(
+hardware_interface::return_type ArmHardwareInterface::read(
   const rclcpp::Time& /*time*/, const rclcpp::Duration& /*period*/)
 {
   // Lock feedback mutex to prevent race condition
@@ -262,7 +262,7 @@ hardware_interface::return_type ArmSystemWithODriveAndCubeMars::read(
 }
 
 // Write hardware velocity commands
-hardware_interface::return_type ArmSystemWithODriveAndCubeMars::write(
+hardware_interface::return_type ArmHardwareInterface::write(
   const rclcpp::Time& /*time*/, const rclcpp::Duration& /*period*/)
 {
   // Lock mutex to prevent concurrent writes
@@ -282,11 +282,11 @@ hardware_interface::return_type ArmSystemWithODriveAndCubeMars::write(
   return hardware_interface::return_type::OK;
 }
 
-double ArmSystemWithODriveAndCubeMars::degrees_to_radians(double degrees) {
+double ArmHardwareInterface::degrees_to_radians(double degrees) {
   return degrees * PI / 180.0;
 }
 
-double ArmSystemWithODriveAndCubeMars::radians_to_degrees(double radians) {
+double ArmHardwareInterface::radians_to_degrees(double radians) {
   return radians * 180.0 / PI;
 }
 
@@ -296,6 +296,6 @@ double ArmSystemWithODriveAndCubeMars::radians_to_degrees(double radians) {
 #include "pluginlib/class_list_macros.hpp"
 
 PLUGINLIB_EXPORT_CLASS(
-  arm_hardware_interface::ArmSystemWithODriveAndCubeMars,
+  arm_hardware_interface::ArmHardwareInterface,
   hardware_interface::SystemInterface
 )

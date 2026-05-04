@@ -26,13 +26,13 @@
 namespace arm_hardware_interface
 {
 
-class ArmSystemWithODriveAndCubeMars : public hardware_interface::SystemInterface
+class ArmHardwareInterface : public hardware_interface::SystemInterface
 {
 public:
-  RCLCPP_SHARED_PTR_DEFINITIONS(ArmSystemWithODriveAndCubeMars)
+  RCLCPP_SHARED_PTR_DEFINITIONS(ArmHardwareInterface)
   
   // Default constructor declaration
-  ArmSystemWithODriveAndCubeMars();
+  ArmHardwareInterface();
 
   hardware_interface::CallbackReturn on_init(
     const hardware_interface::HardwareInfo& info) override;
