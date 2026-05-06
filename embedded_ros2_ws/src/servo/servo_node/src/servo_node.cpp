@@ -9,7 +9,7 @@ enum CommandType : uint8_t {
 
 ServoNode::ServoNode(const std::string& node_name) : rclcpp::Node(node_name) {
     
-    rclcpp::Node::declare_parameter<uint8_t>("channel_id", 0);
+    rclcpp::Node::declare_parameter<uint8_t>("pin_id", 0);
     rclcpp::Node::declare_parameter<uint16_t>("initial_angle_deg", 0);
     rclcpp::Node::declare_parameter<uint16_t>("min_angle_deg", 0);
     rclcpp::Node::declare_parameter<uint16_t>("max_angle_deg", 360);
@@ -30,7 +30,7 @@ bool ServoNode::init(/* EpollEventLoop* event_loop */) {
         node_ = std::make_shared<rclcpp::Node>("servo_node");
     }
 
-    channel_id_         = rclcpp::Node::get_parameter("channel_id").as_int();
+    pin_id_             = rclcpp::Node::get_parameter("pin_id").as_int();
     initial_angle_deg_  = rclcpp::Node::get_parameter("initial_angle_deg").as_int();
     min_angle_deg_      = rclcpp::Node::get_parameter("min_angle_deg").as_int();
     max_angle_deg_      = rclcpp::Node::get_parameter("max_angle_deg").as_int();
@@ -47,7 +47,7 @@ bool ServoNode::init(/* EpollEventLoop* event_loop */) {
     //     return false;
     // }
 
-    RCLCPP_INFO(rclcpp::Node::get_logger(), "Servo channel_id: %d", channel_id_);
+    RCLCPP_INFO(rclcpp::Node::get_logger(), "Servo pin_id: %d", pin_id_);
     RCLCPP_INFO(rclcpp::Node::get_logger(), "Servo initial_angle_deg: %d", initial_angle_deg_);
     RCLCPP_INFO(rclcpp::Node::get_logger(), "Servo min_angle_deg: %d", min_angle_deg_);
     RCLCPP_INFO(rclcpp::Node::get_logger(), "Servo max_angle_deg: %d", max_angle_deg_);
@@ -101,6 +101,7 @@ void ServoNode::control_message_callback() {
             //TODO copy target pwm into an output message to the driver
             RCLCPP_INFO(this->get_logger(), "Velocity control mode: target_vel_deg=%.2f, current_target_pos_deg=%.2f, pwm=%.2f", 
                         current_target_vel_deg_, current_target_pos_deg_, pwm);
+            gpioServo(pin_id, static_cast<unsigned>(pwm));
             break;
         }
         case CommandType::kPositionControl: {
@@ -112,6 +113,7 @@ void ServoNode::control_message_callback() {
             //TODO copy this target pwm into an output message to the driver
             RCLCPP_INFO(this->get_logger(), "Position control mode: input_pos_deg=%.2f, pwm=%.2f", 
                         locked_msg.input_pos_deg, pwm);
+            gpioServo(pin_id, static_cast<unsigned>(pwm));
             break;
         }
         default: 
@@ -164,6 +166,7 @@ void ServoNode::start_velocity_output_timer() {
             RCLCPP_INFO(this->get_logger(), "Velocity loop update: target_vel_deg=%.2f, current_target_pos_deg=%.2f, pwm=%.2f", 
             current_target_vel_deg_, current_target_pos_deg_, pwm);
             //TODO write out pwm command to servo driver
+            gpioServo(pin_id, static_cast<unsigned>(pwm));
         }
     );
 }

@@ -2,7 +2,7 @@
 #define SERVO_NODE_HPP
 
 #include <mutex>
-
+#include <pigpio.h>
 #include "servo/msg/control_message.hpp"
 // #include "socket_can.hpp"
 
@@ -30,7 +30,7 @@ private:
     rclcpp::Node::SharedPtr node_;
     
     // Node params
-    uint8_t channel_id_;
+    uint8_t pin_id_;
     uint16_t initial_angle_deg_;
     uint16_t min_angle_deg_;
     uint16_t max_angle_deg_;
