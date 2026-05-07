@@ -40,7 +40,8 @@ install(DIRECTORY launch
 rosidl_get_typesupport_target(cpp_typesupport_target
   ${PROJECT_NAME} rosidl_typesupport_cpp)
 
-target_link_libraries(servo_node "${cpp_typesupport_target}")
+target_link_libraries(servo_node "${cpp_typesupport_target}"
+                      pigpio)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

@@ -36,11 +36,12 @@ bool ServoNode::init(/* EpollEventLoop* event_loop */) {
     max_angle_deg_      = rclcpp::Node::get_parameter("max_angle_deg").as_int();
     min_pwm_micro_s_    = rclcpp::Node::get_parameter("min_pwm_micro_s").as_int();
     max_pwm_micro_s_    = rclcpp::Node::get_parameter("max_pwm_micro_s").as_int();
+    gpioSetMode(pin_id_, PI_OUTPUT);
 
     // Set current target position to initial angle
     current_target_pos_deg_ = static_cast<float>(initial_angle_deg_);
     send_stepped_position_control_flag_ = false;
-    last_velocity_loop_time_seconds_ = node_->get_clock()->now().seconds();
+    last_velocity_loop_time_seconds_ = this->get_clock()->now().seconds();
 
     // if (!sub_evt_.init(event_loop, std::bind(&CubemarsCanNode::ctrl_msg_callback, this))) {
     //     RCLCPP_ERROR(rclcpp::Node::get_logger(), "Failed to initialize subscriber event");
@@ -86,7 +87,7 @@ void ServoNode::control_message_callback() {
             RCLCPP_DEBUG(rclcpp::Node::get_logger(), "Servo velocity input: %.2f", locked_msg.input_vel_deg);
 
             // Reset timer so we don't see a huge position jump
-            last_velocity_loop_time_seconds_ = node_->get_clock()->now().seconds();
+            last_velocity_loop_time_seconds_ = this->get_clock()->now().seconds();
             
             // Convert pseudo-velocity to position control by stepping target position
             // Set velocity for future updates
@@ -101,7 +102,7 @@ void ServoNode::control_message_callback() {
             //TODO copy target pwm into an output message to the driver
             RCLCPP_INFO(this->get_logger(), "Velocity control mode: target_vel_deg=%.2f, current_target_pos_deg=%.2f, pwm=%.2f", 
                         current_target_vel_deg_, current_target_pos_deg_, pwm);
-            gpioServo(pin_id, static_cast<unsigned>(pwm));
+            gpioServo(pin_id_, static_cast<unsigned>(pwm));
             break;
         }
         case CommandType::kPositionControl: {
@@ -113,7 +114,7 @@ void ServoNode::control_message_callback() {
             //TODO copy this target pwm into an output message to the driver
             RCLCPP_INFO(this->get_logger(), "Position control mode: input_pos_deg=%.2f, pwm=%.2f", 
                         locked_msg.input_pos_deg, pwm);
-            gpioServo(pin_id, static_cast<unsigned>(pwm));
+            gpioServo(pin_id_, static_cast<unsigned>(pwm));
             break;
         }
         default: 
@@ -157,8 +158,8 @@ void ServoNode::start_velocity_output_timer() {
             std::lock_guard<std::mutex> guard(control_message_mutex_); // Ensure safe command writing
 
             // Step target position by velocity * time between loops
-            double elapsed_time_seconds = node_->get_clock()->now().seconds() - last_velocity_loop_time_seconds_;
-            last_velocity_loop_time_seconds_ = node_->get_clock()->now().seconds();
+            double elapsed_time_seconds = this->get_clock()->now().seconds() - last_velocity_loop_time_seconds_;
+            last_velocity_loop_time_seconds_ = this->get_clock()->now().seconds();
 
             current_target_pos_deg_ += current_target_vel_deg_ * elapsed_time_seconds;
 
@@ -166,7 +167,7 @@ void ServoNode::start_velocity_output_timer() {
             RCLCPP_INFO(this->get_logger(), "Velocity loop update: target_vel_deg=%.2f, current_target_pos_deg=%.2f, pwm=%.2f", 
             current_target_vel_deg_, current_target_pos_deg_, pwm);
             //TODO write out pwm command to servo driver
-            gpioServo(pin_id, static_cast<unsigned>(pwm));
+            gpioServo(pin_id_, static_cast<unsigned>(pwm));
         }
     );
 }
