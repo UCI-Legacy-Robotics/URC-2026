@@ -168,7 +168,7 @@ void ServoNode::start_velocity_output_timer() {
             RCLCPP_INFO(this->get_logger(), "Velocity loop update: target_vel_deg=%.2f, current_target_pos_deg=%.2f, pwm=%.2f", 
             current_target_vel_deg_, current_target_pos_deg_, pwm);
             //TODO write out pwm command to servo driver
-            gpioServo(pin_id_, static_cast<unsigned>(pwm));
+            set_servo_pulsewidth(pi, pin_id_, static_cast<unsigned>(pwm));
         }
     );
 }
