@@ -162,8 +162,14 @@ void ServoNode::start_velocity_output_timer() {
             double elapsed_time_seconds = this->get_clock()->now().seconds() - last_velocity_loop_time_seconds_;
             last_velocity_loop_time_seconds_ = this->get_clock()->now().seconds();
 
+            if(current_target_pos_deg_ < min_angle_deg_) {
+                current_target_pos_deg_ = min_angle_deg_;
+            } else if (current_target_pos_deg_ > max_angle_deg_) {
+                current_target_pos_deg_ = max_angle_deg_;
+            } else {
             current_target_pos_deg_ += current_target_vel_deg_ * elapsed_time_seconds;
-
+            }
+            
             float pwm = get_pwm_from_position(current_target_pos_deg_);
             RCLCPP_INFO(this->get_logger(), "Velocity loop update: target_vel_deg=%.2f, current_target_pos_deg=%.2f, pwm=%.2f", 
             current_target_vel_deg_, current_target_pos_deg_, pwm);
