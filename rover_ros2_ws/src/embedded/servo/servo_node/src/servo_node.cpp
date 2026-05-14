@@ -103,7 +103,7 @@ void ServoNode::control_message_callback() {
             //TODO copy target pwm into an output message to the driver
             RCLCPP_INFO(this->get_logger(), "Velocity control mode: target_vel_deg=%.2f, current_target_pos_deg=%.2f, pwm=%.2f", 
                         current_target_vel_deg_, current_target_pos_deg_, pwm);
-            set_servo_pulsewidth(pin_id_,pi , static_cast<unsigned>(pwm));
+            set_servo_pulsewidth(pi, pin_id_ , static_cast<unsigned>(pwm));
             break;
         }
         case CommandType::kPositionControl: {
@@ -115,7 +115,7 @@ void ServoNode::control_message_callback() {
             //TODO copy this target pwm into an output message to the driver
             RCLCPP_INFO(this->get_logger(), "Position control mode: input_pos_deg=%.2f, pwm=%.2f", 
                         locked_msg.input_pos_deg, pwm);
-            set_servo_pulsewidth(pin_id_,pi , static_cast<unsigned>(pwm));
+            set_servo_pulsewidth(pi, pin_id_, static_cast<unsigned>(pwm));
             break;
         }
         default: 
