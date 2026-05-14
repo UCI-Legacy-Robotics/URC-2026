@@ -41,6 +41,7 @@ rosidl_get_typesupport_target(cpp_typesupport_target
   ${PROJECT_NAME} rosidl_typesupport_cpp)
 
 target_link_libraries(servo_node "${cpp_typesupport_target}"
+                      pigpio
                       pigpiod_if2)
 
 if(BUILD_TESTING)
