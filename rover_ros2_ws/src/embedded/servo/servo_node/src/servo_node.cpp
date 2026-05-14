@@ -8,7 +8,7 @@ enum CommandType : uint8_t {
 };
 
 ServoNode::ServoNode(const std::string& node_name) : rclcpp::Node(node_name) {
-    int pi = pigpio_start(NULL, NULL);
+    pi = pigpio_start(NULL, NULL);
     rclcpp::Node::declare_parameter<uint8_t>("pin_id", 0);
     rclcpp::Node::declare_parameter<uint16_t>("initial_angle_deg", 0);
     rclcpp::Node::declare_parameter<uint16_t>("min_angle_deg", 0);
@@ -37,7 +37,7 @@ bool ServoNode::init(/* EpollEventLoop* event_loop */) {
     max_angle_deg_      = rclcpp::Node::get_parameter("max_angle_deg").as_int();
     min_pwm_micro_s_    = rclcpp::Node::get_parameter("min_pwm_micro_s").as_int();
     max_pwm_micro_s_    = rclcpp::Node::get_parameter("max_pwm_micro_s").as_int();
-    set_mode(pin_id_, PI_OUTPUT);
+    set_mode(pi, pin_id_, PI_OUTPUT);
 
     // Set current target position to initial angle
     current_target_pos_deg_ = static_cast<float>(initial_angle_deg_);
@@ -103,7 +103,7 @@ void ServoNode::control_message_callback() {
             //TODO copy target pwm into an output message to the driver
             RCLCPP_INFO(this->get_logger(), "Velocity control mode: target_vel_deg=%.2f, current_target_pos_deg=%.2f, pwm=%.2f", 
                         current_target_vel_deg_, current_target_pos_deg_, pwm);
-            set_servo_pulsewidth(pin_id_, static_cast<unsigned>(pwm));
+            set_servo_pulsewidth(pin_id_,pi , static_cast<unsigned>(pwm));
             break;
         }
         case CommandType::kPositionControl: {
@@ -115,7 +115,7 @@ void ServoNode::control_message_callback() {
             //TODO copy this target pwm into an output message to the driver
             RCLCPP_INFO(this->get_logger(), "Position control mode: input_pos_deg=%.2f, pwm=%.2f", 
                         locked_msg.input_pos_deg, pwm);
-            set_servo_pulsewidth(pin_id_, static_cast<unsigned>(pwm));
+            set_servo_pulsewidth(pin_id_,pi , static_cast<unsigned>(pwm));
             break;
         }
         default: 

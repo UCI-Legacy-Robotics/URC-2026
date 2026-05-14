@@ -29,6 +29,9 @@ private:
 
     // ROS interface
     rclcpp::Node::SharedPtr node_;
+
+    // Pigpio interface
+    uint8_t pi;
     
     // Node params
     uint8_t pin_id_;
@@ -37,6 +40,7 @@ private:
     uint16_t max_angle_deg_;
     uint16_t min_pwm_micro_s_;
     uint16_t max_pwm_micro_s_;
+
 
     // Pseudo-velocity control
     rclcpp::TimerBase::SharedPtr velocity_command_timer_;
