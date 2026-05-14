@@ -2,7 +2,7 @@
 #define SERVO_NODE_HPP
 
 #include <mutex>
-#include <pigpio.h>
+#include <pigpiod_if2.h>
 #include "servo/msg/control_message.hpp"
 // #include "socket_can.hpp"
 
