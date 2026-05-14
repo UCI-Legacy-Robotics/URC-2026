@@ -38,6 +38,7 @@ bool ServoNode::init(/* EpollEventLoop* event_loop */) {
     min_pwm_micro_s_    = rclcpp::Node::get_parameter("min_pwm_micro_s").as_int();
     max_pwm_micro_s_    = rclcpp::Node::get_parameter("max_pwm_micro_s").as_int();
     set_mode(pi, pin_id_, PI_OUTPUT);
+    set_servo_pulsewidth(pi, pin_id_, static_cast<unsigned>(get_pwm_from_position(initial_angle_deg_)));
 
     // Set current target position to initial angle
     current_target_pos_deg_ = static_cast<float>(initial_angle_deg_);
@@ -169,7 +170,7 @@ void ServoNode::start_velocity_output_timer() {
             } else {
             current_target_pos_deg_ += current_target_vel_deg_ * elapsed_time_seconds;
             }
-            
+
             float pwm = get_pwm_from_position(current_target_pos_deg_);
             RCLCPP_INFO(this->get_logger(), "Velocity loop update: target_vel_deg=%.2f, current_target_pos_deg=%.2f, pwm=%.2f", 
             current_target_vel_deg_, current_target_pos_deg_, pwm);
