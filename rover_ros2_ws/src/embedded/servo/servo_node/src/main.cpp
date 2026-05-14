@@ -3,7 +3,7 @@
 #include <thread>
 
 int main(int argc, char* argv[]) {
-    int pi = pigpio_start(NULL, NULL);
+    
     rclcpp::init(argc, argv);
     // EpollEventLoop event_loop;
     auto servo_node = std::make_shared<ServoNode>("ServoNode");
@@ -15,6 +15,5 @@ int main(int argc, char* argv[]) {
     rclcpp::spin(servo_node);
     servo_node->deinit();
     rclcpp::shutdown();
-    pigpio_stop(pi);
     return 0;
 }
