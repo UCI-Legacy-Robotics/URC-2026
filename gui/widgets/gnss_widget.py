@@ -9,7 +9,8 @@ class GnssWidget(QWidget):
     def __init__(self):
         super().__init__()
         self.setFixedSize(750, 750)
-        self.setStyleSheet('background: #1a1a1a; border-radius: 6px;')
+        self.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
+        self.setStyleSheet('GnssWidget { background-color: #1a1a1a; border-radius: 6px; }')
 
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
