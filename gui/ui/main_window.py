@@ -1,7 +1,7 @@
 import math
 from PyQt6.QtWidgets import (
     QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
-    QTabWidget, QLabel, QFrame
+    QTabWidget, QLabel, QGridLayout
 )
 from PyQt6.QtCore import Qt
 from widgets.camera_widget import CameraWidget
@@ -9,60 +9,55 @@ from widgets.telemetry_widget import TelemetryWidget
 from widgets.gnss_widget import GnssWidget
 from widgets.status_widget import StatusWidget
 
+_CELL_BG    = '#222222'
+_KEY_STYLE  = 'background: transparent; color: #555; font-size: 10px; font-family: monospace;'
+_VAL_STYLE  = 'background: transparent; color: #e0e0e0; font-size: 22px; font-family: monospace; font-weight: bold;'
 
-class _OperatorTelemetryBar(QWidget):
-    """Compact telemetry strip pinned to the bottom of the Operator tab."""
 
-    _LABEL_STYLE = 'color: #cccccc; font-size: 14px; font-family: monospace;'
-    _KEY_STYLE   = 'color: #555555; font-size: 11px; font-family: monospace;'
+class _TelemetryPanel(QWidget):
+    """Square 300×300 data panel shown on the Operator tab."""
 
     def __init__(self):
         super().__init__()
-        self.setFixedHeight(52)
-        self.setStyleSheet('background: #111111; border-top: 1px solid #2a2a2a;')
+        self.setFixedSize(300, 300)
+        self.setStyleSheet(f'background: #1a1a1a; border-radius: 6px;')
 
-        layout = QHBoxLayout(self)
-        layout.setContentsMargins(32, 0, 32, 0)
-        layout.setSpacing(0)
+        grid = QGridLayout(self)
+        grid.setContentsMargins(10, 10, 10, 10)
+        grid.setSpacing(8)
 
-        self._battery = self._field('BATTERY', '-- V')
-        self._roll    = self._field('ROLL',    '--°')
-        self._pitch   = self._field('PITCH',   '--°')
-        self._yaw     = self._field('YAW',     '--°')
+        self._battery = self._cell(grid, 0, 0, 'BATTERY', '-- V')
+        self._roll    = self._cell(grid, 0, 1, 'ROLL',    '--°')
+        self._pitch   = self._cell(grid, 1, 0, 'PITCH',   '--°')
+        self._yaw     = self._cell(grid, 1, 1, 'YAW',     '--°')
 
-        fields = [self._battery, self._roll, self._pitch, self._yaw]
-        for i, (key_lbl, val_lbl) in enumerate(fields):
-            if i > 0:
-                sep = QFrame()
-                sep.setFrameShape(QFrame.Shape.VLine)
-                sep.setStyleSheet('color: #2a2a2a;')
-                layout.addWidget(sep)
-            cell = QWidget()
-            cell_layout = QVBoxLayout(cell)
-            cell_layout.setContentsMargins(0, 6, 0, 6)
-            cell_layout.setSpacing(1)
-            cell_layout.addWidget(key_lbl)
-            cell_layout.addWidget(val_lbl)
-            layout.addWidget(cell, stretch=1)
+    def _cell(self, grid, row, col, key, default):
+        cell = QWidget()
+        cell.setStyleSheet(f'background: {_CELL_BG}; border-radius: 4px;')
+        layout = QVBoxLayout(cell)
+        layout.setContentsMargins(10, 8, 10, 8)
+        layout.setSpacing(2)
 
-    def _field(self, key: str, default: str):
         key_lbl = QLabel(key)
-        key_lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        key_lbl.setStyleSheet(self._KEY_STYLE)
+        key_lbl.setStyleSheet(_KEY_STYLE)
 
         val_lbl = QLabel(default)
         val_lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        val_lbl.setStyleSheet(self._LABEL_STYLE)
+        val_lbl.setStyleSheet(_VAL_STYLE)
 
-        return key_lbl, val_lbl
+        layout.addWidget(key_lbl)
+        layout.addWidget(val_lbl, stretch=1)
+
+        grid.addWidget(cell, row, col)
+        return val_lbl
 
     def on_battery(self, voltage: float):
-        self._battery[1].setText(f'{voltage:.1f} V')
+        self._battery.setText(f'{voltage:.1f} V')
 
     def on_imu(self, msg):
-        self._roll[1].setText(f'{math.degrees(msg.orientation.x):.1f}°')
-        self._pitch[1].setText(f'{math.degrees(msg.orientation.y):.1f}°')
-        self._yaw[1].setText(f'{math.degrees(msg.orientation.z):.1f}°')
+        self._roll.setText(f'{math.degrees(msg.orientation.x):.1f}°')
+        self._pitch.setText(f'{math.degrees(msg.orientation.y):.1f}°')
+        self._yaw.setText(f'{math.degrees(msg.orientation.z):.1f}°')
 
 
 class MainWindow(QMainWindow):
@@ -84,28 +79,26 @@ class MainWindow(QMainWindow):
         self._build_tabs()
 
     def _build_tabs(self):
-        # --- Operator tab ---
+        # --- Operator tab: centered, fixed-size widgets ---
         operator_tab = QWidget()
         op_layout = QVBoxLayout(operator_tab)
-        op_layout.setContentsMargins(0, 0, 0, 0)
-        op_layout.setSpacing(0)
+        op_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        top = QWidget()
-        top_layout = QHBoxLayout(top)
-        top_layout.setContentsMargins(0, 0, 0, 0)
-        top_layout.setSpacing(1)
+        row = QWidget()
+        row_layout = QHBoxLayout(row)
+        row_layout.setContentsMargins(0, 0, 0, 0)
+        row_layout.setSpacing(12)
+        row_layout.setAlignment(Qt.AlignmentFlag.AlignVCenter)
 
         self.camera_widget = CameraWidget()
         self.gnss_widget = GnssWidget()
+        self.operator_panel = _TelemetryPanel()
 
-        top_layout.addWidget(self.camera_widget, stretch=2)
-        top_layout.addWidget(self.gnss_widget, stretch=3)
+        row_layout.addWidget(self.camera_widget)
+        row_layout.addWidget(self.gnss_widget)
+        row_layout.addWidget(self.operator_panel)
 
-        op_layout.addWidget(top, stretch=1)
-
-        self.operator_bar = _OperatorTelemetryBar()
-        op_layout.addWidget(self.operator_bar)
-
+        op_layout.addWidget(row)
         self.tabs.addTab(operator_tab, 'Operator')
 
         # --- Telemetry tab ---
@@ -120,8 +113,8 @@ class MainWindow(QMainWindow):
         self.node.camera_frame.connect(self.camera_widget.on_frame)
         self.node.gnss_fix.connect(self.gnss_widget.on_gnss_fix)
 
-        self.node.battery_update.connect(self.operator_bar.on_battery)
-        self.node.imu_update.connect(self.operator_bar.on_imu)
+        self.node.battery_update.connect(self.operator_panel.on_battery)
+        self.node.imu_update.connect(self.operator_panel.on_imu)
 
         self.node.imu_update.connect(self.telemetry_widget.on_imu)
         self.node.battery_update.connect(self.telemetry_widget.on_battery)

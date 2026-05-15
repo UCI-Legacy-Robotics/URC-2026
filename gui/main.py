@@ -46,7 +46,7 @@ def main():
 
     node = BaseStationNode()
     window = MainWindow(node)
-    window.showFullScreen()
+    window.showMaximized()
 
     ros_thread = threading.Thread(target=rclpy.spin, args=(node,), daemon=True)
     ros_thread.start()
