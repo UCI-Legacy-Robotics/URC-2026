@@ -8,14 +8,16 @@ class CameraWidget(QWidget):
     def __init__(self):
         super().__init__()
         self.bridge = CvBridge()
+        self.setStyleSheet('background: #0a0a0a;')
 
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
 
-        self.label = QLabel('Waiting for camera feed...')
+        self.label = QLabel('No camera feed')
         self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.label.setStyleSheet('background: #111; color: #666; font-size: 14px;')
-        self.label.setMinimumSize(640, 480)
+        self.label.setStyleSheet(
+            'background: #0a0a0a; color: #333; font-size: 13px; font-family: monospace;'
+        )
         layout.addWidget(self.label)
 
     def on_frame(self, msg):
