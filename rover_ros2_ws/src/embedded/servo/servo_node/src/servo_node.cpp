@@ -111,8 +111,9 @@ void ServoNode::control_message_callback() {
             RCLCPP_DEBUG(rclcpp::Node::get_logger(), "Servo position input: %.2f", locked_msg.input_pos_deg);
             
             // Convert position to pwm
-            float pwm = get_pwm_from_position(locked_msg.input_pos_deg);
-            current_target_pos_deg_ = pwm;
+            current_target_pos_deg_ = locked_msg.input_pos_deg;
+            float pwm = get_pwm_from_position(current_target_pos_deg_);
+
             //TODO copy this target pwm into an output message to the driver
             RCLCPP_INFO(this->get_logger(), "Position control mode: input_pos_deg=%.2f, pwm=%.2f", 
                         locked_msg.input_pos_deg, pwm);
