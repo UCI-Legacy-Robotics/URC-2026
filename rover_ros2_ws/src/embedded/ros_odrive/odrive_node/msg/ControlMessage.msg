@@ -1,0 +1,5 @@
+uint32 control_mode
+uint32 input_mode
+float32 input_pos_deg
+float32 input_vel_deg_per_s
+float32 input_torque
