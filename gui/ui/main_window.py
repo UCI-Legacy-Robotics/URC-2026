@@ -135,7 +135,9 @@ class MainWindow(QMainWindow):
         self.tabs.addTab(self.status_widget, 'Status')
 
         # --- Signal wiring ---
-        self.node.camera_frame.connect(self.camera_widget.on_frame)
+        # QueuedConnection ensures on_frame runs on the Qt main thread, not the ROS spin thread
+        self.node.camera_frame.connect(
+            self.camera_widget.on_frame, Qt.ConnectionType.QueuedConnection)
         self.node.gnss_fix.connect(self.gnss_widget.on_gnss_fix)
 
         self.node.battery_update.connect(self.operator_panel.on_battery)

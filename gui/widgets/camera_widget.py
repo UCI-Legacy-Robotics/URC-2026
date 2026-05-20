@@ -1,13 +1,30 @@
+import numpy as np
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel
 from PyQt6.QtGui import QImage, QPixmap
 from PyQt6.QtCore import Qt
-from cv_bridge import CvBridge
+
+
+def _ros_image_to_pixmap(msg) -> QPixmap:
+    """Convert a sensor_msgs/Image to QPixmap without cv_bridge."""
+    arr = np.frombuffer(msg.data, dtype=np.uint8).reshape((msg.height, msg.width, -1))
+
+    enc = msg.encoding.lower()
+    if enc in ('bgr8', 'bgr'):
+        arr = arr[:, :, ::-1]  # BGR -> RGB
+    elif enc in ('mono8', '8uc1'):
+        arr = np.stack([arr[:, :, 0]] * 3, axis=-1)
+    # rgb8 / rgb is already correct
+
+    arr = np.ascontiguousarray(arr)
+    qt_image = QImage(arr.data, msg.width, msg.height, 3 * msg.width,
+                      QImage.Format.Format_RGB888)
+    # fromImage copies the pixel data so arr can be freed after this line
+    return QPixmap.fromImage(qt_image)
 
 
 class CameraWidget(QWidget):
     def __init__(self):
         super().__init__()
-        self.bridge = CvBridge()
         self.setFixedSize(750, 750)
         self.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
         self.setStyleSheet('CameraWidget { background-color: #1a1a1a; border-radius: 6px; }')
@@ -24,13 +41,10 @@ class CameraWidget(QWidget):
 
     def on_frame(self, msg):
         try:
-            cv_image = self.bridge.imgmsg_to_cv2(msg, desired_encoding='rgb8')
-            h, w, ch = cv_image.shape
-            qt_image = QImage(cv_image.data, w, h, ch * w, QImage.Format.Format_RGB888)
-            pixmap = QPixmap.fromImage(qt_image).scaled(
+            pixmap = _ros_image_to_pixmap(msg).scaled(
                 self.label.size(),
                 Qt.AspectRatioMode.KeepAspectRatio,
-                Qt.TransformationMode.SmoothTransformation
+                Qt.TransformationMode.SmoothTransformation,
             )
             self.label.setPixmap(pixmap)
         except Exception as e:

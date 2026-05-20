@@ -19,7 +19,7 @@ class BaseStationNode(Node, QObject):
         QObject.__init__(self)
 
         self.create_subscription(
-            Image, '/camera/image_raw', self.on_camera, qos_profile_sensor_data)
+            Image, '/image_raw', self.on_camera, qos_profile_sensor_data)
         self.create_subscription(
             NavSatFix, '/gnss/fix', self.on_gnss, 10)
         self.create_subscription(
