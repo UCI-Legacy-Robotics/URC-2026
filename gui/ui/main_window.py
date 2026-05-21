@@ -136,14 +136,14 @@ class MainWindow(QMainWindow):
 
         # --- Signal wiring ---
         # QueuedConnection ensures on_frame runs on the Qt main thread, not the ROS spin thread
-        self.node.camera_frame.connect(
+        self.node.signals.camera_frame.connect(
             self.camera_widget.on_frame, Qt.ConnectionType.QueuedConnection)
-        self.node.gnss_fix.connect(self.gnss_widget.on_gnss_fix)
+        self.node.signals.gnss_fix.connect(self.gnss_widget.on_gnss_fix)
 
-        self.node.battery_update.connect(self.operator_panel.on_battery)
-        self.node.imu_update.connect(self.operator_panel.on_imu)
+        self.node.signals.battery_update.connect(self.operator_panel.on_battery)
+        self.node.signals.imu_update.connect(self.operator_panel.on_imu)
 
-        self.node.imu_update.connect(self.telemetry_widget.on_imu)
-        self.node.battery_update.connect(self.telemetry_widget.on_battery)
+        self.node.signals.imu_update.connect(self.telemetry_widget.on_imu)
+        self.node.signals.battery_update.connect(self.telemetry_widget.on_battery)
 
-        self.node.diagnostics_update.connect(self.status_widget.on_diagnostics)
+        self.node.signals.diagnostics_update.connect(self.status_widget.on_diagnostics)

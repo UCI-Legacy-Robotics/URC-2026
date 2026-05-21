@@ -1,9 +1,16 @@
+import os
 import sys
 import threading
 import rclpy
 from PyQt6.QtWidgets import QApplication
 from ui.main_window import MainWindow
 from ros_node import BaseStationNode
+
+# WSL2: Fast-DDS shared memory transport segfaults; force UDP-only.
+os.environ.setdefault(
+    'FASTRTPS_DEFAULT_PROFILES_FILE',
+    os.path.join(os.path.dirname(__file__), 'fastdds_no_shm.xml'),
+)
 
 _STYLESHEET = """
     QWidget {

@@ -1,24 +1,33 @@
 import numpy as np
+import cv2
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel
 from PyQt6.QtGui import QImage, QPixmap
 from PyQt6.QtCore import Qt
 
 
 def _ros_image_to_pixmap(msg) -> QPixmap:
-    """Convert a sensor_msgs/Image to QPixmap without cv_bridge."""
-    arr = np.frombuffer(msg.data, dtype=np.uint8).reshape((msg.height, msg.width, -1))
-
     enc = msg.encoding.lower()
-    if enc in ('bgr8', 'bgr'):
-        arr = arr[:, :, ::-1]  # BGR -> RGB
-    elif enc in ('mono8', '8uc1'):
-        arr = np.stack([arr[:, :, 0]] * 3, axis=-1)
-    # rgb8 / rgb is already correct
+    # Copy data immediately so DDS can't reclaim the buffer under us
+    arr = np.frombuffer(bytes(msg.data), dtype=np.uint8)
 
-    arr = np.ascontiguousarray(arr)
-    qt_image = QImage(arr.data, msg.width, msg.height, 3 * msg.width,
-                      QImage.Format.Format_RGB888)
-    # fromImage copies the pixel data so arr can be freed after this line
+    if enc in ('rgb8', 'rgb'):
+        rgb = arr.reshape((msg.height, msg.width, 3))
+    elif enc in ('bgr8', 'bgr'):
+        rgb = cv2.cvtColor(arr.reshape((msg.height, msg.width, 3)), cv2.COLOR_BGR2RGB)
+    elif enc in ('mono8', '8uc1'):
+        rgb = cv2.cvtColor(arr.reshape((msg.height, msg.width)), cv2.COLOR_GRAY2RGB)
+    elif enc in ('yuv422', 'yuv422_yuy2', 'yuyv'):
+        rgb = cv2.cvtColor(arr.reshape((msg.height, msg.width, 2)), cv2.COLOR_YUV2RGB_YUYV)
+    elif enc in ('mono16', '16uc1'):
+        gray16 = arr.view(np.uint16).reshape((msg.height, msg.width))
+        gray8 = (gray16 >> 8).astype(np.uint8)
+        rgb = cv2.cvtColor(gray8, cv2.COLOR_GRAY2RGB)
+    else:
+        raise ValueError(f'Unsupported encoding: {msg.encoding}')
+
+    rgb = np.ascontiguousarray(rgb)
+    h, w, _ = rgb.shape
+    qt_image = QImage(rgb.data, w, h, rgb.strides[0], QImage.Format.Format_RGB888)
     return QPixmap.fromImage(qt_image)
 
 
