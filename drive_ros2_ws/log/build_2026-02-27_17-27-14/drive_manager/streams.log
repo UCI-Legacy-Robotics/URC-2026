@@ -1,0 +1,22 @@
+[3.598s] Invoking command in '/home/pi/Legacy/URC-2026/drive_ros2_ws/src/drive': PYTHONPATH=/home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_manager/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/drive_manager build --build-base /home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_manager/build install --record /home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_manager/install.log --single-version-externally-managed install_data
+[5.081s] running egg_info
+[5.085s] writing ../../build/drive_manager/drive_manager.egg-info/PKG-INFO
+[5.089s] writing dependency_links to ../../build/drive_manager/drive_manager.egg-info/dependency_links.txt
+[5.092s] writing entry points to ../../build/drive_manager/drive_manager.egg-info/entry_points.txt
+[5.094s] writing requirements to ../../build/drive_manager/drive_manager.egg-info/requires.txt
+[5.100s] writing top-level names to ../../build/drive_manager/drive_manager.egg-info/top_level.txt
+[5.124s] reading manifest file '../../build/drive_manager/drive_manager.egg-info/SOURCES.txt'
+[5.130s] adding license file 'LICENSE'
+[5.134s] writing manifest file '../../build/drive_manager/drive_manager.egg-info/SOURCES.txt'
+[5.136s] running build
+[5.136s] running build_py
+[5.137s] running install
+[5.141s] running install_lib
+[5.148s] running install_data
+[5.150s] running install_egg_info
+[5.164s] removing '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/lib/python3.10/site-packages/drive_manager-0.0.0-py3.10.egg-info' (and everything under it)
+[5.168s] Copying ../../build/drive_manager/drive_manager.egg-info to /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/lib/python3.10/site-packages/drive_manager-0.0.0-py3.10.egg-info
+[5.179s] running install_scripts
+[5.332s] Installing drive_manager_node script to /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/lib/drive_manager
+[5.335s] writing list of installed files to '/home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_manager/install.log'
+[5.568s] Invoked command in '/home/pi/Legacy/URC-2026/drive_ros2_ws/src/drive' returned '0': PYTHONPATH=/home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_manager/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/drive_manager build --build-base /home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_manager/build install --record /home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_manager/install.log --single-version-externally-managed install_data

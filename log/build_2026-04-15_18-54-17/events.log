@@ -1,0 +1,97 @@
+[0.000000] (-) TimerEvent: {}
+[0.001253] (-) JobUnselected: {'identifier': 'arm'}
+[0.001581] (-) JobUnselected: {'identifier': 'arm_gamepad_teleop'}
+[0.001877] (-) JobUnselected: {'identifier': 'arm_hardware_interface'}
+[0.002027] (-) JobUnselected: {'identifier': 'arm_moveit_config'}
+[0.002109] (-) JobUnselected: {'identifier': 'cubemars_can'}
+[0.002186] (-) JobUnselected: {'identifier': 'drive_manager'}
+[0.002265] (-) JobUnselected: {'identifier': 'drive_teleop'}
+[0.002344] (-) JobUnselected: {'identifier': 'mock_gps'}
+[0.002421] (-) JobUnselected: {'identifier': 'npk_sensor'}
+[0.002499] (-) JobUnselected: {'identifier': 'odrive_can'}
+[0.002575] (-) JobUnselected: {'identifier': 'serializer_nodes_demo'}
+[0.002675] (-) JobUnselected: {'identifier': 'servo'}
+[0.002763] (-) JobUnselected: {'identifier': 'stepper_can'}
+[0.002841] (-) JobUnselected: {'identifier': 'yellowjacket_can'}
+[0.002927] (rover_teleop) JobQueued: {'identifier': 'rover_teleop', 'dependencies': OrderedDict()}
+[0.003025] (rover_teleop) JobStarted: {'identifier': 'rover_teleop'}
+[0.097892] (-) TimerEvent: {}
+[0.198487] (-) TimerEvent: {}
+[0.299182] (-) TimerEvent: {}
+[0.399860] (-) TimerEvent: {}
+[0.500595] (-) TimerEvent: {}
+[0.601249] (-) TimerEvent: {}
+[0.701840] (-) TimerEvent: {}
+[0.802459] (-) TimerEvent: {}
+[0.903102] (-) TimerEvent: {}
+[1.003730] (-) TimerEvent: {}
+[1.104585] (-) TimerEvent: {}
+[1.205622] (-) TimerEvent: {}
+[1.306252] (-) TimerEvent: {}
+[1.406951] (-) TimerEvent: {}
+[1.507555] (-) TimerEvent: {}
+[1.608164] (-) TimerEvent: {}
+[1.708800] (-) TimerEvent: {}
+[1.809414] (-) TimerEvent: {}
+[1.910032] (-) TimerEvent: {}
+[2.010618] (-) TimerEvent: {}
+[2.111304] (-) TimerEvent: {}
+[2.211925] (-) TimerEvent: {}
+[2.312538] (-) TimerEvent: {}
+[2.413171] (-) TimerEvent: {}
+[2.513781] (-) TimerEvent: {}
+[2.614449] (-) TimerEvent: {}
+[2.715287] (-) TimerEvent: {}
+[2.791762] (rover_teleop) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../../build/rover_teleop', 'build', '--build-base', '/home/pi/Legacy/URC-2026/build/rover_teleop/build', 'install', '--record', '/home/pi/Legacy/URC-2026/build/rover_teleop/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/pi/Legacy/URC-2026/rover_teleop_ws/src/rover_teleop', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'pi', 'SSH_CLIENT': '100.77.150.72 54148 22', 'XDG_SESSION_TYPE': 'tty', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/servo/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib:/home/pi/Legacy/Testing/ros2_ws/install/odrive_can/lib:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib', 'MOTD_SHOWN': 'pam', 'HOME': '/home/pi', 'OLDPWD': '/home/pi/Legacy', 'SSH_TTY': '/dev/pts/1', 'ROS_PYTHON_VERSION': '3', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLCON_PREFIX_PATH': '/home/pi/Legacy/Testing/ros2_ws/install:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install:/home/pi/Legacy/URC-2026/drive_ros2_ws/install', 'ROS_DISTRO': 'humble', 'LOGNAME': 'pi', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '3', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/home/pi/.local/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/drive:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/servo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/Testing/ros2_ws/install/odrive_can:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop:/opt/ros/humble', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'PWD': '/home/pi/Legacy/URC-2026/build/rover_teleop', 'LC_ALL': 'en_US.UTF-8', 'SSH_CONNECTION': '100.77.150.72 54148 100.109.254.28 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/pi/Legacy/URC-2026/build/rover_teleop/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pi/Legacy/URC-2026/install/rover_teleop/lib/python3.10/site-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/drive/lib/python3.10/site-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/servo/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo/lib/python3.10/site-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command/lib/python3.10/site-packages:/home/pi/Legacy/Testing/ros2_ws/install/odrive_can/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/lib/python3.10/site-packages:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/servo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can:/home/pi/Legacy/Testing/ros2_ws/install/odrive_can:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop'}, 'shell': False}
+[2.815481] (-) TimerEvent: {}
+[2.916256] (-) TimerEvent: {}
+[3.016876] (-) TimerEvent: {}
+[3.117472] (-) TimerEvent: {}
+[3.218094] (-) TimerEvent: {}
+[3.318730] (-) TimerEvent: {}
+[3.419344] (-) TimerEvent: {}
+[3.519941] (-) TimerEvent: {}
+[3.620530] (-) TimerEvent: {}
+[3.721166] (-) TimerEvent: {}
+[3.821802] (-) TimerEvent: {}
+[3.845092] (rover_teleop) StdoutLine: {'line': b'running egg_info\n'}
+[3.847422] (rover_teleop) StdoutLine: {'line': b'creating ../../../build/rover_teleop/rover_teleop.egg-info\n'}
+[3.848114] (rover_teleop) StdoutLine: {'line': b'writing ../../../build/rover_teleop/rover_teleop.egg-info/PKG-INFO\n'}
+[3.849194] (rover_teleop) StdoutLine: {'line': b'writing dependency_links to ../../../build/rover_teleop/rover_teleop.egg-info/dependency_links.txt\n'}
+[3.849717] (rover_teleop) StdoutLine: {'line': b'writing entry points to ../../../build/rover_teleop/rover_teleop.egg-info/entry_points.txt\n'}
+[3.850251] (rover_teleop) StdoutLine: {'line': b'writing requirements to ../../../build/rover_teleop/rover_teleop.egg-info/requires.txt\n'}
+[3.850737] (rover_teleop) StdoutLine: {'line': b'writing top-level names to ../../../build/rover_teleop/rover_teleop.egg-info/top_level.txt\n'}
+[3.851644] (rover_teleop) StdoutLine: {'line': b"writing manifest file '../../../build/rover_teleop/rover_teleop.egg-info/SOURCES.txt'\n"}
+[3.858811] (rover_teleop) StdoutLine: {'line': b"reading manifest file '../../../build/rover_teleop/rover_teleop.egg-info/SOURCES.txt'\n"}
+[3.861811] (rover_teleop) StdoutLine: {'line': b"writing manifest file '../../../build/rover_teleop/rover_teleop.egg-info/SOURCES.txt'\n"}
+[3.862395] (rover_teleop) StdoutLine: {'line': b'running build\n'}
+[3.862933] (rover_teleop) StdoutLine: {'line': b'running build_py\n'}
+[3.863394] (rover_teleop) StdoutLine: {'line': b'creating /home/pi/Legacy/URC-2026/build/rover_teleop/build\n'}
+[3.863909] (rover_teleop) StdoutLine: {'line': b'creating /home/pi/Legacy/URC-2026/build/rover_teleop/build/lib\n'}
+[3.864515] (rover_teleop) StdoutLine: {'line': b'creating /home/pi/Legacy/URC-2026/build/rover_teleop/build/lib/rover_teleop\n'}
+[3.864962] (rover_teleop) StdoutLine: {'line': b'copying rover_teleop/__init__.py -> /home/pi/Legacy/URC-2026/build/rover_teleop/build/lib/rover_teleop\n'}
+[3.865264] (rover_teleop) StdoutLine: {'line': b'copying rover_teleop/velocity_publisher_node.py -> /home/pi/Legacy/URC-2026/build/rover_teleop/build/lib/rover_teleop\n'}
+[3.866691] (rover_teleop) StdoutLine: {'line': b'running install\n'}
+[3.867928] (rover_teleop) StdoutLine: {'line': b'running install_lib\n'}
+[3.870767] (rover_teleop) StdoutLine: {'line': b'creating /home/pi/Legacy/URC-2026/install/rover_teleop/lib/python3.10/site-packages/rover_teleop\n'}
+[3.871291] (rover_teleop) StdoutLine: {'line': b'copying /home/pi/Legacy/URC-2026/build/rover_teleop/build/lib/rover_teleop/__init__.py -> /home/pi/Legacy/URC-2026/install/rover_teleop/lib/python3.10/site-packages/rover_teleop\n'}
+[3.871925] (rover_teleop) StdoutLine: {'line': b'copying /home/pi/Legacy/URC-2026/build/rover_teleop/build/lib/rover_teleop/velocity_publisher_node.py -> /home/pi/Legacy/URC-2026/install/rover_teleop/lib/python3.10/site-packages/rover_teleop\n'}
+[3.875046] (rover_teleop) StdoutLine: {'line': b'byte-compiling /home/pi/Legacy/URC-2026/install/rover_teleop/lib/python3.10/site-packages/rover_teleop/__init__.py to __init__.cpython-310.pyc\n'}
+[3.876417] (rover_teleop) StdoutLine: {'line': b'byte-compiling /home/pi/Legacy/URC-2026/install/rover_teleop/lib/python3.10/site-packages/rover_teleop/velocity_publisher_node.py to velocity_publisher_node.cpython-310.pyc\n'}
+[3.878248] (rover_teleop) StdoutLine: {'line': b'running install_data\n'}
+[3.878882] (rover_teleop) StdoutLine: {'line': b'creating /home/pi/Legacy/URC-2026/install/rover_teleop/share/ament_index\n'}
+[3.879427] (rover_teleop) StdoutLine: {'line': b'creating /home/pi/Legacy/URC-2026/install/rover_teleop/share/ament_index/resource_index\n'}
+[3.879879] (rover_teleop) StdoutLine: {'line': b'creating /home/pi/Legacy/URC-2026/install/rover_teleop/share/ament_index/resource_index/packages\n'}
+[3.880201] (rover_teleop) StdoutLine: {'line': b'copying resource/rover_teleop -> /home/pi/Legacy/URC-2026/install/rover_teleop/share/ament_index/resource_index/packages\n'}
+[3.880645] (rover_teleop) StdoutLine: {'line': b'copying package.xml -> /home/pi/Legacy/URC-2026/install/rover_teleop/share/rover_teleop\n'}
+[3.881066] (rover_teleop) StdoutLine: {'line': b'running install_egg_info\n'}
+[3.889161] (rover_teleop) StdoutLine: {'line': b'Copying ../../../build/rover_teleop/rover_teleop.egg-info to /home/pi/Legacy/URC-2026/install/rover_teleop/lib/python3.10/site-packages/rover_teleop-0.0.0-py3.10.egg-info\n'}
+[3.894367] (rover_teleop) StdoutLine: {'line': b'running install_scripts\n'}
+[3.922004] (-) TimerEvent: {}
+[3.980475] (rover_teleop) StdoutLine: {'line': b'Installing velocity_node script to /home/pi/Legacy/URC-2026/install/rover_teleop/lib/rover_teleop\n'}
+[3.981841] (rover_teleop) StdoutLine: {'line': b"writing list of installed files to '/home/pi/Legacy/URC-2026/build/rover_teleop/install.log'\n"}
+[4.022270] (-) TimerEvent: {}
+[4.096750] (rover_teleop) CommandEnded: {'returncode': 0}
+[4.122382] (-) TimerEvent: {}
+[4.144222] (rover_teleop) JobEnded: {'identifier': 'rover_teleop', 'rc': 0}
+[4.146821] (-) EventReactorShutdown: {}

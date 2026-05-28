@@ -1,0 +1,21 @@
+[8.207s] Invoking command in '/home/pi/Legacy/URC-2026/rover_teleop_ws/src/rover_teleop': PYTHONPATH=/home/pi/Legacy/URC-2026/build/rover_teleop/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pi/Legacy/URC-2026/install/rover_teleop/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../build/rover_teleop build --build-base /home/pi/Legacy/URC-2026/build/rover_teleop/build install --record /home/pi/Legacy/URC-2026/build/rover_teleop/install.log --single-version-externally-managed install_data
+[11.138s] running egg_info
+[11.142s] writing ../../../build/rover_teleop/rover_teleop.egg-info/PKG-INFO
+[11.143s] writing dependency_links to ../../../build/rover_teleop/rover_teleop.egg-info/dependency_links.txt
+[11.145s] writing entry points to ../../../build/rover_teleop/rover_teleop.egg-info/entry_points.txt
+[11.146s] writing requirements to ../../../build/rover_teleop/rover_teleop.egg-info/requires.txt
+[11.147s] writing top-level names to ../../../build/rover_teleop/rover_teleop.egg-info/top_level.txt
+[11.165s] reading manifest file '../../../build/rover_teleop/rover_teleop.egg-info/SOURCES.txt'
+[11.170s] writing manifest file '../../../build/rover_teleop/rover_teleop.egg-info/SOURCES.txt'
+[11.171s] running build
+[11.172s] running build_py
+[11.173s] running install
+[11.175s] running install_lib
+[11.183s] running install_data
+[11.184s] running install_egg_info
+[11.196s] removing '/home/pi/Legacy/URC-2026/install/rover_teleop/lib/python3.10/site-packages/rover_teleop-0.0.0-py3.10.egg-info' (and everything under it)
+[11.210s] Copying ../../../build/rover_teleop/rover_teleop.egg-info to /home/pi/Legacy/URC-2026/install/rover_teleop/lib/python3.10/site-packages/rover_teleop-0.0.0-py3.10.egg-info
+[11.231s] running install_scripts
+[11.376s] Installing velocity_node script to /home/pi/Legacy/URC-2026/install/rover_teleop/lib/rover_teleop
+[11.382s] writing list of installed files to '/home/pi/Legacy/URC-2026/build/rover_teleop/install.log'
+[11.620s] Invoked command in '/home/pi/Legacy/URC-2026/rover_teleop_ws/src/rover_teleop' returned '0': PYTHONPATH=/home/pi/Legacy/URC-2026/build/rover_teleop/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pi/Legacy/URC-2026/install/rover_teleop/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../build/rover_teleop build --build-base /home/pi/Legacy/URC-2026/build/rover_teleop/build install --record /home/pi/Legacy/URC-2026/build/rover_teleop/install.log --single-version-externally-managed install_data

@@ -1,0 +1,4 @@
+/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can/rosidl_adapter/stepper_can:msg/ControlMessage.idl
+/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can/rosidl_adapter/stepper_can:msg/ControllerStatus.idl
+/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can/rosidl_adapter/stepper_can:msg/ODriveStatus.idl
+/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can/rosidl_adapter/stepper_can:srv/AxisState.idl

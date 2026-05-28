@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "cubemars_can__py",
+		"source" : "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/cubemars_can/cubemars_can__py"
+	}
+}

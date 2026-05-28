@@ -1,0 +1,385 @@
+[0.075s] Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/yellowjacket/yellowjacket_node -DCMAKE_INSTALL_PREFIX=/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can
+[0.462s] -- The C compiler identification is GNU 11.4.0
+[0.810s] -- The CXX compiler identification is GNU 11.4.0
+[0.849s] -- Detecting C compiler ABI info
+[1.306s] -- Detecting C compiler ABI info - done
+[1.335s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.336s] -- Detecting C compile features
+[1.338s] -- Detecting C compile features - done
+[1.354s] -- Detecting CXX compiler ABI info
+[1.817s] -- Detecting CXX compiler ABI info - done
+[1.850s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[1.853s] -- Detecting CXX compile features
+[1.857s] -- Detecting CXX compile features - done
+[1.893s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[2.945s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[3.790s] -- Found rclcpp: 16.0.17 (/opt/ros/humble/share/rclcpp/cmake)
+[4.245s] -- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[4.306s] -- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[4.389s] -- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[4.497s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[4.658s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[5.106s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[5.141s] -- Found rmw_fastrtps_cpp: 6.2.9 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[5.776s] -- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[5.942s] -- Found FastRTPS: /opt/ros/humble/include  
+[6.225s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[6.330s] -- Looking for pthread.h
+[6.730s] -- Looking for pthread.h - found
+[6.733s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[7.128s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[7.133s] -- Found Threads: TRUE  
+[7.513s] -- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+[7.597s] -- Found std_srvs: 4.9.0 (/opt/ros/humble/share/std_srvs/cmake)
+[9.611s] -- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)
+[12.021s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[12.961s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[13.138s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.10.12", minimum required is "3.6") 
+[13.161s] -- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)
+[13.328s] -- Found PythonLibs: /usr/lib/aarch64-linux-gnu/libpython3.10.so (found suitable version "3.10.12", minimum required is "3.5") 
+[13.331s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[13.332s] -- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10
+[13.334s] -- Using PYTHON_LIBRARIES: /usr/lib/aarch64-linux-gnu/libpython3.10.so
+[13.507s] -- Found PythonExtra: .so  
+[13.837s] -- Configuring done
+[14.243s] -- Generating done
+[14.349s] -- Build files have been written to: /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can
+[14.435s] Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/yellowjacket/yellowjacket_node -DCMAKE_INSTALL_PREFIX=/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can
+[14.438s] Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --build /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can -- -j4 -l4
+[14.778s] [  1%] [34m[1mGenerating C++ code for ROS interfaces[0m
+[18.294s] [  1%] Built target yellowjacket_can__cpp
+[18.456s] [  1%] Built target ament_cmake_python_copy_yellowjacket_can
+[18.511s] [  3%] [34m[1mGenerating C++ type support for eProsima Fast-RTPS[0m
+[21.185s] [  5%] [32mBuilding CXX object CMakeFiles/yellowjacket_can__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/yellowjacket_can/msg/detail/dds_fastrtps/control_message__type_support.cpp.o[0m
+[23.682s] [  6%] [32mBuilding CXX object CMakeFiles/yellowjacket_can__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/yellowjacket_can/msg/detail/dds_fastrtps/controller_status__type_support.cpp.o[0m
+[26.231s] [  8%] [32mBuilding CXX object CMakeFiles/yellowjacket_can__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/yellowjacket_can/msg/detail/dds_fastrtps/o_drive_status__type_support.cpp.o[0m
+[29.136s] [ 10%] [32mBuilding CXX object CMakeFiles/yellowjacket_can__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/yellowjacket_can/srv/detail/dds_fastrtps/axis_state__type_support.cpp.o[0m
+[31.960s] [ 11%] [32m[1mLinking CXX shared library libyellowjacket_can__rosidl_typesupport_fastrtps_cpp.so[0m
+[32.404s] [ 11%] Built target yellowjacket_can__rosidl_typesupport_fastrtps_cpp
+[32.463s] [ 13%] [34m[1mGenerating C++ introspection for ROS interfaces[0m
+[34.813s] [ 15%] [32mBuilding CXX object CMakeFiles/yellowjacket_can__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/yellowjacket_can/msg/detail/control_message__type_support.cpp.o[0m
+[37.378s] [ 16%] [32mBuilding CXX object CMakeFiles/yellowjacket_can__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/yellowjacket_can/msg/detail/controller_status__type_support.cpp.o[0m
+[39.776s] [ 18%] [32mBuilding CXX object CMakeFiles/yellowjacket_can__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/yellowjacket_can/msg/detail/o_drive_status__type_support.cpp.o[0m
+[42.175s] [ 20%] [32mBuilding CXX object CMakeFiles/yellowjacket_can__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/yellowjacket_can/srv/detail/axis_state__type_support.cpp.o[0m
+[45.056s] [ 21%] [32m[1mLinking CXX shared library libyellowjacket_can__rosidl_typesupport_introspection_cpp.so[0m
+[45.284s] [ 21%] Built target yellowjacket_can__rosidl_typesupport_introspection_cpp
+[47.179s] running egg_info
+[47.184s] creating yellowjacket_can.egg-info
+[47.186s] writing yellowjacket_can.egg-info/PKG-INFO
+[47.189s] writing dependency_links to yellowjacket_can.egg-info/dependency_links.txt
+[47.192s] writing top-level names to yellowjacket_can.egg-info/top_level.txt
+[47.194s] writing manifest file 'yellowjacket_can.egg-info/SOURCES.txt'
+[47.208s] reading manifest file 'yellowjacket_can.egg-info/SOURCES.txt'
+[47.211s] writing manifest file 'yellowjacket_can.egg-info/SOURCES.txt'
+[47.470s] [ 21%] Built target ament_cmake_python_build_yellowjacket_can_egg
+[47.523s] [ 23%] [34m[1mGenerating C++ type support dispatch for ROS interfaces[0m
+[49.483s] [ 25%] [32mBuilding CXX object CMakeFiles/yellowjacket_can__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/yellowjacket_can/msg/control_message__type_support.cpp.o[0m
+[51.510s] [ 26%] [32mBuilding CXX object CMakeFiles/yellowjacket_can__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/yellowjacket_can/msg/o_drive_status__type_support.cpp.o[0m
+[53.136s] [ 28%] [32mBuilding CXX object CMakeFiles/yellowjacket_can__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/yellowjacket_can/srv/axis_state__type_support.cpp.o[0m
+[54.910s] [ 30%] [32mBuilding CXX object CMakeFiles/yellowjacket_can__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/yellowjacket_can/msg/controller_status__type_support.cpp.o[0m
+[56.859s] [ 31%] [32m[1mLinking CXX shared library libyellowjacket_can__rosidl_typesupport_cpp.so[0m
+[57.097s] [ 31%] Built target yellowjacket_can__rosidl_typesupport_cpp
+[57.154s] [ 33%] [34m[1mGenerating C code for ROS interfaces[0m
+[60.514s] [ 35%] [32mBuilding C object CMakeFiles/yellowjacket_can__rosidl_generator_c.dir/rosidl_generator_c/yellowjacket_can/msg/detail/control_message__functions.c.o[0m
+[60.814s] [ 36%] [32mBuilding C object CMakeFiles/yellowjacket_can__rosidl_generator_c.dir/rosidl_generator_c/yellowjacket_can/msg/detail/o_drive_status__functions.c.o[0m
+[61.116s] [ 38%] [32mBuilding C object CMakeFiles/yellowjacket_can__rosidl_generator_c.dir/rosidl_generator_c/yellowjacket_can/srv/detail/axis_state__functions.c.o[0m
+[61.485s] [ 40%] [32mBuilding C object CMakeFiles/yellowjacket_can__rosidl_generator_c.dir/rosidl_generator_c/yellowjacket_can/msg/detail/controller_status__functions.c.o[0m
+[61.791s] [ 41%] [32m[1mLinking C shared library libyellowjacket_can__rosidl_generator_c.so[0m
+[62.037s] [ 41%] Built target yellowjacket_can__rosidl_generator_c
+[62.168s] [ 43%] [32mBuilding CXX object CMakeFiles/yellowjacket_can_node.dir/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/yellowjacket/can_base/src/epoll_event_loop.cpp.o[0m
+[66.803s] [ 45%] [32mBuilding CXX object CMakeFiles/yellowjacket_can_node.dir/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/yellowjacket/can_base/src/socket_can.cpp.o[0m
+[71.183s] [ 46%] [32mBuilding CXX object CMakeFiles/yellowjacket_can_node.dir/src/yellowjacket_can_node.cpp.o[0m
+[89.969s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/yellowjacket/yellowjacket_node/src/yellowjacket_can_node.cpp:[m[K In member function ‘[01m[Kvoid YellowjacketCanNode::service_clear_errors_callback(std::shared_ptr<std_srvs::srv::Empty_Request_<std::allocator<void> > >, std::shared_ptr<std_srvs::srv::Empty_Response_<std::allocator<void> > >)[m[K’:
+[89.970s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/yellowjacket/yellowjacket_node/src/yellowjacket_can_node.cpp:188:95:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Krequest[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+[89.971s]   188 | void YellowjacketCanNode::service_clear_errors_callback([01;35m[Kconst std::shared_ptr<Empty::Request> request[m[K, std::shared_ptr<Empty::Response> response) {
+[89.972s]       |                                                         [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~[m[K
+[89.972s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/yellowjacket/yellowjacket_node/src/yellowjacket_can_node.cpp:188:137:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kresponse[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+[89.973s]   188 | ear_errors_callback(const std::shared_ptr<Empty::Request> request, [01;35m[Kstd::shared_ptr<Empty::Response> response[m[K) {
+[89.974s]       |                                                                    [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~[m[K
+[89.975s] 
+[107.392s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/yellowjacket/yellowjacket_node/src/yellowjacket_can_node.cpp:[m[K In member function ‘[01m[Kvoid YellowjacketCanNode::deinit()[m[K’:
+[107.393s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/yellowjacket/yellowjacket_node/src/yellowjacket_can_node.cpp:67:27:[m[K [01;35m[Kwarning: [m[K‘[01m[Kframe[m[K’ may be used uninitialized [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmaybe-uninitialized-Wmaybe-uninitialized]8;;[m[K]
+[107.394s]    67 |         [01;35m[Kwrite_le<uint32_t>(ODriveAxisState::AXIS_STATE_IDLE, frame.data)[m[K;
+[107.394s]       |         [01;35m[K~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[107.395s] In file included from [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/yellowjacket/yellowjacket_node/src/yellowjacket_can_node.cpp:4[m[K:
+[107.398s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/yellowjacket/yellowjacket_node/include/byte_swap.hpp:36:6:[m[K [01;36m[Knote: [m[Kby argument 2 of type ‘[01m[Kconst unsigned char*[m[K’ to ‘[01m[Kvoid write_le(const T&, const unsigned char*) [with T = unsigned int][m[K’ declared here
+[107.399s]    36 | void [01;36m[Kwrite_le[m[K(const T& val, const unsigned char* buf) {
+[107.399s]       |      [01;36m[K^~~~~~~~[m[K
+[107.400s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/yellowjacket/yellowjacket_node/src/yellowjacket_can_node.cpp:65:26:[m[K [01;36m[Knote: [m[K‘[01m[Kframe[m[K’ declared here
+[107.400s]    65 |         struct can_frame [01;36m[Kframe[m[K;
+[107.401s]       |                          [01;36m[K^~~~~[m[K
+[107.402s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/yellowjacket/yellowjacket_node/src/yellowjacket_can_node.cpp:[m[K In member function ‘[01m[Kvoid YellowjacketCanNode::request_clear_errors_callback()[m[K’:
+[107.402s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/yellowjacket/yellowjacket_node/src/yellowjacket_can_node.cpp:220:22:[m[K [01;35m[Kwarning: [m[K‘[01m[Kframe[m[K’ may be used uninitialized [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmaybe-uninitialized-Wmaybe-uninitialized]8;;[m[K]
+[107.403s]   220 |     [01;35m[Kwrite_le<uint8_t>(0, frame.data)[m[K;
+[107.404s]       |     [01;35m[K~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~[m[K
+[107.404s] In file included from [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/yellowjacket/yellowjacket_node/src/yellowjacket_can_node.cpp:4[m[K:
+[107.405s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/yellowjacket/yellowjacket_node/include/byte_swap.hpp:36:6:[m[K [01;36m[Knote: [m[Kby argument 2 of type ‘[01m[Kconst unsigned char*[m[K’ to ‘[01m[Kvoid write_le(const T&, const unsigned char*) [with T = unsigned char][m[K’ declared here
+[107.405s]    36 | void [01;36m[Kwrite_le[m[K(const T& val, const unsigned char* buf) {
+[107.406s]       |      [01;36m[K^~~~~~~~[m[K
+[107.407s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/yellowjacket/yellowjacket_node/src/yellowjacket_can_node.cpp:218:22:[m[K [01;36m[Knote: [m[K‘[01m[Kframe[m[K’ declared here
+[107.407s]   218 |     struct can_frame [01;36m[Kframe[m[K;
+[107.408s]       |                      [01;36m[K^~~~~[m[K
+[130.097s] [ 48%] [32mBuilding CXX object CMakeFiles/yellowjacket_can_node.dir/src/main.cpp.o[0m
+[149.166s] [ 50%] [32m[1mLinking CXX executable yellowjacket_can_node[0m
+[151.538s] [ 50%] Built target yellowjacket_can_node
+[151.661s] [ 53%] [34m[1mGenerating C type support dispatch for ROS interfaces[0m
+[151.662s] [ 53%] [34m[1mGenerating C introspection for ROS interfaces[0m
+[151.696s] [ 55%] [34m[1mGenerating C type support for eProsima Fast-RTPS[0m
+[153.956s] [ 56%] [32mBuilding CXX object CMakeFiles/yellowjacket_can__rosidl_typesupport_c.dir/rosidl_typesupport_c/yellowjacket_can/msg/control_message__type_support.cpp.o[0m
+[153.976s] [ 58%] [32mBuilding CXX object CMakeFiles/yellowjacket_can__rosidl_typesupport_c.dir/rosidl_typesupport_c/yellowjacket_can/msg/controller_status__type_support.cpp.o[0m
+[154.200s] [ 60%] [32mBuilding CXX object CMakeFiles/yellowjacket_can__rosidl_typesupport_c.dir/rosidl_typesupport_c/yellowjacket_can/srv/axis_state__type_support.cpp.o[0m
+[154.222s] [ 61%] [32mBuilding CXX object CMakeFiles/yellowjacket_can__rosidl_typesupport_c.dir/rosidl_typesupport_c/yellowjacket_can/msg/o_drive_status__type_support.cpp.o[0m
+[154.471s] [ 63%] [32m[1mLinking CXX shared library libyellowjacket_can__rosidl_typesupport_c.so[0m
+[154.703s] [ 63%] Built target yellowjacket_can__rosidl_typesupport_c
+[154.768s] [ 65%] [32mBuilding CXX object CMakeFiles/yellowjacket_can__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/yellowjacket_can/msg/detail/control_message__type_support_c.cpp.o[0m
+[154.786s] [ 66%] [32mBuilding CXX object CMakeFiles/yellowjacket_can__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/yellowjacket_can/msg/detail/o_drive_status__type_support_c.cpp.o[0m
+[154.793s] [ 68%] [32mBuilding CXX object CMakeFiles/yellowjacket_can__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/yellowjacket_can/msg/detail/controller_status__type_support_c.cpp.o[0m
+[154.815s] [ 70%] [32mBuilding C object CMakeFiles/yellowjacket_can__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/yellowjacket_can/msg/detail/control_message__type_support.c.o[0m
+[155.165s] [ 71%] [32mBuilding C object CMakeFiles/yellowjacket_can__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/yellowjacket_can/msg/detail/controller_status__type_support.c.o[0m
+[155.495s] [ 73%] [32mBuilding C object CMakeFiles/yellowjacket_can__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/yellowjacket_can/msg/detail/o_drive_status__type_support.c.o[0m
+[155.721s] [ 75%] [32mBuilding C object CMakeFiles/yellowjacket_can__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/yellowjacket_can/srv/detail/axis_state__type_support.c.o[0m
+[155.963s] [ 76%] [32m[1mLinking C shared library libyellowjacket_can__rosidl_typesupport_introspection_c.so[0m
+[156.261s] [ 76%] Built target yellowjacket_can__rosidl_typesupport_introspection_c
+[156.313s] [ 78%] [32mBuilding CXX object CMakeFiles/yellowjacket_can__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/yellowjacket_can/srv/detail/axis_state__type_support_c.cpp.o[0m
+[157.918s] [ 80%] [32m[1mLinking CXX shared library libyellowjacket_can__rosidl_typesupport_fastrtps_c.so[0m
+[158.263s] [ 80%] Built target yellowjacket_can__rosidl_typesupport_fastrtps_c
+[158.357s] [ 80%] Built target yellowjacket_can
+[158.448s] [ 81%] [34m[1mGenerating Python code for ROS interfaces[0m
+[161.159s] [ 81%] Built target yellowjacket_can__py
+[161.257s] [ 83%] [32mBuilding C object CMakeFiles/yellowjacket_can__rosidl_generator_py.dir/rosidl_generator_py/yellowjacket_can/msg/_control_message_s.c.o[0m
+[161.260s] [ 85%] [32mBuilding C object CMakeFiles/yellowjacket_can__rosidl_generator_py.dir/rosidl_generator_py/yellowjacket_can/msg/_controller_status_s.c.o[0m
+[161.262s] [ 86%] [32mBuilding C object CMakeFiles/yellowjacket_can__rosidl_generator_py.dir/rosidl_generator_py/yellowjacket_can/msg/_o_drive_status_s.c.o[0m
+[161.268s] [ 88%] [32mBuilding C object CMakeFiles/yellowjacket_can__rosidl_generator_py.dir/rosidl_generator_py/yellowjacket_can/srv/_axis_state_s.c.o[0m
+[161.839s] [ 90%] [32m[1mLinking C shared library rosidl_generator_py/yellowjacket_can/libyellowjacket_can__rosidl_generator_py.so[0m
+[162.029s] [ 90%] Built target yellowjacket_can__rosidl_generator_py
+[162.121s] [ 93%] [32mBuilding C object CMakeFiles/yellowjacket_can__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/yellowjacket_can/_yellowjacket_can_s.ep.rosidl_typesupport_introspection_c.c.o[0m
+[162.122s] [ 93%] [32mBuilding C object CMakeFiles/yellowjacket_can__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/yellowjacket_can/_yellowjacket_can_s.ep.rosidl_typesupport_fastrtps_c.c.o[0m
+[162.129s] [ 95%] [32mBuilding C object CMakeFiles/yellowjacket_can__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/yellowjacket_can/_yellowjacket_can_s.ep.rosidl_typesupport_c.c.o[0m
+[162.664s] [ 96%] [32m[1mLinking C shared library rosidl_generator_py/yellowjacket_can/yellowjacket_can_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so[0m
+[162.668s] [ 98%] [32m[1mLinking C shared library rosidl_generator_py/yellowjacket_can/yellowjacket_can_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so[0m
+[162.705s] [100%] [32m[1mLinking C shared library rosidl_generator_py/yellowjacket_can/yellowjacket_can_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so[0m
+[162.848s] [100%] Built target yellowjacket_can__rosidl_typesupport_c__pyext
+[162.856s] [100%] Built target yellowjacket_can__rosidl_typesupport_introspection_c__pyext
+[162.894s] [100%] Built target yellowjacket_can__rosidl_typesupport_fastrtps_c__pyext
+[162.942s] Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --build /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can -- -j4 -l4
+[162.952s] Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --install /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can
+[162.981s] -- Install configuration: ""
+[162.982s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/ament_index/resource_index/rosidl_interfaces/yellowjacket_can
+[162.983s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can
+[162.984s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg
+[162.985s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/o_drive_status.h
+[162.986s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/controller_status.h
+[162.987s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/control_message.h
+[162.988s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/rosidl_generator_c__visibility_control.h
+[162.990s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail
+[162.990s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/control_message__functions.c
+[162.992s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/o_drive_status__functions.c
+[162.993s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/controller_status__functions.c
+[162.995s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/o_drive_status__struct.h
+[162.996s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/o_drive_status__type_support.h
+[162.997s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/controller_status__functions.h
+[162.998s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/o_drive_status__functions.h
+[163.000s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/control_message__struct.h
+[163.001s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/control_message__type_support.h
+[163.002s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/controller_status__type_support.h
+[163.003s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/control_message__functions.h
+[163.004s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/controller_status__struct.h
+[163.006s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv
+[163.006s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv/axis_state.h
+[163.007s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv/detail
+[163.008s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv/detail/axis_state__struct.h
+[163.009s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv/detail/axis_state__functions.h
+[163.011s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv/detail/axis_state__type_support.h
+[163.012s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv/detail/axis_state__functions.c
+[163.014s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/environment/library_path.sh
+[163.015s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/environment/library_path.dsv
+[163.017s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib/libyellowjacket_can__rosidl_generator_c.so
+[163.020s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib/libyellowjacket_can__rosidl_generator_c.so" to ""
+[163.020s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can
+[163.020s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg
+[163.021s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[163.022s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail
+[163.023s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/controller_status__rosidl_typesupport_fastrtps_c.h
+[163.024s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/control_message__rosidl_typesupport_fastrtps_c.h
+[163.025s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/o_drive_status__rosidl_typesupport_fastrtps_c.h
+[163.027s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv
+[163.027s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv/detail
+[163.027s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv/detail/axis_state__rosidl_typesupport_fastrtps_c.h
+[163.029s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib/libyellowjacket_can__rosidl_typesupport_fastrtps_c.so
+[163.032s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib/libyellowjacket_can__rosidl_typesupport_fastrtps_c.so" to ""
+[163.033s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can
+[163.033s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg
+[163.033s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/controller_status.hpp
+[163.034s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/control_message.hpp
+[163.035s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail
+[163.036s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/controller_status__type_support.hpp
+[163.037s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/control_message__type_support.hpp
+[163.038s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/controller_status__builder.hpp
+[163.040s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/o_drive_status__builder.hpp
+[163.041s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/control_message__traits.hpp
+[163.042s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/o_drive_status__traits.hpp
+[163.043s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/controller_status__traits.hpp
+[163.045s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/o_drive_status__struct.hpp
+[163.046s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/controller_status__struct.hpp
+[163.047s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/control_message__struct.hpp
+[163.048s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/o_drive_status__type_support.hpp
+[163.050s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/control_message__builder.hpp
+[163.051s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/o_drive_status.hpp
+[163.052s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/rosidl_generator_cpp__visibility_control.hpp
+[163.053s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv
+[163.054s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv/axis_state.hpp
+[163.055s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv/detail
+[163.055s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv/detail/axis_state__traits.hpp
+[163.057s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv/detail/axis_state__builder.hpp
+[163.058s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv/detail/axis_state__type_support.hpp
+[163.059s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv/detail/axis_state__struct.hpp
+[163.060s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can
+[163.061s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg
+[163.061s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[163.062s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail
+[163.063s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/dds_fastrtps
+[163.064s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/controller_status__rosidl_typesupport_fastrtps_cpp.hpp
+[163.065s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/control_message__rosidl_typesupport_fastrtps_cpp.hpp
+[163.067s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/o_drive_status__rosidl_typesupport_fastrtps_cpp.hpp
+[163.068s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv
+[163.068s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv/detail
+[163.069s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv/detail/dds_fastrtps
+[163.069s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv/detail/axis_state__rosidl_typesupport_fastrtps_cpp.hpp
+[163.071s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib/libyellowjacket_can__rosidl_typesupport_fastrtps_cpp.so
+[163.074s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib/libyellowjacket_can__rosidl_typesupport_fastrtps_cpp.so" to ""
+[163.074s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can
+[163.075s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg
+[163.075s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail
+[163.076s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/o_drive_status__rosidl_typesupport_introspection_c.h
+[163.077s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/control_message__rosidl_typesupport_introspection_c.h
+[163.078s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/control_message__type_support.c
+[163.080s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/controller_status__rosidl_typesupport_introspection_c.h
+[163.081s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/o_drive_status__type_support.c
+[163.082s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/controller_status__type_support.c
+[163.084s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[163.085s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv
+[163.086s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv/detail
+[163.086s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv/detail/axis_state__type_support.c
+[163.087s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv/detail/axis_state__rosidl_typesupport_introspection_c.h
+[163.089s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib/libyellowjacket_can__rosidl_typesupport_introspection_c.so
+[163.092s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib/libyellowjacket_can__rosidl_typesupport_introspection_c.so" to ""
+[163.092s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib/libyellowjacket_can__rosidl_typesupport_c.so
+[163.095s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib/libyellowjacket_can__rosidl_typesupport_c.so" to ""
+[163.095s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can
+[163.096s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg
+[163.096s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail
+[163.096s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/control_message__type_support.cpp
+[163.098s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/control_message__rosidl_typesupport_introspection_cpp.hpp
+[163.099s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/controller_status__type_support.cpp
+[163.100s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/controller_status__rosidl_typesupport_introspection_cpp.hpp
+[163.102s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/o_drive_status__type_support.cpp
+[163.103s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/msg/detail/o_drive_status__rosidl_typesupport_introspection_cpp.hpp
+[163.104s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv
+[163.105s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv/detail
+[163.105s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv/detail/axis_state__rosidl_typesupport_introspection_cpp.hpp
+[163.107s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/include/yellowjacket_can/yellowjacket_can/srv/detail/axis_state__type_support.cpp
+[163.108s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib/libyellowjacket_can__rosidl_typesupport_introspection_cpp.so
+[163.111s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib/libyellowjacket_can__rosidl_typesupport_introspection_cpp.so" to ""
+[163.112s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib/libyellowjacket_can__rosidl_typesupport_cpp.so
+[163.114s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib/libyellowjacket_can__rosidl_typesupport_cpp.so" to ""
+[163.114s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/environment/pythonpath.sh
+[163.116s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/environment/pythonpath.dsv
+[163.117s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can-0.0.1-py3.10.egg-info
+[163.118s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can-0.0.1-py3.10.egg-info/PKG-INFO
+[163.119s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can-0.0.1-py3.10.egg-info/top_level.txt
+[163.120s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can-0.0.1-py3.10.egg-info/SOURCES.txt
+[163.122s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can-0.0.1-py3.10.egg-info/dependency_links.txt
+[163.123s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can
+[163.124s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/_yellowjacket_can_s.ep.rosidl_typesupport_introspection_c.c
+[163.126s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/yellowjacket_can_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so
+[163.127s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/__init__.py
+[163.128s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/yellowjacket_can_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so
+[163.130s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/_yellowjacket_can_s.ep.rosidl_typesupport_c.c
+[163.131s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/_yellowjacket_can_s.ep.rosidl_typesupport_fastrtps_c.c
+[163.133s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/msg
+[163.134s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/msg/__init__.py
+[163.135s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/msg/_controller_status_s.c
+[163.136s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/msg/_control_message_s.c
+[163.137s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/msg/_o_drive_status_s.c
+[163.138s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/msg/_controller_status.py
+[163.140s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/msg/_control_message.py
+[163.141s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/msg/_o_drive_status.py
+[163.142s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/libyellowjacket_can__rosidl_generator_py.so
+[163.144s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/srv
+[163.144s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/srv/__init__.py
+[163.145s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/srv/_axis_state.py
+[163.147s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/srv/_axis_state_s.c
+[163.148s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/yellowjacket_can_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so
+[163.338s] Listing '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can'...
+[163.340s] Compiling '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/__init__.py'...
+[163.341s] Listing '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/msg'...
+[163.342s] Compiling '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/msg/__init__.py'...
+[163.343s] Compiling '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/msg/_control_message.py'...
+[163.343s] Compiling '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/msg/_controller_status.py'...
+[163.344s] Compiling '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/msg/_o_drive_status.py'...
+[163.345s] Listing '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/srv'...
+[163.346s] Compiling '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/srv/__init__.py'...
+[163.347s] Compiling '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/srv/_axis_state.py'...
+[163.365s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/yellowjacket_can_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so
+[163.367s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/yellowjacket_can_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so" to ""
+[163.369s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/yellowjacket_can_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so
+[163.372s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/yellowjacket_can_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so" to ""
+[163.374s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/yellowjacket_can_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so
+[163.377s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages/yellowjacket_can/yellowjacket_can_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so" to ""
+[163.377s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib/libyellowjacket_can__rosidl_generator_py.so
+[163.381s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib/libyellowjacket_can__rosidl_generator_py.so" to ""
+[163.381s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/msg/ControlMessage.idl
+[163.383s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/msg/ControllerStatus.idl
+[163.384s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/msg/ODriveStatus.idl
+[163.386s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/srv/AxisState.idl
+[163.387s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/msg/ControlMessage.msg
+[163.389s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/msg/ControllerStatus.msg
+[163.390s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/msg/ODriveStatus.msg
+[163.391s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/srv/AxisState.srv
+[163.392s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/srv/AxisState_Request.msg
+[163.393s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/srv/AxisState_Response.msg
+[163.395s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib/yellowjacket_can/yellowjacket_can_node
+[163.431s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib/yellowjacket_can/yellowjacket_can_node" to ""
+[163.431s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/launch
+[163.433s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/launch/example_launch.yaml
+[163.434s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/launch/example_launch2.yaml
+[163.437s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/ament_index/resource_index/package_run_dependencies/yellowjacket_can
+[163.439s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/ament_index/resource_index/parent_prefix_path/yellowjacket_can
+[163.440s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/environment/ament_prefix_path.sh
+[163.442s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/environment/ament_prefix_path.dsv
+[163.444s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/environment/path.sh
+[163.445s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/environment/path.dsv
+[163.447s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/local_setup.bash
+[163.449s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/local_setup.sh
+[163.451s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/local_setup.zsh
+[163.452s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/local_setup.dsv
+[163.453s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/package.dsv
+[163.455s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/ament_index/resource_index/packages/yellowjacket_can
+[163.457s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/cmake/export_yellowjacket_can__rosidl_generator_cExport.cmake
+[163.458s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/cmake/export_yellowjacket_can__rosidl_generator_cExport-noconfig.cmake
+[163.460s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/cmake/export_yellowjacket_can__rosidl_typesupport_fastrtps_cExport.cmake
+[163.462s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/cmake/export_yellowjacket_can__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+[163.463s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/cmake/export_yellowjacket_can__rosidl_generator_cppExport.cmake
+[163.465s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/cmake/export_yellowjacket_can__rosidl_typesupport_fastrtps_cppExport.cmake
+[163.467s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/cmake/export_yellowjacket_can__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+[163.468s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/cmake/yellowjacket_can__rosidl_typesupport_introspection_cExport.cmake
+[163.470s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/cmake/yellowjacket_can__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[163.472s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/cmake/yellowjacket_can__rosidl_typesupport_cExport.cmake
+[163.473s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/cmake/yellowjacket_can__rosidl_typesupport_cExport-noconfig.cmake
+[163.475s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/cmake/yellowjacket_can__rosidl_typesupport_introspection_cppExport.cmake
+[163.477s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/cmake/yellowjacket_can__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[163.478s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/cmake/yellowjacket_can__rosidl_typesupport_cppExport.cmake
+[163.480s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/cmake/yellowjacket_can__rosidl_typesupport_cppExport-noconfig.cmake
+[163.481s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/cmake/export_yellowjacket_can__rosidl_generator_pyExport.cmake
+[163.483s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/cmake/export_yellowjacket_can__rosidl_generator_pyExport-noconfig.cmake
+[163.485s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/cmake/rosidl_cmake-extras.cmake
+[163.486s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/cmake/ament_cmake_export_include_directories-extras.cmake
+[163.488s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/cmake/ament_cmake_export_libraries-extras.cmake
+[163.489s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/cmake/ament_cmake_export_targets-extras.cmake
+[163.490s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[163.492s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/cmake/ament_cmake_export_dependencies-extras.cmake
+[163.493s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[163.495s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/cmake/yellowjacket_canConfig.cmake
+[163.496s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/cmake/yellowjacket_canConfig-version.cmake
+[163.497s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/package.xml
+[163.506s] Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --install /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can

@@ -1,0 +1,13 @@
+launch:
+
+- node:
+    pkg: "serializer_nodes_demo"
+    exec: "pub_serial_node"
+    name: "telemetry"
+    namespace: "pi_telemetry"
+
+- node:
+    pkg: "serializer_nodes_demo"
+    exec: "sub_serial_node"
+    name: "telemetry"
+    namespace: "bs_telemetry"

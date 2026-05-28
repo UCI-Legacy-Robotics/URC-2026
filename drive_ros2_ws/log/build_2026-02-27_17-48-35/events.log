@@ -1,0 +1,263 @@
+[0.000000] (-) TimerEvent: {}
+[0.002200] (drive_teleop) JobQueued: {'identifier': 'drive_teleop', 'dependencies': OrderedDict()}
+[0.003026] (drive_manager) JobQueued: {'identifier': 'drive_manager', 'dependencies': OrderedDict([('drive_teleop', '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop')])}
+[0.003674] (drive_teleop) JobStarted: {'identifier': 'drive_teleop'}
+[0.052229] (drive_teleop) JobProgress: {'identifier': 'drive_teleop', 'progress': 'cmake'}
+[0.055942] (drive_teleop) JobProgress: {'identifier': 'drive_teleop', 'progress': 'build'}
+[0.059611] (drive_teleop) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_teleop', '--', '-j4', '-l4'], 'cwd': '/home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_teleop', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'pi'), ('SSH_CLIENT', '100.106.72.19 52100 22'), ('XDG_SESSION_TYPE', 'tty'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/servo/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib:/home/pi/Legacy/Testing/ros2_ws/install/odrive_can/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/pi'), ('OLDPWD', '/home/pi/Legacy/URC-2026'), ('SSH_TTY', '/dev/pts/0'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLCON_PREFIX_PATH', '/home/pi/Legacy/Testing/ros2_ws/install:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install:/home/pi/Legacy/URC-2026/drive_ros2_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'pi'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '1'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/pi/.local/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/drive:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/servo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/Testing/ros2_ws/install/odrive_can:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_teleop'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '100.106.72.19 52100 100.109.254.28 22'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/lib/python3.10/site-packages:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo/lib/python3.10/site-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/drive/lib/python3.10/site-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/servo/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command/lib/python3.10/site-packages:/home/pi/Legacy/Testing/ros2_ws/install/odrive_can/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/servo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can:/home/pi/Legacy/Testing/ros2_ws/install/odrive_can:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/drive:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/opt/ros/humble')]), 'shell': False}
+[0.098763] (-) TimerEvent: {}
+[0.199906] (-) TimerEvent: {}
+[0.300779] (-) TimerEvent: {}
+[0.346177] (drive_teleop) StdoutLine: {'line': b'[  3%] Built target drive_teleop__cpp\n'}
+[0.363484] (drive_teleop) StdoutLine: {'line': b'[ 12%] Built target drive_teleop__rosidl_generator_c\n'}
+[0.401003] (-) TimerEvent: {}
+[0.407837] (drive_teleop) StdoutLine: {'line': b'[ 12%] Built target ament_cmake_python_copy_drive_teleop\n'}
+[0.482151] (drive_teleop) StdoutLine: {'line': b'[ 21%] Built target drive_teleop__rosidl_typesupport_cpp\n'}
+[0.493593] (drive_teleop) StdoutLine: {'line': b'[ 30%] Built target drive_teleop__rosidl_typesupport_fastrtps_cpp\n'}
+[0.501199] (-) TimerEvent: {}
+[0.504468] (drive_teleop) StdoutLine: {'line': b'[ 39%] Built target drive_teleop__rosidl_typesupport_introspection_cpp\n'}
+[0.544982] (drive_teleop) StdoutLine: {'line': b'[ 48%] Built target drive_teleop__rosidl_typesupport_fastrtps_c\n'}
+[0.601538] (-) TimerEvent: {}
+[0.631320] (drive_teleop) StdoutLine: {'line': b'[ 57%] Built target drive_teleop__rosidl_typesupport_c\n'}
+[0.637965] (drive_teleop) StdoutLine: {'line': b'[ 66%] Built target drive_teleop__rosidl_typesupport_introspection_c\n'}
+[0.701721] (-) TimerEvent: {}
+[0.706847] (drive_teleop) StdoutLine: {'line': b'[ 72%] Built target drive_teleop_node\n'}
+[0.755355] (drive_teleop) StdoutLine: {'line': b'[ 72%] Built target drive_teleop\n'}
+[0.801946] (-) TimerEvent: {}
+[0.871593] (drive_teleop) StdoutLine: {'line': b'[ 75%] Built target drive_teleop__py\n'}
+[0.902138] (-) TimerEvent: {}
+[1.002745] (drive_teleop) StdoutLine: {'line': b'[ 81%] Built target drive_teleop__rosidl_generator_py\n'}
+[1.003943] (-) TimerEvent: {}
+[1.106458] (-) TimerEvent: {}
+[1.140286] (drive_teleop) StdoutLine: {'line': b'[ 87%] Built target drive_teleop__rosidl_typesupport_fastrtps_c__pyext\n'}
+[1.151087] (drive_teleop) StdoutLine: {'line': b'[ 93%] Built target drive_teleop__rosidl_typesupport_introspection_c__pyext\n'}
+[1.157365] (drive_teleop) StdoutLine: {'line': b'[100%] Built target drive_teleop__rosidl_typesupport_c__pyext\n'}
+[1.206638] (-) TimerEvent: {}
+[1.307395] (-) TimerEvent: {}
+[1.408199] (-) TimerEvent: {}
+[1.508875] (-) TimerEvent: {}
+[1.609569] (-) TimerEvent: {}
+[1.710287] (-) TimerEvent: {}
+[1.746098] (drive_teleop) StdoutLine: {'line': b'running egg_info\n'}
+[1.749126] (drive_teleop) StdoutLine: {'line': b'writing drive_teleop.egg-info/PKG-INFO\n'}
+[1.750222] (drive_teleop) StdoutLine: {'line': b'writing dependency_links to drive_teleop.egg-info/dependency_links.txt\n'}
+[1.751220] (drive_teleop) StdoutLine: {'line': b'writing top-level names to drive_teleop.egg-info/top_level.txt\n'}
+[1.761010] (drive_teleop) StdoutLine: {'line': b"reading manifest file 'drive_teleop.egg-info/SOURCES.txt'\n"}
+[1.763516] (drive_teleop) StdoutLine: {'line': b"writing manifest file 'drive_teleop.egg-info/SOURCES.txt'\n"}
+[1.810533] (-) TimerEvent: {}
+[1.898054] (drive_teleop) StdoutLine: {'line': b'[100%] Built target ament_cmake_python_build_drive_teleop_egg\n'}
+[1.910705] (-) TimerEvent: {}
+[1.952267] (drive_teleop) CommandEnded: {'returncode': 0}
+[1.954826] (drive_teleop) JobProgress: {'identifier': 'drive_teleop', 'progress': 'install'}
+[1.997385] (drive_teleop) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_teleop'], 'cwd': '/home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_teleop', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'pi'), ('SSH_CLIENT', '100.106.72.19 52100 22'), ('XDG_SESSION_TYPE', 'tty'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/servo/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib:/home/pi/Legacy/Testing/ros2_ws/install/odrive_can/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/pi'), ('OLDPWD', '/home/pi/Legacy/URC-2026'), ('SSH_TTY', '/dev/pts/0'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLCON_PREFIX_PATH', '/home/pi/Legacy/Testing/ros2_ws/install:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install:/home/pi/Legacy/URC-2026/drive_ros2_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'pi'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '1'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/pi/.local/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/drive:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/servo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/Testing/ros2_ws/install/odrive_can:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_teleop'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '100.106.72.19 52100 100.109.254.28 22'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/lib/python3.10/site-packages:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo/lib/python3.10/site-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/drive/lib/python3.10/site-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/servo/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command/lib/python3.10/site-packages:/home/pi/Legacy/Testing/ros2_ws/install/odrive_can/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/servo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can:/home/pi/Legacy/Testing/ros2_ws/install/odrive_can:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/drive:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/opt/ros/humble')]), 'shell': False}
+[2.010978] (-) TimerEvent: {}
+[2.040151] (drive_teleop) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[2.041117] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/ament_index/resource_index/rosidl_interfaces/drive_teleop\n'}
+[2.042213] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop\n'}
+[2.042820] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg\n'}
+[2.043332] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/drive_control_message.h\n'}
+[2.043675] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/rosidl_generator_c__visibility_control.h\n'}
+[2.044148] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail\n'}
+[2.044530] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__struct.h\n'}
+[2.045035] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__functions.c\n'}
+[2.045507] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__type_support.h\n'}
+[2.045977] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__functions.h\n'}
+[2.046330] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/environment/library_path.sh\n'}
+[2.046632] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/environment/library_path.dsv\n'}
+[2.047291] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib/libdrive_teleop__rosidl_generator_c.so\n'}
+[2.048468] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop\n'}
+[2.049026] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg\n'}
+[2.049453] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/rosidl_typesupport_fastrtps_c__visibility_control.h\n'}
+[2.049877] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail\n'}
+[2.050323] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__rosidl_typesupport_fastrtps_c.h\n'}
+[2.051489] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib/libdrive_teleop__rosidl_typesupport_fastrtps_c.so\n'}
+[2.052817] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop\n'}
+[2.053342] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg\n'}
+[2.053777] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/drive_control_message.hpp\n'}
+[2.054241] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail\n'}
+[2.054651] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__type_support.hpp\n'}
+[2.055090] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__struct.hpp\n'}
+[2.055475] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__builder.hpp\n'}
+[2.055870] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__traits.hpp\n'}
+[2.056282] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/rosidl_generator_cpp__visibility_control.hpp\n'}
+[2.056890] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop\n'}
+[2.057506] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg\n'}
+[2.058031] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h\n'}
+[2.058648] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail\n'}
+[2.058981] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/dds_fastrtps\n'}
+[2.059277] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[2.059808] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib/libdrive_teleop__rosidl_typesupport_fastrtps_cpp.so\n'}
+[2.060992] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop\n'}
+[2.061493] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg\n'}
+[2.061933] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail\n'}
+[2.062337] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__rosidl_typesupport_introspection_c.h\n'}
+[2.062717] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__type_support.c\n'}
+[2.063135] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/rosidl_typesupport_introspection_c__visibility_control.h\n'}
+[2.064250] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib/libdrive_teleop__rosidl_typesupport_introspection_c.so\n'}
+[2.066284] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib/libdrive_teleop__rosidl_typesupport_c.so\n'}
+[2.067434] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop\n'}
+[2.067907] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg\n'}
+[2.068314] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail\n'}
+[2.068773] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__rosidl_typesupport_introspection_cpp.hpp\n'}
+[2.069238] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__type_support.cpp\n'}
+[2.070410] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib/libdrive_teleop__rosidl_typesupport_introspection_cpp.so\n'}
+[2.072438] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib/libdrive_teleop__rosidl_typesupport_cpp.so\n'}
+[2.073706] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/environment/pythonpath.sh\n'}
+[2.074286] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/environment/pythonpath.dsv\n'}
+[2.074706] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop-0.0.0-py3.10.egg-info\n'}
+[2.075099] (drive_teleop) StdoutLine: {'line': b'-- Installing: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop-0.0.0-py3.10.egg-info/PKG-INFO\n'}
+[2.076538] (drive_teleop) StdoutLine: {'line': b'-- Installing: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop-0.0.0-py3.10.egg-info/top_level.txt\n'}
+[2.078023] (drive_teleop) StdoutLine: {'line': b'-- Installing: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop-0.0.0-py3.10.egg-info/SOURCES.txt\n'}
+[2.079389] (drive_teleop) StdoutLine: {'line': b'-- Installing: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop-0.0.0-py3.10.egg-info/dependency_links.txt\n'}
+[2.080950] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop\n'}
+[2.081547] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/drive_teleop_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so\n'}
+[2.081984] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/__init__.py\n'}
+[2.082390] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/drive_teleop_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so\n'}
+[2.082786] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/_drive_teleop_s.ep.rosidl_typesupport_c.c\n'}
+[2.083252] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/_drive_teleop_s.ep.rosidl_typesupport_fastrtps_c.c\n'}
+[2.083640] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/msg\n'}
+[2.084114] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/msg/__init__.py\n'}
+[2.084498] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/msg/_drive_control_message.py\n'}
+[2.084972] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/msg/_drive_control_message_s.c\n'}
+[2.085350] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/_drive_teleop_s.ep.rosidl_typesupport_introspection_c.c\n'}
+[2.085782] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/drive_teleop_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so\n'}
+[2.086183] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/libdrive_teleop__rosidl_generator_py.so\n'}
+[2.111144] (-) TimerEvent: {}
+[2.211820] (-) TimerEvent: {}
+[2.275668] (drive_teleop) StdoutLine: {'line': b"Listing '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop'...\n"}
+[2.277240] (drive_teleop) StdoutLine: {'line': b"Listing '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/msg'...\n"}
+[2.300361] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/drive_teleop_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so\n'}
+[2.302898] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/drive_teleop_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so\n'}
+[2.305562] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/drive_teleop_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so\n'}
+[2.308051] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib/libdrive_teleop__rosidl_generator_py.so\n'}
+[2.309653] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/msg/DriveControlMessage.idl\n'}
+[2.310398] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/msg/DriveControlMessage.msg\n'}
+[2.311574] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib/drive_teleop/drive_teleop_node\n'}
+[2.312065] (-) TimerEvent: {}
+[2.313448] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/ament_index/resource_index/package_run_dependencies/drive_teleop\n'}
+[2.314218] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/ament_index/resource_index/parent_prefix_path/drive_teleop\n'}
+[2.314732] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/environment/ament_prefix_path.sh\n'}
+[2.315217] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/environment/ament_prefix_path.dsv\n'}
+[2.315739] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/environment/path.sh\n'}
+[2.316187] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/environment/path.dsv\n'}
+[2.316646] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/local_setup.bash\n'}
+[2.317136] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/local_setup.sh\n'}
+[2.317564] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/local_setup.zsh\n'}
+[2.318006] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/local_setup.dsv\n'}
+[2.318352] (drive_teleop) StdoutLine: {'line': b'-- Installing: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/package.dsv\n'}
+[2.319169] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/ament_index/resource_index/packages/drive_teleop\n'}
+[2.320053] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/cmake/export_drive_teleop__rosidl_generator_cExport.cmake\n'}
+[2.320616] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/cmake/export_drive_teleop__rosidl_generator_cExport-noconfig.cmake\n'}
+[2.321577] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/cmake/export_drive_teleop__rosidl_typesupport_fastrtps_cExport.cmake\n'}
+[2.322118] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/cmake/export_drive_teleop__rosidl_typesupport_fastrtps_cExport-noconfig.cmake\n'}
+[2.322939] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/cmake/export_drive_teleop__rosidl_generator_cppExport.cmake\n'}
+[2.323784] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/cmake/export_drive_teleop__rosidl_typesupport_fastrtps_cppExport.cmake\n'}
+[2.324265] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/cmake/export_drive_teleop__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake\n'}
+[2.325222] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/cmake/drive_teleop__rosidl_typesupport_introspection_cExport.cmake\n'}
+[2.325765] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/cmake/drive_teleop__rosidl_typesupport_introspection_cExport-noconfig.cmake\n'}
+[2.326603] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/cmake/drive_teleop__rosidl_typesupport_cExport.cmake\n'}
+[2.327199] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/cmake/drive_teleop__rosidl_typesupport_cExport-noconfig.cmake\n'}
+[2.327989] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/cmake/drive_teleop__rosidl_typesupport_introspection_cppExport.cmake\n'}
+[2.328521] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/cmake/drive_teleop__rosidl_typesupport_introspection_cppExport-noconfig.cmake\n'}
+[2.329467] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/cmake/drive_teleop__rosidl_typesupport_cppExport.cmake\n'}
+[2.329980] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/cmake/drive_teleop__rosidl_typesupport_cppExport-noconfig.cmake\n'}
+[2.330827] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/cmake/export_drive_teleop__rosidl_generator_pyExport.cmake\n'}
+[2.331337] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/cmake/export_drive_teleop__rosidl_generator_pyExport-noconfig.cmake\n'}
+[2.331832] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/cmake/rosidl_cmake-extras.cmake\n'}
+[2.332298] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[2.332844] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[2.333319] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[2.333773] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[2.334194] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake\n'}
+[2.334656] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake\n'}
+[2.335082] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/cmake/drive_teleopConfig.cmake\n'}
+[2.335520] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/cmake/drive_teleopConfig-version.cmake\n'}
+[2.335959] (drive_teleop) StdoutLine: {'line': b'-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/package.xml\n'}
+[2.342571] (drive_teleop) CommandEnded: {'returncode': 0}
+[2.412257] (-) TimerEvent: {}
+[2.450853] (drive_teleop) JobEnded: {'identifier': 'drive_teleop', 'rc': 0}
+[2.455377] (drive_manager) JobStarted: {'identifier': 'drive_manager'}
+[2.515489] (-) TimerEvent: {}
+[2.616359] (-) TimerEvent: {}
+[2.717189] (-) TimerEvent: {}
+[2.818367] (-) TimerEvent: {}
+[2.919515] (-) TimerEvent: {}
+[3.020639] (-) TimerEvent: {}
+[3.121284] (-) TimerEvent: {}
+[3.221952] (-) TimerEvent: {}
+[3.323297] (-) TimerEvent: {}
+[3.425067] (-) TimerEvent: {}
+[3.525899] (-) TimerEvent: {}
+[3.626683] (-) TimerEvent: {}
+[3.727547] (-) TimerEvent: {}
+[3.828920] (-) TimerEvent: {}
+[3.929750] (-) TimerEvent: {}
+[4.030604] (-) TimerEvent: {}
+[4.131427] (-) TimerEvent: {}
+[4.232196] (-) TimerEvent: {}
+[4.333027] (-) TimerEvent: {}
+[4.434045] (-) TimerEvent: {}
+[4.534848] (-) TimerEvent: {}
+[4.635738] (-) TimerEvent: {}
+[4.736626] (-) TimerEvent: {}
+[4.837565] (-) TimerEvent: {}
+[4.939423] (-) TimerEvent: {}
+[5.042115] (-) TimerEvent: {}
+[5.143087] (-) TimerEvent: {}
+[5.244136] (-) TimerEvent: {}
+[5.344918] (-) TimerEvent: {}
+[5.445712] (-) TimerEvent: {}
+[5.546622] (-) TimerEvent: {}
+[5.647824] (-) TimerEvent: {}
+[5.748923] (-) TimerEvent: {}
+[5.843909] (drive_manager) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/drive_manager', 'build', '--build-base', '/home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_manager/build', 'install', '--record', '/home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_manager/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/pi/Legacy/URC-2026/drive_ros2_ws/src/drive', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'pi', 'SSH_CLIENT': '100.106.72.19 52100 22', 'XDG_SESSION_TYPE': 'tty', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/servo/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib:/home/pi/Legacy/Testing/ros2_ws/install/odrive_can/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib', 'MOTD_SHOWN': 'pam', 'HOME': '/home/pi', 'OLDPWD': '/home/pi/Legacy/URC-2026', 'SSH_TTY': '/dev/pts/0', 'ROS_PYTHON_VERSION': '3', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLCON_PREFIX_PATH': '/home/pi/Legacy/Testing/ros2_ws/install:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install:/home/pi/Legacy/URC-2026/drive_ros2_ws/install', 'ROS_DISTRO': 'humble', 'LOGNAME': 'pi', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '1', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/home/pi/.local/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/drive:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/servo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/Testing/ros2_ws/install/odrive_can:/opt/ros/humble', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'PWD': '/home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_manager', 'LC_ALL': 'en_US.UTF-8', 'SSH_CONNECTION': '100.106.72.19 52100 100.109.254.28 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_manager/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/lib/python3.10/site-packages:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/lib/python3.10/site-packages:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo/lib/python3.10/site-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/drive/lib/python3.10/site-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/servo/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command/lib/python3.10/site-packages:/home/pi/Legacy/Testing/ros2_ws/install/odrive_can/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/servo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can:/home/pi/Legacy/Testing/ros2_ws/install/odrive_can'}, 'shell': False}
+[5.855344] (-) TimerEvent: {}
+[5.956525] (-) TimerEvent: {}
+[6.057606] (-) TimerEvent: {}
+[6.158415] (-) TimerEvent: {}
+[6.259315] (-) TimerEvent: {}
+[6.368937] (-) TimerEvent: {}
+[6.471791] (-) TimerEvent: {}
+[6.573715] (-) TimerEvent: {}
+[6.676311] (-) TimerEvent: {}
+[6.779501] (-) TimerEvent: {}
+[6.883129] (-) TimerEvent: {}
+[6.987244] (-) TimerEvent: {}
+[7.089614] (-) TimerEvent: {}
+[7.192501] (-) TimerEvent: {}
+[7.295157] (-) TimerEvent: {}
+[7.397830] (-) TimerEvent: {}
+[7.501883] (-) TimerEvent: {}
+[7.604924] (-) TimerEvent: {}
+[7.706658] (-) TimerEvent: {}
+[7.765429] (drive_manager) StdoutLine: {'line': b'running egg_info\n'}
+[7.769788] (drive_manager) StdoutLine: {'line': b'writing ../../build/drive_manager/drive_manager.egg-info/PKG-INFO\n'}
+[7.772809] (drive_manager) StdoutLine: {'line': b'writing dependency_links to ../../build/drive_manager/drive_manager.egg-info/dependency_links.txt\n'}
+[7.776448] (drive_manager) StdoutLine: {'line': b'writing entry points to ../../build/drive_manager/drive_manager.egg-info/entry_points.txt\n'}
+[7.777305] (drive_manager) StdoutLine: {'line': b'writing requirements to ../../build/drive_manager/drive_manager.egg-info/requires.txt\n'}
+[7.778060] (drive_manager) StdoutLine: {'line': b'writing top-level names to ../../build/drive_manager/drive_manager.egg-info/top_level.txt\n'}
+[7.790490] (drive_manager) StdoutLine: {'line': b"reading manifest file '../../build/drive_manager/drive_manager.egg-info/SOURCES.txt'\n"}
+[7.792412] (drive_manager) StdoutLine: {'line': b"adding license file 'LICENSE'\n"}
+[7.796515] (drive_manager) StdoutLine: {'line': b"writing manifest file '../../build/drive_manager/drive_manager.egg-info/SOURCES.txt'\n"}
+[7.797583] (drive_manager) StdoutLine: {'line': b'running build\n'}
+[7.798535] (drive_manager) StdoutLine: {'line': b'running build_py\n'}
+[7.800894] (drive_manager) StdoutLine: {'line': b'copying src/drive_manager_node.py -> /home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_manager/build/lib/src\n'}
+[7.802251] (drive_manager) StdoutLine: {'line': b'running install\n'}
+[7.803134] (drive_manager) StdoutLine: {'line': b'running install_lib\n'}
+[7.806934] (-) TimerEvent: {}
+[7.808654] (drive_manager) StdoutLine: {'line': b'copying /home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_manager/build/lib/src/drive_manager_node.py -> /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/lib/python3.10/site-packages/src\n'}
+[7.813173] (drive_manager) StdoutLine: {'line': b'byte-compiling /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/lib/python3.10/site-packages/src/drive_manager_node.py to drive_manager_node.cpython-310.pyc\n'}
+[7.817789] (drive_manager) StdoutLine: {'line': b'running install_data\n'}
+[7.819385] (drive_manager) StdoutLine: {'line': b'running install_egg_info\n'}
+[7.833057] (drive_manager) StdoutLine: {'line': b"removing '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/lib/python3.10/site-packages/drive_manager-0.0.0-py3.10.egg-info' (and everything under it)\n"}
+[7.836530] (drive_manager) StdoutLine: {'line': b'Copying ../../build/drive_manager/drive_manager.egg-info to /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/lib/python3.10/site-packages/drive_manager-0.0.0-py3.10.egg-info\n'}
+[7.848092] (drive_manager) StdoutLine: {'line': b'running install_scripts\n'}
+[7.907280] (-) TimerEvent: {}
+[7.988174] (drive_manager) StdoutLine: {'line': b'Installing drive_manager_node script to /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/lib/drive_manager\n'}
+[7.990339] (drive_manager) StdoutLine: {'line': b"writing list of installed files to '/home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_manager/install.log'\n"}
+[8.007619] (-) TimerEvent: {}
+[8.109114] (-) TimerEvent: {}
+[8.169792] (drive_manager) CommandEnded: {'returncode': 0}
+[8.209502] (-) TimerEvent: {}
+[8.257407] (drive_manager) JobEnded: {'identifier': 'drive_manager', 'rc': 0}
+[8.267641] (-) EventReactorShutdown: {}

@@ -1,0 +1,85 @@
+launch:
+
+- node:
+    pkg: "yellowjacket_can"
+    exec: "yellowjacket_can_node"
+    name: "can_node"
+    namespace: "drive_fl"
+    param:
+    -
+      name: "node_id"
+      value: 6
+    -
+      name: "interface"
+      value: "can0"
+
+- node:
+    pkg: "yellowjacket_can"
+    exec: "yellowjacket_can_node"
+    name: "can_node"
+    namespace: "drive_fr"
+    param:
+    -
+      name: "node_id"
+      value: 7
+    -
+      name: "interface"
+      value: "can0"
+
+- node:
+    pkg: "yellowjacket_can"
+    exec: "yellowjacket_can_node"
+    name: "can_node"
+    namespace: "drive_ml"
+    param:
+    -
+      name: "node_id"
+      value: 8
+    -
+      name: "interface"
+      value: "can0"
+
+- node:
+    pkg: "yellowjacket_can"
+    exec: "yellowjacket_can_node"
+    name: "can_node"
+    namespace: "drive_mr"
+    param:
+    -
+      name: "node_id"
+      value: 9
+    -
+      name: "interface"
+      value: "can0"
+
+- node:
+    pkg: "yellowjacket_can"
+    exec: "yellowjacket_can_node"
+    name: "can_node"
+    namespace: "drive_bl"
+    param:
+    -
+      name: "node_id"
+      value: 4
+    -
+      name: "interface"
+      value: "can0"
+
+- node:
+    pkg: "yellowjacket_can"
+    exec: "yellowjacket_can_node"
+    name: "can_node"
+    namespace: "drive_br"
+    param:
+    -
+      name: "node_id"
+      value: 5
+    -
+      name: "interface"
+      value: "can0"
+
+- node:
+    pkg: "drive_manager"
+    exec: "drive_manager_node"
+    name: "drive_node"
+    namespace: "drive_manager"

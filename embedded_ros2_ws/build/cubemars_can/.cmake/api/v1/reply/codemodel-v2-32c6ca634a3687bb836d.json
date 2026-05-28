@@ -1,0 +1,242 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-ddb70c2176bef3247c68.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18
+					]
+				},
+				{
+					"build" : "cubemars_can__py",
+					"jsonFile" : "directory-cubemars_can__py-17926931930fef5b11a0.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/cubemars_can/cubemars_can__py",
+					"targetIndexes" : 
+					[
+						4
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1
+					],
+					"name" : "cubemars_can",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_build_cubemars_can_egg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_build_cubemars_can_egg-8dff3a93bc9f5e4736f8.json",
+					"name" : "ament_cmake_python_build_cubemars_can_egg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_copy_cubemars_can::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_copy_cubemars_can-3085e20cd9dce06712f0.json",
+					"name" : "ament_cmake_python_copy_cubemars_can",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "cubemars_can::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cubemars_can-f00b3ef80ac0024e139c.json",
+					"name" : "cubemars_can",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "cubemars_can__cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cubemars_can__cpp-be4fdb3a898b2c781078.json",
+					"name" : "cubemars_can__cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "cubemars_can__py::@f56a7375b8a11159ec54",
+					"jsonFile" : "target-cubemars_can__py-081fb5465b956b79b918.json",
+					"name" : "cubemars_can__py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "cubemars_can__rosidl_generator_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cubemars_can__rosidl_generator_c-bd79b2bdcb74e7ef8f7e.json",
+					"name" : "cubemars_can__rosidl_generator_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "cubemars_can__rosidl_generator_py::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cubemars_can__rosidl_generator_py-67ad8fbd67b5299b73c4.json",
+					"name" : "cubemars_can__rosidl_generator_py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "cubemars_can__rosidl_typesupport_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cubemars_can__rosidl_typesupport_c-19267223836e2f68c8b2.json",
+					"name" : "cubemars_can__rosidl_typesupport_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "cubemars_can__rosidl_typesupport_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cubemars_can__rosidl_typesupport_c__pyext-1d3b6bb0d44d7f13630c.json",
+					"name" : "cubemars_can__rosidl_typesupport_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "cubemars_can__rosidl_typesupport_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cubemars_can__rosidl_typesupport_cpp-0fb77db70b742270e4d9.json",
+					"name" : "cubemars_can__rosidl_typesupport_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "cubemars_can__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cubemars_can__rosidl_typesupport_fastrtps_c-c6c3b996ecf8ad79caa0.json",
+					"name" : "cubemars_can__rosidl_typesupport_fastrtps_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "cubemars_can__rosidl_typesupport_fastrtps_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cubemars_can__rosidl_typesupport_fastrtps_c__pyext-6d90789e80064dd96e5f.json",
+					"name" : "cubemars_can__rosidl_typesupport_fastrtps_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "cubemars_can__rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cubemars_can__rosidl_typesupport_fastrtps_cpp-36c0f0238f174eabe767.json",
+					"name" : "cubemars_can__rosidl_typesupport_fastrtps_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "cubemars_can__rosidl_typesupport_introspection_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cubemars_can__rosidl_typesupport_introspection_c-2e82ed4e68326462caec.json",
+					"name" : "cubemars_can__rosidl_typesupport_introspection_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "cubemars_can__rosidl_typesupport_introspection_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cubemars_can__rosidl_typesupport_introspection_c__pyext-db60b915a23a867557f6.json",
+					"name" : "cubemars_can__rosidl_typesupport_introspection_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "cubemars_can__rosidl_typesupport_introspection_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cubemars_can__rosidl_typesupport_introspection_cpp-3e59510d1c48919242e9.json",
+					"name" : "cubemars_can__rosidl_typesupport_introspection_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "cubemars_can_node::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cubemars_can_node-71372857ac1bede6d7c4.json",
+					"name" : "cubemars_can_node",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "cubemars_can_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cubemars_can_uninstall-47aa1e0b7835aa5433f6.json",
+					"name" : "cubemars_can_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-247c6261f431367ef065.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/cubemars_can",
+		"source" : "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/cubemars/cubemars_node"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

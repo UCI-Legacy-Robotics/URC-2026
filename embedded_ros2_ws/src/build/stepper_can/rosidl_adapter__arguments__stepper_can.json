@@ -1,0 +1,9 @@
+{
+  "package_name": "stepper_can",
+  "non_idl_tuples": [
+    "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node:msg/ControlMessage.msg",
+    "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node:msg/ControllerStatus.msg",
+    "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node:msg/ODriveStatus.msg",
+    "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node:srv/AxisState.srv"
+  ]
+}

@@ -1,0 +1,242 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-bf89af411da09563a4ed.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18
+					]
+				},
+				{
+					"build" : "stepper_can__py",
+					"jsonFile" : "directory-stepper_can__py-30dfa53eba039be9d30f.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can/stepper_can__py",
+					"targetIndexes" : 
+					[
+						4
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1
+					],
+					"name" : "stepper_can",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_build_stepper_can_egg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_build_stepper_can_egg-c5b948ce0295bdb40415.json",
+					"name" : "ament_cmake_python_build_stepper_can_egg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_copy_stepper_can::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_copy_stepper_can-1fc534da12995f6b5e72.json",
+					"name" : "ament_cmake_python_copy_stepper_can",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "stepper_can::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-stepper_can-fc5cc19bef405720fa2a.json",
+					"name" : "stepper_can",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "stepper_can__cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-stepper_can__cpp-192ff04e7f817c1a441e.json",
+					"name" : "stepper_can__cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "stepper_can__py::@8907e189f7ae2b0d9e66",
+					"jsonFile" : "target-stepper_can__py-4547991844ebc5c0a3ce.json",
+					"name" : "stepper_can__py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "stepper_can__rosidl_generator_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-stepper_can__rosidl_generator_c-dc2864008a3b11fdfe58.json",
+					"name" : "stepper_can__rosidl_generator_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "stepper_can__rosidl_generator_py::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-stepper_can__rosidl_generator_py-e64449d0db9ef12d6ea0.json",
+					"name" : "stepper_can__rosidl_generator_py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "stepper_can__rosidl_typesupport_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-stepper_can__rosidl_typesupport_c-f45f085b976fc6688670.json",
+					"name" : "stepper_can__rosidl_typesupport_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "stepper_can__rosidl_typesupport_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-stepper_can__rosidl_typesupport_c__pyext-91a71e4d29319c750d78.json",
+					"name" : "stepper_can__rosidl_typesupport_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "stepper_can__rosidl_typesupport_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-stepper_can__rosidl_typesupport_cpp-dc0decbaa9419135f9ca.json",
+					"name" : "stepper_can__rosidl_typesupport_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "stepper_can__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-stepper_can__rosidl_typesupport_fastrtps_c-ca41d14df2191ac3f99f.json",
+					"name" : "stepper_can__rosidl_typesupport_fastrtps_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "stepper_can__rosidl_typesupport_fastrtps_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-stepper_can__rosidl_typesupport_fastrtps_c__pyext-a1645419ea8ede4092a3.json",
+					"name" : "stepper_can__rosidl_typesupport_fastrtps_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "stepper_can__rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-stepper_can__rosidl_typesupport_fastrtps_cpp-377dd0322fc41cec2085.json",
+					"name" : "stepper_can__rosidl_typesupport_fastrtps_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "stepper_can__rosidl_typesupport_introspection_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-stepper_can__rosidl_typesupport_introspection_c-6edd936b0fb241d65ace.json",
+					"name" : "stepper_can__rosidl_typesupport_introspection_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "stepper_can__rosidl_typesupport_introspection_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-stepper_can__rosidl_typesupport_introspection_c__pyext-3403d069bf3255313720.json",
+					"name" : "stepper_can__rosidl_typesupport_introspection_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "stepper_can__rosidl_typesupport_introspection_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-stepper_can__rosidl_typesupport_introspection_cpp-63be39169a53652b1108.json",
+					"name" : "stepper_can__rosidl_typesupport_introspection_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "stepper_can_node::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-stepper_can_node-25dcb50bad546c109126.json",
+					"name" : "stepper_can_node",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "stepper_can_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-stepper_can_uninstall-1d195a953f7bb04b1897.json",
+					"name" : "stepper_can_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-69e138899c9cf3e6c7d8.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can",
+		"source" : "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

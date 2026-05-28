@@ -1,0 +1,242 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-f1204281617c1dc46c62.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18
+					]
+				},
+				{
+					"build" : "servo__py",
+					"jsonFile" : "directory-servo__py-fe1ccd3f964ff0911b78.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/servo/servo__py",
+					"targetIndexes" : 
+					[
+						4
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1
+					],
+					"name" : "servo",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_build_servo_egg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_build_servo_egg-2a3b517d0fb08034605b.json",
+					"name" : "ament_cmake_python_build_servo_egg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_copy_servo::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_copy_servo-671ca54e5dcbb4df2660.json",
+					"name" : "ament_cmake_python_copy_servo",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "servo::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-servo-5bcc8521f55a62010ed6.json",
+					"name" : "servo",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "servo__cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-servo__cpp-a4e587db12880c2c8312.json",
+					"name" : "servo__cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "servo__py::@f6c531bb6620ed704641",
+					"jsonFile" : "target-servo__py-a77e868b629d565404d6.json",
+					"name" : "servo__py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "servo__rosidl_generator_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-servo__rosidl_generator_c-9468383fa244d9fc40a9.json",
+					"name" : "servo__rosidl_generator_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "servo__rosidl_generator_py::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-servo__rosidl_generator_py-3885791e45ec16d7430f.json",
+					"name" : "servo__rosidl_generator_py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "servo__rosidl_typesupport_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-servo__rosidl_typesupport_c-62c63161caeb20d19736.json",
+					"name" : "servo__rosidl_typesupport_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "servo__rosidl_typesupport_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-servo__rosidl_typesupport_c__pyext-7fd037df579a92139927.json",
+					"name" : "servo__rosidl_typesupport_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "servo__rosidl_typesupport_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-servo__rosidl_typesupport_cpp-665a4a2be122ce981f67.json",
+					"name" : "servo__rosidl_typesupport_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "servo__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-servo__rosidl_typesupport_fastrtps_c-5246a855a2f9b246f7c6.json",
+					"name" : "servo__rosidl_typesupport_fastrtps_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "servo__rosidl_typesupport_fastrtps_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-servo__rosidl_typesupport_fastrtps_c__pyext-f8bbdcefaaeb725834d3.json",
+					"name" : "servo__rosidl_typesupport_fastrtps_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "servo__rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-servo__rosidl_typesupport_fastrtps_cpp-82ba6894c3d5e83a9ebc.json",
+					"name" : "servo__rosidl_typesupport_fastrtps_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "servo__rosidl_typesupport_introspection_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-servo__rosidl_typesupport_introspection_c-d00f9ecbe665c9802de1.json",
+					"name" : "servo__rosidl_typesupport_introspection_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "servo__rosidl_typesupport_introspection_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-servo__rosidl_typesupport_introspection_c__pyext-1079dd95a66191c02c56.json",
+					"name" : "servo__rosidl_typesupport_introspection_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "servo__rosidl_typesupport_introspection_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-servo__rosidl_typesupport_introspection_cpp-a29a5f21bfd7f62a072f.json",
+					"name" : "servo__rosidl_typesupport_introspection_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "servo_node::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-servo_node-ccbb4666024e25d2a67f.json",
+					"name" : "servo_node",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "servo_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-servo_uninstall-1338ebf1ddfe732c6df1.json",
+					"name" : "servo_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-ad083ef072a912b357af.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/servo",
+		"source" : "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/servo/servo_node"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

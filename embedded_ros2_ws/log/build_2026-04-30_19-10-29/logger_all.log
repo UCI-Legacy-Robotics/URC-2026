@@ -1,0 +1,791 @@
+[0.665s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.665s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=4, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0xffffbdc27790>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0xffffbdd64b80>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0xffffbdd64b80>>)
+[1.719s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[1.720s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[1.720s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[1.720s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[1.720s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[1.720s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[1.720s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/pi/Legacy/URC-2026/embedded_ros2_ws'
+[1.721s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[1.721s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[1.721s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[1.722s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[1.722s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[1.722s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[1.722s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[1.723s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[1.723s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[1.792s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[1.792s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[1.793s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[1.793s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[1.793s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[1.793s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[1.794s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[1.794s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[1.795s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[1.795s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[1.795s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[1.795s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[1.796s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[1.796s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[1.797s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[1.797s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[1.798s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[1.798s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[1.798s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[1.798s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[1.798s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[1.798s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[1.799s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[1.799s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[1.799s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[1.799s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[1.799s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[1.799s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[1.801s] Level 1:colcon.colcon_core.package_identification:_identify(src/blender_motor) by extensions ['ignore', 'ignore_ament_install']
+[1.801s] Level 1:colcon.colcon_core.package_identification:_identify(src/blender_motor) by extension 'ignore'
+[1.801s] Level 1:colcon.colcon_core.package_identification:_identify(src/blender_motor) by extension 'ignore_ament_install'
+[1.802s] Level 1:colcon.colcon_core.package_identification:_identify(src/blender_motor) by extensions ['colcon_pkg']
+[1.802s] Level 1:colcon.colcon_core.package_identification:_identify(src/blender_motor) by extension 'colcon_pkg'
+[1.802s] Level 1:colcon.colcon_core.package_identification:_identify(src/blender_motor) by extensions ['colcon_meta']
+[1.802s] Level 1:colcon.colcon_core.package_identification:_identify(src/blender_motor) by extension 'colcon_meta'
+[1.802s] Level 1:colcon.colcon_core.package_identification:_identify(src/blender_motor) by extensions ['ros']
+[1.803s] Level 1:colcon.colcon_core.package_identification:_identify(src/blender_motor) by extension 'ros'
+[1.819s] DEBUG:colcon.colcon_core.package_identification:Package 'src/blender_motor' with type 'ros.ament_python' and name 'blender_motor'
+[1.821s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars) by extensions ['ignore', 'ignore_ament_install']
+[1.821s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars) by extension 'ignore'
+[1.821s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars) by extension 'ignore_ament_install'
+[1.822s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars) by extensions ['colcon_pkg']
+[1.822s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars) by extension 'colcon_pkg'
+[1.822s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars) by extensions ['colcon_meta']
+[1.822s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars) by extension 'colcon_meta'
+[1.823s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars) by extensions ['ros']
+[1.823s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars) by extension 'ros'
+[1.823s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars) by extensions ['cmake', 'python']
+[1.823s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars) by extension 'cmake'
+[1.823s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars) by extension 'python'
+[1.824s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars) by extensions ['python_setup_py']
+[1.824s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars) by extension 'python_setup_py'
+[1.825s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base) by extensions ['ignore', 'ignore_ament_install']
+[1.825s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base) by extension 'ignore'
+[1.826s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base) by extension 'ignore_ament_install'
+[1.826s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base) by extensions ['colcon_pkg']
+[1.826s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base) by extension 'colcon_pkg'
+[1.826s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base) by extensions ['colcon_meta']
+[1.826s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base) by extension 'colcon_meta'
+[1.827s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base) by extensions ['ros']
+[1.827s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base) by extension 'ros'
+[1.827s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base) by extensions ['cmake', 'python']
+[1.827s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base) by extension 'cmake'
+[1.828s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base) by extension 'python'
+[1.828s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base) by extensions ['python_setup_py']
+[1.828s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base) by extension 'python_setup_py'
+[1.829s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/include) by extensions ['ignore', 'ignore_ament_install']
+[1.829s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/include) by extension 'ignore'
+[1.830s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/include) by extension 'ignore_ament_install'
+[1.830s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/include) by extensions ['colcon_pkg']
+[1.830s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/include) by extension 'colcon_pkg'
+[1.830s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/include) by extensions ['colcon_meta']
+[1.830s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/include) by extension 'colcon_meta'
+[1.831s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/include) by extensions ['ros']
+[1.831s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/include) by extension 'ros'
+[1.831s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/include) by extensions ['cmake', 'python']
+[1.831s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/include) by extension 'cmake'
+[1.832s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/include) by extension 'python'
+[1.832s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/include) by extensions ['python_setup_py']
+[1.832s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/include) by extension 'python_setup_py'
+[1.833s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/src) by extensions ['ignore', 'ignore_ament_install']
+[1.833s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/src) by extension 'ignore'
+[1.834s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/src) by extension 'ignore_ament_install'
+[1.834s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/src) by extensions ['colcon_pkg']
+[1.834s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/src) by extension 'colcon_pkg'
+[1.834s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/src) by extensions ['colcon_meta']
+[1.834s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/src) by extension 'colcon_meta'
+[1.835s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/src) by extensions ['ros']
+[1.835s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/src) by extension 'ros'
+[1.835s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/src) by extensions ['cmake', 'python']
+[1.836s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/src) by extension 'cmake'
+[1.836s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/src) by extension 'python'
+[1.836s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/src) by extensions ['python_setup_py']
+[1.836s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/can_base/src) by extension 'python_setup_py'
+[1.837s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/cubemars_node) by extensions ['ignore', 'ignore_ament_install']
+[1.837s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/cubemars_node) by extension 'ignore'
+[1.838s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/cubemars_node) by extension 'ignore_ament_install'
+[1.838s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/cubemars_node) by extensions ['colcon_pkg']
+[1.838s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/cubemars_node) by extension 'colcon_pkg'
+[1.838s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/cubemars_node) by extensions ['colcon_meta']
+[1.838s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/cubemars_node) by extension 'colcon_meta'
+[1.839s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/cubemars_node) by extensions ['ros']
+[1.839s] Level 1:colcon.colcon_core.package_identification:_identify(src/cubemars/cubemars_node) by extension 'ros'
+[1.842s] DEBUG:colcon.colcon_core.package_identification:Package 'src/cubemars/cubemars_node' with type 'ros.ament_cmake' and name 'cubemars_can'
+[1.844s] Level 1:colcon.colcon_core.package_identification:_identify(src/mock_gps) by extensions ['ignore', 'ignore_ament_install']
+[1.844s] Level 1:colcon.colcon_core.package_identification:_identify(src/mock_gps) by extension 'ignore'
+[1.844s] Level 1:colcon.colcon_core.package_identification:_identify(src/mock_gps) by extension 'ignore_ament_install'
+[1.845s] Level 1:colcon.colcon_core.package_identification:_identify(src/mock_gps) by extensions ['colcon_pkg']
+[1.845s] Level 1:colcon.colcon_core.package_identification:_identify(src/mock_gps) by extension 'colcon_pkg'
+[1.845s] Level 1:colcon.colcon_core.package_identification:_identify(src/mock_gps) by extensions ['colcon_meta']
+[1.845s] Level 1:colcon.colcon_core.package_identification:_identify(src/mock_gps) by extension 'colcon_meta'
+[1.845s] Level 1:colcon.colcon_core.package_identification:_identify(src/mock_gps) by extensions ['ros']
+[1.845s] Level 1:colcon.colcon_core.package_identification:_identify(src/mock_gps) by extension 'ros'
+[1.849s] DEBUG:colcon.colcon_core.package_identification:Package 'src/mock_gps' with type 'ros.ament_cmake' and name 'mock_gps'
+[1.850s] Level 1:colcon.colcon_core.package_identification:_identify(src/npk_sensor) by extensions ['ignore', 'ignore_ament_install']
+[1.851s] Level 1:colcon.colcon_core.package_identification:_identify(src/npk_sensor) by extension 'ignore'
+[1.851s] Level 1:colcon.colcon_core.package_identification:_identify(src/npk_sensor) by extension 'ignore_ament_install'
+[1.851s] Level 1:colcon.colcon_core.package_identification:_identify(src/npk_sensor) by extensions ['colcon_pkg']
+[1.852s] Level 1:colcon.colcon_core.package_identification:_identify(src/npk_sensor) by extension 'colcon_pkg'
+[1.852s] Level 1:colcon.colcon_core.package_identification:_identify(src/npk_sensor) by extensions ['colcon_meta']
+[1.852s] Level 1:colcon.colcon_core.package_identification:_identify(src/npk_sensor) by extension 'colcon_meta'
+[1.852s] Level 1:colcon.colcon_core.package_identification:_identify(src/npk_sensor) by extensions ['ros']
+[1.852s] Level 1:colcon.colcon_core.package_identification:_identify(src/npk_sensor) by extension 'ros'
+[1.856s] DEBUG:colcon.colcon_core.package_identification:Package 'src/npk_sensor' with type 'ros.ament_cmake' and name 'npk_sensor'
+[1.857s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive) by extensions ['ignore', 'ignore_ament_install']
+[1.858s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive) by extension 'ignore'
+[1.858s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive) by extension 'ignore_ament_install'
+[1.858s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive) by extensions ['colcon_pkg']
+[1.858s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive) by extension 'colcon_pkg'
+[1.859s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive) by extensions ['colcon_meta']
+[1.859s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive) by extension 'colcon_meta'
+[1.859s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive) by extensions ['ros']
+[1.859s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive) by extension 'ros'
+[1.860s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive) by extensions ['cmake', 'python']
+[1.860s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive) by extension 'cmake'
+[1.860s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive) by extension 'python'
+[1.860s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive) by extensions ['python_setup_py']
+[1.860s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive) by extension 'python_setup_py'
+[1.861s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base) by extensions ['ignore', 'ignore_ament_install']
+[1.862s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base) by extension 'ignore'
+[1.862s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base) by extension 'ignore_ament_install'
+[1.862s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base) by extensions ['colcon_pkg']
+[1.862s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base) by extension 'colcon_pkg'
+[1.863s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base) by extensions ['colcon_meta']
+[1.863s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base) by extension 'colcon_meta'
+[1.863s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base) by extensions ['ros']
+[1.863s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base) by extension 'ros'
+[1.864s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base) by extensions ['cmake', 'python']
+[1.864s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base) by extension 'cmake'
+[1.864s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base) by extension 'python'
+[1.864s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base) by extensions ['python_setup_py']
+[1.864s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base) by extension 'python_setup_py'
+[1.866s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/include) by extensions ['ignore', 'ignore_ament_install']
+[1.866s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/include) by extension 'ignore'
+[1.866s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/include) by extension 'ignore_ament_install'
+[1.867s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/include) by extensions ['colcon_pkg']
+[1.867s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/include) by extension 'colcon_pkg'
+[1.867s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/include) by extensions ['colcon_meta']
+[1.867s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/include) by extension 'colcon_meta'
+[1.867s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/include) by extensions ['ros']
+[1.868s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/include) by extension 'ros'
+[1.868s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/include) by extensions ['cmake', 'python']
+[1.868s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/include) by extension 'cmake'
+[1.868s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/include) by extension 'python'
+[1.868s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/include) by extensions ['python_setup_py']
+[1.869s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/include) by extension 'python_setup_py'
+[1.870s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/src) by extensions ['ignore', 'ignore_ament_install']
+[1.870s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/src) by extension 'ignore'
+[1.871s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/src) by extension 'ignore_ament_install'
+[1.871s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/src) by extensions ['colcon_pkg']
+[1.871s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/src) by extension 'colcon_pkg'
+[1.871s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/src) by extensions ['colcon_meta']
+[1.871s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/src) by extension 'colcon_meta'
+[1.871s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/src) by extensions ['ros']
+[1.872s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/src) by extension 'ros'
+[1.872s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/src) by extensions ['cmake', 'python']
+[1.872s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/src) by extension 'cmake'
+[1.872s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/src) by extension 'python'
+[1.873s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/src) by extensions ['python_setup_py']
+[1.873s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_base/src) by extension 'python_setup_py'
+[1.874s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_node) by extensions ['ignore', 'ignore_ament_install']
+[1.874s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_node) by extension 'ignore'
+[1.875s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_node) by extension 'ignore_ament_install'
+[1.875s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_node) by extensions ['colcon_pkg']
+[1.875s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_node) by extension 'colcon_pkg'
+[1.875s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_node) by extensions ['colcon_meta']
+[1.875s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_node) by extension 'colcon_meta'
+[1.876s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_node) by extensions ['ros']
+[1.876s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_odrive/odrive_node) by extension 'ros'
+[1.880s] DEBUG:colcon.colcon_core.package_identification:Package 'src/ros_odrive/odrive_node' with type 'ros.ament_cmake' and name 'odrive_can'
+[1.881s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper) by extensions ['ignore', 'ignore_ament_install']
+[1.882s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper) by extension 'ignore'
+[1.882s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper) by extension 'ignore_ament_install'
+[1.882s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper) by extensions ['colcon_pkg']
+[1.882s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper) by extension 'colcon_pkg'
+[1.883s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper) by extensions ['colcon_meta']
+[1.883s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper) by extension 'colcon_meta'
+[1.883s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper) by extensions ['ros']
+[1.883s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper) by extension 'ros'
+[1.883s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper) by extensions ['cmake', 'python']
+[1.884s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper) by extension 'cmake'
+[1.884s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper) by extension 'python'
+[1.884s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper) by extensions ['python_setup_py']
+[1.884s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper) by extension 'python_setup_py'
+[1.885s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base) by extensions ['ignore', 'ignore_ament_install']
+[1.886s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base) by extension 'ignore'
+[1.886s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base) by extension 'ignore_ament_install'
+[1.886s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base) by extensions ['colcon_pkg']
+[1.886s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base) by extension 'colcon_pkg'
+[1.887s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base) by extensions ['colcon_meta']
+[1.887s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base) by extension 'colcon_meta'
+[1.887s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base) by extensions ['ros']
+[1.887s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base) by extension 'ros'
+[1.887s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base) by extensions ['cmake', 'python']
+[1.888s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base) by extension 'cmake'
+[1.888s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base) by extension 'python'
+[1.888s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base) by extensions ['python_setup_py']
+[1.888s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base) by extension 'python_setup_py'
+[1.889s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/include) by extensions ['ignore', 'ignore_ament_install']
+[1.890s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/include) by extension 'ignore'
+[1.890s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/include) by extension 'ignore_ament_install'
+[1.890s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/include) by extensions ['colcon_pkg']
+[1.890s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/include) by extension 'colcon_pkg'
+[1.891s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/include) by extensions ['colcon_meta']
+[1.891s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/include) by extension 'colcon_meta'
+[1.891s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/include) by extensions ['ros']
+[1.891s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/include) by extension 'ros'
+[1.892s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/include) by extensions ['cmake', 'python']
+[1.892s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/include) by extension 'cmake'
+[1.892s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/include) by extension 'python'
+[1.892s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/include) by extensions ['python_setup_py']
+[1.892s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/include) by extension 'python_setup_py'
+[1.893s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/src) by extensions ['ignore', 'ignore_ament_install']
+[1.894s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/src) by extension 'ignore'
+[1.894s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/src) by extension 'ignore_ament_install'
+[1.894s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/src) by extensions ['colcon_pkg']
+[1.894s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/src) by extension 'colcon_pkg'
+[1.895s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/src) by extensions ['colcon_meta']
+[1.895s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/src) by extension 'colcon_meta'
+[1.895s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/src) by extensions ['ros']
+[1.895s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/src) by extension 'ros'
+[1.896s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/src) by extensions ['cmake', 'python']
+[1.896s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/src) by extension 'cmake'
+[1.896s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/src) by extension 'python'
+[1.896s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/src) by extensions ['python_setup_py']
+[1.896s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/can_base/src) by extension 'python_setup_py'
+[1.897s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/stepper_node) by extensions ['ignore', 'ignore_ament_install']
+[1.898s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/stepper_node) by extension 'ignore'
+[1.898s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/stepper_node) by extension 'ignore_ament_install'
+[1.898s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/stepper_node) by extensions ['colcon_pkg']
+[1.898s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/stepper_node) by extension 'colcon_pkg'
+[1.899s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/stepper_node) by extensions ['colcon_meta']
+[1.899s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/stepper_node) by extension 'colcon_meta'
+[1.899s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/stepper_node) by extensions ['ros']
+[1.899s] Level 1:colcon.colcon_core.package_identification:_identify(src/stepper/stepper_node) by extension 'ros'
+[1.903s] DEBUG:colcon.colcon_core.package_identification:Package 'src/stepper/stepper_node' with type 'ros.ament_cmake' and name 'stepper_can'
+[1.904s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket) by extensions ['ignore', 'ignore_ament_install']
+[1.905s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket) by extension 'ignore'
+[1.905s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket) by extension 'ignore_ament_install'
+[1.905s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket) by extensions ['colcon_pkg']
+[1.905s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket) by extension 'colcon_pkg'
+[1.906s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket) by extensions ['colcon_meta']
+[1.906s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket) by extension 'colcon_meta'
+[1.906s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket) by extensions ['ros']
+[1.906s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket) by extension 'ros'
+[1.906s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket) by extensions ['cmake', 'python']
+[1.907s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket) by extension 'cmake'
+[1.907s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket) by extension 'python'
+[1.907s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket) by extensions ['python_setup_py']
+[1.907s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket) by extension 'python_setup_py'
+[1.908s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base) by extensions ['ignore', 'ignore_ament_install']
+[1.908s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base) by extension 'ignore'
+[1.909s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base) by extension 'ignore_ament_install'
+[1.909s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base) by extensions ['colcon_pkg']
+[1.909s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base) by extension 'colcon_pkg'
+[1.909s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base) by extensions ['colcon_meta']
+[1.909s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base) by extension 'colcon_meta'
+[1.910s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base) by extensions ['ros']
+[1.910s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base) by extension 'ros'
+[1.910s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base) by extensions ['cmake', 'python']
+[1.910s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base) by extension 'cmake'
+[1.911s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base) by extension 'python'
+[1.911s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base) by extensions ['python_setup_py']
+[1.911s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base) by extension 'python_setup_py'
+[1.912s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/include) by extensions ['ignore', 'ignore_ament_install']
+[1.913s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/include) by extension 'ignore'
+[1.913s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/include) by extension 'ignore_ament_install'
+[1.913s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/include) by extensions ['colcon_pkg']
+[1.913s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/include) by extension 'colcon_pkg'
+[1.913s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/include) by extensions ['colcon_meta']
+[1.913s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/include) by extension 'colcon_meta'
+[1.914s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/include) by extensions ['ros']
+[1.914s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/include) by extension 'ros'
+[1.914s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/include) by extensions ['cmake', 'python']
+[1.914s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/include) by extension 'cmake'
+[1.915s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/include) by extension 'python'
+[1.915s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/include) by extensions ['python_setup_py']
+[1.915s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/include) by extension 'python_setup_py'
+[1.916s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/src) by extensions ['ignore', 'ignore_ament_install']
+[1.916s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/src) by extension 'ignore'
+[1.917s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/src) by extension 'ignore_ament_install'
+[1.917s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/src) by extensions ['colcon_pkg']
+[1.917s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/src) by extension 'colcon_pkg'
+[1.917s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/src) by extensions ['colcon_meta']
+[1.917s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/src) by extension 'colcon_meta'
+[1.917s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/src) by extensions ['ros']
+[1.918s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/src) by extension 'ros'
+[1.918s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/src) by extensions ['cmake', 'python']
+[1.918s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/src) by extension 'cmake'
+[1.918s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/src) by extension 'python'
+[1.918s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/src) by extensions ['python_setup_py']
+[1.919s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/can_base/src) by extension 'python_setup_py'
+[1.920s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/yellowjacket_node) by extensions ['ignore', 'ignore_ament_install']
+[1.920s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/yellowjacket_node) by extension 'ignore'
+[1.920s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/yellowjacket_node) by extension 'ignore_ament_install'
+[1.921s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/yellowjacket_node) by extensions ['colcon_pkg']
+[1.921s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/yellowjacket_node) by extension 'colcon_pkg'
+[1.921s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/yellowjacket_node) by extensions ['colcon_meta']
+[1.921s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/yellowjacket_node) by extension 'colcon_meta'
+[1.921s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/yellowjacket_node) by extensions ['ros']
+[1.921s] Level 1:colcon.colcon_core.package_identification:_identify(src/yellowjacket/yellowjacket_node) by extension 'ros'
+[1.925s] DEBUG:colcon.colcon_core.package_identification:Package 'src/yellowjacket/yellowjacket_node' with type 'ros.ament_cmake' and name 'yellowjacket_can'
+[1.925s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[1.925s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[1.926s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[1.926s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[1.926s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[2.044s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[2.044s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[2.061s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 1 installed packages in /home/pi/Legacy/URC-2026/embedded_ros2_ws/install
+[2.064s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 2 installed packages in /home/pi/Legacy/Testing/ros2_ws/install
+[2.067s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 2 installed packages in /home/pi/Legacy/URC-2026/drive_ros2_ws/install
+[2.074s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 185 installed packages in /opt/ros/humble
+[2.079s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[2.237s] Level 5:colcon.colcon_core.verb:set package 'blender_motor' build argument 'cmake_args' from command line to 'None'
+[2.237s] Level 5:colcon.colcon_core.verb:set package 'blender_motor' build argument 'cmake_target' from command line to 'None'
+[2.237s] Level 5:colcon.colcon_core.verb:set package 'blender_motor' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[2.237s] Level 5:colcon.colcon_core.verb:set package 'blender_motor' build argument 'cmake_clean_cache' from command line to 'False'
+[2.237s] Level 5:colcon.colcon_core.verb:set package 'blender_motor' build argument 'cmake_clean_first' from command line to 'False'
+[2.238s] Level 5:colcon.colcon_core.verb:set package 'blender_motor' build argument 'cmake_force_configure' from command line to 'False'
+[2.238s] Level 5:colcon.colcon_core.verb:set package 'blender_motor' build argument 'ament_cmake_args' from command line to 'None'
+[2.238s] Level 5:colcon.colcon_core.verb:set package 'blender_motor' build argument 'catkin_cmake_args' from command line to 'None'
+[2.238s] Level 5:colcon.colcon_core.verb:set package 'blender_motor' build argument 'catkin_skip_building_tests' from command line to 'False'
+[2.238s] DEBUG:colcon.colcon_core.verb:Building package 'blender_motor' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/blender_motor', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor', 'merge_install': False, 'path': '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/blender_motor', 'symlink_install': False, 'test_result_base': None}
+[2.240s] Level 5:colcon.colcon_core.verb:set package 'cubemars_can' build argument 'cmake_args' from command line to 'None'
+[2.240s] Level 5:colcon.colcon_core.verb:set package 'cubemars_can' build argument 'cmake_target' from command line to 'None'
+[2.240s] Level 5:colcon.colcon_core.verb:set package 'cubemars_can' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[2.240s] Level 5:colcon.colcon_core.verb:set package 'cubemars_can' build argument 'cmake_clean_cache' from command line to 'False'
+[2.240s] Level 5:colcon.colcon_core.verb:set package 'cubemars_can' build argument 'cmake_clean_first' from command line to 'False'
+[2.240s] Level 5:colcon.colcon_core.verb:set package 'cubemars_can' build argument 'cmake_force_configure' from command line to 'False'
+[2.240s] Level 5:colcon.colcon_core.verb:set package 'cubemars_can' build argument 'ament_cmake_args' from command line to 'None'
+[2.240s] Level 5:colcon.colcon_core.verb:set package 'cubemars_can' build argument 'catkin_cmake_args' from command line to 'None'
+[2.240s] Level 5:colcon.colcon_core.verb:set package 'cubemars_can' build argument 'catkin_skip_building_tests' from command line to 'False'
+[2.240s] DEBUG:colcon.colcon_core.verb:Building package 'cubemars_can' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/cubemars_can', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can', 'merge_install': False, 'path': '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/cubemars/cubemars_node', 'symlink_install': False, 'test_result_base': None}
+[2.242s] Level 5:colcon.colcon_core.verb:set package 'mock_gps' build argument 'cmake_args' from command line to 'None'
+[2.242s] Level 5:colcon.colcon_core.verb:set package 'mock_gps' build argument 'cmake_target' from command line to 'None'
+[2.242s] Level 5:colcon.colcon_core.verb:set package 'mock_gps' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[2.242s] Level 5:colcon.colcon_core.verb:set package 'mock_gps' build argument 'cmake_clean_cache' from command line to 'False'
+[2.242s] Level 5:colcon.colcon_core.verb:set package 'mock_gps' build argument 'cmake_clean_first' from command line to 'False'
+[2.242s] Level 5:colcon.colcon_core.verb:set package 'mock_gps' build argument 'cmake_force_configure' from command line to 'False'
+[2.242s] Level 5:colcon.colcon_core.verb:set package 'mock_gps' build argument 'ament_cmake_args' from command line to 'None'
+[2.243s] Level 5:colcon.colcon_core.verb:set package 'mock_gps' build argument 'catkin_cmake_args' from command line to 'None'
+[2.243s] Level 5:colcon.colcon_core.verb:set package 'mock_gps' build argument 'catkin_skip_building_tests' from command line to 'False'
+[2.243s] DEBUG:colcon.colcon_core.verb:Building package 'mock_gps' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/mock_gps', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps', 'merge_install': False, 'path': '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/mock_gps', 'symlink_install': False, 'test_result_base': None}
+[2.244s] Level 5:colcon.colcon_core.verb:set package 'npk_sensor' build argument 'cmake_args' from command line to 'None'
+[2.244s] Level 5:colcon.colcon_core.verb:set package 'npk_sensor' build argument 'cmake_target' from command line to 'None'
+[2.244s] Level 5:colcon.colcon_core.verb:set package 'npk_sensor' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[2.244s] Level 5:colcon.colcon_core.verb:set package 'npk_sensor' build argument 'cmake_clean_cache' from command line to 'False'
+[2.245s] Level 5:colcon.colcon_core.verb:set package 'npk_sensor' build argument 'cmake_clean_first' from command line to 'False'
+[2.245s] Level 5:colcon.colcon_core.verb:set package 'npk_sensor' build argument 'cmake_force_configure' from command line to 'False'
+[2.245s] Level 5:colcon.colcon_core.verb:set package 'npk_sensor' build argument 'ament_cmake_args' from command line to 'None'
+[2.245s] Level 5:colcon.colcon_core.verb:set package 'npk_sensor' build argument 'catkin_cmake_args' from command line to 'None'
+[2.245s] Level 5:colcon.colcon_core.verb:set package 'npk_sensor' build argument 'catkin_skip_building_tests' from command line to 'False'
+[2.245s] DEBUG:colcon.colcon_core.verb:Building package 'npk_sensor' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/npk_sensor', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor', 'merge_install': False, 'path': '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/npk_sensor', 'symlink_install': False, 'test_result_base': None}
+[2.246s] Level 5:colcon.colcon_core.verb:set package 'odrive_can' build argument 'cmake_args' from command line to 'None'
+[2.247s] Level 5:colcon.colcon_core.verb:set package 'odrive_can' build argument 'cmake_target' from command line to 'None'
+[2.247s] Level 5:colcon.colcon_core.verb:set package 'odrive_can' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[2.247s] Level 5:colcon.colcon_core.verb:set package 'odrive_can' build argument 'cmake_clean_cache' from command line to 'False'
+[2.247s] Level 5:colcon.colcon_core.verb:set package 'odrive_can' build argument 'cmake_clean_first' from command line to 'False'
+[2.247s] Level 5:colcon.colcon_core.verb:set package 'odrive_can' build argument 'cmake_force_configure' from command line to 'False'
+[2.247s] Level 5:colcon.colcon_core.verb:set package 'odrive_can' build argument 'ament_cmake_args' from command line to 'None'
+[2.247s] Level 5:colcon.colcon_core.verb:set package 'odrive_can' build argument 'catkin_cmake_args' from command line to 'None'
+[2.247s] Level 5:colcon.colcon_core.verb:set package 'odrive_can' build argument 'catkin_skip_building_tests' from command line to 'False'
+[2.247s] DEBUG:colcon.colcon_core.verb:Building package 'odrive_can' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/odrive_can', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can', 'merge_install': False, 'path': '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/ros_odrive/odrive_node', 'symlink_install': False, 'test_result_base': None}
+[2.249s] Level 5:colcon.colcon_core.verb:set package 'stepper_can' build argument 'cmake_args' from command line to 'None'
+[2.249s] Level 5:colcon.colcon_core.verb:set package 'stepper_can' build argument 'cmake_target' from command line to 'None'
+[2.249s] Level 5:colcon.colcon_core.verb:set package 'stepper_can' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[2.249s] Level 5:colcon.colcon_core.verb:set package 'stepper_can' build argument 'cmake_clean_cache' from command line to 'False'
+[2.249s] Level 5:colcon.colcon_core.verb:set package 'stepper_can' build argument 'cmake_clean_first' from command line to 'False'
+[2.249s] Level 5:colcon.colcon_core.verb:set package 'stepper_can' build argument 'cmake_force_configure' from command line to 'False'
+[2.249s] Level 5:colcon.colcon_core.verb:set package 'stepper_can' build argument 'ament_cmake_args' from command line to 'None'
+[2.249s] Level 5:colcon.colcon_core.verb:set package 'stepper_can' build argument 'catkin_cmake_args' from command line to 'None'
+[2.250s] Level 5:colcon.colcon_core.verb:set package 'stepper_can' build argument 'catkin_skip_building_tests' from command line to 'False'
+[2.250s] DEBUG:colcon.colcon_core.verb:Building package 'stepper_can' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can', 'merge_install': False, 'path': '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node', 'symlink_install': False, 'test_result_base': None}
+[2.251s] Level 5:colcon.colcon_core.verb:set package 'yellowjacket_can' build argument 'cmake_args' from command line to 'None'
+[2.251s] Level 5:colcon.colcon_core.verb:set package 'yellowjacket_can' build argument 'cmake_target' from command line to 'None'
+[2.251s] Level 5:colcon.colcon_core.verb:set package 'yellowjacket_can' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[2.251s] Level 5:colcon.colcon_core.verb:set package 'yellowjacket_can' build argument 'cmake_clean_cache' from command line to 'False'
+[2.251s] Level 5:colcon.colcon_core.verb:set package 'yellowjacket_can' build argument 'cmake_clean_first' from command line to 'False'
+[2.252s] Level 5:colcon.colcon_core.verb:set package 'yellowjacket_can' build argument 'cmake_force_configure' from command line to 'False'
+[2.252s] Level 5:colcon.colcon_core.verb:set package 'yellowjacket_can' build argument 'ament_cmake_args' from command line to 'None'
+[2.252s] Level 5:colcon.colcon_core.verb:set package 'yellowjacket_can' build argument 'catkin_cmake_args' from command line to 'None'
+[2.252s] Level 5:colcon.colcon_core.verb:set package 'yellowjacket_can' build argument 'catkin_skip_building_tests' from command line to 'False'
+[2.252s] DEBUG:colcon.colcon_core.verb:Building package 'yellowjacket_can' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can', 'merge_install': False, 'path': '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/yellowjacket/yellowjacket_node', 'symlink_install': False, 'test_result_base': None}
+[2.252s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[2.256s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[2.256s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/blender_motor' with build type 'ament_python'
+[2.257s] Level 1:colcon.colcon_core.shell:create_environment_hook('blender_motor', 'ament_prefix_path')
+[2.279s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[2.281s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor/share/blender_motor/hook/ament_prefix_path.ps1'
+[2.285s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor/share/blender_motor/hook/ament_prefix_path.dsv'
+[2.288s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor/share/blender_motor/hook/ament_prefix_path.sh'
+[2.293s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.293s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.316s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/cubemars/cubemars_node' with build type 'ament_cmake'
+[2.316s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/cubemars/cubemars_node'
+[2.317s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.318s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.339s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/mock_gps' with build type 'ament_cmake'
+[2.339s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/mock_gps'
+[2.341s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.341s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.363s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/npk_sensor' with build type 'ament_cmake'
+[2.363s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/npk_sensor'
+[2.364s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.365s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[3.445s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/blender_motor'
+[3.446s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[3.446s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[3.476s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/cubemars_can': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/cubemars/cubemars_node -DCMAKE_INSTALL_PREFIX=/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can
+[3.509s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/mock_gps': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/mock_gps -DCMAKE_INSTALL_PREFIX=/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps
+[3.516s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/npk_sensor': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/npk_sensor -DCMAKE_INSTALL_PREFIX=/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor
+[6.610s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/blender_motor': PYTHONPATH=/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/blender_motor/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/blender_motor build --build-base /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/blender_motor/build install --record /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/blender_motor/install.log --single-version-externally-managed install_data
+[8.342s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/blender_motor' returned '0': PYTHONPATH=/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/blender_motor/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/blender_motor build --build-base /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/blender_motor/build install --record /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/blender_motor/install.log --single-version-externally-managed install_data
+[8.370s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor' for CMake module files
+[8.373s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor' for CMake config files
+[8.378s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor/lib'
+[8.379s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor/bin'
+[8.379s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor/lib/pkgconfig/blender_motor.pc'
+[8.380s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor/lib/python3.10/site-packages'
+[8.381s] Level 1:colcon.colcon_core.shell:create_environment_hook('blender_motor', 'pythonpath')
+[8.382s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor/share/blender_motor/hook/pythonpath.ps1'
+[8.384s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor/share/blender_motor/hook/pythonpath.dsv'
+[8.386s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor/share/blender_motor/hook/pythonpath.sh'
+[8.390s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor/bin'
+[8.390s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(blender_motor)
+[8.392s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor/share/blender_motor/package.ps1'
+[8.397s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor/share/blender_motor/package.dsv'
+[8.401s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor/share/blender_motor/package.sh'
+[8.405s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor/share/blender_motor/package.bash'
+[8.411s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor/share/blender_motor/package.zsh'
+[8.424s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor/share/colcon-core/packages/blender_motor)
+[8.429s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/ros_odrive/odrive_node' with build type 'ament_cmake'
+[8.430s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/ros_odrive/odrive_node'
+[8.431s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[8.431s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[8.477s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/odrive_can': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/ros_odrive/odrive_node -DCMAKE_INSTALL_PREFIX=/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can
+[12.980s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/mock_gps' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/mock_gps -DCMAKE_INSTALL_PREFIX=/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps
+[12.982s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/mock_gps': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --build /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/mock_gps -- -j4 -l4
+[14.125s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/npk_sensor' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/npk_sensor -DCMAKE_INSTALL_PREFIX=/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor
+[14.134s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/npk_sensor': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --build /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/npk_sensor -- -j4 -l4
+[18.839s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/cubemars_can' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/cubemars/cubemars_node -DCMAKE_INSTALL_PREFIX=/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can
+[18.841s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/cubemars_can': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --build /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/cubemars_can -- -j4 -l4
+[30.456s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/odrive_can' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/ros_odrive/odrive_node -DCMAKE_INSTALL_PREFIX=/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can
+[30.458s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/odrive_can': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --build /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/odrive_can -- -j4 -l4
+[43.406s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/npk_sensor' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --build /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/npk_sensor -- -j4 -l4
+[43.514s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/npk_sensor': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --install /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/npk_sensor
+[45.037s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(npk_sensor)
+[45.039s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor' for CMake module files
+[45.041s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/npk_sensor' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --install /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/npk_sensor
+[45.049s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor' for CMake config files
+[45.055s] Level 1:colcon.colcon_core.shell:create_environment_hook('npk_sensor', 'cmake_prefix_path')
+[45.057s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/share/npk_sensor/hook/cmake_prefix_path.ps1'
+[45.081s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/share/npk_sensor/hook/cmake_prefix_path.dsv'
+[45.119s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/share/npk_sensor/hook/cmake_prefix_path.sh'
+[45.124s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/lib'
+[45.125s] Level 1:colcon.colcon_core.shell:create_environment_hook('npk_sensor', 'ld_library_path_lib')
+[45.126s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/share/npk_sensor/hook/ld_library_path_lib.ps1'
+[45.130s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/share/npk_sensor/hook/ld_library_path_lib.dsv'
+[45.133s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/share/npk_sensor/hook/ld_library_path_lib.sh'
+[45.139s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/bin'
+[45.139s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/lib/pkgconfig/npk_sensor.pc'
+[45.141s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/lib/python3.10/site-packages'
+[45.144s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/bin'
+[45.149s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/share/npk_sensor/package.ps1'
+[45.153s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/share/npk_sensor/package.dsv'
+[45.157s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/share/npk_sensor/package.sh'
+[45.162s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/share/npk_sensor/package.bash'
+[45.165s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/share/npk_sensor/package.zsh'
+[45.168s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/share/colcon-core/packages/npk_sensor)
+[45.172s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(npk_sensor)
+[45.186s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor' for CMake module files
+[45.192s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor' for CMake config files
+[45.212s] Level 1:colcon.colcon_core.shell:create_environment_hook('npk_sensor', 'cmake_prefix_path')
+[45.213s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/share/npk_sensor/hook/cmake_prefix_path.ps1'
+[45.217s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/share/npk_sensor/hook/cmake_prefix_path.dsv'
+[45.230s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/share/npk_sensor/hook/cmake_prefix_path.sh'
+[45.244s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/lib'
+[45.245s] Level 1:colcon.colcon_core.shell:create_environment_hook('npk_sensor', 'ld_library_path_lib')
+[45.246s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/share/npk_sensor/hook/ld_library_path_lib.ps1'
+[45.254s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/share/npk_sensor/hook/ld_library_path_lib.dsv'
+[45.266s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/share/npk_sensor/hook/ld_library_path_lib.sh'
+[45.269s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/bin'
+[45.270s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/lib/pkgconfig/npk_sensor.pc'
+[45.271s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/lib/python3.10/site-packages'
+[45.273s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/bin'
+[45.275s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/share/npk_sensor/package.ps1'
+[45.290s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/share/npk_sensor/package.dsv'
+[45.294s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/share/npk_sensor/package.sh'
+[45.297s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/share/npk_sensor/package.bash'
+[45.301s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/share/npk_sensor/package.zsh'
+[45.305s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/share/colcon-core/packages/npk_sensor)
+[45.309s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node' with build type 'ament_cmake'
+[45.323s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node'
+[45.325s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[45.326s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[45.443s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node -DCMAKE_INSTALL_PREFIX=/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can
+[65.354s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/mock_gps' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --build /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/mock_gps -- -j4 -l4
+[65.356s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/mock_gps': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --install /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/mock_gps
+[65.508s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(mock_gps)
+[65.511s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps' for CMake module files
+[65.514s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/mock_gps' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --install /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/mock_gps
+[65.518s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps' for CMake config files
+[65.520s] Level 1:colcon.colcon_core.shell:create_environment_hook('mock_gps', 'cmake_prefix_path')
+[65.522s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/hook/cmake_prefix_path.ps1'
+[65.525s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/hook/cmake_prefix_path.dsv'
+[65.530s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/hook/cmake_prefix_path.sh'
+[65.536s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/lib'
+[65.537s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/bin'
+[65.538s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/lib/pkgconfig/mock_gps.pc'
+[65.540s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/lib/python3.10/site-packages'
+[65.543s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/bin'
+[65.545s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/package.ps1'
+[65.550s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/package.dsv'
+[65.554s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/package.sh'
+[65.558s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/package.bash'
+[65.560s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/package.zsh'
+[65.563s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/colcon-core/packages/mock_gps)
+[65.568s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(mock_gps)
+[65.569s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps' for CMake module files
+[65.573s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps' for CMake config files
+[65.576s] Level 1:colcon.colcon_core.shell:create_environment_hook('mock_gps', 'cmake_prefix_path')
+[65.577s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/hook/cmake_prefix_path.ps1'
+[65.580s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/hook/cmake_prefix_path.dsv'
+[65.583s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/hook/cmake_prefix_path.sh'
+[65.588s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/lib'
+[65.589s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/bin'
+[65.589s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/lib/pkgconfig/mock_gps.pc'
+[65.591s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/lib/python3.10/site-packages'
+[65.593s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/bin'
+[65.595s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/package.ps1'
+[65.600s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/package.dsv'
+[65.604s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/package.sh'
+[65.609s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/package.bash'
+[65.614s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/package.zsh'
+[65.618s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/colcon-core/packages/mock_gps)
+[65.621s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/yellowjacket/yellowjacket_node' with build type 'ament_cmake'
+[65.622s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/yellowjacket/yellowjacket_node'
+[65.624s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[65.625s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[65.718s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/yellowjacket/yellowjacket_node -DCMAKE_INSTALL_PREFIX=/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can
+[67.180s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node -DCMAKE_INSTALL_PREFIX=/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can
+[67.192s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --build /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can -- -j4 -l4
+[80.078s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/yellowjacket/yellowjacket_node -DCMAKE_INSTALL_PREFIX=/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can
+[80.081s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --build /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can -- -j4 -l4
+[154.770s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/cubemars_can' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --build /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/cubemars_can -- -j4 -l4
+[154.772s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/cubemars_can': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --install /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/cubemars_can
+[155.734s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(cubemars_can)
+[155.736s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can' for CMake module files
+[155.744s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/cubemars_can' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --install /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/cubemars_can
+[155.747s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can' for CMake config files
+[155.755s] Level 1:colcon.colcon_core.shell:create_environment_hook('cubemars_can', 'cmake_prefix_path')
+[155.756s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/hook/cmake_prefix_path.ps1'
+[155.760s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/hook/cmake_prefix_path.dsv'
+[155.763s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/hook/cmake_prefix_path.sh'
+[155.768s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib'
+[155.769s] Level 1:colcon.colcon_core.shell:create_environment_hook('cubemars_can', 'ld_library_path_lib')
+[155.770s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/hook/ld_library_path_lib.ps1'
+[155.774s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/hook/ld_library_path_lib.dsv'
+[155.777s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/hook/ld_library_path_lib.sh'
+[155.780s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/bin'
+[155.781s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib/pkgconfig/cubemars_can.pc'
+[155.783s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib/python3.10/site-packages'
+[155.785s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/bin'
+[155.787s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/package.ps1'
+[155.794s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/package.dsv'
+[155.799s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/package.sh'
+[155.804s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/package.bash'
+[155.808s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/package.zsh'
+[155.812s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/colcon-core/packages/cubemars_can)
+[155.818s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(cubemars_can)
+[155.820s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can' for CMake module files
+[155.828s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can' for CMake config files
+[155.836s] Level 1:colcon.colcon_core.shell:create_environment_hook('cubemars_can', 'cmake_prefix_path')
+[155.838s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/hook/cmake_prefix_path.ps1'
+[155.842s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/hook/cmake_prefix_path.dsv'
+[155.846s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/hook/cmake_prefix_path.sh'
+[155.851s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib'
+[155.852s] Level 1:colcon.colcon_core.shell:create_environment_hook('cubemars_can', 'ld_library_path_lib')
+[155.854s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/hook/ld_library_path_lib.ps1'
+[155.857s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/hook/ld_library_path_lib.dsv'
+[155.861s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/hook/ld_library_path_lib.sh'
+[155.864s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/bin'
+[155.865s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib/pkgconfig/cubemars_can.pc'
+[155.867s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib/python3.10/site-packages'
+[155.869s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/bin'
+[155.871s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/package.ps1'
+[155.876s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/package.dsv'
+[155.881s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/package.sh'
+[155.885s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/package.bash'
+[155.888s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/package.zsh'
+[155.892s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/colcon-core/packages/cubemars_can)
+[186.712s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/odrive_can' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --build /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/odrive_can -- -j4 -l4
+[186.724s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/odrive_can': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --install /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/odrive_can
+[187.554s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(odrive_can)
+[187.555s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can' for CMake module files
+[187.557s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/odrive_can' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --install /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/odrive_can
+[187.562s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can' for CMake config files
+[187.566s] Level 1:colcon.colcon_core.shell:create_environment_hook('odrive_can', 'cmake_prefix_path')
+[187.567s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/share/odrive_can/hook/cmake_prefix_path.ps1'
+[187.571s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/share/odrive_can/hook/cmake_prefix_path.dsv'
+[187.573s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/share/odrive_can/hook/cmake_prefix_path.sh'
+[187.576s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/lib'
+[187.577s] Level 1:colcon.colcon_core.shell:create_environment_hook('odrive_can', 'ld_library_path_lib')
+[187.578s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/share/odrive_can/hook/ld_library_path_lib.ps1'
+[187.580s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/share/odrive_can/hook/ld_library_path_lib.dsv'
+[187.582s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/share/odrive_can/hook/ld_library_path_lib.sh'
+[187.585s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/bin'
+[187.585s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/lib/pkgconfig/odrive_can.pc'
+[187.586s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/lib/python3.10/site-packages'
+[187.588s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/bin'
+[187.590s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/share/odrive_can/package.ps1'
+[187.593s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/share/odrive_can/package.dsv'
+[187.595s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/share/odrive_can/package.sh'
+[187.598s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/share/odrive_can/package.bash'
+[187.600s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/share/odrive_can/package.zsh'
+[187.603s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/share/colcon-core/packages/odrive_can)
+[187.606s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(odrive_can)
+[187.607s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can' for CMake module files
+[187.612s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can' for CMake config files
+[187.617s] Level 1:colcon.colcon_core.shell:create_environment_hook('odrive_can', 'cmake_prefix_path')
+[187.618s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/share/odrive_can/hook/cmake_prefix_path.ps1'
+[187.620s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/share/odrive_can/hook/cmake_prefix_path.dsv'
+[187.623s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/share/odrive_can/hook/cmake_prefix_path.sh'
+[187.626s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/lib'
+[187.627s] Level 1:colcon.colcon_core.shell:create_environment_hook('odrive_can', 'ld_library_path_lib')
+[187.628s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/share/odrive_can/hook/ld_library_path_lib.ps1'
+[187.631s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/share/odrive_can/hook/ld_library_path_lib.dsv'
+[187.633s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/share/odrive_can/hook/ld_library_path_lib.sh'
+[187.636s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/bin'
+[187.636s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/lib/pkgconfig/odrive_can.pc'
+[187.637s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/lib/python3.10/site-packages'
+[187.639s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/bin'
+[187.641s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/share/odrive_can/package.ps1'
+[187.644s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/share/odrive_can/package.dsv'
+[187.647s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/share/odrive_can/package.sh'
+[187.650s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/share/odrive_can/package.bash'
+[187.653s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/share/odrive_can/package.zsh'
+[187.656s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/share/colcon-core/packages/odrive_can)
+[219.903s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --build /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can -- -j4 -l4
+[219.915s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --install /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can
+[220.952s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(stepper_can)
+[220.955s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can' for CMake module files
+[220.957s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --install /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can
+[220.965s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can' for CMake config files
+[220.983s] Level 1:colcon.colcon_core.shell:create_environment_hook('stepper_can', 'cmake_prefix_path')
+[220.985s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/hook/cmake_prefix_path.ps1'
+[220.989s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/hook/cmake_prefix_path.dsv'
+[220.992s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/hook/cmake_prefix_path.sh'
+[220.996s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib'
+[220.997s] Level 1:colcon.colcon_core.shell:create_environment_hook('stepper_can', 'ld_library_path_lib')
+[220.998s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/hook/ld_library_path_lib.ps1'
+[221.001s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/hook/ld_library_path_lib.dsv'
+[221.004s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/hook/ld_library_path_lib.sh'
+[221.007s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/bin'
+[221.008s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib/pkgconfig/stepper_can.pc'
+[221.010s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib/python3.10/site-packages'
+[221.012s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/bin'
+[221.015s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/package.ps1'
+[221.019s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/package.dsv'
+[221.023s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/package.sh'
+[221.026s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/package.bash'
+[221.030s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/package.zsh'
+[221.033s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/colcon-core/packages/stepper_can)
+[221.041s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(stepper_can)
+[221.042s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can' for CMake module files
+[221.049s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can' for CMake config files
+[221.063s] Level 1:colcon.colcon_core.shell:create_environment_hook('stepper_can', 'cmake_prefix_path')
+[221.064s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/hook/cmake_prefix_path.ps1'
+[221.067s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/hook/cmake_prefix_path.dsv'
+[221.070s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/hook/cmake_prefix_path.sh'
+[221.074s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib'
+[221.075s] Level 1:colcon.colcon_core.shell:create_environment_hook('stepper_can', 'ld_library_path_lib')
+[221.077s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/hook/ld_library_path_lib.ps1'
+[221.080s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/hook/ld_library_path_lib.dsv'
+[221.083s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/hook/ld_library_path_lib.sh'
+[221.089s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/bin'
+[221.090s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib/pkgconfig/stepper_can.pc'
+[221.091s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib/python3.10/site-packages'
+[221.093s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/bin'
+[221.096s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/package.ps1'
+[221.100s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/package.dsv'
+[221.104s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/package.sh'
+[221.107s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/package.bash'
+[221.111s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/package.zsh'
+[221.115s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/colcon-core/packages/stepper_can)
+[228.584s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --build /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can -- -j4 -l4
+[228.594s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --install /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can
+[229.146s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(yellowjacket_can)
+[229.148s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can' for CMake module files
+[229.149s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --install /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can
+[229.153s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can' for CMake config files
+[229.156s] Level 1:colcon.colcon_core.shell:create_environment_hook('yellowjacket_can', 'cmake_prefix_path')
+[229.157s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/hook/cmake_prefix_path.ps1'
+[229.159s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/hook/cmake_prefix_path.dsv'
+[229.161s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/hook/cmake_prefix_path.sh'
+[229.163s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib'
+[229.164s] Level 1:colcon.colcon_core.shell:create_environment_hook('yellowjacket_can', 'ld_library_path_lib')
+[229.165s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/hook/ld_library_path_lib.ps1'
+[229.167s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/hook/ld_library_path_lib.dsv'
+[229.168s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/hook/ld_library_path_lib.sh'
+[229.170s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/bin'
+[229.170s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib/pkgconfig/yellowjacket_can.pc'
+[229.171s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib/python3.10/site-packages'
+[229.173s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/bin'
+[229.174s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/package.ps1'
+[229.176s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/package.dsv'
+[229.178s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/package.sh'
+[229.180s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/package.bash'
+[229.182s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/package.zsh'
+[229.184s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/colcon-core/packages/yellowjacket_can)
+[229.186s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(yellowjacket_can)
+[229.187s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can' for CMake module files
+[229.192s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can' for CMake config files
+[229.195s] Level 1:colcon.colcon_core.shell:create_environment_hook('yellowjacket_can', 'cmake_prefix_path')
+[229.196s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/hook/cmake_prefix_path.ps1'
+[229.198s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/hook/cmake_prefix_path.dsv'
+[229.200s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/hook/cmake_prefix_path.sh'
+[229.203s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib'
+[229.203s] Level 1:colcon.colcon_core.shell:create_environment_hook('yellowjacket_can', 'ld_library_path_lib')
+[229.204s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/hook/ld_library_path_lib.ps1'
+[229.206s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/hook/ld_library_path_lib.dsv'
+[229.208s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/hook/ld_library_path_lib.sh'
+[229.210s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/bin'
+[229.210s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib/pkgconfig/yellowjacket_can.pc'
+[229.211s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib/python3.10/site-packages'
+[229.212s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/bin'
+[229.214s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/package.ps1'
+[229.216s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/package.dsv'
+[229.219s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/package.sh'
+[229.221s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/package.bash'
+[229.223s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/yellowjacket_can/package.zsh'
+[229.225s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/share/colcon-core/packages/yellowjacket_can)
+[229.226s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[229.228s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[229.228s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[229.228s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[229.256s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.notify_send': Could not find 'notify-send'
+[229.257s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[229.257s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[229.257s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[229.316s] DEBUG:colcon.colcon_notification.desktop_notification.notify2:Failed to initialize notify2: org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.Notifications was not provided by any .service files
+[229.317s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[229.318s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/local_setup.ps1'
+[229.326s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/_local_setup_util_ps1.py'
+[229.335s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/setup.ps1'
+[229.343s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/local_setup.sh'
+[229.347s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/_local_setup_util_sh.py'
+[229.349s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/setup.sh'
+[229.358s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/local_setup.bash'
+[229.365s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/setup.bash'
+[229.374s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/local_setup.zsh'
+[229.377s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/setup.zsh'

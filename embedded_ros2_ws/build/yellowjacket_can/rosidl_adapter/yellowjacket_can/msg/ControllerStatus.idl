@@ -1,0 +1,30 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from yellowjacket_can/msg/ControllerStatus.msg
+// generated code does not contain a copyright notice
+
+
+module yellowjacket_can {
+  module msg {
+    struct ControllerStatus {
+      int32 pos_estimate;
+
+      int32 vel_estimate;
+
+      float torque_target;
+
+      float torque_estimate;
+
+      float iq_setpoint;
+
+      float iq_measured;
+
+      uint32 active_errors;
+
+      uint8 axis_state;
+
+      uint8 procedure_result;
+
+      boolean trajectory_done_flag;
+    };
+  };
+};

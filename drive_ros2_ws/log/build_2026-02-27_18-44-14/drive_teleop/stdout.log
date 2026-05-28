@@ -1,0 +1,95 @@
+[  3%] Built target drive_teleop__cpp
+[ 12%] Built target drive_teleop__rosidl_generator_c
+[ 12%] Built target ament_cmake_python_copy_drive_teleop
+[ 21%] Built target drive_teleop__rosidl_typesupport_cpp
+[ 30%] Built target drive_teleop__rosidl_typesupport_fastrtps_cpp
+[ 39%] Built target drive_teleop__rosidl_typesupport_introspection_cpp
+[ 48%] Built target drive_teleop__rosidl_typesupport_fastrtps_c
+[ 57%] Built target drive_teleop__rosidl_typesupport_introspection_c
+[35m[1mConsolidate compiler generated dependencies of target drive_teleop_node[0m
+[ 66%] Built target drive_teleop__rosidl_typesupport_c
+[ 72%] Built target drive_teleop_node
+[ 72%] Built target drive_teleop
+[ 75%] Built target drive_teleop__py
+[ 81%] Built target drive_teleop__rosidl_generator_py
+[ 87%] Built target drive_teleop__rosidl_typesupport_fastrtps_c__pyext
+[ 93%] Built target drive_teleop__rosidl_typesupport_introspection_c__pyext
+[100%] Built target drive_teleop__rosidl_typesupport_c__pyext
+running egg_info
+writing drive_teleop.egg-info/PKG-INFO
+writing dependency_links to drive_teleop.egg-info/dependency_links.txt
+writing top-level names to drive_teleop.egg-info/top_level.txt
+reading manifest file 'drive_teleop.egg-info/SOURCES.txt'
+writing manifest file 'drive_teleop.egg-info/SOURCES.txt'
+[100%] Built target ament_cmake_python_build_drive_teleop_egg
+-- Install configuration: ""
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/ament_index/resource_index/rosidl_interfaces/drive_teleop
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/drive_control_message.h
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/rosidl_generator_c__visibility_control.h
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__struct.h
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__functions.c
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__type_support.h
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__functions.h
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/environment/library_path.sh
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/environment/library_path.dsv
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib/libdrive_teleop__rosidl_generator_c.so
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__rosidl_typesupport_fastrtps_c.h
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib/libdrive_teleop__rosidl_typesupport_fastrtps_c.so
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/drive_control_message.hpp
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__type_support.hpp
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__struct.hpp
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__builder.hpp
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__traits.hpp
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/rosidl_generator_cpp__visibility_control.hpp
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/dds_fastrtps
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__rosidl_typesupport_fastrtps_cpp.hpp
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib/libdrive_teleop__rosidl_typesupport_fastrtps_cpp.so
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__rosidl_typesupport_introspection_c.h
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__type_support.c
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/rosidl_typesupport_introspection_c__visibility_control.h
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib/libdrive_teleop__rosidl_typesupport_introspection_c.so
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib/libdrive_teleop__rosidl_typesupport_c.so
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__rosidl_typesupport_introspection_cpp.hpp
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/include/drive_teleop/drive_teleop/msg/detail/drive_control_message__type_support.cpp
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib/libdrive_teleop__rosidl_typesupport_introspection_cpp.so
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib/libdrive_teleop__rosidl_typesupport_cpp.so
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/environment/pythonpath.sh
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/environment/pythonpath.dsv
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop-0.0.0-py3.10.egg-info
+-- Installing: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop-0.0.0-py3.10.egg-info/PKG-INFO
+-- Installing: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop-0.0.0-py3.10.egg-info/top_level.txt
+-- Installing: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop-0.0.0-py3.10.egg-info/SOURCES.txt
+-- Installing: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop-0.0.0-py3.10.egg-info/dependency_links.txt
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/drive_teleop_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/__init__.py
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/drive_teleop_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/_drive_teleop_s.ep.rosidl_typesupport_c.c
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/_drive_teleop_s.ep.rosidl_typesupport_fastrtps_c.c
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/msg
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/msg/__init__.py
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/msg/_drive_control_message.py
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/msg/_drive_control_message_s.c
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/_drive_teleop_s.ep.rosidl_typesupport_introspection_c.c
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/drive_teleop_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so
+-- Up-to-date: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages/drive_teleop/libdrive_teleop__rosidl_generator_py.so

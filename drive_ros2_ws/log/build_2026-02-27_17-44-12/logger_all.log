@@ -1,0 +1,212 @@
+[0.483s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.483s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=4, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0xffffbda184f0>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0xffffbdb15b10>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0xffffbdb15b10>>)
+[1.217s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[1.217s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[1.217s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[1.217s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[1.218s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[1.218s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[1.218s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/pi/Legacy/URC-2026/drive_ros2_ws'
+[1.218s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[1.219s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[1.219s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[1.219s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[1.220s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[1.220s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[1.220s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[1.220s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[1.220s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[1.273s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[1.273s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[1.273s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[1.273s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[1.274s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[1.274s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[1.275s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[1.275s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[1.275s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[1.276s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[1.276s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[1.277s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[1.277s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[1.277s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[1.278s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[1.278s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[1.278s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[1.278s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[1.279s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[1.279s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[1.279s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[1.279s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[1.279s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[1.280s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[1.280s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[1.280s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[1.280s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[1.280s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[1.281s] Level 1:colcon.colcon_core.package_identification:_identify(src/drive) by extensions ['ignore', 'ignore_ament_install']
+[1.281s] Level 1:colcon.colcon_core.package_identification:_identify(src/drive) by extension 'ignore'
+[1.281s] Level 1:colcon.colcon_core.package_identification:_identify(src/drive) by extension 'ignore_ament_install'
+[1.282s] Level 1:colcon.colcon_core.package_identification:_identify(src/drive) by extensions ['colcon_pkg']
+[1.282s] Level 1:colcon.colcon_core.package_identification:_identify(src/drive) by extension 'colcon_pkg'
+[1.282s] Level 1:colcon.colcon_core.package_identification:_identify(src/drive) by extensions ['colcon_meta']
+[1.282s] Level 1:colcon.colcon_core.package_identification:_identify(src/drive) by extension 'colcon_meta'
+[1.282s] Level 1:colcon.colcon_core.package_identification:_identify(src/drive) by extensions ['ros']
+[1.282s] Level 1:colcon.colcon_core.package_identification:_identify(src/drive) by extension 'ros'
+[1.291s] DEBUG:colcon.colcon_core.package_identification:Package 'src/drive' with type 'ros.ament_python' and name 'drive_manager'
+[1.292s] Level 1:colcon.colcon_core.package_identification:_identify(src/drive_teleop) by extensions ['ignore', 'ignore_ament_install']
+[1.292s] Level 1:colcon.colcon_core.package_identification:_identify(src/drive_teleop) by extension 'ignore'
+[1.293s] Level 1:colcon.colcon_core.package_identification:_identify(src/drive_teleop) by extension 'ignore_ament_install'
+[1.293s] Level 1:colcon.colcon_core.package_identification:_identify(src/drive_teleop) by extensions ['colcon_pkg']
+[1.294s] Level 1:colcon.colcon_core.package_identification:_identify(src/drive_teleop) by extension 'colcon_pkg'
+[1.294s] Level 1:colcon.colcon_core.package_identification:_identify(src/drive_teleop) by extensions ['colcon_meta']
+[1.294s] Level 1:colcon.colcon_core.package_identification:_identify(src/drive_teleop) by extension 'colcon_meta'
+[1.294s] Level 1:colcon.colcon_core.package_identification:_identify(src/drive_teleop) by extensions ['ros']
+[1.295s] Level 1:colcon.colcon_core.package_identification:_identify(src/drive_teleop) by extension 'ros'
+[1.298s] DEBUG:colcon.colcon_core.package_identification:Package 'src/drive_teleop' with type 'ros.ament_cmake' and name 'drive_teleop'
+[1.299s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[1.299s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[1.299s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[1.299s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[1.299s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[1.387s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[1.387s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[1.400s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 2 installed packages in /home/pi/Legacy/URC-2026/drive_ros2_ws/install
+[1.403s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 2 installed packages in /home/pi/Legacy/Testing/ros2_ws/install
+[1.406s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 9 installed packages in /home/pi/Legacy/URC-2026/embedded_ros2_ws/install
+[1.413s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 185 installed packages in /opt/ros/humble
+[1.418s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[1.577s] WARNING:colcon.colcon_core.package_selection:Some selected packages are already built in one or more underlay workspaces:
+	'drive_teleop' is in: /home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop
+If a package in a merged underlay workspace is overridden and it installs headers, then all packages in the overlay must sort their include directories by workspace order. Failure to do so may result in build failures or undefined behavior at run time.
+If the overridden package is used by another package in any underlay, then the overriding package in the overlay must be API and ABI compatible or undefined behavior at run time may occur.
+
+If you understand the risks and want to override a package anyways, add the following to the command line:
+	--allow-overriding drive_teleop
+
+This may be promoted to an error in a future release of colcon-override-check.
+[1.580s] Level 5:colcon.colcon_core.verb:set package 'drive_teleop' build argument 'cmake_args' from command line to 'None'
+[1.580s] Level 5:colcon.colcon_core.verb:set package 'drive_teleop' build argument 'cmake_target' from command line to 'None'
+[1.580s] Level 5:colcon.colcon_core.verb:set package 'drive_teleop' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.580s] Level 5:colcon.colcon_core.verb:set package 'drive_teleop' build argument 'cmake_clean_cache' from command line to 'False'
+[1.580s] Level 5:colcon.colcon_core.verb:set package 'drive_teleop' build argument 'cmake_clean_first' from command line to 'False'
+[1.581s] Level 5:colcon.colcon_core.verb:set package 'drive_teleop' build argument 'cmake_force_configure' from command line to 'False'
+[1.581s] Level 5:colcon.colcon_core.verb:set package 'drive_teleop' build argument 'ament_cmake_args' from command line to 'None'
+[1.581s] Level 5:colcon.colcon_core.verb:set package 'drive_teleop' build argument 'catkin_cmake_args' from command line to 'None'
+[1.581s] Level 5:colcon.colcon_core.verb:set package 'drive_teleop' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.581s] DEBUG:colcon.colcon_core.verb:Building package 'drive_teleop' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_teleop', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop', 'merge_install': False, 'path': '/home/pi/Legacy/URC-2026/drive_ros2_ws/src/drive_teleop', 'symlink_install': False, 'test_result_base': None}
+[1.583s] Level 5:colcon.colcon_core.verb:set package 'drive_manager' build argument 'cmake_args' from command line to 'None'
+[1.583s] Level 5:colcon.colcon_core.verb:set package 'drive_manager' build argument 'cmake_target' from command line to 'None'
+[1.583s] Level 5:colcon.colcon_core.verb:set package 'drive_manager' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.583s] Level 5:colcon.colcon_core.verb:set package 'drive_manager' build argument 'cmake_clean_cache' from command line to 'False'
+[1.583s] Level 5:colcon.colcon_core.verb:set package 'drive_manager' build argument 'cmake_clean_first' from command line to 'False'
+[1.583s] Level 5:colcon.colcon_core.verb:set package 'drive_manager' build argument 'cmake_force_configure' from command line to 'False'
+[1.583s] Level 5:colcon.colcon_core.verb:set package 'drive_manager' build argument 'ament_cmake_args' from command line to 'None'
+[1.583s] Level 5:colcon.colcon_core.verb:set package 'drive_manager' build argument 'catkin_cmake_args' from command line to 'None'
+[1.584s] Level 5:colcon.colcon_core.verb:set package 'drive_manager' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.584s] DEBUG:colcon.colcon_core.verb:Building package 'drive_manager' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_manager', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager', 'merge_install': False, 'path': '/home/pi/Legacy/URC-2026/drive_ros2_ws/src/drive', 'symlink_install': False, 'test_result_base': None}
+[1.584s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[1.588s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[1.589s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/pi/Legacy/URC-2026/drive_ros2_ws/src/drive_teleop' with build type 'ament_cmake'
+[1.589s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/pi/Legacy/URC-2026/drive_ros2_ws/src/drive_teleop'
+[1.601s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[1.602s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.602s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.654s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_teleop': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/drive:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/opt/ros/humble /usr/bin/cmake --build /home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_teleop -- -j4 -l4
+[3.657s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_teleop' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/drive:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/opt/ros/humble /usr/bin/cmake --build /home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_teleop -- -j4 -l4
+[3.713s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_teleop': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/drive:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/opt/ros/humble /usr/bin/cmake --install /home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_teleop
+[4.072s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(drive_teleop)
+[4.074s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_teleop' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/drive:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/opt/ros/humble /usr/bin/cmake --install /home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_teleop
+[4.086s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop' for CMake module files
+[4.092s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop' for CMake config files
+[4.096s] Level 1:colcon.colcon_core.shell:create_environment_hook('drive_teleop', 'cmake_prefix_path')
+[4.097s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/hook/cmake_prefix_path.ps1'
+[4.099s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/hook/cmake_prefix_path.dsv'
+[4.102s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/hook/cmake_prefix_path.sh'
+[4.106s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib'
+[4.107s] Level 1:colcon.colcon_core.shell:create_environment_hook('drive_teleop', 'ld_library_path_lib')
+[4.108s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/hook/ld_library_path_lib.ps1'
+[4.110s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/hook/ld_library_path_lib.dsv'
+[4.112s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/hook/ld_library_path_lib.sh'
+[4.114s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/bin'
+[4.115s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib/pkgconfig/drive_teleop.pc'
+[4.116s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib/python3.10/site-packages'
+[4.117s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/bin'
+[4.118s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/package.ps1'
+[4.122s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/package.dsv'
+[4.125s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/package.sh'
+[4.128s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/package.bash'
+[4.132s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/package.zsh'
+[4.135s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/colcon-core/packages/drive_teleop)
+[4.138s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(drive_teleop)
+[4.139s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop' for CMake module files
+[4.144s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop' for CMake config files
+[4.148s] Level 1:colcon.colcon_core.shell:create_environment_hook('drive_teleop', 'cmake_prefix_path')
+[4.149s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/hook/cmake_prefix_path.ps1'
+[4.151s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/hook/cmake_prefix_path.dsv'
+[4.153s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/hook/cmake_prefix_path.sh'
+[4.156s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib'
+[4.156s] Level 1:colcon.colcon_core.shell:create_environment_hook('drive_teleop', 'ld_library_path_lib')
+[4.157s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/hook/ld_library_path_lib.ps1'
+[4.159s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/hook/ld_library_path_lib.dsv'
+[4.161s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/hook/ld_library_path_lib.sh'
+[4.163s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/bin'
+[4.163s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib/pkgconfig/drive_teleop.pc'
+[4.164s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib/python3.10/site-packages'
+[4.166s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/bin'
+[4.167s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/package.ps1'
+[4.170s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/package.dsv'
+[4.172s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/package.sh'
+[4.175s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/package.bash'
+[4.177s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/drive_teleop/package.zsh'
+[4.179s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/share/colcon-core/packages/drive_teleop)
+[4.181s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/pi/Legacy/URC-2026/drive_ros2_ws/src/drive' with build type 'ament_python'
+[4.182s] Level 1:colcon.colcon_core.shell:create_environment_hook('drive_manager', 'ament_prefix_path')
+[4.183s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/share/drive_manager/hook/ament_prefix_path.ps1'
+[4.188s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/share/drive_manager/hook/ament_prefix_path.dsv'
+[4.191s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/share/drive_manager/hook/ament_prefix_path.sh'
+[4.194s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[4.194s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[5.750s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/pi/Legacy/URC-2026/drive_ros2_ws/src/drive'
+[5.751s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[5.751s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[8.037s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/pi/Legacy/URC-2026/drive_ros2_ws/src/drive': CMAKE_PREFIX_PATH=/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/servo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can:/home/pi/Legacy/Testing/ros2_ws/install/odrive_can LD_LIBRARY_PATH=/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/servo/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib:/home/pi/Legacy/Testing/ros2_ws/install/odrive_can/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib PYTHONPATH=/home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_manager/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/drive_manager build --build-base /home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_manager/build install --record /home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_manager/install.log --single-version-externally-managed install_data
+[10.227s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager' for CMake module files
+[10.229s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/pi/Legacy/URC-2026/drive_ros2_ws/src/drive' returned '0': CMAKE_PREFIX_PATH=/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/servo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can:/home/pi/Legacy/Testing/ros2_ws/install/odrive_can LD_LIBRARY_PATH=/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/servo/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib:/home/pi/Legacy/Testing/ros2_ws/install/odrive_can/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib PYTHONPATH=/home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_manager/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/drive_manager build --build-base /home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_manager/build install --record /home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_manager/install.log --single-version-externally-managed install_data
+[10.233s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager' for CMake config files
+[10.239s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/lib'
+[10.241s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/bin'
+[10.241s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/lib/pkgconfig/drive_manager.pc'
+[10.245s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/lib/python3.10/site-packages'
+[10.247s] Level 1:colcon.colcon_core.shell:create_environment_hook('drive_manager', 'pythonpath')
+[10.250s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/share/drive_manager/hook/pythonpath.ps1'
+[10.258s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/share/drive_manager/hook/pythonpath.dsv'
+[10.263s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/share/drive_manager/hook/pythonpath.sh'
+[10.268s] Level 1:colcon.colcon_core.environment:checking '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/bin'
+[10.269s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(drive_manager)
+[10.271s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/share/drive_manager/package.ps1'
+[10.274s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/share/drive_manager/package.dsv'
+[10.277s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/share/drive_manager/package.sh'
+[10.280s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/share/drive_manager/package.bash'
+[10.284s] INFO:colcon.colcon_core.shell:Creating package script '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/share/drive_manager/package.zsh'
+[10.287s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/share/colcon-core/packages/drive_manager)
+[10.288s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[10.290s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[10.290s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[10.291s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[10.329s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.notify_send': Could not find 'notify-send'
+[10.330s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[10.331s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[10.332s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[10.337s] DEBUG:colcon.colcon_notification.desktop_notification.notify2:Failed to initialize notify2: org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.Notifications was not provided by any .service files
+[10.338s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[10.339s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/local_setup.ps1'
+[10.346s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/_local_setup_util_ps1.py'
+[10.356s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/setup.ps1'
+[10.372s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/local_setup.sh'
+[10.376s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/_local_setup_util_sh.py'
+[10.380s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/setup.sh'
+[10.391s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/local_setup.bash'
+[10.395s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/setup.bash'
+[10.406s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/local_setup.zsh'
+[10.409s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/setup.zsh'

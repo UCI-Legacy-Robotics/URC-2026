@@ -1,0 +1,21 @@
+[  3%] Built target drive_teleop__cpp
+[ 12%] Built target drive_teleop__rosidl_generator_c
+[ 12%] Built target ament_cmake_python_copy_drive_teleop
+[ 21%] Built target drive_teleop__rosidl_typesupport_fastrtps_cpp
+[ 30%] Built target drive_teleop__rosidl_typesupport_introspection_cpp
+[ 39%] Built target drive_teleop__rosidl_typesupport_fastrtps_c
+[ 48%] Built target drive_teleop__rosidl_typesupport_introspection_c
+[ 57%] Built target drive_teleop__rosidl_typesupport_c
+[ 66%] Built target drive_teleop__rosidl_typesupport_cpp
+[ 66%] Built target drive_teleop
+[ 69%] [32mBuilding CXX object CMakeFiles/drive_teleop_node.dir/src/drive_teleop_node.cpp.o[0m
+running egg_info
+writing drive_teleop.egg-info/PKG-INFO
+writing dependency_links to drive_teleop.egg-info/dependency_links.txt
+writing top-level names to drive_teleop.egg-info/top_level.txt
+reading manifest file 'drive_teleop.egg-info/SOURCES.txt'
+writing manifest file 'drive_teleop.egg-info/SOURCES.txt'
+[ 69%] Built target ament_cmake_python_build_drive_teleop_egg
+gmake[2]: *** [CMakeFiles/drive_teleop_node.dir/build.make:76: CMakeFiles/drive_teleop_node.dir/src/drive_teleop_node.cpp.o] Interrupt
+gmake[1]: *** [CMakeFiles/Makefile2:593: CMakeFiles/drive_teleop_node.dir/all] Interrupt
+gmake: *** [Makefile:146: all] Interrupt

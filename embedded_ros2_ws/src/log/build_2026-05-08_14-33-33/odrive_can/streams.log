@@ -1,0 +1,162 @@
+[0.118s] Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/odrive_can': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/ros_odrive/odrive_node -DCMAKE_INSTALL_PREFIX=/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/odrive_can
+[1.382s] -- The C compiler identification is GNU 11.4.0
+[2.251s] -- The CXX compiler identification is GNU 11.4.0
+[2.322s] -- Detecting C compiler ABI info
+[2.907s] -- Detecting C compiler ABI info - done
+[2.942s] -- Check for working C compiler: /usr/bin/cc - skipped
+[2.943s] -- Detecting C compile features
+[2.952s] -- Detecting C compile features - done
+[2.972s] -- Detecting CXX compiler ABI info
+[3.608s] -- Detecting CXX compiler ABI info - done
+[3.643s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[3.644s] -- Detecting CXX compile features
+[3.646s] -- Detecting CXX compile features - done
+[5.682s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[7.411s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[8.917s] -- Found rclcpp: 16.0.17 (/opt/ros/humble/share/rclcpp/cmake)
+[9.587s] -- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[9.660s] -- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[9.752s] -- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[9.891s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[10.060s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[10.743s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[10.795s] -- Found rmw_fastrtps_cpp: 6.2.9 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[11.720s] -- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[11.958s] -- Found FastRTPS: /opt/ros/humble/include  
+[12.304s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[12.468s] -- Looking for pthread.h
+[13.146s] -- Looking for pthread.h - found
+[13.150s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[13.776s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[13.783s] -- Found Threads: TRUE  
+[14.405s] -- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+[14.566s] -- Found std_srvs: 4.9.0 (/opt/ros/humble/share/std_srvs/cmake)
+[17.048s] -- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)
+[21.369s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[22.848s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[23.257s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.10.12", minimum required is "3.6") 
+[23.337s] -- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)
+[23.833s] -- Found PythonLibs: /usr/lib/aarch64-linux-gnu/libpython3.10.so (found suitable version "3.10.12", minimum required is "3.5") 
+[23.834s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[23.834s] -- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10
+[23.835s] -- Using PYTHON_LIBRARIES: /usr/lib/aarch64-linux-gnu/libpython3.10.so
+[24.077s] -- Found PythonExtra: .so  
+[24.391s] -- Configuring done
+[25.972s] -- Generating done
+[26.310s] -- Build files have been written to: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/odrive_can
+[26.516s] Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/odrive_can' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/ros_odrive/odrive_node -DCMAKE_INSTALL_PREFIX=/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/odrive_can
+[26.519s] Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/odrive_can': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --build /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/odrive_can -- -j4 -l4
+[27.061s] [  1%] [34m[1mGenerating C code for ROS interfaces[0m
+[27.194s] [  3%] [34m[1mGenerating C++ code for ROS interfaces[0m
+[33.355s] [  5%] [32mBuilding C object CMakeFiles/odrive_can__rosidl_generator_c.dir/rosidl_generator_c/odrive_can/msg/detail/control_message__functions.c.o[0m
+[34.384s] [  6%] [32mBuilding C object CMakeFiles/odrive_can__rosidl_generator_c.dir/rosidl_generator_c/odrive_can/msg/detail/controller_status__functions.c.o[0m
+[35.096s] [  8%] [32mBuilding C object CMakeFiles/odrive_can__rosidl_generator_c.dir/rosidl_generator_c/odrive_can/msg/detail/o_drive_status__functions.c.o[0m
+[35.253s] [  8%] Built target odrive_can__cpp
+[35.550s] [ 10%] [32mBuilding C object CMakeFiles/odrive_can__rosidl_generator_c.dir/rosidl_generator_c/odrive_can/srv/detail/axis_state__functions.c.o[0m
+[35.989s] [ 11%] [32m[1mLinking C shared library libodrive_can__rosidl_generator_c.so[0m
+[36.396s] [ 11%] Built target odrive_can__rosidl_generator_c
+[36.537s] [ 13%] [34m[1mGenerating C++ type support for eProsima Fast-RTPS[0m
+[39.686s] [ 15%] [32mBuilding CXX object CMakeFiles/odrive_can__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/odrive_can/msg/detail/dds_fastrtps/control_message__type_support.cpp.o[0m
+[42.887s] [ 16%] [32mBuilding CXX object CMakeFiles/odrive_can__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/odrive_can/msg/detail/dds_fastrtps/controller_status__type_support.cpp.o[0m
+[46.061s] [ 18%] [32mBuilding CXX object CMakeFiles/odrive_can__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/odrive_can/msg/detail/dds_fastrtps/o_drive_status__type_support.cpp.o[0m
+[48.784s] [ 20%] [32mBuilding CXX object CMakeFiles/odrive_can__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/odrive_can/srv/detail/dds_fastrtps/axis_state__type_support.cpp.o[0m
+[52.285s] [ 21%] [32m[1mLinking CXX shared library libodrive_can__rosidl_typesupport_fastrtps_cpp.so[0m
+[52.795s] [ 21%] Built target odrive_can__rosidl_typesupport_fastrtps_cpp
+[52.885s] [ 23%] [34m[1mGenerating C++ introspection for ROS interfaces[0m
+[55.947s] [ 25%] [32mBuilding CXX object CMakeFiles/odrive_can__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/odrive_can/msg/detail/control_message__type_support.cpp.o[0m
+[59.573s] [ 26%] [32mBuilding CXX object CMakeFiles/odrive_can__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/odrive_can/msg/detail/controller_status__type_support.cpp.o[0m
+[62.714s] [ 28%] [32mBuilding CXX object CMakeFiles/odrive_can__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/odrive_can/msg/detail/o_drive_status__type_support.cpp.o[0m
+[65.903s] [ 30%] [32mBuilding CXX object CMakeFiles/odrive_can__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/odrive_can/srv/detail/axis_state__type_support.cpp.o[0m
+[68.600s] [ 31%] [32m[1mLinking CXX shared library libodrive_can__rosidl_typesupport_introspection_cpp.so[0m
+[68.853s] [ 31%] Built target odrive_can__rosidl_typesupport_introspection_cpp
+[68.918s] [ 33%] [34m[1mGenerating C type support for eProsima Fast-RTPS[0m
+[71.711s] [ 35%] [32mBuilding CXX object CMakeFiles/odrive_can__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/odrive_can/msg/detail/control_message__type_support_c.cpp.o[0m
+[74.448s] [ 36%] [32mBuilding CXX object CMakeFiles/odrive_can__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/odrive_can/msg/detail/controller_status__type_support_c.cpp.o[0m
+[77.446s] [ 38%] [32mBuilding CXX object CMakeFiles/odrive_can__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/odrive_can/msg/detail/o_drive_status__type_support_c.cpp.o[0m
+[79.698s] [ 40%] [32mBuilding CXX object CMakeFiles/odrive_can__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/odrive_can/srv/detail/axis_state__type_support_c.cpp.o[0m
+[82.532s] [ 41%] [32m[1mLinking CXX shared library libodrive_can__rosidl_typesupport_fastrtps_c.so[0m
+[83.719s] [ 41%] Built target odrive_can__rosidl_typesupport_fastrtps_c
+[83.815s] [ 43%] [34m[1mGenerating C introspection for ROS interfaces[0m
+[86.248s] [ 45%] [32mBuilding C object CMakeFiles/odrive_can__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/odrive_can/msg/detail/control_message__type_support.c.o[0m
+[86.722s] [ 46%] [32mBuilding C object CMakeFiles/odrive_can__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/odrive_can/msg/detail/controller_status__type_support.c.o[0m
+[87.025s] [ 48%] [32mBuilding C object CMakeFiles/odrive_can__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/odrive_can/msg/detail/o_drive_status__type_support.c.o[0m
+[87.259s] [ 50%] [32mBuilding C object CMakeFiles/odrive_can__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/odrive_can/srv/detail/axis_state__type_support.c.o[0m
+[87.663s] [ 51%] [32m[1mLinking C shared library libodrive_can__rosidl_typesupport_introspection_c.so[0m
+[88.061s] [ 51%] Built target odrive_can__rosidl_typesupport_introspection_c
+[88.184s] [ 53%] [34m[1mGenerating C type support dispatch for ROS interfaces[0m
+[90.815s] [ 55%] [32mBuilding CXX object CMakeFiles/odrive_can__rosidl_typesupport_c.dir/rosidl_typesupport_c/odrive_can/msg/control_message__type_support.cpp.o[0m
+[91.224s] [ 56%] [32mBuilding CXX object CMakeFiles/odrive_can__rosidl_typesupport_c.dir/rosidl_typesupport_c/odrive_can/msg/controller_status__type_support.cpp.o[0m
+[91.703s] [ 58%] [32mBuilding CXX object CMakeFiles/odrive_can__rosidl_typesupport_c.dir/rosidl_typesupport_c/odrive_can/msg/o_drive_status__type_support.cpp.o[0m
+[92.002s] [ 60%] [32mBuilding CXX object CMakeFiles/odrive_can__rosidl_typesupport_c.dir/rosidl_typesupport_c/odrive_can/srv/axis_state__type_support.cpp.o[0m
+[92.483s] [ 61%] [32m[1mLinking CXX shared library libodrive_can__rosidl_typesupport_c.so[0m
+[93.074s] [ 61%] Built target odrive_can__rosidl_typesupport_c
+[93.260s] [ 63%] [34m[1mGenerating C++ type support dispatch for ROS interfaces[0m
+[96.306s] [ 65%] [32mBuilding CXX object CMakeFiles/odrive_can__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/odrive_can/msg/control_message__type_support.cpp.o[0m
+[98.844s] [ 66%] [32mBuilding CXX object CMakeFiles/odrive_can__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/odrive_can/msg/o_drive_status__type_support.cpp.o[0m
+[101.663s] [ 68%] [32mBuilding CXX object CMakeFiles/odrive_can__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/odrive_can/srv/axis_state__type_support.cpp.o[0m
+[104.192s] [ 70%] [32mBuilding CXX object CMakeFiles/odrive_can__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/odrive_can/msg/controller_status__type_support.cpp.o[0m
+[107.810s] [ 71%] [32m[1mLinking CXX shared library libodrive_can__rosidl_typesupport_cpp.so[0m
+[108.269s] [ 71%] Built target odrive_can__rosidl_typesupport_cpp
+[108.471s] [ 71%] Built target ament_cmake_python_copy_odrive_can
+[108.638s] [ 73%] [32mBuilding CXX object CMakeFiles/odrive_can_node.dir/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/ros_odrive/odrive_base/src/epoll_event_loop.cpp.o[0m
+[115.573s] [ 75%] [32mBuilding CXX object CMakeFiles/odrive_can_node.dir/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/ros_odrive/odrive_base/src/socket_can.cpp.o[0m
+[122.107s] [ 76%] [32mBuilding CXX object CMakeFiles/odrive_can_node.dir/src/odrive_can_node.cpp.o[0m
+[150.307s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/ros_odrive/odrive_node/src/odrive_can_node.cpp:[m[K In member function ‘[01m[Kvoid ODriveCanNode::service_clear_errors_callback(std::shared_ptr<std_srvs::srv::Empty_Request_<std::allocator<void> > >, std::shared_ptr<std_srvs::srv::Empty_Response_<std::allocator<void> > >)[m[K’:
+[150.308s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/ros_odrive/odrive_node/src/odrive_can_node.cpp:246:89:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Krequest[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+[150.309s]   246 | void ODriveCanNode::service_clear_errors_callback([01;35m[Kconst std::shared_ptr<Empty::Request> request[m[K, std::shared_ptr<Empty::Response> response) {
+[150.310s]       |                                                   [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~[m[K
+[150.311s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/ros_odrive/odrive_node/src/odrive_can_node.cpp:246:131:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kresponse[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+[150.312s]   246 | errors_callback(const std::shared_ptr<Empty::Request> request, [01;35m[Kstd::shared_ptr<Empty::Response> response[m[K) {
+[150.313s]       |                                                                [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~[m[K
+[150.314s] 
+[178.993s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/ros_odrive/odrive_node/src/odrive_can_node.cpp:[m[K In member function ‘[01m[Kvoid ODriveCanNode::deinit()[m[K’:
+[178.994s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/ros_odrive/odrive_node/src/odrive_can_node.cpp:69:27:[m[K [01;35m[Kwarning: [m[K‘[01m[Kframe[m[K’ may be used uninitialized [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmaybe-uninitialized-Wmaybe-uninitialized]8;;[m[K]
+[178.994s]    69 |         [01;35m[Kwrite_le<uint32_t>(ODriveAxisState::AXIS_STATE_IDLE, frame.data)[m[K;
+[178.995s]       |         [01;35m[K~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[178.996s] In file included from [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/ros_odrive/odrive_node/src/odrive_can_node.cpp:4[m[K:
+[178.997s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/ros_odrive/odrive_node/include/byte_swap.hpp:36:6:[m[K [01;36m[Knote: [m[Kby argument 2 of type ‘[01m[Kconst unsigned char*[m[K’ to ‘[01m[Kvoid write_le(const T&, const unsigned char*) [with T = unsigned int][m[K’ declared here
+[178.998s]    36 | void [01;36m[Kwrite_le[m[K(const T& val, const unsigned char* buf) {
+[178.999s]       |      [01;36m[K^~~~~~~~[m[K
+[179.001s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/ros_odrive/odrive_node/src/odrive_can_node.cpp:67:26:[m[K [01;36m[Knote: [m[K‘[01m[Kframe[m[K’ declared here
+[179.001s]    67 |         struct can_frame [01;36m[Kframe[m[K;
+[179.002s]       |                          [01;36m[K^~~~~[m[K
+[179.002s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/ros_odrive/odrive_node/src/odrive_can_node.cpp:[m[K In member function ‘[01m[Kvoid ODriveCanNode::request_clear_errors_callback()[m[K’:
+[179.003s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/ros_odrive/odrive_node/src/odrive_can_node.cpp:278:22:[m[K [01;35m[Kwarning: [m[K‘[01m[Kframe[m[K’ may be used uninitialized [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmaybe-uninitialized-Wmaybe-uninitialized]8;;[m[K]
+[179.004s]   278 |     [01;35m[Kwrite_le<uint8_t>(0, frame.data)[m[K;
+[179.005s]       |     [01;35m[K~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~[m[K
+[179.005s] In file included from [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/ros_odrive/odrive_node/src/odrive_can_node.cpp:4[m[K:
+[179.006s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/ros_odrive/odrive_node/include/byte_swap.hpp:36:6:[m[K [01;36m[Knote: [m[Kby argument 2 of type ‘[01m[Kconst unsigned char*[m[K’ to ‘[01m[Kvoid write_le(const T&, const unsigned char*) [with T = unsigned char][m[K’ declared here
+[179.006s]    36 | void [01;36m[Kwrite_le[m[K(const T& val, const unsigned char* buf) {
+[179.007s]       |      [01;36m[K^~~~~~~~[m[K
+[179.016s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/ros_odrive/odrive_node/src/odrive_can_node.cpp:276:22:[m[K [01;36m[Knote: [m[K‘[01m[Kframe[m[K’ declared here
+[179.016s]   276 |     struct can_frame [01;36m[Kframe[m[K;
+[179.017s]       |                      [01;36m[K^~~~~[m[K
+[226.189s] [ 78%] [32mBuilding CXX object CMakeFiles/odrive_can_node.dir/src/main.cpp.o[0m
+[255.191s] [ 80%] [32m[1mLinking CXX executable odrive_can_node[0m
+[258.228s] [ 80%] Built target odrive_can_node
+[260.153s] running egg_info
+[260.156s] creating odrive_can.egg-info
+[260.157s] writing odrive_can.egg-info/PKG-INFO
+[260.158s] writing dependency_links to odrive_can.egg-info/dependency_links.txt
+[260.160s] writing top-level names to odrive_can.egg-info/top_level.txt
+[260.161s] writing manifest file 'odrive_can.egg-info/SOURCES.txt'
+[260.172s] reading manifest file 'odrive_can.egg-info/SOURCES.txt'
+[260.175s] writing manifest file 'odrive_can.egg-info/SOURCES.txt'
+[260.391s] [ 80%] Built target ament_cmake_python_build_odrive_can_egg
+[260.540s] [ 80%] Built target odrive_can
+[260.683s] [ 81%] [34m[1mGenerating Python code for ROS interfaces[0m
+[264.927s] [ 81%] Built target odrive_can__py
+[265.051s] [ 83%] [32mBuilding C object CMakeFiles/odrive_can__rosidl_generator_py.dir/rosidl_generator_py/odrive_can/msg/_control_message_s.c.o[0m
+[265.659s] [ 85%] [32mBuilding C object CMakeFiles/odrive_can__rosidl_generator_py.dir/rosidl_generator_py/odrive_can/srv/_axis_state_s.c.o[0m
+[266.320s] [ 86%] [32mBuilding C object CMakeFiles/odrive_can__rosidl_generator_py.dir/rosidl_generator_py/odrive_can/msg/_o_drive_status_s.c.o[0m
+[267.729s] [ 88%] [32mBuilding C object CMakeFiles/odrive_can__rosidl_generator_py.dir/rosidl_generator_py/odrive_can/msg/_controller_status_s.c.o[0m
+[268.439s] [ 90%] [32m[1mLinking C shared library rosidl_generator_py/odrive_can/libodrive_can__rosidl_generator_py.so[0m
+[268.741s] [ 90%] Built target odrive_can__rosidl_generator_py
+[268.892s] [ 91%] [32mBuilding C object CMakeFiles/odrive_can__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/odrive_can/_odrive_can_s.ep.rosidl_typesupport_fastrtps_c.c.o[0m
+[269.708s] [ 93%] [32m[1mLinking C shared library rosidl_generator_py/odrive_can/odrive_can_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so[0m
+[269.976s] [ 93%] Built target odrive_can__rosidl_typesupport_fastrtps_c__pyext
+[270.139s] [ 95%] [32mBuilding C object CMakeFiles/odrive_can__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/odrive_can/_odrive_can_s.ep.rosidl_typesupport_c.c.o[0m
+[270.816s] [ 96%] [32m[1mLinking C shared library rosidl_generator_py/odrive_can/odrive_can_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so[0m
+[271.056s] gmake[1]: *** [CMakeFiles/Makefile2:567: CMakeFiles/odrive_can__rosidl_typesupport_c__pyext.dir/all] Interrupt
+[271.080s] gmake: *** [Makefile:146: all] Interrupt
+[271.092s] Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/odrive_can' returned '-2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --build /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/odrive_can -- -j4 -l4

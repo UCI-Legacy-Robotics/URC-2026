@@ -1,0 +1,3 @@
+[console_scripts]
+blender_motor_node = blender_motor.blender_motor_node:main
+

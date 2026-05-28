@@ -1,0 +1,8 @@
+setup.py
+npk_sensor/__init__.py
+npk_sensor.egg-info/PKG-INFO
+npk_sensor.egg-info/SOURCES.txt
+npk_sensor.egg-info/dependency_links.txt
+npk_sensor.egg-info/top_level.txt
+npk_sensor/srv/__init__.py
+npk_sensor/srv/_get_soil_data.py

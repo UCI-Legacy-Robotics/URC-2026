@@ -1,0 +1,251 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-edff7ec6f1c650414b94.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19
+					]
+				},
+				{
+					"build" : "npk_sensor__py",
+					"jsonFile" : "directory-npk_sensor__py-24ffb3d61d2ad8914bac.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/npk_sensor/npk_sensor__py",
+					"targetIndexes" : 
+					[
+						6
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1
+					],
+					"name" : "npk_sensor",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_build_npk_sensor_egg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_build_npk_sensor_egg-7aa25a893b8ed402ff3b.json",
+					"name" : "ament_cmake_python_build_npk_sensor_egg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_build_src_egg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_build_src_egg-0052310a7b5a5445bf3f.json",
+					"name" : "ament_cmake_python_build_src_egg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_copy_npk_sensor::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_copy_npk_sensor-9a41ef6afbe84359ed14.json",
+					"name" : "ament_cmake_python_copy_npk_sensor",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_copy_src::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_copy_src-f9a8ed3b57b67e98e054.json",
+					"name" : "ament_cmake_python_copy_src",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "npk_sensor::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-npk_sensor-84ae592185a5012ad082.json",
+					"name" : "npk_sensor",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "npk_sensor__cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-npk_sensor__cpp-cde26d222bfb3d568ee9.json",
+					"name" : "npk_sensor__cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "npk_sensor__py::@023db88fcd1b727ee21b",
+					"jsonFile" : "target-npk_sensor__py-02c47cf3c5e436a1fdab.json",
+					"name" : "npk_sensor__py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "npk_sensor__rosidl_generator_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-npk_sensor__rosidl_generator_c-d78af487a596536376aa.json",
+					"name" : "npk_sensor__rosidl_generator_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "npk_sensor__rosidl_generator_py::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-npk_sensor__rosidl_generator_py-73c741ffc040d12cb56e.json",
+					"name" : "npk_sensor__rosidl_generator_py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "npk_sensor__rosidl_typesupport_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-npk_sensor__rosidl_typesupport_c-ec6da8dadd3c33726e31.json",
+					"name" : "npk_sensor__rosidl_typesupport_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "npk_sensor__rosidl_typesupport_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-npk_sensor__rosidl_typesupport_c__pyext-ed891435fc831e05e575.json",
+					"name" : "npk_sensor__rosidl_typesupport_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "npk_sensor__rosidl_typesupport_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-npk_sensor__rosidl_typesupport_cpp-3c4fb029f083e782c097.json",
+					"name" : "npk_sensor__rosidl_typesupport_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "npk_sensor__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-npk_sensor__rosidl_typesupport_fastrtps_c-f4f0c68a776d2df5f652.json",
+					"name" : "npk_sensor__rosidl_typesupport_fastrtps_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "npk_sensor__rosidl_typesupport_fastrtps_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-npk_sensor__rosidl_typesupport_fastrtps_c__pyext-e2950a789ca12b810509.json",
+					"name" : "npk_sensor__rosidl_typesupport_fastrtps_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "npk_sensor__rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-npk_sensor__rosidl_typesupport_fastrtps_cpp-ec3c2f110afefae7684c.json",
+					"name" : "npk_sensor__rosidl_typesupport_fastrtps_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "npk_sensor__rosidl_typesupport_introspection_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-npk_sensor__rosidl_typesupport_introspection_c-9477590bc1b2ec7eb6b2.json",
+					"name" : "npk_sensor__rosidl_typesupport_introspection_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "npk_sensor__rosidl_typesupport_introspection_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-npk_sensor__rosidl_typesupport_introspection_c__pyext-42de1aade6eb896858d6.json",
+					"name" : "npk_sensor__rosidl_typesupport_introspection_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "npk_sensor__rosidl_typesupport_introspection_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-npk_sensor__rosidl_typesupport_introspection_cpp-6958cb806342f778fba3.json",
+					"name" : "npk_sensor__rosidl_typesupport_introspection_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "npk_sensor_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-npk_sensor_uninstall-62e83f28d140a0d620ba.json",
+					"name" : "npk_sensor_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-d25824160fff51ecf3d9.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/npk_sensor",
+		"source" : "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/npk_sensor"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

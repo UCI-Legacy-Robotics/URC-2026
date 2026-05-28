@@ -1,0 +1,25 @@
+[0.122s] Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/mock_gps': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --build /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/mock_gps -- -j4 -l4
+[0.431s] [35m[1mConsolidate compiler generated dependencies of target mock_gps_node[0m
+[0.682s] [100%] Built target mock_gps_node
+[0.783s] Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/mock_gps' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --build /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/mock_gps -- -j4 -l4
+[0.890s] Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/mock_gps': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --install /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/mock_gps
+[0.940s] -- Install configuration: ""
+[0.944s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/lib/mock_gps/mock_gps_node
+[0.947s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/launch
+[0.948s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/launch/gnss.launch.py
+[0.950s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/ament_index/resource_index/package_run_dependencies/mock_gps
+[0.953s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/ament_index/resource_index/parent_prefix_path/mock_gps
+[0.955s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/environment/ament_prefix_path.sh
+[0.957s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/environment/ament_prefix_path.dsv
+[0.958s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/environment/path.sh
+[0.960s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/environment/path.dsv
+[0.963s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/local_setup.bash
+[0.967s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/local_setup.sh
+[0.969s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/local_setup.zsh
+[0.971s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/local_setup.dsv
+[0.973s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/package.dsv
+[0.976s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/ament_index/resource_index/packages/mock_gps
+[0.977s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/cmake/mock_gpsConfig.cmake
+[0.979s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/cmake/mock_gpsConfig-version.cmake
+[0.981s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps/share/mock_gps/package.xml
+[0.996s] Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/mock_gps' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --install /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/mock_gps

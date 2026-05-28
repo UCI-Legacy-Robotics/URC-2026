@@ -1,0 +1,10 @@
+/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/mock_gps/CMakeFiles/uninstall.dir
+/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/mock_gps/CMakeFiles/mock_gps_uninstall.dir
+/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/mock_gps/CMakeFiles/mock_gps_node.dir
+/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/mock_gps/CMakeFiles/test.dir
+/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/mock_gps/CMakeFiles/edit_cache.dir
+/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/mock_gps/CMakeFiles/rebuild_cache.dir
+/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/mock_gps/CMakeFiles/list_install_components.dir
+/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/mock_gps/CMakeFiles/install.dir
+/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/mock_gps/CMakeFiles/install/local.dir
+/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/mock_gps/CMakeFiles/install/strip.dir

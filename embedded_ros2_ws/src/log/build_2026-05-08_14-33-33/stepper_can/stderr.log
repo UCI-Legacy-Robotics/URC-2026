@@ -1,0 +1,33 @@
+[01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node/src/stepper_can_node.cpp:[m[K In member function ‘[01m[Kvoid StepperCanNode::service_clear_errors_callback(std::shared_ptr<std_srvs::srv::Empty_Request_<std::allocator<void> > >, std::shared_ptr<std_srvs::srv::Empty_Response_<std::allocator<void> > >)[m[K’:
+[01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node/src/stepper_can_node.cpp:200:90:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Krequest[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+  200 | void StepperCanNode::service_clear_errors_callback([01;35m[Kconst std::shared_ptr<Empty::Request> request[m[K, std::shared_ptr<Empty::Response> response) {
+      |                                                    [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~[m[K
+[01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node/src/stepper_can_node.cpp:200:132:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kresponse[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+  200 | errors_callback(const std::shared_ptr<Empty::Request> request, [01;35m[Kstd::shared_ptr<Empty::Response> response[m[K) {
+      |                                                                [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~[m[K
+
+[01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node/src/stepper_can_node.cpp:[m[K In member function ‘[01m[Kvoid StepperCanNode::deinit()[m[K’:
+[01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node/src/stepper_can_node.cpp:67:27:[m[K [01;35m[Kwarning: [m[K‘[01m[Kframe[m[K’ may be used uninitialized [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmaybe-uninitialized-Wmaybe-uninitialized]8;;[m[K]
+   67 |         [01;35m[Kwrite_le<uint32_t>(ODriveAxisState::AXIS_STATE_IDLE, frame.data)[m[K;
+      |         [01;35m[K~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node/src/stepper_can_node.cpp:4[m[K:
+[01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node/include/byte_swap.hpp:36:6:[m[K [01;36m[Knote: [m[Kby argument 2 of type ‘[01m[Kconst unsigned char*[m[K’ to ‘[01m[Kvoid write_le(const T&, const unsigned char*) [with T = unsigned int][m[K’ declared here
+   36 | void [01;36m[Kwrite_le[m[K(const T& val, const unsigned char* buf) {
+      |      [01;36m[K^~~~~~~~[m[K
+[01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node/src/stepper_can_node.cpp:65:26:[m[K [01;36m[Knote: [m[K‘[01m[Kframe[m[K’ declared here
+   65 |         struct can_frame [01;36m[Kframe[m[K;
+      |                          [01;36m[K^~~~~[m[K
+[01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node/src/stepper_can_node.cpp:[m[K In member function ‘[01m[Kvoid StepperCanNode::request_clear_errors_callback()[m[K’:
+[01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node/src/stepper_can_node.cpp:232:22:[m[K [01;35m[Kwarning: [m[K‘[01m[Kframe[m[K’ may be used uninitialized [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmaybe-uninitialized-Wmaybe-uninitialized]8;;[m[K]
+  232 |     [01;35m[Kwrite_le<uint8_t>(0, frame.data)[m[K;
+      |     [01;35m[K~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node/src/stepper_can_node.cpp:4[m[K:
+[01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node/include/byte_swap.hpp:36:6:[m[K [01;36m[Knote: [m[Kby argument 2 of type ‘[01m[Kconst unsigned char*[m[K’ to ‘[01m[Kvoid write_le(const T&, const unsigned char*) [with T = unsigned char][m[K’ declared here
+   36 | void [01;36m[Kwrite_le[m[K(const T& val, const unsigned char* buf) {
+      |      [01;36m[K^~~~~~~~[m[K
+[01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node/src/stepper_can_node.cpp:230:22:[m[K [01;36m[Knote: [m[K‘[01m[Kframe[m[K’ declared here
+  230 |     struct can_frame [01;36m[Kframe[m[K;
+      |                      [01;36m[K^~~~~[m[K
+gmake[2]: *** [CMakeFiles/stepper_can_node.dir/build.make:118: CMakeFiles/stepper_can_node.dir/src/main.cpp.o] Interrupt
+gmake[1]: *** [CMakeFiles/Makefile2:593: CMakeFiles/stepper_can_node.dir/all] Interrupt
+gmake: *** [Makefile:146: all] Interrupt

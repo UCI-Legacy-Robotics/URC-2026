@@ -1,0 +1,256 @@
+[0.116s] Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/npk_sensor': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/npk_sensor -DCMAKE_INSTALL_PREFIX=/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor
+[1.419s] -- The C compiler identification is GNU 11.4.0
+[2.317s] -- The CXX compiler identification is GNU 11.4.0
+[2.362s] -- Detecting C compiler ABI info
+[2.944s] -- Detecting C compiler ABI info - done
+[2.982s] -- Check for working C compiler: /usr/bin/cc - skipped
+[2.985s] -- Detecting C compile features
+[2.987s] -- Detecting C compile features - done
+[3.000s] -- Detecting CXX compiler ABI info
+[3.632s] -- Detecting CXX compiler ABI info - done
+[3.680s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[3.683s] -- Detecting CXX compile features
+[3.690s] -- Detecting CXX compile features - done
+[5.711s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[7.212s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[8.945s] -- Found rclpy: 3.3.19 (/opt/ros/humble/share/rclpy/cmake)
+[8.983s] -- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+[9.059s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[9.256s] -- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[9.901s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[12.234s] -- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)
+[13.778s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[15.833s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[16.064s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.10.12", minimum required is "3.6") 
+[16.131s] -- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)
+[16.377s] -- Found PythonLibs: /usr/lib/aarch64-linux-gnu/libpython3.10.so (found suitable version "3.10.12", minimum required is "3.5") 
+[16.378s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[16.379s] -- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10
+[16.379s] -- Using PYTHON_LIBRARIES: /usr/lib/aarch64-linux-gnu/libpython3.10.so
+[16.582s] -- Found PythonExtra: .so  
+[17.031s] -- Configuring done
+[17.295s] -- Generating done
+[17.358s] -- Build files have been written to: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/npk_sensor
+[17.392s] Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/npk_sensor' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/npk_sensor -DCMAKE_INSTALL_PREFIX=/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor
+[17.395s] Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/npk_sensor': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --build /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/npk_sensor -- -j4 -l4
+[17.750s] [  3%] [34m[1mGenerating C code for ROS interfaces[0m
+[18.054s] [  6%] [34m[1mGenerating C++ code for ROS interfaces[0m
+[18.089s] [  6%] Built target ament_cmake_python_copy_npk_sensor
+[18.122s] [  6%] Built target ament_cmake_python_copy_src
+[21.428s] [  9%] [32mBuilding C object CMakeFiles/npk_sensor__rosidl_generator_c.dir/rosidl_generator_c/npk_sensor/srv/detail/get_soil_data__functions.c.o[0m
+[21.515s] running egg_info
+[21.519s] creating npk_sensor.egg-info
+[21.528s] writing npk_sensor.egg-info/PKG-INFO
+[21.531s] writing dependency_links to npk_sensor.egg-info/dependency_links.txt
+[21.533s] writing top-level names to npk_sensor.egg-info/top_level.txt
+[21.536s] writing manifest file 'npk_sensor.egg-info/SOURCES.txt'
+[21.583s] reading manifest file 'npk_sensor.egg-info/SOURCES.txt'
+[21.591s] writing manifest file 'npk_sensor.egg-info/SOURCES.txt'
+[21.996s] [  9%] Built target ament_cmake_python_build_npk_sensor_egg
+[22.055s] running egg_info
+[22.059s] creating src.egg-info
+[22.060s] writing src.egg-info/PKG-INFO
+[22.061s] writing dependency_links to src.egg-info/dependency_links.txt
+[22.063s] writing top-level names to src.egg-info/top_level.txt
+[22.064s] writing manifest file 'src.egg-info/SOURCES.txt'
+[22.075s] reading manifest file 'src.egg-info/SOURCES.txt'
+[22.078s] writing manifest file 'src.egg-info/SOURCES.txt'
+[22.189s] [  9%] Built target npk_sensor__cpp
+[22.329s] [ 12%] [34m[1mGenerating C++ introspection for ROS interfaces[0m
+[22.373s] [ 16%] [34m[1mGenerating C++ type support for eProsima Fast-RTPS[0m
+[22.449s] [ 16%] Built target ament_cmake_python_build_src_egg
+[22.564s] [ 19%] [34m[1mGenerating C++ type support dispatch for ROS interfaces[0m
+[22.703s] [ 22%] [32m[1mLinking C shared library libnpk_sensor__rosidl_generator_c.so[0m
+[23.573s] [ 22%] Built target npk_sensor__rosidl_generator_c
+[23.720s] [ 25%] [34m[1mGenerating C introspection for ROS interfaces[0m
+[26.579s] [ 29%] [32mBuilding CXX object CMakeFiles/npk_sensor__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/npk_sensor/srv/get_soil_data__type_support.cpp.o[0m
+[26.591s] [ 32%] [32mBuilding CXX object CMakeFiles/npk_sensor__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/npk_sensor/srv/detail/get_soil_data__type_support.cpp.o[0m
+[26.810s] [ 35%] [32mBuilding CXX object CMakeFiles/npk_sensor__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/npk_sensor/srv/detail/dds_fastrtps/get_soil_data__type_support.cpp.o[0m
+[29.350s] [ 38%] [32mBuilding C object CMakeFiles/npk_sensor__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/npk_sensor/srv/detail/get_soil_data__type_support.c.o[0m
+[29.849s] [ 41%] [32m[1mLinking C shared library libnpk_sensor__rosidl_typesupport_introspection_c.so[0m
+[30.044s] [ 41%] Built target npk_sensor__rosidl_typesupport_introspection_c
+[30.105s] [ 45%] [34m[1mGenerating C type support dispatch for ROS interfaces[0m
+[33.525s] [ 48%] [32m[1mLinking CXX shared library libnpk_sensor__rosidl_typesupport_cpp.so[0m
+[34.049s] [ 48%] Built target npk_sensor__rosidl_typesupport_cpp
+[34.282s] [ 51%] [32m[1mLinking CXX shared library libnpk_sensor__rosidl_typesupport_introspection_cpp.so[0m
+[34.769s] [ 51%] Built target npk_sensor__rosidl_typesupport_introspection_cpp
+[34.836s] [ 54%] [32m[1mLinking CXX shared library libnpk_sensor__rosidl_typesupport_fastrtps_cpp.so[0m
+[34.987s] [ 58%] [32mBuilding CXX object CMakeFiles/npk_sensor__rosidl_typesupport_c.dir/rosidl_typesupport_c/npk_sensor/srv/get_soil_data__type_support.cpp.o[0m
+[35.365s] [ 61%] [32m[1mLinking CXX shared library libnpk_sensor__rosidl_typesupport_c.so[0m
+[35.620s] [ 61%] Built target npk_sensor__rosidl_typesupport_fastrtps_cpp
+[35.805s] [ 61%] Built target npk_sensor__rosidl_typesupport_c
+[35.898s] [ 64%] [34m[1mGenerating C type support for eProsima Fast-RTPS[0m
+[37.663s] [ 67%] [32mBuilding CXX object CMakeFiles/npk_sensor__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/npk_sensor/srv/detail/get_soil_data__type_support_c.cpp.o[0m
+[40.445s] [ 70%] [32m[1mLinking CXX shared library libnpk_sensor__rosidl_typesupport_fastrtps_c.so[0m
+[41.056s] [ 70%] Built target npk_sensor__rosidl_typesupport_fastrtps_c
+[41.205s] [ 70%] Built target npk_sensor
+[41.351s] [ 74%] [34m[1mGenerating Python code for ROS interfaces[0m
+[44.691s] [ 74%] Built target npk_sensor__py
+[44.817s] [ 77%] [32mBuilding C object CMakeFiles/npk_sensor__rosidl_generator_py.dir/rosidl_generator_py/npk_sensor/srv/_get_soil_data_s.c.o[0m
+[48.000s] [ 80%] [32m[1mLinking C shared library rosidl_generator_py/npk_sensor/libnpk_sensor__rosidl_generator_py.so[0m
+[48.345s] [ 80%] Built target npk_sensor__rosidl_generator_py
+[48.543s] [ 83%] [32mBuilding C object CMakeFiles/npk_sensor__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/npk_sensor/_npk_sensor_s.ep.rosidl_typesupport_fastrtps_c.c.o[0m
+[49.368s] [ 87%] [32m[1mLinking C shared library rosidl_generator_py/npk_sensor/npk_sensor_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so[0m
+[49.742s] [ 87%] Built target npk_sensor__rosidl_typesupport_fastrtps_c__pyext
+[49.926s] [ 90%] [32mBuilding C object CMakeFiles/npk_sensor__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/npk_sensor/_npk_sensor_s.ep.rosidl_typesupport_c.c.o[0m
+[50.704s] [ 93%] [32m[1mLinking C shared library rosidl_generator_py/npk_sensor/npk_sensor_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so[0m
+[50.988s] [ 93%] Built target npk_sensor__rosidl_typesupport_c__pyext
+[51.143s] [ 96%] [32mBuilding C object CMakeFiles/npk_sensor__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/npk_sensor/_npk_sensor_s.ep.rosidl_typesupport_introspection_c.c.o[0m
+[52.214s] [100%] [32m[1mLinking C shared library rosidl_generator_py/npk_sensor/npk_sensor_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so[0m
+[52.460s] [100%] Built target npk_sensor__rosidl_typesupport_introspection_c__pyext
+[52.723s] Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/npk_sensor' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --build /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/npk_sensor -- -j4 -l4
+[52.810s] Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/npk_sensor': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --install /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/npk_sensor
+[52.872s] -- Install configuration: ""
+[52.874s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/ament_index/resource_index/rosidl_interfaces/npk_sensor
+[52.875s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor
+[52.876s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/msg
+[52.877s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/msg/rosidl_generator_c__visibility_control.h
+[52.879s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv
+[52.880s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv/detail
+[52.880s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv/detail/get_soil_data__struct.h
+[52.881s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv/detail/get_soil_data__functions.c
+[52.883s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv/detail/get_soil_data__functions.h
+[52.885s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv/detail/get_soil_data__type_support.h
+[52.886s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv/get_soil_data.h
+[52.890s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/environment/library_path.sh
+[52.891s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/environment/library_path.dsv
+[52.892s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/lib/libnpk_sensor__rosidl_generator_c.so
+[52.897s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/lib/libnpk_sensor__rosidl_generator_c.so" to ""
+[52.898s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor
+[52.899s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/msg
+[52.902s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[52.903s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv
+[52.904s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv/detail
+[52.904s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv/detail/get_soil_data__rosidl_typesupport_fastrtps_c.h
+[52.905s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/lib/libnpk_sensor__rosidl_typesupport_fastrtps_c.so
+[52.910s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/lib/libnpk_sensor__rosidl_typesupport_fastrtps_c.so" to ""
+[52.911s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor
+[52.912s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/msg
+[52.913s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[52.914s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv
+[52.915s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv/detail
+[52.917s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv/detail/get_soil_data__type_support.c
+[52.917s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv/detail/get_soil_data__rosidl_typesupport_introspection_c.h
+[52.922s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/lib/libnpk_sensor__rosidl_typesupport_introspection_c.so
+[52.923s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/lib/libnpk_sensor__rosidl_typesupport_introspection_c.so" to ""
+[52.923s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/lib/libnpk_sensor__rosidl_typesupport_c.so
+[52.927s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/lib/libnpk_sensor__rosidl_typesupport_c.so" to ""
+[52.934s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor
+[52.937s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/msg
+[52.943s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/msg/rosidl_generator_cpp__visibility_control.hpp
+[52.944s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv
+[52.945s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv/get_soil_data.hpp
+[52.945s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv/detail
+[52.946s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv/detail/get_soil_data__traits.hpp
+[52.947s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv/detail/get_soil_data__type_support.hpp
+[52.947s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv/detail/get_soil_data__builder.hpp
+[52.948s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv/detail/get_soil_data__struct.hpp
+[52.948s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor
+[52.949s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/msg
+[52.955s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[52.955s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv
+[52.956s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv/detail
+[52.957s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv/detail/dds_fastrtps
+[52.958s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv/detail/get_soil_data__rosidl_typesupport_fastrtps_cpp.hpp
+[52.963s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/lib/libnpk_sensor__rosidl_typesupport_fastrtps_cpp.so
+[52.963s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/lib/libnpk_sensor__rosidl_typesupport_fastrtps_cpp.so" to ""
+[52.964s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor
+[52.964s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv
+[52.965s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv/detail
+[52.966s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv/detail/get_soil_data__rosidl_typesupport_introspection_cpp.hpp
+[52.966s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/include/npk_sensor/npk_sensor/srv/detail/get_soil_data__type_support.cpp
+[52.967s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/lib/libnpk_sensor__rosidl_typesupport_introspection_cpp.so
+[52.971s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/lib/libnpk_sensor__rosidl_typesupport_introspection_cpp.so" to ""
+[52.971s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/lib/libnpk_sensor__rosidl_typesupport_cpp.so
+[52.978s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/lib/libnpk_sensor__rosidl_typesupport_cpp.so" to ""
+[52.979s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/environment/pythonpath.sh
+[52.979s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/environment/pythonpath.dsv
+[52.980s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor-0.0.0-py3.10.egg-info
+[52.981s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor-0.0.0-py3.10.egg-info/PKG-INFO
+[52.981s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor-0.0.0-py3.10.egg-info/top_level.txt
+[52.982s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor-0.0.0-py3.10.egg-info/SOURCES.txt
+[52.989s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor-0.0.0-py3.10.egg-info/dependency_links.txt
+[52.989s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor
+[52.994s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor/_npk_sensor_s.ep.rosidl_typesupport_c.c
+[52.996s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor/__init__.py
+[52.999s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor/_npk_sensor_s.ep.rosidl_typesupport_fastrtps_c.c
+[53.001s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor/npk_sensor_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so
+[53.003s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor/_npk_sensor_s.ep.rosidl_typesupport_introspection_c.c
+[53.009s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor/npk_sensor_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so
+[53.019s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor/libnpk_sensor__rosidl_generator_py.so
+[53.020s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor/npk_sensor_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so
+[53.021s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor/srv
+[53.022s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor/srv/_get_soil_data.py
+[53.024s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor/srv/_get_soil_data_s.c
+[53.028s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor/srv/__init__.py
+[53.366s] Listing '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor'...
+[53.368s] Compiling '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor/__init__.py'...
+[53.368s] Listing '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor/srv'...
+[53.369s] Compiling '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor/srv/__init__.py'...
+[53.370s] Compiling '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor/srv/_get_soil_data.py'...
+[53.422s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor/npk_sensor_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so
+[53.428s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor/npk_sensor_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so" to ""
+[53.432s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor/npk_sensor_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so
+[53.440s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor/npk_sensor_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so" to ""
+[53.449s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor/npk_sensor_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so
+[53.454s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/npk_sensor/npk_sensor_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so" to ""
+[53.457s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/lib/libnpk_sensor__rosidl_generator_py.so
+[53.462s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/lib/libnpk_sensor__rosidl_generator_py.so" to ""
+[53.465s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/srv/GetSoilData.idl
+[53.468s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/srv/GetSoilData.srv
+[53.473s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/srv/GetSoilData_Request.msg
+[53.475s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/srv/GetSoilData_Response.msg
+[53.478s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/src-0.0.0-py3.10.egg-info
+[53.478s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/src-0.0.0-py3.10.egg-info/PKG-INFO
+[53.479s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/src-0.0.0-py3.10.egg-info/top_level.txt
+[53.480s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/src-0.0.0-py3.10.egg-info/SOURCES.txt
+[53.492s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/src-0.0.0-py3.10.egg-info/dependency_links.txt
+[53.493s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/src
+[53.495s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/src/__init__.py
+[53.507s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/src/npk_sensor_node.py
+[53.860s] Listing '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/src'...
+[53.861s] Compiling '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/src/__init__.py'...
+[53.862s] Compiling '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/local/lib/python3.10/dist-packages/src/npk_sensor_node.py'...
+[53.909s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/lib/npk_sensor/npk_node
+[53.910s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/launch
+[53.915s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/launch/example_launch.yaml
+[53.928s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/ament_index/resource_index/package_run_dependencies/npk_sensor
+[53.933s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/ament_index/resource_index/parent_prefix_path/npk_sensor
+[53.946s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/environment/ament_prefix_path.sh
+[53.953s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/environment/ament_prefix_path.dsv
+[53.961s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/environment/path.sh
+[53.965s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/environment/path.dsv
+[53.969s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/local_setup.bash
+[53.973s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/local_setup.sh
+[53.977s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/local_setup.zsh
+[53.982s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/local_setup.dsv
+[53.986s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/package.dsv
+[53.990s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/ament_index/resource_index/packages/npk_sensor
+[53.994s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/cmake/export_npk_sensor__rosidl_generator_cExport.cmake
+[53.999s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/cmake/export_npk_sensor__rosidl_generator_cExport-noconfig.cmake
+[54.003s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/cmake/export_npk_sensor__rosidl_typesupport_fastrtps_cExport.cmake
+[54.006s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/cmake/export_npk_sensor__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+[54.010s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/cmake/npk_sensor__rosidl_typesupport_introspection_cExport.cmake
+[54.013s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/cmake/npk_sensor__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[54.016s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/cmake/npk_sensor__rosidl_typesupport_cExport.cmake
+[54.020s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/cmake/npk_sensor__rosidl_typesupport_cExport-noconfig.cmake
+[54.023s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/cmake/export_npk_sensor__rosidl_generator_cppExport.cmake
+[54.027s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/cmake/export_npk_sensor__rosidl_typesupport_fastrtps_cppExport.cmake
+[54.031s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/cmake/export_npk_sensor__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+[54.036s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/cmake/npk_sensor__rosidl_typesupport_introspection_cppExport.cmake
+[54.039s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/cmake/npk_sensor__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[54.044s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/cmake/npk_sensor__rosidl_typesupport_cppExport.cmake
+[54.050s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/cmake/npk_sensor__rosidl_typesupport_cppExport-noconfig.cmake
+[54.053s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/cmake/export_npk_sensor__rosidl_generator_pyExport.cmake
+[54.056s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/cmake/export_npk_sensor__rosidl_generator_pyExport-noconfig.cmake
+[54.060s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/cmake/rosidl_cmake-extras.cmake
+[54.063s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/cmake/ament_cmake_export_include_directories-extras.cmake
+[54.066s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/cmake/ament_cmake_export_libraries-extras.cmake
+[54.070s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/cmake/ament_cmake_export_targets-extras.cmake
+[54.073s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[54.076s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/cmake/ament_cmake_export_dependencies-extras.cmake
+[54.080s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[54.083s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/cmake/npk_sensorConfig.cmake
+[54.086s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/cmake/npk_sensorConfig-version.cmake
+[54.090s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/npk_sensor/share/npk_sensor/package.xml
+[54.107s] Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/npk_sensor' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --install /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/npk_sensor

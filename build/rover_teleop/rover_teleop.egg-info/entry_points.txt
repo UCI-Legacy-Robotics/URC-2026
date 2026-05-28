@@ -1,0 +1,3 @@
+[console_scripts]
+velocity_node = rover_teleop.velocity_publisher_node:main
+

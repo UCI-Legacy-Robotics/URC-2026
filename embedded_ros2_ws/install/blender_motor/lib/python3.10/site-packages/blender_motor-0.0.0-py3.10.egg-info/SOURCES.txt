@@ -1,0 +1,14 @@
+package.xml
+setup.cfg
+setup.py
+../../build/blender_motor/blender_motor.egg-info/PKG-INFO
+../../build/blender_motor/blender_motor.egg-info/SOURCES.txt
+../../build/blender_motor/blender_motor.egg-info/dependency_links.txt
+../../build/blender_motor/blender_motor.egg-info/entry_points.txt
+../../build/blender_motor/blender_motor.egg-info/requires.txt
+../../build/blender_motor/blender_motor.egg-info/top_level.txt
+../../build/blender_motor/blender_motor.egg-info/zip-safe
+blender_motor/__init__.py
+blender_motor/blender_motor_node.py
+launch/blender_motor.launch.py
+resource/blender_motor

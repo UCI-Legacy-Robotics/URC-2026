@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "yellowjacket_can__py",
+		"source" : "/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can/yellowjacket_can__py"
+	}
+}

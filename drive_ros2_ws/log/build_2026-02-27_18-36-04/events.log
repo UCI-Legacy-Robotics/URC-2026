@@ -1,0 +1,181 @@
+[0.000000] (-) TimerEvent: {}
+[0.001319] (drive_teleop) JobQueued: {'identifier': 'drive_teleop', 'dependencies': OrderedDict()}
+[0.001630] (drive_manager) JobQueued: {'identifier': 'drive_manager', 'dependencies': OrderedDict([('drive_teleop', '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop')])}
+[0.002946] (drive_teleop) JobStarted: {'identifier': 'drive_teleop'}
+[0.064950] (drive_teleop) JobProgress: {'identifier': 'drive_teleop', 'progress': 'cmake'}
+[0.068559] (drive_teleop) JobProgress: {'identifier': 'drive_teleop', 'progress': 'build'}
+[0.071531] (drive_teleop) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_teleop', '--', '-j4', '-l4'], 'cwd': '/home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_teleop', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'pi'), ('SSH_CLIENT', '100.106.72.19 42488 22'), ('XDG_SESSION_TYPE', 'tty'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/servo/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/lib:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib:/home/pi/Legacy/Testing/ros2_ws/install/odrive_can/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/pi'), ('OLDPWD', '/home/pi/Legacy/URC-2026'), ('SSH_TTY', '/dev/pts/2'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLCON_PREFIX_PATH', '/home/pi/Legacy/URC-2026/drive_ros2_ws/install:/home/pi/Legacy/Testing/ros2_ws/install:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'pi'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '4'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/pi/.local/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/drive:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/servo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/Testing/ros2_ws/install/odrive_can:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/home/pi/Legacy/URC-2026/drive_ros2_ws/build/drive_teleop'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '100.106.72.19 42488 100.109.254.28 22'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager/lib/python3.10/site-packages:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/drive/lib/python3.10/site-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/servo/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo/lib/python3.10/site-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor/local/lib/python3.10/dist-packages:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command/lib/python3.10/site-packages:/home/pi/Legacy/Testing/ros2_ws/install/odrive_can/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_teleop:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/yellowjacket_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/servo:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/odrive_can:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/npk_sensor:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/mock_gps:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can:/home/pi/Legacy/Testing/ros2_ws/install/odrive_can:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/drive:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/serializer_nodes_demo:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/opt/ros/humble')]), 'shell': False}
+[0.098965] (-) TimerEvent: {}
+[0.200986] (-) TimerEvent: {}
+[0.301913] (-) TimerEvent: {}
+[0.404141] (-) TimerEvent: {}
+[0.405983] (drive_teleop) StdoutLine: {'line': b'[  3%] Built target drive_teleop__cpp\n'}
+[0.424580] (drive_teleop) StdoutLine: {'line': b'[ 12%] Built target drive_teleop__rosidl_generator_c\n'}
+[0.504498] (-) TimerEvent: {}
+[0.606560] (-) TimerEvent: {}
+[0.617381] (drive_teleop) StdoutLine: {'line': b'[ 12%] Built target ament_cmake_python_copy_drive_teleop\n'}
+[0.621371] (drive_teleop) StdoutLine: {'line': b'[ 21%] Built target drive_teleop__rosidl_typesupport_fastrtps_cpp\n'}
+[0.706748] (-) TimerEvent: {}
+[0.759893] (drive_teleop) StdoutLine: {'line': b'[ 30%] Built target drive_teleop__rosidl_typesupport_introspection_cpp\n'}
+[0.775328] (drive_teleop) StdoutLine: {'line': b'[ 39%] Built target drive_teleop__rosidl_typesupport_fastrtps_c\n'}
+[0.806959] (-) TimerEvent: {}
+[0.900798] (drive_teleop) StdoutLine: {'line': b'[ 48%] Built target drive_teleop__rosidl_typesupport_introspection_c\n'}
+[0.907167] (-) TimerEvent: {}
+[0.911500] (drive_teleop) StdoutLine: {'line': b'[ 57%] Built target drive_teleop__rosidl_typesupport_c\n'}
+[1.007352] (-) TimerEvent: {}
+[1.059318] (drive_teleop) StdoutLine: {'line': b'[ 66%] Built target drive_teleop__rosidl_typesupport_cpp\n'}
+[1.107598] (-) TimerEvent: {}
+[1.208874] (drive_teleop) StdoutLine: {'line': b'[ 66%] Built target drive_teleop\n'}
+[1.209745] (-) TimerEvent: {}
+[1.312528] (-) TimerEvent: {}
+[1.402110] (drive_teleop) StdoutLine: {'line': b'[ 69%] \x1b[32mBuilding CXX object CMakeFiles/drive_teleop_node.dir/src/drive_teleop_node.cpp.o\x1b[0m\n'}
+[1.412772] (-) TimerEvent: {}
+[1.513716] (-) TimerEvent: {}
+[1.614673] (-) TimerEvent: {}
+[1.716109] (-) TimerEvent: {}
+[1.817462] (-) TimerEvent: {}
+[1.918228] (-) TimerEvent: {}
+[2.019057] (-) TimerEvent: {}
+[2.119860] (-) TimerEvent: {}
+[2.220779] (-) TimerEvent: {}
+[2.323790] (-) TimerEvent: {}
+[2.426373] (-) TimerEvent: {}
+[2.530554] (-) TimerEvent: {}
+[2.573412] (drive_teleop) StdoutLine: {'line': b'running egg_info\n'}
+[2.578436] (drive_teleop) StdoutLine: {'line': b'writing drive_teleop.egg-info/PKG-INFO\n'}
+[2.580522] (drive_teleop) StdoutLine: {'line': b'writing dependency_links to drive_teleop.egg-info/dependency_links.txt\n'}
+[2.582201] (drive_teleop) StdoutLine: {'line': b'writing top-level names to drive_teleop.egg-info/top_level.txt\n'}
+[2.594475] (drive_teleop) StdoutLine: {'line': b"reading manifest file 'drive_teleop.egg-info/SOURCES.txt'\n"}
+[2.598093] (drive_teleop) StdoutLine: {'line': b"writing manifest file 'drive_teleop.egg-info/SOURCES.txt'\n"}
+[2.630975] (-) TimerEvent: {}
+[2.735624] (-) TimerEvent: {}
+[2.781134] (drive_teleop) StdoutLine: {'line': b'[ 69%] Built target ament_cmake_python_build_drive_teleop_egg\n'}
+[2.836742] (-) TimerEvent: {}
+[2.942086] (-) TimerEvent: {}
+[3.044170] (-) TimerEvent: {}
+[3.145949] (-) TimerEvent: {}
+[3.247426] (-) TimerEvent: {}
+[3.348557] (-) TimerEvent: {}
+[3.449580] (-) TimerEvent: {}
+[3.551783] (-) TimerEvent: {}
+[3.655441] (-) TimerEvent: {}
+[3.759600] (-) TimerEvent: {}
+[3.863404] (-) TimerEvent: {}
+[3.965064] (-) TimerEvent: {}
+[4.066575] (-) TimerEvent: {}
+[4.168535] (-) TimerEvent: {}
+[4.269574] (-) TimerEvent: {}
+[4.370508] (-) TimerEvent: {}
+[4.471566] (-) TimerEvent: {}
+[4.572478] (-) TimerEvent: {}
+[4.673524] (-) TimerEvent: {}
+[4.775103] (-) TimerEvent: {}
+[4.876092] (-) TimerEvent: {}
+[4.977101] (-) TimerEvent: {}
+[5.078074] (-) TimerEvent: {}
+[5.179029] (-) TimerEvent: {}
+[5.280067] (-) TimerEvent: {}
+[5.381068] (-) TimerEvent: {}
+[5.482030] (-) TimerEvent: {}
+[5.584047] (-) TimerEvent: {}
+[5.685815] (-) TimerEvent: {}
+[5.788481] (-) TimerEvent: {}
+[5.890029] (-) TimerEvent: {}
+[5.992258] (-) TimerEvent: {}
+[6.095932] (-) TimerEvent: {}
+[6.198081] (-) TimerEvent: {}
+[6.300091] (-) TimerEvent: {}
+[6.401397] (-) TimerEvent: {}
+[6.503368] (-) TimerEvent: {}
+[6.605409] (-) TimerEvent: {}
+[6.707592] (-) TimerEvent: {}
+[6.809627] (-) TimerEvent: {}
+[6.911827] (-) TimerEvent: {}
+[7.012947] (-) TimerEvent: {}
+[7.114828] (-) TimerEvent: {}
+[7.216842] (-) TimerEvent: {}
+[7.318751] (-) TimerEvent: {}
+[7.420661] (-) TimerEvent: {}
+[7.522683] (-) TimerEvent: {}
+[7.625018] (-) TimerEvent: {}
+[7.726958] (-) TimerEvent: {}
+[7.828778] (-) TimerEvent: {}
+[7.930335] (-) TimerEvent: {}
+[8.031896] (-) TimerEvent: {}
+[8.133629] (-) TimerEvent: {}
+[8.234779] (-) TimerEvent: {}
+[8.336422] (-) TimerEvent: {}
+[8.437957] (-) TimerEvent: {}
+[8.539865] (-) TimerEvent: {}
+[8.641398] (-) TimerEvent: {}
+[8.743352] (-) TimerEvent: {}
+[8.844888] (-) TimerEvent: {}
+[8.988429] (-) TimerEvent: {}
+[9.090357] (-) TimerEvent: {}
+[9.194217] (-) TimerEvent: {}
+[9.296939] (-) TimerEvent: {}
+[9.398736] (-) TimerEvent: {}
+[9.499706] (-) TimerEvent: {}
+[9.601563] (-) TimerEvent: {}
+[9.703791] (-) TimerEvent: {}
+[9.804795] (-) TimerEvent: {}
+[9.905834] (-) TimerEvent: {}
+[10.006893] (-) TimerEvent: {}
+[10.107824] (-) TimerEvent: {}
+[10.208812] (-) TimerEvent: {}
+[10.309788] (-) TimerEvent: {}
+[10.410823] (-) TimerEvent: {}
+[10.511829] (-) TimerEvent: {}
+[10.612834] (-) TimerEvent: {}
+[10.713818] (-) TimerEvent: {}
+[10.814840] (-) TimerEvent: {}
+[10.916662] (-) TimerEvent: {}
+[11.019116] (-) TimerEvent: {}
+[11.121934] (-) TimerEvent: {}
+[11.222975] (-) TimerEvent: {}
+[11.324018] (-) TimerEvent: {}
+[11.426110] (-) TimerEvent: {}
+[11.527218] (-) TimerEvent: {}
+[11.628254] (-) TimerEvent: {}
+[11.729401] (-) TimerEvent: {}
+[11.830514] (-) TimerEvent: {}
+[11.931621] (-) TimerEvent: {}
+[12.032742] (-) TimerEvent: {}
+[12.133841] (-) TimerEvent: {}
+[12.234767] (-) TimerEvent: {}
+[12.335789] (-) TimerEvent: {}
+[12.436919] (-) TimerEvent: {}
+[12.537916] (-) TimerEvent: {}
+[12.638937] (-) TimerEvent: {}
+[12.739947] (-) TimerEvent: {}
+[12.841044] (-) TimerEvent: {}
+[12.942113] (-) TimerEvent: {}
+[13.043045] (-) TimerEvent: {}
+[13.144201] (-) TimerEvent: {}
+[13.245390] (-) TimerEvent: {}
+[13.346436] (-) TimerEvent: {}
+[13.449273] (-) TimerEvent: {}
+[13.550674] (-) TimerEvent: {}
+[13.653281] (-) TimerEvent: {}
+[13.754716] (-) TimerEvent: {}
+[13.856866] (-) TimerEvent: {}
+[13.958399] (-) TimerEvent: {}
+[14.059960] (-) TimerEvent: {}
+[14.161663] (-) TimerEvent: {}
+[14.263561] (-) TimerEvent: {}
+[14.364720] (-) TimerEvent: {}
+[14.465692] (-) TimerEvent: {}
+[14.567307] (-) TimerEvent: {}
+[14.668778] (-) TimerEvent: {}
+[14.770768] (-) TimerEvent: {}
+[14.872837] (-) TimerEvent: {}
+[14.974569] (-) TimerEvent: {}
+[15.064604] (drive_teleop) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/drive_teleop_node.dir/build.make:76: CMakeFiles/drive_teleop_node.dir/src/drive_teleop_node.cpp.o] Interrupt\n'}
+[15.071364] (drive_teleop) StderrLine: {'line': b'gmake[1]: *** [CMakeFiles/Makefile2:593: CMakeFiles/drive_teleop_node.dir/all] Interrupt\n'}
+[15.072906] (drive_teleop) StderrLine: {'line': b'gmake: *** [Makefile:146: all] Interrupt\n'}
+[15.074789] (-) TimerEvent: {}
+[15.124469] (drive_teleop) CommandEnded: {'returncode': -2}
+[15.185589] (-) TimerEvent: {}
+[15.206813] (drive_teleop) JobEnded: {'identifier': 'drive_teleop', 'rc': 'SIGINT'}
+[15.218874] (drive_manager) JobSkipped: {'identifier': 'drive_manager'}
+[15.219110] (-) EventReactorShutdown: {}

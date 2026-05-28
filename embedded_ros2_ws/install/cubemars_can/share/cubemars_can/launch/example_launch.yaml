@@ -1,0 +1,17 @@
+launch:
+
+- node:
+    pkg: "cubemars_can"
+    exec: "cubemars_can_node"
+    name: "can_node"
+    namespace: "cubemars_axis0"
+    param:
+    -
+      name: "node_id"
+      value: 1
+    -
+      name: "interface"
+      value: "can0"
+    -
+      name: "pole_pairs"
+      value: 14

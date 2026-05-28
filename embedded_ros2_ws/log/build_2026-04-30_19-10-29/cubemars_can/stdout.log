@@ -1,0 +1,270 @@
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+-- Found rclcpp: 16.0.17 (/opt/ros/humble/share/rclcpp/cmake)
+-- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+-- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)
+-- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+-- Found rmw_fastrtps_cpp: 6.2.9 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+-- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "3.0.2")  
+-- Found FastRTPS: /opt/ros/humble/include  
+-- Using RMW implementation 'rmw_fastrtps_cpp' as default
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+-- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.10.12", minimum required is "3.6") 
+-- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)
+-- Found PythonLibs: /usr/lib/aarch64-linux-gnu/libpython3.10.so (found suitable version "3.10.12", minimum required is "3.5") 
+-- Using PYTHON_EXECUTABLE: /usr/bin/python3
+-- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10
+-- Using PYTHON_LIBRARIES: /usr/lib/aarch64-linux-gnu/libpython3.10.so
+-- Found PythonExtra: .so  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/cubemars_can
+[  2%] [34m[1mGenerating C code for ROS interfaces[0m
+[  4%] [34m[1mGenerating C++ code for ROS interfaces[0m
+[  4%] Built target ament_cmake_python_copy_cubemars_can
+running egg_info
+creating cubemars_can.egg-info
+writing cubemars_can.egg-info/PKG-INFO
+writing dependency_links to cubemars_can.egg-info/dependency_links.txt
+writing top-level names to cubemars_can.egg-info/top_level.txt
+writing manifest file 'cubemars_can.egg-info/SOURCES.txt'
+reading manifest file 'cubemars_can.egg-info/SOURCES.txt'
+writing manifest file 'cubemars_can.egg-info/SOURCES.txt'
+[  4%] Built target ament_cmake_python_build_cubemars_can_egg
+[  4%] Built target cubemars_can__cpp
+[  6%] [32mBuilding C object CMakeFiles/cubemars_can__rosidl_generator_c.dir/rosidl_generator_c/cubemars_can/msg/detail/control_message__functions.c.o[0m
+[  9%] [34m[1mGenerating C++ type support dispatch for ROS interfaces[0m
+[ 11%] [34m[1mGenerating C++ type support for eProsima Fast-RTPS[0m
+[ 13%] [32mBuilding C object CMakeFiles/cubemars_can__rosidl_generator_c.dir/rosidl_generator_c/cubemars_can/msg/detail/controller_status__functions.c.o[0m
+[ 15%] [34m[1mGenerating C++ introspection for ROS interfaces[0m
+[ 18%] [32m[1mLinking C shared library libcubemars_can__rosidl_generator_c.so[0m
+[ 18%] Built target cubemars_can__rosidl_generator_c
+[ 20%] [34m[1mGenerating C type support for eProsima Fast-RTPS[0m
+[ 22%] [32mBuilding CXX object CMakeFiles/cubemars_can__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/cubemars_can/msg/control_message__type_support.cpp.o[0m
+[ 25%] [32mBuilding CXX object CMakeFiles/cubemars_can__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/cubemars_can/msg/detail/dds_fastrtps/control_message__type_support.cpp.o[0m
+[ 27%] [32mBuilding CXX object CMakeFiles/cubemars_can__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/cubemars_can/msg/detail/control_message__type_support.cpp.o[0m
+[ 29%] [32mBuilding CXX object CMakeFiles/cubemars_can__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/cubemars_can/msg/detail/control_message__type_support_c.cpp.o[0m
+[ 31%] [32mBuilding CXX object CMakeFiles/cubemars_can__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/cubemars_can/msg/controller_status__type_support.cpp.o[0m
+[ 34%] [32mBuilding CXX object CMakeFiles/cubemars_can__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/cubemars_can/msg/detail/dds_fastrtps/controller_status__type_support.cpp.o[0m
+[ 36%] [32mBuilding CXX object CMakeFiles/cubemars_can__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/cubemars_can/msg/detail/controller_status__type_support.cpp.o[0m
+[ 38%] [32mBuilding CXX object CMakeFiles/cubemars_can__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/cubemars_can/msg/detail/controller_status__type_support_c.cpp.o[0m
+[ 40%] [32m[1mLinking CXX shared library libcubemars_can__rosidl_typesupport_cpp.so[0m
+[ 40%] Built target cubemars_can__rosidl_typesupport_cpp
+[ 43%] [34m[1mGenerating C introspection for ROS interfaces[0m
+[ 45%] [32mBuilding C object CMakeFiles/cubemars_can__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/cubemars_can/msg/detail/control_message__type_support.c.o[0m
+[ 47%] [32m[1mLinking CXX shared library libcubemars_can__rosidl_typesupport_fastrtps_cpp.so[0m
+[ 50%] [32m[1mLinking CXX shared library libcubemars_can__rosidl_typesupport_introspection_cpp.so[0m
+[ 52%] [32m[1mLinking CXX shared library libcubemars_can__rosidl_typesupport_fastrtps_c.so[0m
+[ 54%] [32mBuilding C object CMakeFiles/cubemars_can__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/cubemars_can/msg/detail/controller_status__type_support.c.o[0m
+[ 54%] Built target cubemars_can__rosidl_typesupport_introspection_cpp
+[ 56%] [32m[1mLinking C shared library libcubemars_can__rosidl_typesupport_introspection_c.so[0m
+[ 59%] [34m[1mGenerating C type support dispatch for ROS interfaces[0m
+[ 59%] Built target cubemars_can__rosidl_typesupport_fastrtps_cpp
+[ 59%] Built target cubemars_can__rosidl_typesupport_introspection_c
+[ 59%] Built target cubemars_can__rosidl_typesupport_fastrtps_c
+[ 61%] [32mBuilding CXX object CMakeFiles/cubemars_can__rosidl_typesupport_c.dir/rosidl_typesupport_c/cubemars_can/msg/control_message__type_support.cpp.o[0m
+[ 63%] [32mBuilding CXX object CMakeFiles/cubemars_can__rosidl_typesupport_c.dir/rosidl_typesupport_c/cubemars_can/msg/controller_status__type_support.cpp.o[0m
+[ 65%] [32m[1mLinking CXX shared library libcubemars_can__rosidl_typesupport_c.so[0m
+[ 65%] Built target cubemars_can__rosidl_typesupport_c
+[ 68%] [32mBuilding CXX object CMakeFiles/cubemars_can_node.dir/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/cubemars/can_base/src/epoll_event_loop.cpp.o[0m
+[ 70%] [32mBuilding CXX object CMakeFiles/cubemars_can_node.dir/src/cubemars_can_node.cpp.o[0m
+[ 72%] [32mBuilding CXX object CMakeFiles/cubemars_can_node.dir/src/main.cpp.o[0m
+[ 75%] [32mBuilding CXX object CMakeFiles/cubemars_can_node.dir/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/cubemars/can_base/src/socket_can.cpp.o[0m
+[ 77%] [32m[1mLinking CXX executable cubemars_can_node[0m
+[ 77%] Built target cubemars_can_node
+[ 77%] Built target cubemars_can
+[ 79%] [34m[1mGenerating Python code for ROS interfaces[0m
+[ 79%] Built target cubemars_can__py
+[ 81%] [32mBuilding C object CMakeFiles/cubemars_can__rosidl_generator_py.dir/rosidl_generator_py/cubemars_can/msg/_control_message_s.c.o[0m
+[ 84%] [32mBuilding C object CMakeFiles/cubemars_can__rosidl_generator_py.dir/rosidl_generator_py/cubemars_can/msg/_controller_status_s.c.o[0m
+[ 86%] [32m[1mLinking C shared library rosidl_generator_py/cubemars_can/libcubemars_can__rosidl_generator_py.so[0m
+[ 86%] Built target cubemars_can__rosidl_generator_py
+[ 88%] [32mBuilding C object CMakeFiles/cubemars_can__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/cubemars_can/_cubemars_can_s.ep.rosidl_typesupport_fastrtps_c.c.o[0m
+[ 90%] [32m[1mLinking C shared library rosidl_generator_py/cubemars_can/cubemars_can_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so[0m
+[ 90%] Built target cubemars_can__rosidl_typesupport_fastrtps_c__pyext
+[ 93%] [32mBuilding C object CMakeFiles/cubemars_can__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/cubemars_can/_cubemars_can_s.ep.rosidl_typesupport_c.c.o[0m
+[ 95%] [32m[1mLinking C shared library rosidl_generator_py/cubemars_can/cubemars_can_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so[0m
+[ 95%] Built target cubemars_can__rosidl_typesupport_c__pyext
+[ 97%] [32mBuilding C object CMakeFiles/cubemars_can__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/cubemars_can/_cubemars_can_s.ep.rosidl_typesupport_introspection_c.c.o[0m
+[100%] [32m[1mLinking C shared library rosidl_generator_py/cubemars_can/cubemars_can_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so[0m
+[100%] Built target cubemars_can__rosidl_typesupport_introspection_c__pyext
+-- Install configuration: ""
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/ament_index/resource_index/rosidl_interfaces/cubemars_can
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/controller_status.h
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/control_message.h
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/rosidl_generator_c__visibility_control.h
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/control_message__functions.c
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/controller_status__functions.c
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/controller_status__functions.h
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/control_message__struct.h
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/control_message__type_support.h
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/controller_status__type_support.h
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/control_message__functions.h
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/controller_status__struct.h
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/environment/library_path.sh
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/environment/library_path.dsv
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib/libcubemars_can__rosidl_generator_c.so
+-- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib/libcubemars_can__rosidl_generator_c.so" to ""
+-- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can
+-- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+-- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/controller_status__rosidl_typesupport_fastrtps_c.h
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/control_message__rosidl_typesupport_fastrtps_c.h
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib/libcubemars_can__rosidl_typesupport_fastrtps_c.so
+-- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib/libcubemars_can__rosidl_typesupport_fastrtps_c.so" to ""
+-- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can
+-- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/controller_status.hpp
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/control_message.hpp
+-- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/controller_status__type_support.hpp
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/control_message__type_support.hpp
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/controller_status__builder.hpp
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/control_message__traits.hpp
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/controller_status__traits.hpp
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/controller_status__struct.hpp
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/control_message__struct.hpp
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/control_message__builder.hpp
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/rosidl_generator_cpp__visibility_control.hpp
+-- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can
+-- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+-- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/dds_fastrtps
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/controller_status__rosidl_typesupport_fastrtps_cpp.hpp
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/control_message__rosidl_typesupport_fastrtps_cpp.hpp
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib/libcubemars_can__rosidl_typesupport_fastrtps_cpp.so
+-- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib/libcubemars_can__rosidl_typesupport_fastrtps_cpp.so" to ""
+-- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can
+-- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg
+-- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/control_message__rosidl_typesupport_introspection_c.h
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/control_message__type_support.c
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/controller_status__rosidl_typesupport_introspection_c.h
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/controller_status__type_support.c
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/rosidl_typesupport_introspection_c__visibility_control.h
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib/libcubemars_can__rosidl_typesupport_introspection_c.so
+-- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib/libcubemars_can__rosidl_typesupport_introspection_c.so" to ""
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib/libcubemars_can__rosidl_typesupport_c.so
+-- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib/libcubemars_can__rosidl_typesupport_c.so" to ""
+-- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can
+-- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg
+-- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/control_message__type_support.cpp
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/control_message__rosidl_typesupport_introspection_cpp.hpp
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/controller_status__type_support.cpp
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/include/cubemars_can/cubemars_can/msg/detail/controller_status__rosidl_typesupport_introspection_cpp.hpp
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib/libcubemars_can__rosidl_typesupport_introspection_cpp.so
+-- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib/libcubemars_can__rosidl_typesupport_introspection_cpp.so" to ""
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib/libcubemars_can__rosidl_typesupport_cpp.so
+-- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib/libcubemars_can__rosidl_typesupport_cpp.so" to ""
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/environment/pythonpath.sh
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/environment/pythonpath.dsv
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can-0.0.1-py3.10.egg-info
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can-0.0.1-py3.10.egg-info/PKG-INFO
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can-0.0.1-py3.10.egg-info/top_level.txt
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can-0.0.1-py3.10.egg-info/SOURCES.txt
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can-0.0.1-py3.10.egg-info/dependency_links.txt
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can/__init__.py
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can/_cubemars_can_s.ep.rosidl_typesupport_introspection_c.c
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can/cubemars_can_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can/cubemars_can_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can/libcubemars_can__rosidl_generator_py.so
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can/msg
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can/msg/__init__.py
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can/msg/_controller_status_s.c
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can/msg/_control_message_s.c
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can/msg/_controller_status.py
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can/msg/_control_message.py
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can/_cubemars_can_s.ep.rosidl_typesupport_c.c
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can/cubemars_can_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can/_cubemars_can_s.ep.rosidl_typesupport_fastrtps_c.c
+Listing '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can'...
+Compiling '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can/__init__.py'...
+Listing '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can/msg'...
+Compiling '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can/msg/__init__.py'...
+Compiling '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can/msg/_control_message.py'...
+Compiling '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can/msg/_controller_status.py'...
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can/cubemars_can_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so
+-- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can/cubemars_can_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so" to ""
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can/cubemars_can_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so
+-- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can/cubemars_can_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so" to ""
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can/cubemars_can_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so
+-- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/local/lib/python3.10/dist-packages/cubemars_can/cubemars_can_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so" to ""
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib/libcubemars_can__rosidl_generator_py.so
+-- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib/libcubemars_can__rosidl_generator_py.so" to ""
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/msg/ControlMessage.idl
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/msg/ControllerStatus.idl
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/msg/ControlMessage.msg
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/msg/ControllerStatus.msg
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib/cubemars_can/cubemars_can_node
+-- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/lib/cubemars_can/cubemars_can_node" to ""
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/launch
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/launch/example_launch.yaml
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/ament_index/resource_index/package_run_dependencies/cubemars_can
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/ament_index/resource_index/parent_prefix_path/cubemars_can
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/environment/ament_prefix_path.sh
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/environment/ament_prefix_path.dsv
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/environment/path.sh
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/environment/path.dsv
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/local_setup.bash
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/local_setup.sh
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/local_setup.zsh
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/local_setup.dsv
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/package.dsv
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/ament_index/resource_index/packages/cubemars_can
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/cmake/export_cubemars_can__rosidl_generator_cExport.cmake
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/cmake/export_cubemars_can__rosidl_generator_cExport-noconfig.cmake
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/cmake/export_cubemars_can__rosidl_typesupport_fastrtps_cExport.cmake
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/cmake/export_cubemars_can__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/cmake/export_cubemars_can__rosidl_generator_cppExport.cmake
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/cmake/export_cubemars_can__rosidl_typesupport_fastrtps_cppExport.cmake
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/cmake/export_cubemars_can__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/cmake/cubemars_can__rosidl_typesupport_introspection_cExport.cmake
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/cmake/cubemars_can__rosidl_typesupport_introspection_cExport-noconfig.cmake
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/cmake/cubemars_can__rosidl_typesupport_cExport.cmake
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/cmake/cubemars_can__rosidl_typesupport_cExport-noconfig.cmake
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/cmake/cubemars_can__rosidl_typesupport_introspection_cppExport.cmake
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/cmake/cubemars_can__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/cmake/cubemars_can__rosidl_typesupport_cppExport.cmake
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/cmake/cubemars_can__rosidl_typesupport_cppExport-noconfig.cmake
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/cmake/export_cubemars_can__rosidl_generator_pyExport.cmake
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/cmake/export_cubemars_can__rosidl_generator_pyExport-noconfig.cmake
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/cmake/rosidl_cmake-extras.cmake
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/cmake/ament_cmake_export_libraries-extras.cmake
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/cmake/ament_cmake_export_targets-extras.cmake
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/cmake/cubemars_canConfig.cmake
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/cmake/cubemars_canConfig-version.cmake
+-- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/cubemars_can/share/cubemars_can/package.xml

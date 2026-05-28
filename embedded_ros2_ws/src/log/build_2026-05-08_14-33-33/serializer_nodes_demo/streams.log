@@ -1,0 +1,51 @@
+[7.246s] Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/serializer_nodes_demo': PYTHONPATH=/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/serializer_nodes_demo/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/serializer_nodes_demo/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/serializer_nodes_demo build --build-base /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/serializer_nodes_demo/build install --record /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/serializer_nodes_demo/install.log --single-version-externally-managed install_data
+[9.341s] running egg_info
+[9.345s] creating ../build/serializer_nodes_demo/serializer_nodes_demo.egg-info
+[9.346s] writing ../build/serializer_nodes_demo/serializer_nodes_demo.egg-info/PKG-INFO
+[9.348s] writing dependency_links to ../build/serializer_nodes_demo/serializer_nodes_demo.egg-info/dependency_links.txt
+[9.349s] writing entry points to ../build/serializer_nodes_demo/serializer_nodes_demo.egg-info/entry_points.txt
+[9.350s] writing requirements to ../build/serializer_nodes_demo/serializer_nodes_demo.egg-info/requires.txt
+[9.351s] writing top-level names to ../build/serializer_nodes_demo/serializer_nodes_demo.egg-info/top_level.txt
+[9.352s] writing manifest file '../build/serializer_nodes_demo/serializer_nodes_demo.egg-info/SOURCES.txt'
+[9.363s] reading manifest file '../build/serializer_nodes_demo/serializer_nodes_demo.egg-info/SOURCES.txt'
+[9.373s] writing manifest file '../build/serializer_nodes_demo/serializer_nodes_demo.egg-info/SOURCES.txt'
+[9.374s] running build
+[9.375s] running build_py
+[9.377s] creating /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/serializer_nodes_demo/build
+[9.378s] creating /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/serializer_nodes_demo/build/lib
+[9.380s] creating /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/serializer_nodes_demo/build/lib/serializer_nodes_demo
+[9.381s] copying serializer_nodes_demo/serial_demo_node_basestation.py -> /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/serializer_nodes_demo/build/lib/serializer_nodes_demo
+[9.386s] copying serializer_nodes_demo/__init__.py -> /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/serializer_nodes_demo/build/lib/serializer_nodes_demo
+[9.392s] copying serializer_nodes_demo/serial_demo_node_subscriber.py -> /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/serializer_nodes_demo/build/lib/serializer_nodes_demo
+[9.393s] copying serializer_nodes_demo/serial_demo_node_publisher.py -> /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/serializer_nodes_demo/build/lib/serializer_nodes_demo
+[9.410s] copying serializer_nodes_demo/listener_node_rover.py -> /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/serializer_nodes_demo/build/lib/serializer_nodes_demo
+[9.417s] running install
+[9.419s] running install_lib
+[9.430s] creating /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/serializer_nodes_demo/lib/python3.10/site-packages/serializer_nodes_demo
+[9.432s] copying /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/serializer_nodes_demo/build/lib/serializer_nodes_demo/serial_demo_node_basestation.py -> /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/serializer_nodes_demo/lib/python3.10/site-packages/serializer_nodes_demo
+[9.436s] copying /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/serializer_nodes_demo/build/lib/serializer_nodes_demo/__init__.py -> /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/serializer_nodes_demo/lib/python3.10/site-packages/serializer_nodes_demo
+[9.440s] copying /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/serializer_nodes_demo/build/lib/serializer_nodes_demo/serial_demo_node_subscriber.py -> /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/serializer_nodes_demo/lib/python3.10/site-packages/serializer_nodes_demo
+[9.446s] copying /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/serializer_nodes_demo/build/lib/serializer_nodes_demo/serial_demo_node_publisher.py -> /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/serializer_nodes_demo/lib/python3.10/site-packages/serializer_nodes_demo
+[9.448s] copying /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/serializer_nodes_demo/build/lib/serializer_nodes_demo/listener_node_rover.py -> /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/serializer_nodes_demo/lib/python3.10/site-packages/serializer_nodes_demo
+[9.456s] byte-compiling /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/serializer_nodes_demo/lib/python3.10/site-packages/serializer_nodes_demo/serial_demo_node_basestation.py to serial_demo_node_basestation.cpython-310.pyc
+[9.465s] byte-compiling /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/serializer_nodes_demo/lib/python3.10/site-packages/serializer_nodes_demo/__init__.py to __init__.cpython-310.pyc
+[9.470s] byte-compiling /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/serializer_nodes_demo/lib/python3.10/site-packages/serializer_nodes_demo/serial_demo_node_subscriber.py to serial_demo_node_subscriber.cpython-310.pyc
+[9.480s] byte-compiling /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/serializer_nodes_demo/lib/python3.10/site-packages/serializer_nodes_demo/serial_demo_node_publisher.py to serial_demo_node_publisher.cpython-310.pyc
+[9.484s] byte-compiling /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/serializer_nodes_demo/lib/python3.10/site-packages/serializer_nodes_demo/listener_node_rover.py to listener_node_rover.cpython-310.pyc
+[9.487s] running install_data
+[9.489s] creating /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/serializer_nodes_demo/share/ament_index
+[9.490s] creating /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/serializer_nodes_demo/share/ament_index/resource_index
+[9.491s] creating /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/serializer_nodes_demo/share/ament_index/resource_index/packages
+[9.492s] copying resource/serializer_nodes_demo -> /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/serializer_nodes_demo/share/ament_index/resource_index/packages
+[9.505s] copying package.xml -> /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/serializer_nodes_demo/share/serializer_nodes_demo
+[9.506s] creating /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/serializer_nodes_demo/share/serializer_nodes_demo/launch
+[9.507s] copying launch/telemetry_launch.yaml -> /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/serializer_nodes_demo/share/serializer_nodes_demo/launch
+[9.507s] running install_egg_info
+[9.518s] Copying ../build/serializer_nodes_demo/serializer_nodes_demo.egg-info to /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/serializer_nodes_demo/lib/python3.10/site-packages/serializer_nodes_demo-0.0.0-py3.10.egg-info
+[9.530s] running install_scripts
+[9.675s] Installing pub_serial_node script to /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/serializer_nodes_demo/lib/serializer_nodes_demo
+[9.678s] Installing sub_serial_node script to /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/serializer_nodes_demo/lib/serializer_nodes_demo
+[9.680s] Installing test_node script to /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/serializer_nodes_demo/lib/serializer_nodes_demo
+[9.682s] Installing usb_serial_node script to /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/serializer_nodes_demo/lib/serializer_nodes_demo
+[9.686s] writing list of installed files to '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/serializer_nodes_demo/install.log'
+[9.891s] Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/serializer_nodes_demo' returned '0': PYTHONPATH=/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/serializer_nodes_demo/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/install/serializer_nodes_demo/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/serializer_nodes_demo build --build-base /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/serializer_nodes_demo/build install --record /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/build/serializer_nodes_demo/install.log --single-version-externally-managed install_data

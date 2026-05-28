@@ -1,0 +1,3 @@
+[console_scripts]
+drive_manager_node = src.drive_manager_node:main
+

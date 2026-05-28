@@ -1,0 +1,384 @@
+[0.129s] Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node -DCMAKE_INSTALL_PREFIX=/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can
+[0.808s] -- The C compiler identification is GNU 11.4.0
+[1.504s] -- The CXX compiler identification is GNU 11.4.0
+[1.586s] -- Detecting C compiler ABI info
+[2.565s] -- Detecting C compiler ABI info - done
+[2.616s] -- Check for working C compiler: /usr/bin/cc - skipped
+[2.627s] -- Detecting C compile features
+[2.631s] -- Detecting C compile features - done
+[2.671s] -- Detecting CXX compiler ABI info
+[3.659s] -- Detecting CXX compiler ABI info - done
+[3.727s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[3.743s] -- Detecting CXX compile features
+[3.748s] -- Detecting CXX compile features - done
+[3.807s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[5.797s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[7.241s] -- Found rclcpp: 16.0.17 (/opt/ros/humble/share/rclcpp/cmake)
+[7.772s] -- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[7.841s] -- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[7.953s] -- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[8.168s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[8.449s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[9.123s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[9.193s] -- Found rmw_fastrtps_cpp: 6.2.9 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[10.656s] -- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[10.992s] -- Found FastRTPS: /opt/ros/humble/include  
+[11.527s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[11.716s] -- Looking for pthread.h
+[12.486s] -- Looking for pthread.h - found
+[12.489s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[13.449s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[13.455s] -- Found Threads: TRUE  
+[14.088s] -- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+[14.201s] -- Found std_srvs: 4.9.0 (/opt/ros/humble/share/std_srvs/cmake)
+[16.952s] -- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)
+[19.443s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[20.397s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[20.587s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.10.12", minimum required is "3.6") 
+[20.614s] -- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)
+[20.827s] -- Found PythonLibs: /usr/lib/aarch64-linux-gnu/libpython3.10.so (found suitable version "3.10.12", minimum required is "3.5") 
+[20.830s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[20.831s] -- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10
+[20.832s] -- Using PYTHON_LIBRARIES: /usr/lib/aarch64-linux-gnu/libpython3.10.so
+[21.007s] -- Found PythonExtra: .so  
+[21.350s] -- Configuring done
+[21.713s] -- Generating done
+[21.797s] -- Build files have been written to: /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can
+[21.866s] Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake /home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node -DCMAKE_INSTALL_PREFIX=/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can
+[21.877s] Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --build /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can -- -j4 -l4
+[22.164s] [  1%] [34m[1mGenerating C++ code for ROS interfaces[0m
+[25.356s] [  1%] Built target stepper_can__cpp
+[25.501s] [  1%] Built target ament_cmake_python_copy_stepper_can
+[25.557s] [  3%] [34m[1mGenerating C++ type support for eProsima Fast-RTPS[0m
+[27.983s] [  5%] [32mBuilding CXX object CMakeFiles/stepper_can__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/stepper_can/msg/detail/dds_fastrtps/control_message__type_support.cpp.o[0m
+[30.615s] [  6%] [32mBuilding CXX object CMakeFiles/stepper_can__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/stepper_can/msg/detail/dds_fastrtps/controller_status__type_support.cpp.o[0m
+[33.450s] [  8%] [32mBuilding CXX object CMakeFiles/stepper_can__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/stepper_can/msg/detail/dds_fastrtps/o_drive_status__type_support.cpp.o[0m
+[36.211s] [ 10%] [32mBuilding CXX object CMakeFiles/stepper_can__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/stepper_can/srv/detail/dds_fastrtps/axis_state__type_support.cpp.o[0m
+[38.892s] [ 11%] [32m[1mLinking CXX shared library libstepper_can__rosidl_typesupport_fastrtps_cpp.so[0m
+[39.332s] [ 11%] Built target stepper_can__rosidl_typesupport_fastrtps_cpp
+[39.396s] [ 13%] [34m[1mGenerating C++ introspection for ROS interfaces[0m
+[41.676s] [ 15%] [32mBuilding CXX object CMakeFiles/stepper_can__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/stepper_can/msg/detail/control_message__type_support.cpp.o[0m
+[44.047s] [ 16%] [32mBuilding CXX object CMakeFiles/stepper_can__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/stepper_can/msg/detail/controller_status__type_support.cpp.o[0m
+[46.477s] [ 18%] [32mBuilding CXX object CMakeFiles/stepper_can__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/stepper_can/msg/detail/o_drive_status__type_support.cpp.o[0m
+[49.255s] [ 20%] [32mBuilding CXX object CMakeFiles/stepper_can__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/stepper_can/srv/detail/axis_state__type_support.cpp.o[0m
+[51.797s] [ 21%] [32m[1mLinking CXX shared library libstepper_can__rosidl_typesupport_introspection_cpp.so[0m
+[52.070s] [ 21%] Built target stepper_can__rosidl_typesupport_introspection_cpp
+[53.994s] running egg_info
+[54.000s] creating stepper_can.egg-info
+[54.003s] writing stepper_can.egg-info/PKG-INFO
+[54.005s] writing dependency_links to stepper_can.egg-info/dependency_links.txt
+[54.008s] writing top-level names to stepper_can.egg-info/top_level.txt
+[54.011s] writing manifest file 'stepper_can.egg-info/SOURCES.txt'
+[54.024s] reading manifest file 'stepper_can.egg-info/SOURCES.txt'
+[54.029s] writing manifest file 'stepper_can.egg-info/SOURCES.txt'
+[54.217s] [ 21%] Built target ament_cmake_python_build_stepper_can_egg
+[54.274s] [ 23%] [34m[1mGenerating C++ type support dispatch for ROS interfaces[0m
+[56.342s] [ 25%] [32mBuilding CXX object CMakeFiles/stepper_can__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/stepper_can/msg/control_message__type_support.cpp.o[0m
+[58.091s] [ 26%] [32mBuilding CXX object CMakeFiles/stepper_can__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/stepper_can/msg/o_drive_status__type_support.cpp.o[0m
+[59.862s] [ 28%] [32mBuilding CXX object CMakeFiles/stepper_can__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/stepper_can/srv/axis_state__type_support.cpp.o[0m
+[61.610s] [ 30%] [32mBuilding CXX object CMakeFiles/stepper_can__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/stepper_can/msg/controller_status__type_support.cpp.o[0m
+[63.379s] [ 31%] [32m[1mLinking CXX shared library libstepper_can__rosidl_typesupport_cpp.so[0m
+[63.618s] [ 31%] Built target stepper_can__rosidl_typesupport_cpp
+[63.681s] [ 33%] [34m[1mGenerating C code for ROS interfaces[0m
+[67.238s] [ 35%] [32mBuilding C object CMakeFiles/stepper_can__rosidl_generator_c.dir/rosidl_generator_c/stepper_can/msg/detail/control_message__functions.c.o[0m
+[67.530s] [ 36%] [32mBuilding C object CMakeFiles/stepper_can__rosidl_generator_c.dir/rosidl_generator_c/stepper_can/msg/detail/o_drive_status__functions.c.o[0m
+[68.437s] [ 38%] [32mBuilding C object CMakeFiles/stepper_can__rosidl_generator_c.dir/rosidl_generator_c/stepper_can/srv/detail/axis_state__functions.c.o[0m
+[68.827s] [ 40%] [32mBuilding C object CMakeFiles/stepper_can__rosidl_generator_c.dir/rosidl_generator_c/stepper_can/msg/detail/controller_status__functions.c.o[0m
+[69.108s] [ 41%] [32m[1mLinking C shared library libstepper_can__rosidl_generator_c.so[0m
+[69.308s] [ 41%] Built target stepper_can__rosidl_generator_c
+[69.409s] [ 43%] [32mBuilding CXX object CMakeFiles/stepper_can_node.dir/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/can_base/src/epoll_event_loop.cpp.o[0m
+[73.884s] [ 45%] [32mBuilding CXX object CMakeFiles/stepper_can_node.dir/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/can_base/src/socket_can.cpp.o[0m
+[78.583s] [ 46%] [32mBuilding CXX object CMakeFiles/stepper_can_node.dir/src/stepper_can_node.cpp.o[0m
+[97.259s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node/src/stepper_can_node.cpp:[m[K In member function ‘[01m[Kvoid StepperCanNode::service_clear_errors_callback(std::shared_ptr<std_srvs::srv::Empty_Request_<std::allocator<void> > >, std::shared_ptr<std_srvs::srv::Empty_Response_<std::allocator<void> > >)[m[K’:
+[97.260s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node/src/stepper_can_node.cpp:200:90:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Krequest[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+[97.261s]   200 | void StepperCanNode::service_clear_errors_callback([01;35m[Kconst std::shared_ptr<Empty::Request> request[m[K, std::shared_ptr<Empty::Response> response) {
+[97.261s]       |                                                    [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~[m[K
+[97.262s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node/src/stepper_can_node.cpp:200:132:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kresponse[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+[97.263s]   200 | ear_errors_callback(const std::shared_ptr<Empty::Request> request, [01;35m[Kstd::shared_ptr<Empty::Response> response[m[K) {
+[97.264s]       |                                                                    [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~[m[K
+[97.265s] 
+[116.846s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node/src/stepper_can_node.cpp:[m[K In member function ‘[01m[Kvoid StepperCanNode::deinit()[m[K’:
+[116.847s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node/src/stepper_can_node.cpp:67:27:[m[K [01;35m[Kwarning: [m[K‘[01m[Kframe[m[K’ may be used uninitialized [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmaybe-uninitialized-Wmaybe-uninitialized]8;;[m[K]
+[116.847s]    67 |         [01;35m[Kwrite_le<uint32_t>(ODriveAxisState::AXIS_STATE_IDLE, frame.data)[m[K;
+[116.848s]       |         [01;35m[K~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[116.849s] In file included from [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node/src/stepper_can_node.cpp:4[m[K:
+[116.850s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node/include/byte_swap.hpp:36:6:[m[K [01;36m[Knote: [m[Kby argument 2 of type ‘[01m[Kconst unsigned char*[m[K’ to ‘[01m[Kvoid write_le(const T&, const unsigned char*) [with T = unsigned int][m[K’ declared here
+[116.851s]    36 | void [01;36m[Kwrite_le[m[K(const T& val, const unsigned char* buf) {
+[116.852s]       |      [01;36m[K^~~~~~~~[m[K
+[116.853s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node/src/stepper_can_node.cpp:65:26:[m[K [01;36m[Knote: [m[K‘[01m[Kframe[m[K’ declared here
+[116.853s]    65 |         struct can_frame [01;36m[Kframe[m[K;
+[116.854s]       |                          [01;36m[K^~~~~[m[K
+[116.855s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node/src/stepper_can_node.cpp:[m[K In member function ‘[01m[Kvoid StepperCanNode::request_clear_errors_callback()[m[K’:
+[116.856s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node/src/stepper_can_node.cpp:232:22:[m[K [01;35m[Kwarning: [m[K‘[01m[Kframe[m[K’ may be used uninitialized [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmaybe-uninitialized-Wmaybe-uninitialized]8;;[m[K]
+[116.856s]   232 |     [01;35m[Kwrite_le<uint8_t>(0, frame.data)[m[K;
+[116.857s]       |     [01;35m[K~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~[m[K
+[116.858s] In file included from [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node/src/stepper_can_node.cpp:4[m[K:
+[116.859s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node/include/byte_swap.hpp:36:6:[m[K [01;36m[Knote: [m[Kby argument 2 of type ‘[01m[Kconst unsigned char*[m[K’ to ‘[01m[Kvoid write_le(const T&, const unsigned char*) [with T = unsigned char][m[K’ declared here
+[116.859s]    36 | void [01;36m[Kwrite_le[m[K(const T& val, const unsigned char* buf) {
+[116.860s]       |      [01;36m[K^~~~~~~~[m[K
+[116.861s] [01m[K/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/stepper/stepper_node/src/stepper_can_node.cpp:230:22:[m[K [01;36m[Knote: [m[K‘[01m[Kframe[m[K’ declared here
+[116.862s]   230 |     struct can_frame [01;36m[Kframe[m[K;
+[116.862s]       |                      [01;36m[K^~~~~[m[K
+[141.994s] [ 48%] [32mBuilding CXX object CMakeFiles/stepper_can_node.dir/src/main.cpp.o[0m
+[159.235s] [ 50%] [32m[1mLinking CXX executable stepper_can_node[0m
+[161.548s] [ 50%] Built target stepper_can_node
+[161.597s] [ 51%] [34m[1mGenerating C type support dispatch for ROS interfaces[0m
+[161.600s] [ 53%] [34m[1mGenerating C introspection for ROS interfaces[0m
+[161.603s] [ 55%] [34m[1mGenerating C type support for eProsima Fast-RTPS[0m
+[163.361s] [ 56%] [32mBuilding CXX object CMakeFiles/stepper_can__rosidl_typesupport_c.dir/rosidl_typesupport_c/stepper_can/msg/control_message__type_support.cpp.o[0m
+[163.405s] [ 58%] [32mBuilding CXX object CMakeFiles/stepper_can__rosidl_typesupport_c.dir/rosidl_typesupport_c/stepper_can/msg/controller_status__type_support.cpp.o[0m
+[163.669s] [ 60%] [32mBuilding CXX object CMakeFiles/stepper_can__rosidl_typesupport_c.dir/rosidl_typesupport_c/stepper_can/msg/o_drive_status__type_support.cpp.o[0m
+[163.702s] [ 61%] [32mBuilding CXX object CMakeFiles/stepper_can__rosidl_typesupport_c.dir/rosidl_typesupport_c/stepper_can/srv/axis_state__type_support.cpp.o[0m
+[163.944s] [ 63%] [32m[1mLinking CXX shared library libstepper_can__rosidl_typesupport_c.so[0m
+[164.024s] [ 65%] [32mBuilding C object CMakeFiles/stepper_can__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/stepper_can/msg/detail/control_message__type_support.c.o[0m
+[164.035s] [ 66%] [32mBuilding C object CMakeFiles/stepper_can__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/stepper_can/msg/detail/controller_status__type_support.c.o[0m
+[164.052s] [ 68%] [32mBuilding CXX object CMakeFiles/stepper_can__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/stepper_can/msg/detail/control_message__type_support_c.cpp.o[0m
+[164.217s] [ 68%] Built target stepper_can__rosidl_typesupport_c
+[164.258s] [ 70%] [32mBuilding CXX object CMakeFiles/stepper_can__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/stepper_can/msg/detail/controller_status__type_support_c.cpp.o[0m
+[164.301s] [ 71%] [32mBuilding CXX object CMakeFiles/stepper_can__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/stepper_can/msg/detail/o_drive_status__type_support_c.cpp.o[0m
+[164.333s] [ 73%] [32mBuilding C object CMakeFiles/stepper_can__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/stepper_can/msg/detail/o_drive_status__type_support.c.o[0m
+[164.755s] [ 75%] [32mBuilding C object CMakeFiles/stepper_can__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/stepper_can/srv/detail/axis_state__type_support.c.o[0m
+[165.208s] [ 76%] [32m[1mLinking C shared library libstepper_can__rosidl_typesupport_introspection_c.so[0m
+[165.525s] [ 76%] Built target stepper_can__rosidl_typesupport_introspection_c
+[165.625s] [ 78%] [32mBuilding CXX object CMakeFiles/stepper_can__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/stepper_can/srv/detail/axis_state__type_support_c.cpp.o[0m
+[167.727s] [ 80%] [32m[1mLinking CXX shared library libstepper_can__rosidl_typesupport_fastrtps_c.so[0m
+[168.084s] [ 80%] Built target stepper_can__rosidl_typesupport_fastrtps_c
+[168.176s] [ 80%] Built target stepper_can
+[168.271s] [ 81%] [34m[1mGenerating Python code for ROS interfaces[0m
+[171.555s] [ 81%] Built target stepper_can__py
+[171.647s] [ 83%] [32mBuilding C object CMakeFiles/stepper_can__rosidl_generator_py.dir/rosidl_generator_py/stepper_can/msg/_control_message_s.c.o[0m
+[171.651s] [ 85%] [32mBuilding C object CMakeFiles/stepper_can__rosidl_generator_py.dir/rosidl_generator_py/stepper_can/msg/_controller_status_s.c.o[0m
+[171.661s] [ 86%] [32mBuilding C object CMakeFiles/stepper_can__rosidl_generator_py.dir/rosidl_generator_py/stepper_can/msg/_o_drive_status_s.c.o[0m
+[171.687s] [ 88%] [32mBuilding C object CMakeFiles/stepper_can__rosidl_generator_py.dir/rosidl_generator_py/stepper_can/srv/_axis_state_s.c.o[0m
+[172.507s] [ 90%] [32m[1mLinking C shared library rosidl_generator_py/stepper_can/libstepper_can__rosidl_generator_py.so[0m
+[172.763s] [ 90%] Built target stepper_can__rosidl_generator_py
+[172.924s] [ 91%] [32mBuilding C object CMakeFiles/stepper_can__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/stepper_can/_stepper_can_s.ep.rosidl_typesupport_fastrtps_c.c.o[0m
+[172.980s] [ 93%] [32mBuilding C object CMakeFiles/stepper_can__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/stepper_can/_stepper_can_s.ep.rosidl_typesupport_introspection_c.c.o[0m
+[173.012s] [ 95%] [32mBuilding C object CMakeFiles/stepper_can__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/stepper_can/_stepper_can_s.ep.rosidl_typesupport_c.c.o[0m
+[173.811s] [ 96%] [32m[1mLinking C shared library rosidl_generator_py/stepper_can/stepper_can_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so[0m
+[174.041s] [ 98%] [32m[1mLinking C shared library rosidl_generator_py/stepper_can/stepper_can_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so[0m
+[174.167s] [ 98%] Built target stepper_can__rosidl_typesupport_fastrtps_c__pyext
+[174.184s] [100%] [32m[1mLinking C shared library rosidl_generator_py/stepper_can/stepper_can_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so[0m
+[174.331s] [100%] Built target stepper_can__rosidl_typesupport_introspection_c__pyext
+[174.485s] [100%] Built target stepper_can__rosidl_typesupport_c__pyext
+[174.589s] Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --build /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can -- -j4 -l4
+[174.600s] Invoking command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --install /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can
+[174.667s] -- Install configuration: ""
+[174.682s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/ament_index/resource_index/rosidl_interfaces/stepper_can
+[174.684s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can
+[174.687s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg
+[174.688s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/o_drive_status.h
+[174.690s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/controller_status.h
+[174.692s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/control_message.h
+[174.707s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/rosidl_generator_c__visibility_control.h
+[174.708s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail
+[174.710s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/control_message__functions.c
+[174.711s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/o_drive_status__functions.c
+[174.713s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/controller_status__functions.c
+[174.726s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/o_drive_status__struct.h
+[174.730s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/o_drive_status__type_support.h
+[174.735s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/controller_status__functions.h
+[174.742s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/o_drive_status__functions.h
+[174.746s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/control_message__struct.h
+[174.749s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/control_message__type_support.h
+[174.753s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/controller_status__type_support.h
+[174.756s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/control_message__functions.h
+[174.759s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/controller_status__struct.h
+[174.763s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv
+[174.765s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv/axis_state.h
+[174.767s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv/detail
+[174.770s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv/detail/axis_state__struct.h
+[174.772s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv/detail/axis_state__functions.h
+[174.775s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv/detail/axis_state__type_support.h
+[174.778s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv/detail/axis_state__functions.c
+[174.782s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/environment/library_path.sh
+[174.786s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/environment/library_path.dsv
+[174.790s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib/libstepper_can__rosidl_generator_c.so
+[174.795s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib/libstepper_can__rosidl_generator_c.so" to ""
+[174.797s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can
+[174.801s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg
+[174.803s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[174.805s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail
+[174.806s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/controller_status__rosidl_typesupport_fastrtps_c.h
+[174.808s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/control_message__rosidl_typesupport_fastrtps_c.h
+[174.811s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/o_drive_status__rosidl_typesupport_fastrtps_c.h
+[174.814s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv
+[174.816s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv/detail
+[174.819s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv/detail/axis_state__rosidl_typesupport_fastrtps_c.h
+[174.822s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib/libstepper_can__rosidl_typesupport_fastrtps_c.so
+[174.827s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib/libstepper_can__rosidl_typesupport_fastrtps_c.so" to ""
+[174.829s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can
+[174.831s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg
+[174.833s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/controller_status.hpp
+[174.836s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/control_message.hpp
+[174.840s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail
+[174.842s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/controller_status__type_support.hpp
+[174.845s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/control_message__type_support.hpp
+[174.848s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/controller_status__builder.hpp
+[174.852s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/o_drive_status__builder.hpp
+[174.855s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/control_message__traits.hpp
+[174.858s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/o_drive_status__traits.hpp
+[174.861s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/controller_status__traits.hpp
+[174.864s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/o_drive_status__struct.hpp
+[174.867s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/controller_status__struct.hpp
+[174.870s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/control_message__struct.hpp
+[174.873s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/o_drive_status__type_support.hpp
+[174.877s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/control_message__builder.hpp
+[174.880s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/o_drive_status.hpp
+[174.882s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/rosidl_generator_cpp__visibility_control.hpp
+[174.884s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv
+[174.885s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv/axis_state.hpp
+[174.886s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv/detail
+[174.886s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv/detail/axis_state__traits.hpp
+[174.888s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv/detail/axis_state__builder.hpp
+[174.890s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv/detail/axis_state__type_support.hpp
+[174.891s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv/detail/axis_state__struct.hpp
+[174.893s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can
+[174.893s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg
+[174.894s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[174.895s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail
+[174.896s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/dds_fastrtps
+[174.898s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/controller_status__rosidl_typesupport_fastrtps_cpp.hpp
+[174.900s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/control_message__rosidl_typesupport_fastrtps_cpp.hpp
+[174.902s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/o_drive_status__rosidl_typesupport_fastrtps_cpp.hpp
+[174.904s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv
+[174.905s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv/detail
+[174.906s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv/detail/dds_fastrtps
+[174.907s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv/detail/axis_state__rosidl_typesupport_fastrtps_cpp.hpp
+[174.910s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib/libstepper_can__rosidl_typesupport_fastrtps_cpp.so
+[174.914s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib/libstepper_can__rosidl_typesupport_fastrtps_cpp.so" to ""
+[174.915s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can
+[174.916s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg
+[174.917s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail
+[174.918s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/o_drive_status__rosidl_typesupport_introspection_c.h
+[174.920s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/control_message__rosidl_typesupport_introspection_c.h
+[174.922s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/control_message__type_support.c
+[174.924s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/controller_status__rosidl_typesupport_introspection_c.h
+[174.926s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/o_drive_status__type_support.c
+[174.928s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/controller_status__type_support.c
+[174.931s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[174.933s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv
+[174.934s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv/detail
+[174.934s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv/detail/axis_state__type_support.c
+[174.937s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv/detail/axis_state__rosidl_typesupport_introspection_c.h
+[174.939s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib/libstepper_can__rosidl_typesupport_introspection_c.so
+[174.943s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib/libstepper_can__rosidl_typesupport_introspection_c.so" to ""
+[174.944s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib/libstepper_can__rosidl_typesupport_c.so
+[174.948s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib/libstepper_can__rosidl_typesupport_c.so" to ""
+[174.949s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can
+[174.950s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg
+[174.950s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail
+[174.951s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/control_message__type_support.cpp
+[174.953s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/control_message__rosidl_typesupport_introspection_cpp.hpp
+[174.955s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/controller_status__type_support.cpp
+[174.958s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/controller_status__rosidl_typesupport_introspection_cpp.hpp
+[174.960s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/o_drive_status__type_support.cpp
+[174.962s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/msg/detail/o_drive_status__rosidl_typesupport_introspection_cpp.hpp
+[174.964s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv
+[174.965s] -- Up-to-date: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv/detail
+[174.966s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv/detail/axis_state__rosidl_typesupport_introspection_cpp.hpp
+[174.969s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/include/stepper_can/stepper_can/srv/detail/axis_state__type_support.cpp
+[174.972s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib/libstepper_can__rosidl_typesupport_introspection_cpp.so
+[174.977s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib/libstepper_can__rosidl_typesupport_introspection_cpp.so" to ""
+[174.979s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib/libstepper_can__rosidl_typesupport_cpp.so
+[174.984s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib/libstepper_can__rosidl_typesupport_cpp.so" to ""
+[174.985s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/environment/pythonpath.sh
+[174.987s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/environment/pythonpath.dsv
+[174.989s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can-0.0.1-py3.10.egg-info
+[174.991s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can-0.0.1-py3.10.egg-info/PKG-INFO
+[174.993s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can-0.0.1-py3.10.egg-info/top_level.txt
+[174.994s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can-0.0.1-py3.10.egg-info/SOURCES.txt
+[174.996s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can-0.0.1-py3.10.egg-info/dependency_links.txt
+[174.998s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can
+[174.999s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/__init__.py
+[175.001s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/stepper_can_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so
+[175.003s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/_stepper_can_s.ep.rosidl_typesupport_c.c
+[175.005s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/libstepper_can__rosidl_generator_py.so
+[175.007s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/stepper_can_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so
+[175.010s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/msg
+[175.011s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/msg/__init__.py
+[175.013s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/msg/_controller_status_s.c
+[175.015s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/msg/_control_message_s.c
+[175.018s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/msg/_o_drive_status_s.c
+[175.020s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/msg/_controller_status.py
+[175.022s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/msg/_control_message.py
+[175.024s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/msg/_o_drive_status.py
+[175.026s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/_stepper_can_s.ep.rosidl_typesupport_fastrtps_c.c
+[175.029s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/stepper_can_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so
+[175.031s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/srv
+[175.033s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/srv/__init__.py
+[175.035s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/srv/_axis_state.py
+[175.036s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/srv/_axis_state_s.c
+[175.038s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/_stepper_can_s.ep.rosidl_typesupport_introspection_c.c
+[175.290s] Listing '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can'...
+[175.291s] Compiling '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/__init__.py'...
+[175.292s] Listing '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/msg'...
+[175.293s] Compiling '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/msg/__init__.py'...
+[175.293s] Compiling '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/msg/_control_message.py'...
+[175.293s] Compiling '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/msg/_controller_status.py'...
+[175.294s] Compiling '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/msg/_o_drive_status.py'...
+[175.294s] Listing '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/srv'...
+[175.294s] Compiling '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/srv/__init__.py'...
+[175.295s] Compiling '/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/srv/_axis_state.py'...
+[175.360s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/stepper_can_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so
+[175.364s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/stepper_can_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so" to ""
+[175.367s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/stepper_can_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so
+[175.370s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/stepper_can_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so" to ""
+[175.372s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/stepper_can_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so
+[175.381s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/local/lib/python3.10/dist-packages/stepper_can/stepper_can_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so" to ""
+[175.382s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib/libstepper_can__rosidl_generator_py.so
+[175.385s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib/libstepper_can__rosidl_generator_py.so" to ""
+[175.389s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/msg/ControlMessage.idl
+[175.390s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/msg/ControllerStatus.idl
+[175.392s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/msg/ODriveStatus.idl
+[175.394s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/srv/AxisState.idl
+[175.395s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/msg/ControlMessage.msg
+[175.409s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/msg/ControllerStatus.msg
+[175.410s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/msg/ODriveStatus.msg
+[175.411s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/srv/AxisState.srv
+[175.413s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/srv/AxisState_Request.msg
+[175.414s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/srv/AxisState_Response.msg
+[175.416s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib/stepper_can/stepper_can_node
+[175.466s] -- Set runtime path of "/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/lib/stepper_can/stepper_can_node" to ""
+[175.466s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/launch
+[175.469s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/launch/example_launch.yaml
+[175.473s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/ament_index/resource_index/package_run_dependencies/stepper_can
+[175.479s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/ament_index/resource_index/parent_prefix_path/stepper_can
+[175.491s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/environment/ament_prefix_path.sh
+[175.492s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/environment/ament_prefix_path.dsv
+[175.494s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/environment/path.sh
+[175.495s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/environment/path.dsv
+[175.497s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/local_setup.bash
+[175.499s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/local_setup.sh
+[175.511s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/local_setup.zsh
+[175.512s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/local_setup.dsv
+[175.514s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/package.dsv
+[175.516s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/ament_index/resource_index/packages/stepper_can
+[175.519s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/cmake/export_stepper_can__rosidl_generator_cExport.cmake
+[175.523s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/cmake/export_stepper_can__rosidl_generator_cExport-noconfig.cmake
+[175.536s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/cmake/export_stepper_can__rosidl_typesupport_fastrtps_cExport.cmake
+[175.539s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/cmake/export_stepper_can__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+[175.541s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/cmake/export_stepper_can__rosidl_generator_cppExport.cmake
+[175.543s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/cmake/export_stepper_can__rosidl_typesupport_fastrtps_cppExport.cmake
+[175.557s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/cmake/export_stepper_can__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+[175.559s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/cmake/stepper_can__rosidl_typesupport_introspection_cExport.cmake
+[175.561s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/cmake/stepper_can__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[175.563s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/cmake/stepper_can__rosidl_typesupport_cExport.cmake
+[175.564s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/cmake/stepper_can__rosidl_typesupport_cExport-noconfig.cmake
+[175.566s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/cmake/stepper_can__rosidl_typesupport_introspection_cppExport.cmake
+[175.568s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/cmake/stepper_can__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[175.582s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/cmake/stepper_can__rosidl_typesupport_cppExport.cmake
+[175.584s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/cmake/stepper_can__rosidl_typesupport_cppExport-noconfig.cmake
+[175.586s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/cmake/export_stepper_can__rosidl_generator_pyExport.cmake
+[175.588s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/cmake/export_stepper_can__rosidl_generator_pyExport-noconfig.cmake
+[175.590s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/cmake/rosidl_cmake-extras.cmake
+[175.592s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/cmake/ament_cmake_export_include_directories-extras.cmake
+[175.593s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/cmake/ament_cmake_export_libraries-extras.cmake
+[175.595s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/cmake/ament_cmake_export_targets-extras.cmake
+[175.597s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[175.599s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/cmake/ament_cmake_export_dependencies-extras.cmake
+[175.613s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[175.615s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/cmake/stepper_canConfig.cmake
+[175.616s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/cmake/stepper_canConfig-version.cmake
+[175.618s] -- Installing: /home/pi/Legacy/URC-2026/embedded_ros2_ws/install/stepper_can/share/stepper_can/package.xml
+[175.643s] Invoked command in '/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pi/Legacy/URC-2026/embedded_ros2_ws/install/blender_motor:/home/pi/Legacy/Testing/ros2_ws/install/rover_motor_command:/home/pi/Legacy/URC-2026/drive_ros2_ws/install/drive_manager:/opt/ros/humble /usr/bin/cmake --install /home/pi/Legacy/URC-2026/embedded_ros2_ws/build/stepper_can
