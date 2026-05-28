@@ -1,4 +1,0 @@
-source;share/mock_gps/local_setup.bash
-source;share/mock_gps/local_setup.dsv
-source;share/mock_gps/local_setup.sh
-source;share/mock_gps/local_setup.zsh

@@ -1,6 +1,0 @@
-{
-  "package_name": "drive_teleop",
-  "non_idl_tuples": [
-    "/home/pi/Legacy/URC-2026/drive_ros2_ws/src/drive_teleop:msg/DriveControlMessage.msg"
-  ]
-}

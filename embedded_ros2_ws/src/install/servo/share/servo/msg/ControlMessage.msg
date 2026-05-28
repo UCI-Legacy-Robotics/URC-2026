@@ -1,3 +1,0 @@
-uint32 control_mode
-float32 input_vel_deg
-float32 input_pos_deg

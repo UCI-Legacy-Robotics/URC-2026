@@ -1,4 +1,0 @@
-/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/odrive_can/rosidl_adapter/odrive_can:msg/ControlMessage.idl
-/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/odrive_can/rosidl_adapter/odrive_can:msg/ControllerStatus.idl
-/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/odrive_can/rosidl_adapter/odrive_can:msg/ODriveStatus.idl
-/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/odrive_can/rosidl_adapter/odrive_can:srv/AxisState.idl

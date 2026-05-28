@@ -1,4 +1,0 @@
-source;share/npk_sensor/environment/ament_prefix_path.sh
-source;share/npk_sensor/environment/library_path.sh
-source;share/npk_sensor/environment/path.sh
-source;share/npk_sensor/environment/pythonpath.sh

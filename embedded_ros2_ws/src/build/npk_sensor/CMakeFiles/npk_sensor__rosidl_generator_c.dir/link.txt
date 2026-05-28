@@ -1,1 +1,0 @@
-/usr/bin/cc -fPIC -shared -Wl,-soname,libnpk_sensor__rosidl_generator_c.so -o libnpk_sensor__rosidl_generator_c.so CMakeFiles/npk_sensor__rosidl_generator_c.dir/rosidl_generator_c/npk_sensor/srv/detail/get_soil_data__functions.c.o  -Wl,-rpath,/opt/ros/humble/lib: /opt/ros/humble/lib/librosidl_runtime_c.so /opt/ros/humble/lib/librcutils.so -ldl -latomic 

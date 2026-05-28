@@ -1,6 +1,0 @@
-setup.py
-stepper_can/__init__.py
-stepper_can.egg-info/PKG-INFO
-stepper_can.egg-info/SOURCES.txt
-stepper_can.egg-info/dependency_links.txt
-stepper_can.egg-info/top_level.txt

@@ -1,8 +1,0 @@
-setup.py
-drive_teleop/__init__.py
-drive_teleop.egg-info/PKG-INFO
-drive_teleop.egg-info/SOURCES.txt
-drive_teleop.egg-info/dependency_links.txt
-drive_teleop.egg-info/top_level.txt
-drive_teleop/msg/__init__.py
-drive_teleop/msg/_drive_control_message.py

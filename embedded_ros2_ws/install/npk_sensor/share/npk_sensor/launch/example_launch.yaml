@@ -1,6 +1,0 @@
-launch:
-
-- node:
-    pkg: "npk_sensor"
-    exec: "npk_node"
-    namespace: "npk"

@@ -1,4 +1,0 @@
-source;share/npk_sensor/local_setup.bash
-source;share/npk_sensor/local_setup.dsv
-source;share/npk_sensor/local_setup.sh
-source;share/npk_sensor/local_setup.zsh

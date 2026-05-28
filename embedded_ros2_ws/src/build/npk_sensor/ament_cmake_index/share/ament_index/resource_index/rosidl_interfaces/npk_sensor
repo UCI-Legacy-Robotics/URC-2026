@@ -1,4 +1,0 @@
-srv/GetSoilData.idl
-srv/GetSoilData.srv
-srv/GetSoilData_Request.msg
-srv/GetSoilData_Response.msg

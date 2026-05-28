@@ -1,6 +1,0 @@
-{
-  "package_name": "servo",
-  "non_idl_tuples": [
-    "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/servo/servo_node:msg/ControlMessage.msg"
-  ]
-}

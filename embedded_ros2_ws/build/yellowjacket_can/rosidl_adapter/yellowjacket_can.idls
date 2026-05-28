@@ -1,4 +1,0 @@
-/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can/rosidl_adapter/yellowjacket_can:msg/ControlMessage.idl
-/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can/rosidl_adapter/yellowjacket_can:msg/ControllerStatus.idl
-/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can/rosidl_adapter/yellowjacket_can:msg/ODriveStatus.idl
-/home/pi/Legacy/URC-2026/embedded_ros2_ws/build/yellowjacket_can/rosidl_adapter/yellowjacket_can:srv/AxisState.idl

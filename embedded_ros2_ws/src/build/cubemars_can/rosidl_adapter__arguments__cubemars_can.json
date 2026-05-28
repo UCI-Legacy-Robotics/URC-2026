@@ -1,7 +1,0 @@
-{
-  "package_name": "cubemars_can",
-  "non_idl_tuples": [
-    "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/cubemars/cubemars_node:msg/ControlMessage.msg",
-    "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/cubemars/cubemars_node:msg/ControllerStatus.msg"
-  ]
-}

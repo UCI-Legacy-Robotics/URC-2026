@@ -1,3 +1,0 @@
-std_msgs/Header header
-int32 left_input_pwm
-int32 right_input_pwm

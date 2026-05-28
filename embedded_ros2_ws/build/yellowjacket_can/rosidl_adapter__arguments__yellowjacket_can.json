@@ -1,9 +1,0 @@
-{
-  "package_name": "yellowjacket_can",
-  "non_idl_tuples": [
-    "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/yellowjacket/yellowjacket_node:msg/ControlMessage.msg",
-    "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/yellowjacket/yellowjacket_node:msg/ControllerStatus.msg",
-    "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/yellowjacket/yellowjacket_node:msg/ODriveStatus.msg",
-    "/home/pi/Legacy/URC-2026/embedded_ros2_ws/src/yellowjacket/yellowjacket_node:srv/AxisState.srv"
-  ]
-}
