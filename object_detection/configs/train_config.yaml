@@ -1,0 +1,17 @@
+# ── Training Configuration ──
+
+# Model checkpoint to start from (e.g., yolov8n.pt, yolov8s.pt, yolo11n.pt)
+model: yolov8n.pt
+
+# Path to data.yaml (relative to project root)
+data: data/data.yaml
+
+# Training hyperparameters
+epochs: 100
+imgsz: 640
+batch: 16
+device: 0
+
+# Output directory (relative to project root)
+project: runs
+name: train
