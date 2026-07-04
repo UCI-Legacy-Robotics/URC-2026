@@ -18,10 +18,10 @@ DATA_DIR = Path(__file__).resolve().parent
 
 
 def download_dataset(
-    workspace: str = "",
-    project: str = "",
-    version: int = 1,
-    model_format: str = "yolov8",
+    workspace: str = "monash-nova-rover",
+    project: str = "urc-2024-object-detection",
+    version: int = 6,
+    model_format: str = "yolov11",
 ) -> Path:
     """Download dataset from Roboflow.
 
