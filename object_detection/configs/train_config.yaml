@@ -1,7 +1,7 @@
 # ── Training Configuration ──
 
 # Model checkpoint to start from (e.g., yolov8n.pt, yolov8s.pt, yolo11n.pt)
-model: yolov11.pt
+model: yolov11s.pt
 
 # Path to data.yaml (relative to project root)
 data: data/data.yaml
