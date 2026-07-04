@@ -14,7 +14,6 @@ from roboflow import Roboflow
 load_dotenv(Path(__file__).resolve().parents[1] / ".env")
 
 ROBOFLOW_API_KEY = os.getenv("ROBOFLOW_API_KEY", "")
-DATA_DIR = Path(__file__).resolve().parent
 
 
 def download_dataset(
@@ -41,8 +40,9 @@ def download_dataset(
         )
 
     rf = Roboflow(api_key=ROBOFLOW_API_KEY)
-    proj = rf.workspace(workspace).project(project)
-    dataset = proj.version(version).download(model_format, location=str(DATA_DIR))
+    project = rf.workspace("monash-nova-rover").project("urc-2024-object-detection")
+    version = project.version(6)
+    dataset = version.download("yolov11")
 
     print(f"Dataset downloaded to: {dataset.location}")
     return Path(dataset.location)
