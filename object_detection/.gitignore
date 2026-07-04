@@ -1,0 +1,31 @@
+# Dataset (downloaded via Roboflow)
+data/URC-2024-*/
+
+# Training outputs
+runs/
+
+# Exported model files
+models/
+
+# Environment variables
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
