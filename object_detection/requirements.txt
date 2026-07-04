@@ -1,0 +1,17 @@
+# Core
+ultralytics>=8.2
+torch>=2.0
+torchvision>=0.15
+
+# Data
+roboflow
+python-dotenv
+pyyaml
+
+# Notebooks
+jupyter
+matplotlib
+
+# Export
+onnx
+onnxruntime
