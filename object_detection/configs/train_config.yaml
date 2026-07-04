@@ -1,17 +1,139 @@
-# ── Training Configuration ──
+# ============================================================================
+# YOLOv11 Training Configuration — URC 2026 Object Detection
+# ============================================================================
+# Two kinds of settings live here:
+#   1. PRINCIPLED settings — enabled because the technique is sound and its
+#      value is defensible from theory / established practice. We do NOT search
+#      for these; we justify them.
+#   2. STARTING-POINT settings — sane baselines that a later evolutionary
+#      search (see tune.py) will refine for OUR specific dataset. Values only
+#      the data can settle (exact LR, augmentation strengths, loss weights) are
+#      deliberately left near Ultralytics defaults here and tuned separately.
+#
+# Anything a search should decide is marked  # [TUNE]  so it's obvious which
+# numbers are placeholders vs. which are justified choices.
+# ============================================================================
 
-# Model checkpoint to start from (e.g., yolov8n.pt, yolov8s.pt, yolo11n.pt)
-model: yolov11s.pt
 
-# Path to data.yaml (relative to project root)
+# ── Model ───────────────────────────────────────────────────────────────────
+# yolo11s = the accuracy/speed sweet spot for a real-time rover. On Jetson Orin,
+# 11n ~5ms and 11s ~8ms per image (FP16) — both leave real-time headroom, while
+# 11m (~15ms) and up start eating the latency budget for a MOVING platform.
+# We pick model size by the Jetson FPS budget, not by "biggest that fits."
+# NOTE: correct name is "yolo11s.pt" (not "yolov11.pt", which is invalid and
+# would fail at load). Size suffix (n/s/m/l/x) is required.
+model: yolo11s.pt
+
+# Path to the dataset descriptor (train/val/test paths + class names).
 data: data/data.yaml
 
-# Training hyperparameters
-epochs: 100
+
+# ── Run length: high ceiling + early stopping (PRINCIPLED) ──────────────────
+# We do NOT hardcode a guessed epoch count. Instead: set a high ceiling and let
+# validation performance decide when to stop. `patience` halts training when
+# val mAP hasn't improved for N epochs — this prevents overfitting AND avoids
+# wasting GPU-hours on a plateau. The model trains exactly as long as it keeps
+# improving. This is the "reasoning" replacing a hardcoded "epochs: 100".
+epochs: 300
+patience: 50
+
+# Checkpoint periodically. HPC3's free-gpu partition can PREEMPT (kill) jobs to
+# free resources for allocated jobs; periodic saves + resume mean a killed job
+# restarts from the last checkpoint instead of from scratch.
+save_period: 25
+
+
+# ── Batch size: auto-sized to the GPU (PRINCIPLED over guessing) ────────────
+# batch: -1 lets Ultralytics auto-select ~60% of available GPU memory. HPC3 GPUs
+# (A100 / A30 / V100) have far more memory than a laptop, so a hardcoded "16"
+# would leave the card underused. Auto-sizing adapts to whatever GPU SLURM
+# actually assigns. Larger batches also give more stable gradient estimates.
+batch: -1
+
+
+# ── Input resolution ────────────────────────────────────────────────────────
+# 640 is the standard default and correct unless failure analysis shows we're
+# missing SMALL objects (distant mallets/bottles), in which case raise to 896 or
+# 1280 (costs speed + memory). Keep 640 for the baseline; revisit after seeing
+# per-class results.
 imgsz: 640
-batch: 16
+
+
+# ── Device ──────────────────────────────────────────────────────────────────
+# On SLURM the allocated GPU is exposed via CUDA_VISIBLE_DEVICES, so device 0
+# maps to whatever we were assigned. Leave as 0.
 device: 0
 
-# Output directory (relative to project root)
+# Parallel data-loading workers. 8 matches a typical --cpus-per-task request in
+# the SLURM script; keep these in sync so the GPU isn't starved waiting on I/O.
+workers: 8
+
+
+# ── Learning-rate SCHEDULE: cosine annealing (PRINCIPLED) ───────────────────
+# cos_lr is a *schedule*, not a value to guess. Reasoning: start high to explore
+# the loss surface, then smoothly decay toward zero so the model settles into a
+# good minimum by the end. Cosine annealing beats flat/step schedules in most
+# detection setups. We enable it on principle — it's justifiable in a writeup.
+cos_lr: true
+
+# Warmup (PRINCIPLED): ramp the LR up over the first few epochs so large early
+# gradients don't destabilize training before weights have adjusted.
+warmup_epochs: 3.0
+
+
+# ── Optimizer: auto (PRINCIPLED delegation) ─────────────────────────────────
+# "auto" lets Ultralytics choose AdamW vs SGD and set a sensible initial LR /
+# momentum for our setup. AdamW = fast, stable for fine-tuning; SGD sometimes
+# generalizes slightly better on very long runs. Unless we have a specific
+# reason, "auto" is the defensible default — the heuristic does the reasoning.
+optimizer: auto
+
+
+# ── Mixed precision: AMP (PRINCIPLED) ───────────────────────────────────────
+# Automatic Mixed Precision uses FP16 where numerically safe: faster training,
+# lower memory, negligible accuracy cost. Enable on principle.
+amp: true
+
+
+# ── Dataset-specific magnitudes — LEFT FOR SEARCH, not hand-picked ──────────
+# There is no principled "correct" value for these on OUR data — they must be
+# found empirically. They're kept at reasonable Ultralytics defaults for the
+# baseline run, then refined by evolutionary search (tune.py), whose output
+# (best_hyperparameters.yaml) is *empirically justified* by a fitness curve
+# rather than cherry-picked. Marked [TUNE] so it's clear these are placeholders.
+
+# Initial and final learning rate (lrf = final LR as a fraction of lr0).
+lr0: 0.01          # [TUNE]
+lrf: 0.01          # [TUNE]
+momentum: 0.937    # [TUNE]
+weight_decay: 0.0005  # [TUNE]
+
+# Loss-term gains (how much box vs. class vs. distribution-focal loss matters).
+box: 7.5           # [TUNE]
+cls: 0.5           # [TUNE]
+dfl: 1.5           # [TUNE]
+
+# Augmentation strengths. YOLOv11 augments ON-THE-FLY every epoch (no need to
+# pre-multiply the dataset on disk — that would just duplicate this). These
+# magnitudes are dataset-specific and are prime targets for the search.
+hsv_h: 0.015       # [TUNE] hue jitter
+hsv_s: 0.7         # [TUNE] saturation jitter
+hsv_v: 0.4         # [TUNE] brightness/value jitter (useful for lighting shifts)
+degrees: 0.0       # [TUNE] rotation — raise if rover sees objects at angles
+translate: 0.1     # [TUNE]
+scale: 0.5         # [TUNE]
+fliplr: 0.5        # [TUNE] horizontal flip prob (0.5 = standard)
+flipud: 0.0        # [TUNE] vertical flip — usually 0 for ground-level cameras
+mosaic: 1.0        # [TUNE] mosaic aug; auto-disabled in final epochs
+mixup: 0.0         # [TUNE]
+
+
+# ── Output / bookkeeping ────────────────────────────────────────────────────
+# Each experiment writes to runs/<name>/. Change `name` per experiment so runs
+# don't overwrite each other — pairs well with experiment tracking (W&B/TB).
 project: runs
-name: train
+name: yolo11s_baseline
+
+# Save train/val plots (PR curves, confusion matrix, loss curves) for the
+# evaluation step. Free, and central to judging the model.
+plots: true
