@@ -1,0 +1,13 @@
+train: URC-2024-Object-Detection-6/train/images
+val: URC-2024-Object-Detection-6/valid/images
+test: URC-2024-Object-Detection-6/test/images
+nc: 2
+names:
+- bottle
+- mallet
+roboflow:
+  workspace: monash-nova-rover
+  project: urc-2024-object-detection
+  version: 6
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/monash-nova-rover/urc-2024-object-detection/dataset/6
