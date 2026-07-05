@@ -76,8 +76,13 @@ def tune(config: dict, iterations: int, tune_epochs: int) -> None:
     model_name, data_yaml, hyp = split_config(config)
 
     # Remove full-run-only keys so they don't fight the short trial budget.
+    dropped = []
     for k in ("epochs", "patience", "save_period", "name"):
-        hyp.pop(k, None)
+        if k in hyp:
+            dropped.append(k)
+            hyp.pop(k)
+    if dropped:
+        print(f"Tuning override: dropped full-run config keys: {', '.join(dropped)}")
 
     model = YOLO(model_name)
     model.tune(
