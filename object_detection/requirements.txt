@@ -7,6 +7,7 @@ torchvision>=0.15
 roboflow
 python-dotenv
 pyyaml
+opencv-python
 
 # Notebooks
 jupyter
