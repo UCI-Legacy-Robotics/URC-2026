@@ -7,6 +7,7 @@ Usage:
 """
 
 import argparse
+import shutil
 from pathlib import Path
 
 from ultralytics import YOLO
@@ -44,8 +45,13 @@ def export_model(
         device=device,
     )
 
-    print(f"Exported model to: {export_path}")
-    return Path(export_path)
+    exported = Path(export_path)
+    destination = MODELS_DIR / exported.name
+    if exported.resolve() != destination.resolve():
+        shutil.copy2(exported, destination)
+
+    print(f"Exported model to: {destination}")
+    return destination
 
 
 def main():
