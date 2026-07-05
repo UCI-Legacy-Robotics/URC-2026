@@ -29,3 +29,6 @@ build/
 # OS
 .DS_Store
 Thumbs.db
+
+# Agent instructions
+todo.md
