@@ -1,0 +1,140 @@
+# ============================================================================
+# YOLOv11 Training Configuration — URC 2026 Object Detection
+# LOCAL / MAC VARIANT — for a same-day baseline on Apple Silicon (MPS) while
+# HPC3 account access is pending. NOT the config used for the real/final
+# training run — see configs/train_config.yaml for the HPC3 version.
+# ============================================================================
+# Two kinds of settings live here:
+#   1. PRINCIPLED settings — enabled because the technique is sound and its
+#      value is defensible from theory / established practice. We do NOT search
+#      for these; we justify them.
+#   2. STARTING-POINT settings — sane baselines that a later evolutionary
+#      search (see tune.py) will refine for OUR specific dataset. Values only
+#      the data can settle (exact LR, augmentation strengths, loss weights) are
+#      deliberately left near Ultralytics defaults here and tuned separately.
+#
+# Anything a search should decide is marked  # [TUNE]  so it's obvious which
+# numbers are placeholders vs. which are justified choices.
+#
+# WHAT'S DIFFERENT FROM THE HPC3 CONFIG, AND WHY (see inline notes below):
+#   - device:        0        -> mps      (Apple GPU, not CUDA)
+#   - epochs/patience: 300/50 -> 80/20    (finish today, not a multi-day run)
+#   - batch:         -1       -> 8        (auto-sizing targets a data-center
+#                                          GPU; explicit modest value avoids
+#                                          MPS memory pressure)
+#   - workers:       8        -> 4        (matched to a laptop's core count,
+#                                          not an HPC --cpus-per-task request)
+#   - amp:           true     -> false    (AMP support on MPS is spottier than
+#                                          CUDA; disable if you hit odd losses)
+#   - name:          yolo11s_baseline -> yolo11s_local_baseline (keep local and
+#                                          HPC3 runs in clearly separate folders)
+# Everything else (model choice, cos_lr, optimizer, [TUNE] values, imgsz) is
+# left identical to the HPC3 config on purpose, so this run is a genuine
+# preview of the same pipeline/settings, just at a smaller scale.
+# ============================================================================
+
+
+# ── Model ───────────────────────────────────────────────────────────────────
+# Same reasoning as the HPC3 config: yolo11s is the accuracy/speed sweet spot
+# for a real-time rover. Unchanged here — no reason to test a different size
+# locally than what you intend to deploy.
+model: yolo11s.pt
+
+# Path to the dataset descriptor (train/val/test paths + class names).
+data: data/data.yaml
+
+
+# ── Run length: SCALED DOWN for a same-day result ───────────────────────────
+# Still principled (high ceiling + early stopping, not a single guessed number)
+# — just a lower ceiling than the HPC3 config's 300, since the goal today is a
+# credible early signal to show the team, not the final competition model.
+# patience is scaled down proportionally so early stopping still functions
+# rather than effectively never triggering.
+epochs: 80
+patience: 20
+
+# Checkpointing matters less for a short local run (no preemption risk like
+# HPC3's free-gpu), but keep it so you don't lose everything if the Mac sleeps
+# or you need to stop partway through.
+save_period: 20
+
+
+# ── Batch size: explicit and modest (CHANGED from auto) ─────────────────────
+# batch: -1 (auto ~60% of GPU memory) is tuned for data-center GPUs in Ultralytics'
+# heuristics and does not reliably target Apple's unified memory the same way.
+# Start explicit and conservative; lower to 4 if you hit MPS memory pressure,
+# raise toward 16 if it runs comfortably.
+batch: 8
+
+
+# ── Input resolution ────────────────────────────────────────────────────────
+# Unchanged — no reason to shrink imgsz for a first pass; 640 is standard.
+imgsz: 640
+
+
+# ── Device: mps (CHANGED from CUDA index) ───────────────────────────────────
+# Apple Silicon GPU via Metal Performance Shaders. Ultralytics/PyTorch detect
+# this automatically when available; setting it explicitly avoids any silent
+# fallback to CPU.
+device: mps
+
+# Parallel data-loading workers. Matched to a MacBook Air's core count rather
+# than an HPC --cpus-per-task request. Lower than the HPC3 config's 8.
+workers: 4
+
+
+# ── Learning-rate SCHEDULE: cosine annealing (PRINCIPLED, unchanged) ────────
+# Same reasoning as HPC3 config: smooth decay beats flat/step schedules.
+cos_lr: true
+
+# Warmup (PRINCIPLED, unchanged): ramp LR up over the first few epochs.
+warmup_epochs: 3.0
+
+
+# ── Optimizer: auto (PRINCIPLED delegation, unchanged) ──────────────────────
+optimizer: auto
+
+
+# ── Mixed precision: AMP DISABLED (CHANGED for MPS reliability) ─────────────
+# AMP support on Apple's MPS backend is less mature/reliable than on CUDA and
+# can produce odd errors or NaN losses on some setups. Disabled here for a
+# same-day run where you don't have time to debug a flaky training run. The
+# HPC3 config keeps amp: true, since CUDA support is solid.
+amp: false
+
+
+# ── Dataset-specific magnitudes — LEFT FOR SEARCH, not hand-picked ──────────
+# Identical to the HPC3 config. These are not being tuned today — this run is
+# about getting a real baseline signal fast, not searching hyperparameters on
+# a laptop. Tuning happens later, on HPC3's free-gpu partition.
+lr0: 0.01          # [TUNE]
+lrf: 0.01          # [TUNE]
+momentum: 0.937    # [TUNE]
+weight_decay: 0.0005  # [TUNE]
+
+box: 7.5           # [TUNE]
+cls: 0.5           # [TUNE]
+dfl: 1.5           # [TUNE]
+
+hsv_h: 0.015       # [TUNE] hue jitter
+hsv_s: 0.7         # [TUNE] saturation jitter
+hsv_v: 0.4         # [TUNE] brightness/value jitter (useful for lighting shifts)
+degrees: 0.0       # [TUNE] rotation — raise if rover sees objects at angles
+translate: 0.1     # [TUNE]
+scale: 0.5         # [TUNE]
+fliplr: 0.5        # [TUNE] horizontal flip prob (0.5 = standard)
+flipud: 0.0        # [TUNE] vertical flip — usually 0 for ground-level cameras
+mosaic: 1.0        # [TUNE] mosaic aug; auto-disabled in final epochs
+mixup: 0.0         # [TUNE]
+
+
+# ── Output / bookkeeping ────────────────────────────────────────────────────
+# Different `name` than the HPC3 config so local and cluster runs never
+# overwrite each other in runs/ — makes it obvious in a team update which
+# numbers came from which environment.
+project: runs
+name: yolo11s_local_baseline
+
+# Save train/val plots (PR curves, confusion matrix, loss curves) — this is
+# exactly what you want ready for today's team presentation.
+plots: true
