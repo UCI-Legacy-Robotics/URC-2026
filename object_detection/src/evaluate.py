@@ -4,6 +4,7 @@ Evaluate a trained YOLO checkpoint on the held-out test split.
 Usage:
     python src/evaluate.py --weights runs/yolo11s_baseline/weights/best.pt
     python src/evaluate.py --weights runs/yolo11s_baseline/weights/best.pt --data data/URC-2024-Object-Detection-6/data.yaml
+    python src/evaluate.py --weights runs/yolo11s_baseline/weights/best.pt --device mps
 """
 
 import argparse
@@ -11,6 +12,7 @@ import csv
 import json
 import shutil
 from pathlib import Path
+from typing import Optional, Union
 
 import yaml
 from ultralytics import YOLO
@@ -28,12 +30,26 @@ PLOT_NAMES = {
 }
 
 
-def load_default_data_yaml() -> Path:
+def load_config(config_path: Path) -> dict:
+    """Load a YAML config if it exists."""
+    if not config_path.exists():
+        return {}
+    with open(config_path) as f:
+        return yaml.safe_load(f) or {}
+
+
+def resolve_config_path(path: Union[str, Path]) -> Path:
+    path = Path(path)
+    return path if path.is_absolute() else ROOT / path
+
+
+def load_default_data_yaml(config: Optional[dict] = None) -> Path:
     """Resolve the configured data.yaml, falling back to the first dataset yaml."""
-    if DEFAULT_CONFIG.exists():
-        with open(DEFAULT_CONFIG) as f:
-            config = yaml.safe_load(f) or {}
-        configured = ROOT / config.get("data", "data/data.yaml")
+    if config is None:
+        config = load_config(DEFAULT_CONFIG)
+
+    if config:
+        configured = resolve_config_path(config.get("data", "data/data.yaml"))
         if configured.exists():
             return configured
 
@@ -42,6 +58,35 @@ def load_default_data_yaml() -> Path:
         return candidates[0]
 
     return ROOT / "data" / "data.yaml"
+
+
+def auto_device() -> str:
+    """Pick CUDA, then MPS, then CPU without requiring a hardcoded device."""
+    try:
+        import torch
+    except ImportError:
+        return "cpu"
+
+    if torch.cuda.is_available():
+        return "0"
+    if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+        return "mps"
+    return "cpu"
+
+
+def resolve_device(cli_device: Optional[str], config: dict, use_config_device: bool) -> str:
+    """Resolve the Ultralytics device string without assuming CUDA exists."""
+    if cli_device is not None:
+        device = cli_device
+    elif use_config_device:
+        device = config.get("device", "")
+    else:
+        return auto_device()
+
+    device = str(device).strip()
+    if device.lower() == "auto":
+        return auto_device()
+    return device
 
 
 def metric_value(metrics, key: str) -> float:
@@ -71,7 +116,8 @@ def class_metric_values(metrics) -> list[dict]:
         return []
 
     rows = []
-    maps = list(getattr(box, "maps", []) or [])
+    maps_value = getattr(box, "maps", None)
+    maps = list(maps_value) if maps_value is not None else []
     class_indices = sorted(names) if isinstance(names, dict) else range(len(maps))
     for class_index in class_indices:
         name = names[class_index] if isinstance(names, dict) else str(class_index)
@@ -160,18 +206,34 @@ def evaluate(weights: Path, data_yaml: Path, output_dir: Path, imgsz: int, devic
 def main():
     parser = argparse.ArgumentParser(description="Evaluate YOLO weights on the test split")
     parser.add_argument("--weights", type=Path, required=True, help="Path to trained best.pt")
-    parser.add_argument("--data", type=Path, default=load_default_data_yaml(), help="Path to data.yaml")
+    parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG, help="Path to training config YAML")
+    parser.add_argument("--data", type=Path, default=None, help="Path to data.yaml")
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT_DIR, help="Output directory")
-    parser.add_argument("--imgsz", type=int, default=640, help="Evaluation image size")
-    parser.add_argument("--device", type=str, default="0", help="Device, e.g. 0 or cpu")
+    parser.add_argument("--imgsz", type=int, default=None, help="Evaluation image size")
+    parser.add_argument(
+        "--device",
+        type=str,
+        default=None,
+        help="Device override, e.g. mps, cpu, 0, or auto. Defaults to CUDA, then MPS, then CPU.",
+    )
+    parser.add_argument(
+        "--config-device",
+        action="store_true",
+        help="Use the device value from --config when --device is not supplied.",
+    )
     args = parser.parse_args()
+
+    config = load_config(args.config)
+    data_yaml = args.data if args.data is not None else load_default_data_yaml(config)
+    imgsz = args.imgsz if args.imgsz is not None else int(config.get("imgsz", 640))
+    device = resolve_device(args.device, config, args.config_device)
 
     evaluate(
         weights=args.weights,
-        data_yaml=args.data,
+        data_yaml=data_yaml,
         output_dir=args.output,
-        imgsz=args.imgsz,
-        device=args.device,
+        imgsz=imgsz,
+        device=device,
     )
 
 
