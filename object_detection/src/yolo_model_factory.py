@@ -11,6 +11,7 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 
 CONTROL_KEYS = {"model", "data", "train", "tune"}
+REQUIRED_CONFIG_KEYS = ("model", "data")
 SUPPORTED_MODEL_TYPES = {"yolo", "ultralytics", "ultralytics-yolo"}
 
 
@@ -25,7 +26,41 @@ def load_config(config_path: Path) -> dict[str, Any]:
     if not path.exists():
         raise FileNotFoundError(f"Training config not found: {path}")
     with open(path) as f:
-        return yaml.safe_load(f) or {}
+        config = yaml.safe_load(f) or {}
+    if not isinstance(config, dict):
+        raise TypeError(f"Training config root must be a mapping: {path}")
+    return config
+
+
+def merge_configs(base_config: dict[str, Any], override_config: dict[str, Any]) -> dict[str, Any]:
+    """Recursively merge an override config onto a copied base config."""
+    merged = deepcopy(base_config)
+    for key, value in override_config.items():
+        if isinstance(value, dict) and isinstance(merged.get(key), dict):
+            merged[key] = merge_configs(merged[key], value)
+        else:
+            merged[key] = deepcopy(value)
+    return merged
+
+
+def missing_required_config_keys(config: dict[str, Any]) -> list[str]:
+    """Return required training config keys absent from a config mapping."""
+    return [key for key in REQUIRED_CONFIG_KEYS if key not in config]
+
+
+def load_training_config(config_path: Path, base_config_path: Path) -> dict[str, Any]:
+    """
+    Load a full training config, or overlay tuned hyperparameters onto a base.
+
+    Ultralytics writes best_hyperparameters.yaml as train kwargs only. Treat that
+    shape as an overlay on configs/train_config.yaml so the model and dataset
+    remain defined while tuned values replace the defaults.
+    """
+    config = load_config(config_path)
+    missing_keys = missing_required_config_keys(config)
+    if config and len(missing_keys) == len(REQUIRED_CONFIG_KEYS):
+        config = merge_configs(load_config(base_config_path), config)
+    return config
 
 
 def parse_value(raw_value: str) -> Any:

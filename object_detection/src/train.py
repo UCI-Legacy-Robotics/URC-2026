@@ -23,7 +23,7 @@ from yolo_model_factory import (
     ROOT,
     apply_cli_overrides,
     create_model,
-    load_config,
+    load_training_config,
     split_training_config,
 )
 
@@ -138,7 +138,7 @@ def main():
     args = parser.parse_args()
 
     config = apply_cli_overrides(
-        load_config(args.config),
+        load_training_config(args.config, DEFAULT_CONFIG),
         model=args.model,
         data=args.data,
         project=args.project,
