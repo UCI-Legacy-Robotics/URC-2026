@@ -19,13 +19,22 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from yolo_model_factory import (
-    ROOT,
-    apply_cli_overrides,
-    create_model,
-    load_training_config,
-    split_training_config,
-)
+try:
+    from .yolo_model_factory import (
+        ROOT,
+        apply_cli_overrides,
+        create_model,
+        load_training_config,
+        split_training_config,
+    )
+except ImportError:
+    from yolo_model_factory import (
+        ROOT,
+        apply_cli_overrides,
+        create_model,
+        load_training_config,
+        split_training_config,
+    )
 
 DEFAULT_CONFIG = ROOT / "configs" / "train_config.yaml"
 
