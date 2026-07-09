@@ -36,3 +36,6 @@ todo.md
 
 # Localized configs
 configs/train_config_local.yaml
+
+# Local PR drafts
+PR_REQUEST.md
