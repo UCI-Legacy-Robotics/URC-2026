@@ -20,7 +20,7 @@ from ultralytics import YOLO
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG = ROOT / "configs" / "train_config.yaml"
 DEFAULT_OUTPUT_DIR = ROOT / "runs" / "evaluation"
-PLOT_NAMES = {
+PLOT_NAME_SUFFIXES = {
     "confusion_matrix.png",
     "confusion_matrix_normalized.png",
     "F1_curve.png",
@@ -150,7 +150,7 @@ def copy_plots(source_dir: Path, output_dir: Path) -> None:
     plots_dir.mkdir(parents=True, exist_ok=True)
 
     for path in source_dir.iterdir():
-        if path.name in PLOT_NAMES and path.is_file():
+        if path.is_file() and any(path.name.endswith(suffix) for suffix in PLOT_NAME_SUFFIXES):
             shutil.copy2(path, plots_dir / path.name)
 
 
