@@ -248,8 +248,11 @@ def split_training_config(config: dict[str, Any]) -> tuple[dict[str, Any], Path,
     Top-level non-control keys are treated as Ultralytics train() kwargs for
     backward compatibility.
     """
-    if "data" not in config:
-        raise ValueError("Missing required 'data' entry in the training config.")
+    missing_keys = missing_required_config_keys(config)
+    if missing_keys:
+        quoted = ", ".join(f"'{key}'" for key in missing_keys)
+        noun = "entry" if len(missing_keys) == 1 else "entries"
+        raise ValueError(f"Missing required {quoted} {noun} in the training config.")
 
     train_args: dict[str, Any] = {key: value for key, value in config.items() if key not in CONTROL_KEYS}
 
@@ -262,5 +265,9 @@ def split_training_config(config: dict[str, Any]) -> tuple[dict[str, Any], Path,
     if "project" in train_args:
         train_args["project"] = str(resolve_path(train_args["project"]))
 
+    tune_config = config.get("tune", {})
+    if tune_config and not isinstance(tune_config, dict):
+        raise TypeError("'tune' must be a mapping when provided.")
+
     data_yaml = resolve_path(config["data"], must_be_data_yaml=True)
-    return normalize_model_config(config["model"]), data_yaml, train_args, deepcopy(config.get("tune", {}))
+    return normalize_model_config(config["model"]), data_yaml, train_args, deepcopy(tune_config)
