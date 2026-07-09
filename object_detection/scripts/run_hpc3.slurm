@@ -22,6 +22,6 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 mkdir -p "$PROJECT_ROOT/logs"
 cd "$PROJECT_ROOT"
 
-python src/train.py --config configs/train_config.yaml
+python src/train.py --config "${TRAIN_CONFIG:-configs/train_config.yaml}" "$@"
 
 echo "Training complete."

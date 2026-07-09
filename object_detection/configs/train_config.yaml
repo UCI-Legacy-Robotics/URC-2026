@@ -20,9 +20,13 @@
 # 11n ~5ms and 11s ~8ms per image (FP16) — both leave real-time headroom, while
 # 11m (~15ms) and up start eating the latency budget for a MOVING platform.
 # We pick model size by the Jetson FPS budget, not by "biggest that fits."
-# NOTE: correct name is "yolo11s.pt" (not "yolov11.pt", which is invalid and
-# would fail at load). Size suffix (n/s/m/l/x) is required.
-model: yolo11s.pt
+# The training script builds models through src/yolo_model_factory.py. Change
+# only this block (or override it with --model / --set model.source=...) to
+# switch YOLO sizes/checkpoints without editing code.
+model:
+  type: yolo
+  source: yolo11s.pt
+  task: detect
 
 # Path to the dataset descriptor (train/val/test paths + class names).
 data: data/data.yaml

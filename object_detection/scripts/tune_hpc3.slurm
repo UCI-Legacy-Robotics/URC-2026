@@ -22,6 +22,11 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 mkdir -p "$PROJECT_ROOT/logs"
 cd "$PROJECT_ROOT"
 
-python src/train.py --config configs/train_config.yaml --tune --iterations 30 --tune-epochs 30
+python src/train.py \
+  --config "${TRAIN_CONFIG:-configs/train_config.yaml}" \
+  --tune \
+  --iterations "${TUNE_ITERATIONS:-30}" \
+  --tune-epochs "${TUNE_EPOCHS:-30}" \
+  "$@"
 
 echo "Tuning complete."
