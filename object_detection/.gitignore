@@ -6,6 +6,7 @@ runs/
 
 # Exported model files
 models/
+*.pt
 
 # Environment variables
 .env
@@ -32,3 +33,6 @@ Thumbs.db
 
 # Agent instructions
 todo.md
+
+# Localized configs
+configs/train_config_local.yaml
