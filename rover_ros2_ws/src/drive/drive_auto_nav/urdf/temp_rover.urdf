@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="rover">
+
+  <!-- Base: 1.5m long x 1.0m wide x 0.4m tall, mass 50 kg -->
+  <!-- Box inertia: ixx = m/12*(h^2+d^2), iyy = m/12*(w^2+d^2), izz = m/12*(w^2+h^2) -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="1.5 1.0 0.4"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0 0 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="1.5 1.0 0.4"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="50.0"/>
+      <inertia ixx="4.833" ixy="0.0" ixz="0.0"
+               iyy="3.208" iyz="0.0"
+               izz="2.708"/>
+    </inertial>
+  </link>
+
+  <!-- Sensor frames (fixed; no physics) -->
+  <link name="imu_link"/>
+  <joint name="imu_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+    <origin xyz="0 0 0.2" rpy="0 0 0"/>
+  </joint>
+
+  <link name="zed_link"/>
+  <joint name="zed_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="zed_link"/>
+    <origin xyz="0.75 0 0.2" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ===== LEFT SIDE (y = +0.6) ===== -->
+  <!-- Wheel: cylinder r=0.2, length=0.15, mass=2 kg -->
+  <!-- Cylinder about own Z (axis): ixx=iyy = m*(3r^2+h^2)/12, izz = m*r^2/2 -->
+
+  <link name="left_front_wheel">
+    <visual>
+      <geometry>
+        <cylinder length="0.15" radius="0.2"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.15" radius="0.2"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="2.0"/>
+      <inertia ixx="0.02375" ixy="0.0" ixz="0.0"
+               iyy="0.02375" iyz="0.0"
+               izz="0.04"/>
+    </inertial>
+  </link>
+  <joint name="left_front_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="left_front_wheel"/>
+    <origin xyz="0.55 0.6 -0.2" rpy="1.5708 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="left_middle_wheel">
+    <visual>
+      <geometry>
+        <cylinder length="0.15" radius="0.2"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.15" radius="0.2"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="2.0"/>
+      <inertia ixx="0.02375" ixy="0.0" ixz="0.0"
+               iyy="0.02375" iyz="0.0"
+               izz="0.04"/>
+    </inertial>
+  </link>
+  <joint name="left_middle_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="left_middle_wheel"/>
+    <origin xyz="0.0 0.6 -0.2" rpy="1.5708 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="left_rear_wheel">
+    <visual>
+      <geometry>
+        <cylinder length="0.15" radius="0.2"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.15" radius="0.2"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="2.0"/>
+      <inertia ixx="0.02375" ixy="0.0" ixz="0.0"
+               iyy="0.02375" iyz="0.0"
+               izz="0.04"/>
+    </inertial>
+  </link>
+  <joint name="left_rear_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="left_rear_wheel"/>
+    <origin xyz="-0.55 0.6 -0.2" rpy="1.5708 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <!-- ===== RIGHT SIDE (y = -0.6) ===== -->
+
+  <link name="right_front_wheel">
+    <visual>
+      <geometry>
+        <cylinder length="0.15" radius="0.2"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.15" radius="0.2"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="2.0"/>
+      <inertia ixx="0.02375" ixy="0.0" ixz="0.0"
+               iyy="0.02375" iyz="0.0"
+               izz="0.04"/>
+    </inertial>
+  </link>
+  <joint name="right_front_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="right_front_wheel"/>
+    <origin xyz="0.55 -0.6 -0.2" rpy="1.5708 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="right_middle_wheel">
+    <visual>
+      <geometry>
+        <cylinder length="0.15" radius="0.2"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.15" radius="0.2"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="2.0"/>
+      <inertia ixx="0.02375" ixy="0.0" ixz="0.0"
+               iyy="0.02375" iyz="0.0"
+               izz="0.04"/>
+    </inertial>
+  </link>
+  <joint name="right_middle_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="right_middle_wheel"/>
+    <origin xyz="0.0 -0.6 -0.2" rpy="1.5708 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="right_rear_wheel">
+    <visual>
+      <geometry>
+        <cylinder length="0.15" radius="0.2"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.15" radius="0.2"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="2.0"/>
+      <inertia ixx="0.02375" ixy="0.0" ixz="0.0"
+               iyy="0.02375" iyz="0.0"
+               izz="0.04"/>
+    </inertial>
+  </link>
+  <joint name="right_rear_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="right_rear_wheel"/>
+    <origin xyz="-0.55 -0.6 -0.2" rpy="1.5708 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+</robot>
