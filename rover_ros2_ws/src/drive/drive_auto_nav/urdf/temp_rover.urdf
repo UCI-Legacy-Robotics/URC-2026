@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
 <robot name="rover">
 
   <!-- Base: 1.5m long x 1.0m wide x 0.4m tall, mass 50 kg -->
@@ -213,5 +213,84 @@
     <origin xyz="-0.55 -0.6 -0.2" rpy="1.5708 0 0"/>
     <axis xyz="0 0 1"/>
   </joint>
+
+  <!-- ===== Gazebo surface friction (wheels) ===== -->
+  <gazebo reference="left_front_wheel">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+  </gazebo>
+  <gazebo reference="left_middle_wheel">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+  </gazebo>
+  <gazebo reference="left_rear_wheel">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+  </gazebo>
+  <gazebo reference="right_front_wheel">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+  </gazebo>
+  <gazebo reference="right_middle_wheel">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+  </gazebo>
+  <gazebo reference="right_rear_wheel">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+  </gazebo>
+
+  <!-- Gazebo: skid-steer via diff_drive (left side vs right side) -->
+  <gazebo>
+    <plugin name="diff_drive" filename="libgazebo_ros_diff_drive.so">
+      <ros>
+        <remapping>cmd_vel:=cmd_vel</remapping>
+        <remapping>odom:=odom</remapping>
+      </ros>
+
+      <update_rate>50</update_rate>
+
+      <!-- 3 left + 3 right = 6 driven wheels (matches real Yellowjacket setup) -->
+      <num_wheel_pairs>3</num_wheel_pairs>
+
+      <!-- Order: front, middle, rear -->
+      <left_joint>left_front_wheel_joint</left_joint>
+      <right_joint>right_front_wheel_joint</right_joint>
+      <left_joint>left_middle_wheel_joint</left_joint>
+      <right_joint>right_middle_wheel_joint</right_joint>
+      <left_joint>left_rear_wheel_joint</left_joint>
+      <right_joint>right_rear_wheel_joint</right_joint>
+
+      <!-- One separation/diameter per pair (y = ±0.6 → 1.2 m; radius 0.2 → diameter 0.4) -->
+      <wheel_separation>1.2</wheel_separation>
+      <wheel_separation>1.2</wheel_separation>
+      <wheel_separation>1.2</wheel_separation>
+      <wheel_diameter>0.4</wheel_diameter>
+      <wheel_diameter>0.4</wheel_diameter>
+      <wheel_diameter>0.4</wheel_diameter>
+
+      <max_wheel_torque>20</max_wheel_torque>
+      <max_wheel_acceleration>5.0</max_wheel_acceleration>
+
+      <publish_odom>true</publish_odom>
+      <publish_odom_tf>true</publish_odom_tf>
+      <publish_wheel_tf>false</publish_wheel_tf>
+
+      <odometry_frame>odom</odometry_frame>
+      <robot_base_frame>base_link</robot_base_frame>
+    </plugin>
+  </gazebo>
 
 </robot>
