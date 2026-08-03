@@ -158,8 +158,11 @@ class MissionSmWidget(QWidget):
         self._next_button.clicked.connect(self._on_next_clicked)
         self._diagnostics_button = QPushButton()
         self._diagnostics_button.clicked.connect(self._on_diagnostics_clicked)
+        self._mission_reset_button = QPushButton("Reset Mission")
+        self._mission_reset_button.clicked.connect(self._on_mission_reset_clicked)
         mission_controls.addWidget(self._next_button)
         mission_controls.addWidget(self._diagnostics_button)
+        mission_controls.addWidget(self._mission_reset_button)
         layout.addLayout(mission_controls)
 
         self.state_machine.state_changed.connect(self._on_state_changed)
@@ -205,6 +208,20 @@ class MissionSmWidget(QWidget):
             self.state_machine.transition_to(target)
         except InvalidTransitionError as exc:
             QMessageBox.warning(self, "Invalid transition", str(exc))
+
+    def _on_mission_reset_clicked(self):
+        """Force back to IDLE and restart the mission cycle from the top
+        (next click on "Next" goes to Science) — an abort/restart control,
+        distinct from the timer's own Reset button above."""
+        if self.state_machine.state != MissionState.IDLE:
+            try:
+                self.state_machine.transition_to(MissionState.IDLE)
+            except InvalidTransitionError as exc:
+                QMessageBox.warning(self, "Invalid transition", str(exc))
+                return
+        self._cycle_index = 0
+        self.timer_widget.reset()
+        self._update_controls()
 
     def _on_state_changed(self, old_state, new_state):
         self._refresh_state_label()
