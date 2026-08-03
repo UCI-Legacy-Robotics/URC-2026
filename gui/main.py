@@ -1,10 +1,9 @@
+import argparse
 import os
 import sys
 import threading
-import rclpy
 from PyQt6.QtWidgets import QApplication
 from ui.main_window import MainWindow
-from ros_node import BaseStationNode
 
 # WSL2: Fast-DDS shared memory transport segfaults; force UDP-only.
 os.environ.setdefault(
@@ -44,24 +43,49 @@ _STYLESHEET = """
 """
 
 
+def _parse_args():
+    parser = argparse.ArgumentParser(description='Rover Base Station GUI')
+    parser.add_argument(
+        '--sim', action='store_true',
+        help='Run against SimulationDataSource instead of live ROS '
+             '(no rclpy/ROS install required).',
+    )
+    return parser.parse_args()
+
+
 def main():
-    rclpy.init()
+    args = _parse_args()
 
     app = QApplication(sys.argv)
     app.setApplicationName('Rover Base Station')
     app.setStyleSheet(_STYLESHEET)
 
-    node = BaseStationNode()
-    window = MainWindow(node)
-    window.showMaximized()
+    rclpy = None
+    ros_thread = None
 
-    ros_thread = threading.Thread(target=rclpy.spin, args=(node,), daemon=True)
-    ros_thread.start()
+    if args.sim:
+        from simulation_data_source import SimulationDataSource
+        data_source = SimulationDataSource()
+    else:
+        import rclpy
+        from ros_node import RosDataSource
+        rclpy.init()
+        data_source = RosDataSource()
+        ros_thread = threading.Thread(
+            target=rclpy.spin, args=(data_source.node,), daemon=True)
+        ros_thread.start()
+
+    data_source.start()
+
+    window = MainWindow(data_source)
+    window.showMaximized()
 
     exit_code = app.exec()
 
-    node.destroy_node()
-    rclpy.shutdown()
+    data_source.stop()
+    if rclpy is not None:
+        rclpy.shutdown()
+
     sys.exit(exit_code)
 
 
