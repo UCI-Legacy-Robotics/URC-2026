@@ -1,0 +1,120 @@
+"""
+Synthetic DataSource for running the GUI without ROS or real hardware.
+
+Each signal has its own QTimer so update rates can differ (GNSS drifts
+slower than IMU jitters, for instance) and so new fake streams — e.g.
+mission-specific fake ArUco detections — can be bolted on later without
+touching the existing ones.
+"""
+
+import random
+from types import SimpleNamespace
+
+from PyQt6.QtCore import QTimer
+
+from data_source import DataSource
+
+# Arbitrary starting point in the general vicinity of URC (Mars Desert
+# Research Station, Utah) — just a plausible-looking default, not real
+# telemetry.
+_BASE_LATITUDE = 38.4060
+_BASE_LONGITUDE = -110.7918
+
+_BATTERY_START_VOLTAGE = 29.0
+_BATTERY_MIN_VOLTAGE = 22.0
+_BATTERY_DECAY_PER_TICK = 0.01
+
+
+class SimulationDataSource(DataSource):
+    """Fakes plausible telemetry on the same signal contract as
+    RosDataSource, so widgets can't tell the difference."""
+
+    def __init__(self):
+        super().__init__()
+
+        self._latitude = _BASE_LATITUDE
+        self._longitude = _BASE_LONGITUDE
+        self._voltage = _BATTERY_START_VOLTAGE
+        self._yaw_deg = 0.0
+
+        self._gnss_timer = QTimer()
+        self._gnss_timer.setInterval(1000)
+        self._gnss_timer.timeout.connect(self._emit_gnss)
+
+        self._battery_timer = QTimer()
+        self._battery_timer.setInterval(2000)
+        self._battery_timer.timeout.connect(self._emit_battery)
+
+        self._imu_timer = QTimer()
+        self._imu_timer.setInterval(200)
+        self._imu_timer.timeout.connect(self._emit_imu)
+
+        self._diagnostics_timer = QTimer()
+        self._diagnostics_timer.setInterval(3000)
+        self._diagnostics_timer.timeout.connect(self._emit_diagnostics)
+
+        self._timers = (
+            self._gnss_timer,
+            self._battery_timer,
+            self._imu_timer,
+            self._diagnostics_timer,
+        )
+
+    def start(self):
+        for timer in self._timers:
+            timer.start()
+
+    def stop(self):
+        for timer in self._timers:
+            timer.stop()
+
+    # -- fake data generators -------------------------------------------
+
+    def _emit_gnss(self):
+        self._latitude += random.uniform(-0.00003, 0.00003)
+        self._longitude += random.uniform(-0.00003, 0.00003)
+        self.signals.gnss_fix.emit(self._latitude, self._longitude)
+
+    def _emit_battery(self):
+        self._voltage -= _BATTERY_DECAY_PER_TICK
+        if self._voltage < _BATTERY_MIN_VOLTAGE:
+            self._voltage = _BATTERY_START_VOLTAGE  # loop for demo purposes
+        self.signals.battery_update.emit(round(self._voltage, 2))
+
+    def _emit_imu(self):
+        self._yaw_deg = (self._yaw_deg + random.uniform(-2.0, 2.0)) % 360.0
+        imu = SimpleNamespace(
+            roll_deg=random.uniform(-2.0, 2.0),
+            pitch_deg=random.uniform(-2.0, 2.0),
+            yaw_deg=self._yaw_deg,
+        )
+        self.signals.imu_update.emit(imu)
+
+    def _emit_diagnostics(self):
+        diagnostics = [
+            {"name": "battery", "level": "OK", "message": "nominal"},
+            {"name": "comms", "level": "OK", "message": "link healthy"},
+            {"name": "thermal", "level": "OK", "message": "nominal"},
+        ]
+        self.signals.diagnostics_update.emit(diagnostics)
+
+
+if __name__ == '__main__':
+    import sys
+    from PyQt6.QtCore import QCoreApplication
+
+    app = QCoreApplication(sys.argv)
+    sim = SimulationDataSource()
+
+    sim.signals.gnss_fix.connect(
+        lambda lat, lon: print(f"gnss_fix: {lat:.6f}, {lon:.6f}"))
+    sim.signals.battery_update.connect(
+        lambda v: print(f"battery_update: {v}V"))
+    sim.signals.imu_update.connect(
+        lambda imu: print(f"imu_update: yaw={imu.yaw_deg:.1f}"))
+    sim.signals.diagnostics_update.connect(
+        lambda d: print(f"diagnostics_update: {d}"))
+
+    sim.start()
+    QTimer.singleShot(6000, app.quit)
+    app.exec()
