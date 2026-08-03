@@ -3,6 +3,11 @@ Electrical Health cluster — composes the individual indicator widgets
 from electrical_health_widgets.py into one row, stretched across the
 remaining width of the top strip (from the right edge of Subsystem
 Launch to the right edge of the window).
+
+comms_health is the one indicator this class doesn't drive itself — it's
+wired directly to HealthStateMachine by MainWindow (which owns the state
+machine and its CommsHealthController), since health state isn't part of
+the diagnostics_update payload.
 """
 
 from PyQt6.QtWidgets import QWidget, QHBoxLayout, QSizePolicy
@@ -37,7 +42,7 @@ class ElectricalHealthCluster(QWidget):
         self.current_limiter_fault = CurrentLimiterFaultIndicator(_STALE_TIMEOUT_MS)
         self.precharge_state = PrechargeStateIndicator(_STALE_TIMEOUT_MS)
         self.battery_voltage = BatteryIndicator(_STALE_TIMEOUT_MS)
-        self.comms_health = CommsHealthIndicator(_STALE_TIMEOUT_MS)
+        self.comms_health = CommsHealthIndicator()
         self.therm1 = ThermalProbeIndicator("THERM1", "therm1", _STALE_TIMEOUT_MS)
         self.therm2 = ThermalProbeIndicator("THERM2", "therm2", _STALE_TIMEOUT_MS)
         self.therm3 = ThermalProbeIndicator("THERM3", "therm3", _STALE_TIMEOUT_MS)
@@ -53,14 +58,14 @@ class ElectricalHealthCluster(QWidget):
             self.therm2,
             self.therm3,
         )
-        # Everything except battery reads off diagnostics_update; battery
-        # has its own dedicated signal (see bind_data_source below).
+        # Everything except battery and comms reads off diagnostics_update;
+        # battery has its own dedicated signal and comms is driven by
+        # HealthStateMachine (see bind_data_source / class docstring).
         self._diagnostics_indicators = (
             self.fault_latched,
             self.contactor_status,
             self.current_limiter_fault,
             self.precharge_state,
-            self.comms_health,
             self.therm1,
             self.therm2,
             self.therm3,

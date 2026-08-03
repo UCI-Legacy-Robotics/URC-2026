@@ -8,7 +8,8 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtCore import Qt
 
-from state_machine import MissionState
+from state_machine import MissionState, HealthStateMachine
+from comms_health_controller import CommsHealthController
 from ui.mission_sm_widget import MissionSmWidget
 from ui.subsystem_launch_widget import SubsystemLaunchWidget
 from ui.control_mode_widget import ControlModeWidget
@@ -175,9 +176,17 @@ class MainWindow(QMainWindow):
         subsystem_launch = self.top_strip.subsystem_launch
         subsystem_launch.launch_requested.connect(self._on_subsystem_launch_requested)
         subsystem_launch.stop_requested.connect(self._on_subsystem_stop_requested)
+
+        self.health_state_machine = HealthStateMachine()
+        self.comms_health_controller = CommsHealthController(self.health_state_machine)
+        self.health_state_machine.state_changed.connect(self._on_health_state_changed)
+
         if self.data_source is not None:
             self.data_source.signals.subsystem_status_update.connect(
                 subsystem_launch.set_status
+            )
+            self.data_source.signals.heartbeat.connect(
+                self.comms_health_controller.on_heartbeat
             )
             self.top_strip.electrical_cluster.bind_data_source(self.data_source)
 
@@ -234,3 +243,6 @@ class MainWindow(QMainWindow):
     def _on_subsystem_stop_requested(self, subsystem):
         if self.data_source is not None:
             self.data_source.send_subsystem_command(subsystem, "stop")
+
+    def _on_health_state_changed(self, old_state, new_state):
+        self.top_strip.electrical_cluster.comms_health.set_health_state(new_state)

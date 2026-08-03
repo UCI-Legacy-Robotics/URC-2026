@@ -34,6 +34,7 @@ class DataSourceSignals(QObject):
     imu_update              = pyqtSignal(object)
     diagnostics_update      = pyqtSignal(object)
     subsystem_status_update = pyqtSignal(str, str)  # (subsystem, status)
+    heartbeat               = pyqtSignal()          # comms liveness pulse, no payload
 
     # diagnostics_update's payload is always a plain list of dicts:
     #   {"name": str, "level": "OK"|"WARN"|"ERROR"|"STALE", "message": str,
@@ -41,6 +42,11 @@ class DataSourceSignals(QObject):
     # RosDataSource translates the raw diagnostic_msgs/DiagnosticArray into
     # this shape (see ros_node.py); SimulationDataSource fakes it directly.
     # Widgets should only ever see this shape, never a ROS message type.
+    #
+    # heartbeat carries no data — HealthStateMachine's HEALTHY/DEGRADED/LOST
+    # comes from how *often* it fires, not a value on it (see
+    # comms_health_controller.py, which watches it via two StaleDataWatchers
+    # at different timeouts rather than a single fresh/stale flag).
 
 
 class DataSource(ABC):

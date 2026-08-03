@@ -28,6 +28,8 @@ _BATTERY_DECAY_PER_TICK = 0.01
 _SUBSYSTEM_STARTUP_MS = 2000
 _SUBSYSTEM_SHUTDOWN_MS = 1500
 
+_HEARTBEAT_INTERVAL_MS = 500
+
 
 class SimulationDataSource(DataSource):
     """Fakes plausible telemetry on the same signal contract as
@@ -57,11 +59,16 @@ class SimulationDataSource(DataSource):
         self._diagnostics_timer.setInterval(3000)
         self._diagnostics_timer.timeout.connect(self._emit_diagnostics)
 
+        self._heartbeat_timer = QTimer()
+        self._heartbeat_timer.setInterval(_HEARTBEAT_INTERVAL_MS)
+        self._heartbeat_timer.timeout.connect(self.signals.heartbeat.emit)
+
         self._timers = (
             self._gnss_timer,
             self._battery_timer,
             self._imu_timer,
             self._diagnostics_timer,
+            self._heartbeat_timer,
         )
 
     def start(self):
@@ -71,6 +78,15 @@ class SimulationDataSource(DataSource):
     def stop(self):
         for timer in self._timers:
             timer.stop()
+
+    def set_heartbeat_enabled(self, enabled: bool):
+        """Testing/demo hook to simulate a comms dropout — stops just the
+        heartbeat pulse so CommsHealthController's watchers time out into
+        DEGRADED then LOST, without touching any other fake telemetry."""
+        if enabled:
+            self._heartbeat_timer.start()
+        else:
+            self._heartbeat_timer.stop()
 
     # -- fake data generators -------------------------------------------
 
@@ -125,7 +141,6 @@ class SimulationDataSource(DataSource):
                 "values": {"state": "COMPLETE"},
             },
             *thermal_entries,
-            {"name": "comms", "level": "OK", "message": "link healthy", "values": {}},
         ]
         self.signals.diagnostics_update.emit(diagnostics)
 
@@ -180,8 +195,10 @@ if __name__ == '__main__':
         lambda d: print(f"diagnostics_update: {d}"))
     sim.signals.subsystem_status_update.connect(
         lambda name, status: print(f"subsystem_status_update: {name} -> {status}"))
+    sim.signals.heartbeat.connect(lambda: print("heartbeat"))
 
     sim.start()
     QTimer.singleShot(500, lambda: sim.send_subsystem_command("SCIENCE", "launch"))
+    QTimer.singleShot(2000, lambda: sim.set_heartbeat_enabled(False))
     QTimer.singleShot(6000, app.quit)
     app.exec()

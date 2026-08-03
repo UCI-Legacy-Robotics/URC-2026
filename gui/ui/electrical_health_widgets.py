@@ -4,10 +4,12 @@ Individual Electrical Health cluster indicator widgets.
 Each class is a small, self-contained indicator wired to one named entry
 from DataSource.signals.diagnostics_update's payload, via
 DiagnosticsStatusIndicator (health_indicator_widget.py) — except
-BatteryIndicator, which has its own dedicated battery_update(float)
-signal instead of going through diagnostics. All the "how do I read my
-status" logic lives here, one place per indicator; ElectricalHealthCluster
-(electrical_health_cluster.py) just composes and lays these out.
+BatteryIndicator (its own dedicated battery_update(float) signal instead
+of going through diagnostics) and CommsHealthIndicator (driven by
+HealthStateMachine, not diagnostics — see comms_health_controller.py).
+All the "how do I read my status" logic lives here, one place per
+indicator; ElectricalHealthCluster (electrical_health_cluster.py) just
+composes and lays these out.
 
 Threshold/mismatch logic (thermal WARN/ERROR, contactor mismatch,
 precharge stuck) is computed at the publishing side
@@ -16,6 +18,8 @@ isn't part of the diagnostics contract and so is evaluated here.
 """
 
 from ui.health_indicator_widget import DiagnosticsStatusIndicator, HealthIndicatorWidget
+from ui.mode_badge_widget import ModeBadgeWidget
+from state_machine import HealthState
 
 _LEVEL_COLORS = {
     "OK": "#1b5e20",
@@ -90,15 +94,32 @@ class ThermalProbeIndicator(DiagnosticsStatusIndicator):
         return f"{temp_c}°C", _LEVEL_COLORS.get(status["level"], _LEVEL_COLORS["OK"])
 
 
-class CommsHealthIndicator(DiagnosticsStatusIndicator):
-    """Placeholder — just mirrors the "comms" diagnostics entry's level
-    for now. Real HealthStateMachine wiring off a heartbeat is Step 10."""
+_HEALTH_COLORS = {
+    "HEALTHY": _LEVEL_COLORS["OK"],
+    "DEGRADED": _LEVEL_COLORS["WARN"],
+    "LOST": _LEVEL_COLORS["ERROR"],
+}
 
-    def __init__(self, stale_timeout_ms: int, parent=None):
-        super().__init__("COMMS\nHEALTH", "comms", stale_timeout_ms, parent)
 
-    def _render_status(self, status):
-        return status["level"], _LEVEL_COLORS.get(status["level"], _LEVEL_COLORS["OK"])
+class CommsHealthIndicator(ModeBadgeWidget):
+    """Mirrors HealthStateMachine.state (HEALTHY/DEGRADED/LOST), driven by
+    CommsHealthController off the heartbeat signal — not diagnostics_update
+    like the other indicators here. HealthStateMachine's own state *is*
+    the liveness signal (that's what CommsHealthController's two
+    StaleDataWatchers are for), so unlike the others this doesn't need its
+    own separate staleness tracking — hence ModeBadgeWidget rather than
+    HealthIndicatorWidget."""
+
+    def __init__(self, parent=None):
+        super().__init__(
+            title="COMMS\nHEALTH",
+            colors=_HEALTH_COLORS,
+            default_mode=HealthState.HEALTHY.name,
+            parent=parent,
+        )
+
+    def set_health_state(self, state: HealthState):
+        self.set_mode(state.name)
 
 
 class BatteryIndicator(HealthIndicatorWidget):

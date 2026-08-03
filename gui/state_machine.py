@@ -112,9 +112,11 @@ class MissionStateMachine(QObject):
  
 class HealthStateMachine(QObject):
     """
-    Placeholder skeleton — tracks link health separately from mission state.
-    No real transition logic yet; wire this up once we have a heartbeat /
-    link-quality signal from ros_node.py to drive it.
+    Tracks link health separately from mission state. Driven by
+    CommsHealthController (comms_health_controller.py), which watches
+    DataSource.signals.heartbeat and calls set_state() accordingly —
+    this class itself stays state-storage-only, no heartbeat/timing logic
+    here.
     """
  
     state_changed = pyqtSignal(object, object)  # (old_state, new_state)

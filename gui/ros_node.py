@@ -3,6 +3,7 @@ from rclpy.qos import qos_profile_sensor_data
 
 from sensor_msgs.msg import Image, NavSatFix, BatteryState, Imu
 from diagnostic_msgs.msg import DiagnosticArray, DiagnosticStatus
+from std_msgs.msg import Empty
 
 from data_source import DataSource, DataSourceSignals
 
@@ -36,6 +37,8 @@ class BaseStationNode(Node):
             Imu, '/imu/data', self.on_imu, qos_profile_sensor_data)
         self.create_subscription(
             DiagnosticArray, '/diagnostics', self.on_diagnostics, 10)
+        self.create_subscription(
+            Empty, '/heartbeat', self.on_heartbeat, 10)
 
         self.get_logger().info('Base station GUI node started')
 
@@ -65,6 +68,9 @@ class BaseStationNode(Node):
             for status in msg.status
         ]
         self.signals.diagnostics_update.emit(statuses)
+
+    def on_heartbeat(self, msg):
+        self.signals.heartbeat.emit()
 
 
 class RosDataSource(DataSource):
