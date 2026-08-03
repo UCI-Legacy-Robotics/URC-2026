@@ -24,8 +24,9 @@ _BATTERY_START_VOLTAGE = 29.0
 _BATTERY_MIN_VOLTAGE = 22.0
 _BATTERY_DECAY_PER_TICK = 0.01
 
-# How long a fake subsystem launch takes to go from STARTING to RUNNING.
+# How long a fake subsystem launch/shutdown takes to confirm.
 _SUBSYSTEM_STARTUP_MS = 2000
+_SUBSYSTEM_SHUTDOWN_MS = 1500
 
 
 class SimulationDataSource(DataSource):
@@ -112,7 +113,11 @@ class SimulationDataSource(DataSource):
                 lambda: self.signals.subsystem_status_update.emit(subsystem, "RUNNING"),
             )
         elif action == "stop":
-            self.signals.subsystem_status_update.emit(subsystem, "IDLE")
+            self.signals.subsystem_status_update.emit(subsystem, "STOPPING")
+            QTimer.singleShot(
+                _SUBSYSTEM_SHUTDOWN_MS,
+                lambda: self.signals.subsystem_status_update.emit(subsystem, "STOPPED"),
+            )
 
 
 if __name__ == '__main__':

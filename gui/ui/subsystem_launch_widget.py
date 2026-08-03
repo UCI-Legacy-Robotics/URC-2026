@@ -3,10 +3,18 @@ Subsystem Launch widget
 
 Shows which subsystem the current mission implies (Science / Arm / None
 — MainWindow drives `set_mode()` automatically on mission changes, see
-main_window.py), plus a status indicator (IDLE / STARTING / RUNNING /
-ERROR) and a Launch/Stop toggle for that subsystem. There's nothing to
-launch in "NONE" mode (Autonomous Nav, or no mission), so the button is
-disabled there.
+main_window.py), plus a status indicator and a Launch/Stop toggle for
+that subsystem. There's nothing to launch in "NONE" mode (Autonomous
+Nav, or no mission), so the button is disabled there.
+
+Both launch and stop go through a pending status before confirming
+(STARTING -> RUNNING, STOPPING -> STOPPED) rather than flipping straight
+to the end state — a subsystem process takes real time to come up or
+tear down, and the operator should see that it's in flight rather than
+the UI just guessing it happened. The button is disabled during STOPPING
+specifically to avoid firing a second stop command while one's already
+outstanding; STARTING is left clickable so an in-progress launch can
+still be aborted.
 
 Real subsystem process management lives outside the GUI. Pressing
 Launch/Stop only emits `launch_requested`/`stop_requested` — MainWindow
@@ -30,6 +38,8 @@ _STATUS_COLORS = {
     "IDLE": "#3a3a3a",
     "STARTING": "#8a6d1a",
     "RUNNING": "#1b5e20",
+    "STOPPING": "#8a6d1a",
+    "STOPPED": "#3a3a3a",
     "ERROR": "#7a1f1f",
 }
 
@@ -98,7 +108,12 @@ class SubsystemLaunchWidget(QWidget):
 
     def _refresh_button(self):
         launchable = self._mode in ("SCIENCE", "ARM")
-        self._launch_button.setEnabled(launchable)
-        self._launch_button.setText(
-            "Stop" if self._status in _RUNNING_LIKE_STATUSES else "Launch"
-        )
+        self._launch_button.setEnabled(launchable and self._status != "STOPPING")
+
+        if self._status == "STOPPING":
+            text = "Stopping..."
+        elif self._status in _RUNNING_LIKE_STATUSES:
+            text = "Stop"
+        else:
+            text = "Launch"
+        self._launch_button.setText(text)
