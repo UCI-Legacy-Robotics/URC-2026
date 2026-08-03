@@ -35,6 +35,7 @@ class DataSourceSignals(QObject):
     diagnostics_update      = pyqtSignal(object)
     subsystem_status_update = pyqtSignal(str, str)  # (subsystem, status)
     heartbeat               = pyqtSignal()          # comms liveness pulse, no payload
+    software_enable_ack     = pyqtSignal(bool)      # confirmed enabled/disabled state
 
     # diagnostics_update's payload is always a plain list of dicts:
     #   {"name": str, "level": "OK"|"WARN"|"ERROR"|"STALE", "message": str,
@@ -81,5 +82,17 @@ class DataSource(ABC):
         Step 8); SimulationDataSource additionally fakes a status
         progression via subsystem_status_update so the UI has something
         to react to in --sim mode.
+        """
+        raise NotImplementedError
+
+    @abstractmethod
+    def send_software_enable_command(self, enabled: bool):
+        """Request software control be enabled or disabled.
+
+        This is NOT E-Stop — it only tells the rover to start/stop
+        listening to GUI/joystick commands, it does not cut power or
+        comms (see estop_widget.py, Step 12, for that). Confirmation
+        comes back asynchronously via signals.software_enable_ack, the
+        same requested-vs-confirmed pattern as subsystem launch.
         """
         raise NotImplementedError

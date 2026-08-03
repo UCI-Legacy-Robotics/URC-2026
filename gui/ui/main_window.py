@@ -14,6 +14,7 @@ from ui.mission_sm_widget import MissionSmWidget
 from ui.subsystem_launch_widget import SubsystemLaunchWidget
 from ui.control_mode_widget import ControlModeWidget
 from ui.electrical_health_cluster import ElectricalHealthCluster
+from ui.software_enable_widget import SoftwareEnableWidget
 
 
 # Which subsystem is implied by which mission — MainWindow applies this
@@ -132,7 +133,9 @@ class Sidebar(QWidget):
         bottom_row = QHBoxLayout()
         bottom_row.setSpacing(8)
 
-        self.software_toggle = _placeholder_box("SOFTWARE\nENABLE/DISABLE", min_width=140, min_height=70)
+        self.software_toggle = SoftwareEnableWidget()
+        self.software_toggle.setMinimumWidth(140)
+        self.software_toggle.setMinimumHeight(70)
         self.estop_button = _placeholder_box("E-STOP", min_width=140, min_height=70)
         self.estop_button.setStyleSheet(
             "QFrame { border: 2px solid #ff4a4a; border-radius: 4px; background: #1a0a0a; }"
@@ -209,6 +212,11 @@ class MainWindow(QMainWindow):
 
         self.sidebar = Sidebar()
 
+        software_toggle = self.sidebar.software_toggle
+        software_toggle.enable_requested.connect(self._on_software_enable_requested)
+        if self.data_source is not None:
+            self.data_source.signals.software_enable_ack.connect(software_toggle.set_ack)
+
         content_layout.addWidget(self.tabs)
         content_layout.addWidget(self.sidebar)
 
@@ -246,3 +254,7 @@ class MainWindow(QMainWindow):
 
     def _on_health_state_changed(self, old_state, new_state):
         self.top_strip.electrical_cluster.comms_health.set_health_state(new_state)
+
+    def _on_software_enable_requested(self, enabled):
+        if self.data_source is not None:
+            self.data_source.send_software_enable_command(enabled)

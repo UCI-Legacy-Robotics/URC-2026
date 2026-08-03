@@ -30,6 +30,9 @@ _SUBSYSTEM_SHUTDOWN_MS = 1500
 
 _HEARTBEAT_INTERVAL_MS = 500
 
+# How long a fake software enable/disable command takes to confirm.
+_SOFTWARE_ENABLE_ACK_MS = 800
+
 
 class SimulationDataSource(DataSource):
     """Fakes plausible telemetry on the same signal contract as
@@ -42,6 +45,7 @@ class SimulationDataSource(DataSource):
         self._longitude = _BASE_LONGITUDE
         self._voltage = _BATTERY_START_VOLTAGE
         self._yaw_deg = 0.0
+        self._software_enabled = True
 
         self._gnss_timer = QTimer()
         self._gnss_timer.setInterval(1000)
@@ -74,6 +78,8 @@ class SimulationDataSource(DataSource):
     def start(self):
         for timer in self._timers:
             timer.start()
+        # Announce current state on connect, same as real hardware would.
+        self.signals.software_enable_ack.emit(self._software_enabled)
 
     def stop(self):
         for timer in self._timers:
@@ -176,6 +182,15 @@ class SimulationDataSource(DataSource):
                 _SUBSYSTEM_SHUTDOWN_MS,
                 lambda: self.signals.subsystem_status_update.emit(subsystem, "STOPPED"),
             )
+
+    def send_software_enable_command(self, enabled: bool):
+        print(f"[sim] software enable command: {enabled}")
+
+        def _confirm():
+            self._software_enabled = enabled
+            self.signals.software_enable_ack.emit(enabled)
+
+        QTimer.singleShot(_SOFTWARE_ENABLE_ACK_MS, _confirm)
 
 
 if __name__ == '__main__':

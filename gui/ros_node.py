@@ -98,3 +98,8 @@ class RosDataSource(DataSource):
         # Real subsystem process management is out of scope for the GUI —
         # no launch topic/service exists yet, so just log for now.
         self.node.get_logger().info(f'subsystem command (no-op): {subsystem} -> {action}')
+
+    def send_software_enable_command(self, enabled: bool):
+        # No software-enable topic/service exists yet — log only, same as
+        # subsystem commands above.
+        self.node.get_logger().info(f'software enable command (no-op): {enabled}')
