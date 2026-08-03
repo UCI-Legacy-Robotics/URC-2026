@@ -11,6 +11,7 @@ from PyQt6.QtCore import Qt
 from state_machine import MissionState
 from ui.mission_sm_widget import MissionSmWidget
 from ui.subsystem_launch_widget import SubsystemLaunchWidget
+from ui.control_mode_widget import ControlModeWidget
 
 
 # Which subsystem is implied by which mission — MainWindow applies this
@@ -35,6 +36,18 @@ _TAB_INDEX_BY_MISSION_STATE = {
     MissionState.AUTONOMOUS_NAV: 3,
 }
 _DIAGNOSTICS_TAB_INDEX = 4
+
+# Rover control mode implied by mission state — only Autonomous Nav
+# drives itself, every other active mission is teleoperated, and there's
+# no drive mode at all outside a mission.
+_CONTROL_MODE_BY_MISSION_STATE = {
+    MissionState.SCIENCE: "TELEOPERATION",
+    MissionState.DELIVERY: "TELEOPERATION",
+    MissionState.EQUIPMENT_SERVICING: "TELEOPERATION",
+    MissionState.AUTONOMOUS_NAV: "AUTONOMOUS",
+    MissionState.IDLE: "STANDBY",
+    MissionState.DIAGNOSTICS: "STANDBY",
+}
 
 
 def _placeholder_box(title: str, min_width: int = 0, min_height: int = 0) -> QFrame:
@@ -147,6 +160,9 @@ class Sidebar(QWidget):
         layout.addWidget(self.gnss_map)
         layout.addStretch()
 
+        self.control_mode = ControlModeWidget()
+        layout.addWidget(self.control_mode)
+
         bottom_row = QHBoxLayout()
         bottom_row.setSpacing(8)
 
@@ -216,6 +232,10 @@ class MainWindow(QMainWindow):
         root_layout.addWidget(content)
 
     def _on_mission_state_changed(self, old_state, new_state):
+        self.sidebar.control_mode.set_mode(
+            _CONTROL_MODE_BY_MISSION_STATE.get(new_state, "STANDBY")
+        )
+
         if new_state == MissionState.DIAGNOSTICS:
             return  # leave subsystem selection as-is while in Diagnostics
         mode = _SUBSYSTEM_MODE_BY_MISSION_STATE.get(new_state, "NONE")

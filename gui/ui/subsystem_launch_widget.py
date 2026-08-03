@@ -1,5 +1,5 @@
 """
-Subsystem Launch widget — top strip, middle section.
+Subsystem Launch widget
 
 Minimal for now: just displays which subsystem is currently selected
 (Science / Arm / None). MainWindow drives `set_mode()` automatically from
@@ -10,40 +10,21 @@ launch/stop buttons and per-subsystem status indicators are a later step
 without changing `set_mode()`'s interface.
 """
 
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel
-from PyQt6.QtCore import Qt
+from ui.mode_badge_widget import ModeBadgeWidget
+
+_COLORS = {
+    "SCIENCE": "#1b5e20",
+    "ARM": "#0d47a1",
+    "NONE": "#3a3a3a",
+}
 
 
-class SubsystemLaunchWidget(QWidget):
-
-    _COLORS = {
-        "SCIENCE": "#1b5e20",
-        "ARM": "#0d47a1",
-        "NONE": "#3a3a3a",
-    }
+class SubsystemLaunchWidget(ModeBadgeWidget):
 
     def __init__(self, parent=None):
-        super().__init__(parent)
-
-        layout = QVBoxLayout(self)
-        layout.setContentsMargins(8, 6, 8, 6)
-
-        title = QLabel("SUBSYSTEM LAUNCH")
-        title.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        title.setStyleSheet("color: #888; font-size: 10px;")
-        layout.addWidget(title)
-
-        self._mode_label = QLabel()
-        self._mode_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        layout.addWidget(self._mode_label)
-
-        self.set_mode("NONE")
-
-    def set_mode(self, mode: str):
-        """mode: one of "SCIENCE", "ARM", "NONE"."""
-        color = self._COLORS.get(mode, self._COLORS["NONE"])
-        self._mode_label.setText(mode)
-        self._mode_label.setStyleSheet(
-            "font-size: 16px; font-weight: bold; color: #ffffff; "
-            f"background: {color}; border-radius: 4px; padding: 10px;"
+        super().__init__(
+            title="SUBSYSTEM LAUNCH",
+            colors=_COLORS,
+            default_mode="NONE",
+            parent=parent,
         )

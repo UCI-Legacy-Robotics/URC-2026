@@ -1,5 +1,5 @@
 """
-Mission State Machine widget — top-left of the top strip.
+Mission State Machine widget
 
 Owns the single MissionStateMachine instance for the app (MainWindow reads
 `.state_machine` off this widget to wire tab locking, subsystem-launch
@@ -25,13 +25,13 @@ no meaning once you're no longer in it.
 """
 
 from PyQt6.QtWidgets import (
-    QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton,
+    QWidget, QVBoxLayout, QHBoxLayout, QPushButton,
     QSpinBox, QMessageBox, QDialog, QDialogButtonBox, QFormLayout
 )
-from PyQt6.QtCore import Qt
 
 from state_machine import MissionState, MissionStateMachine, InvalidTransitionError
 from widgets.timer_widget import MissionTimerWidget
+from ui.color_coded_label import ColorCodedLabel
 
 
 # Sensible starting duration per mission, in seconds. Editable at runtime
@@ -130,8 +130,7 @@ class MissionSmWidget(QWidget):
         layout.setContentsMargins(8, 6, 8, 6)
         layout.setSpacing(4)
 
-        self._state_label = QLabel()
-        self._state_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self._state_label = ColorCodedLabel()
         layout.addWidget(self._state_label)
 
         self.timer_widget = MissionTimerWidget()
@@ -236,7 +235,6 @@ class MissionSmWidget(QWidget):
 
     def _refresh_state_label(self):
         state = self.state_machine.state
-        self._state_label.setText(_STATE_LABELS[state])
 
         if state == MissionState.DIAGNOSTICS:
             bg = _COLOR_DIAGNOSTICS
@@ -245,10 +243,7 @@ class MissionSmWidget(QWidget):
         else:
             bg = _COLOR_MISSION
 
-        self._state_label.setStyleSheet(
-            "font-size: 16px; font-weight: bold; color: #ffffff; "
-            f"background: {bg}; border-radius: 4px; padding: 8px;"
-        )
+        self._state_label.set_state(_STATE_LABELS[state], bg)
 
     def _update_controls(self):
         state = self.state_machine.state
