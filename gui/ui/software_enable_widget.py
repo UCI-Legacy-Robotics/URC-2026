@@ -12,8 +12,8 @@ software_enable_ack. Visually lower severity than E-Stop — green/blue,
 never red — since this isn't a hardware-equivalent safety action.
 """
 
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QPushButton
-from PyQt6.QtCore import pyqtSignal
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton
+from PyQt6.QtCore import Qt, pyqtSignal
 
 from ui.color_coded_label import ColorCodedLabel
 
@@ -34,6 +34,11 @@ class SoftwareEnableWidget(QWidget):
         layout = QVBoxLayout(self)
         layout.setContentsMargins(4, 4, 4, 4)
         layout.setSpacing(2)
+
+        title_label = QLabel("SOFTWARE\nENABLE/DISABLE")
+        title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        title_label.setStyleSheet("color: #888; font-size: 10px;")
+        layout.addWidget(title_label)
 
         self._status_label = ColorCodedLabel()
         layout.addWidget(self._status_label)

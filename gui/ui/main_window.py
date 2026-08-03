@@ -130,20 +130,19 @@ class Sidebar(QWidget):
         self.control_mode = ControlModeWidget()
         layout.addWidget(self.control_mode)
 
-        bottom_row = QHBoxLayout()
-        bottom_row.setSpacing(8)
+        bottom_stack = QVBoxLayout()
+        bottom_stack.setSpacing(8)
 
         self.software_toggle = SoftwareEnableWidget()
-        self.software_toggle.setMinimumWidth(140)
         self.software_toggle.setMinimumHeight(70)
-        self.estop_button = _placeholder_box("E-STOP", min_width=140, min_height=70)
+        self.estop_button = _placeholder_box("E-STOP", min_height=70)
         self.estop_button.setStyleSheet(
             "QFrame { border: 2px solid #ff4a4a; border-radius: 4px; background: #1a0a0a; }"
         )
 
-        bottom_row.addWidget(self.software_toggle)
-        bottom_row.addWidget(self.estop_button)
-        layout.addLayout(bottom_row)
+        bottom_stack.addWidget(self.software_toggle)
+        bottom_stack.addWidget(self.estop_button)
+        layout.addLayout(bottom_stack)
 
 
 def _placeholder_tab(title: str) -> QWidget:
