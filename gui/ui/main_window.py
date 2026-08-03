@@ -8,7 +8,22 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtCore import Qt
 
+from state_machine import MissionState
 from ui.mission_sm_widget import MissionSmWidget
+from ui.subsystem_launch_widget import SubsystemLaunchWidget
+
+
+# Which subsystem is implied by which mission — MainWindow applies this
+# automatically on mission state changes so operators don't have to pick
+# it manually. Diagnostics is intentionally absent: subsystem selection
+# is left untouched while in Diagnostics mode.
+_SUBSYSTEM_MODE_BY_MISSION_STATE = {
+    MissionState.SCIENCE: "SCIENCE",
+    MissionState.DELIVERY: "ARM",
+    MissionState.EQUIPMENT_SERVICING: "ARM",
+    MissionState.AUTONOMOUS_NAV: "NONE",
+    MissionState.IDLE: "NONE",
+}
 
 
 def _placeholder_box(title: str, min_width: int = 0, min_height: int = 0) -> QFrame:
@@ -88,10 +103,8 @@ class TopStrip(QWidget):
 
         self.mission_sm_widget = MissionSmWidget()
         self.mission_sm_widget.setMinimumWidth(280)
-        self.subsystem_launch = _placeholder_box(
-            "SUBSYSTEM LAUNCH\n(Science / Arm / None)",
-            min_width=220,
-        )
+        self.subsystem_launch = SubsystemLaunchWidget()
+        self.subsystem_launch.setMinimumWidth(220)
         self.electrical_cluster = ElectricalHealthCluster()
 
         layout.addWidget(self.mission_sm_widget)
@@ -162,6 +175,10 @@ class MainWindow(QMainWindow):
         self.top_strip = TopStrip()
         root_layout.addWidget(self.top_strip)
 
+        self.top_strip.mission_sm_widget.state_machine.state_changed.connect(
+            self._on_mission_state_changed
+        )
+
         # -- main content: tabs (left) + sidebar (right) ----------------
         content = QWidget()
         content_layout = QHBoxLayout(content)
@@ -185,3 +202,9 @@ class MainWindow(QMainWindow):
         content_layout.addWidget(self.sidebar)
 
         root_layout.addWidget(content)
+
+    def _on_mission_state_changed(self, old_state, new_state):
+        if new_state == MissionState.DIAGNOSTICS:
+            return  # leave subsystem selection as-is while in Diagnostics
+        mode = _SUBSYSTEM_MODE_BY_MISSION_STATE.get(new_state, "NONE")
+        self.top_strip.subsystem_launch.set_mode(mode)
