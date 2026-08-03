@@ -49,6 +49,12 @@ class DataSourceSignals(QObject):
     # comes from how *often* it fires, not a value on it (see
     # comms_health_controller.py, which watches it via two StaleDataWatchers
     # at different timeouts rather than a single fresh/stale flag).
+    #
+    # imu_update's payload is always SimpleNamespace(roll_deg, pitch_deg,
+    # yaw_deg) — plain floats in degrees, never a ROS quaternion.
+    # RosDataSource converts the raw sensor_msgs/Imu orientation quaternion
+    # into this shape (see ros_node.py); SimulationDataSource fakes it
+    # directly. GnssMapWidget's heading arrow reads yaw_deg off this.
 
 
 class DataSource(ABC):

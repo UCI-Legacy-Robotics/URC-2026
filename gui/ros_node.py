@@ -1,3 +1,6 @@
+import math
+from types import SimpleNamespace
+
 from rclpy.node import Node
 from rclpy.qos import qos_profile_sensor_data
 
@@ -52,7 +55,22 @@ class BaseStationNode(Node):
         self.signals.battery_update.emit(msg.voltage)
 
     def on_imu(self, msg):
-        self.signals.imu_update.emit(msg)
+        # Normalized to SimpleNamespace(roll_deg, pitch_deg, yaw_deg),
+        # matching what SimulationDataSource emits — never the raw ROS
+        # quaternion, so widget code (e.g. the GNSS map's heading arrow)
+        # has one shape to read regardless of source.
+        q = msg.orientation
+        yaw = math.atan2(2 * (q.w * q.z + q.x * q.y), 1 - 2 * (q.y * q.y + q.z * q.z))
+        sin_pitch = max(-1.0, min(1.0, 2 * (q.w * q.y - q.z * q.x)))
+        pitch = math.asin(sin_pitch)
+        roll = math.atan2(2 * (q.w * q.x + q.y * q.z), 1 - 2 * (q.x * q.x + q.y * q.y))
+
+        imu = SimpleNamespace(
+            roll_deg=math.degrees(roll),
+            pitch_deg=math.degrees(pitch),
+            yaw_deg=math.degrees(yaw) % 360.0,
+        )
+        self.signals.imu_update.emit(imu)
 
     def on_diagnostics(self, msg):
         # Normalized to plain dicts (name/level/message/values), matching

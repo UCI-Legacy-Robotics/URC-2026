@@ -16,6 +16,7 @@ from ui.control_mode_widget import ControlModeWidget
 from ui.electrical_health_cluster import ElectricalHealthCluster
 from ui.software_enable_widget import SoftwareEnableWidget
 from ui.estop_widget import EstopWidget
+from ui.gnss_map_widget import GnssMapWidget
 
 
 # Which subsystem is implied by which mission — MainWindow applies this
@@ -117,10 +118,8 @@ class Sidebar(QWidget):
         layout.setContentsMargins(6, 6, 6, 6)
         layout.setSpacing(8)
 
-        self.gnss_map = _placeholder_box(
-            "GNSS MAP\n(offline tiles, heading arrow, manual pin entry)",
-            min_height=320,
-        )
+        self.gnss_map = GnssMapWidget()
+        self.gnss_map.setMinimumHeight(320)
         self.gnss_map.setSizePolicy(
             QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding
         )
@@ -219,6 +218,7 @@ class MainWindow(QMainWindow):
         if self.data_source is not None:
             self.data_source.signals.software_enable_ack.connect(software_toggle.set_ack)
             self.data_source.signals.estop_confirmed.connect(estop_button.set_confirmed)
+            self.sidebar.gnss_map.bind_data_source(self.data_source)
 
         content_layout.addWidget(self.tabs)
         content_layout.addWidget(self.sidebar)
