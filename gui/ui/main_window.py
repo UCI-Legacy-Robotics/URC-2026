@@ -12,7 +12,7 @@ from state_machine import MissionState
 from ui.mission_sm_widget import MissionSmWidget
 from ui.subsystem_launch_widget import SubsystemLaunchWidget
 from ui.control_mode_widget import ControlModeWidget
-from ui.electrical_health_widgets import ElectricalHealthCluster
+from ui.electrical_health_cluster import ElectricalHealthCluster
 
 
 # Which subsystem is implied by which mission — MainWindow applies this

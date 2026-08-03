@@ -101,16 +101,13 @@ class SimulationDataSource(DataSource):
         contactor_actual = "CLOSED" if random.random() > 0.05 else "OPEN"
         contactor_level = "OK" if contactor_cmd == contactor_actual else "ERROR"
 
-        therm1 = round(35 + random.uniform(-2, 8), 1)
-        therm2 = round(35 + random.uniform(-2, 8), 1)
-        therm3 = round(35 + random.uniform(-2, 8), 1)
-        max_therm = max(therm1, therm2, therm3)
-        if max_therm > 55:
-            thermal_level = "ERROR"
-        elif max_therm > 45:
-            thermal_level = "WARN"
-        else:
-            thermal_level = "OK"
+        # Each thermal probe is its own diagnostics entry with its own
+        # level — a physical sensor is independent of its neighbors, so
+        # one running hot shouldn't be averaged away by the other two.
+        thermal_entries = [
+            self._fake_thermal_entry(f"therm{i}")
+            for i in (1, 2, 3)
+        ]
 
         diagnostics = [
             {"name": "fault_latched", "level": "OK", "message": "no latched faults", "values": {}},
@@ -127,15 +124,26 @@ class SimulationDataSource(DataSource):
                 "message": "precharge complete",
                 "values": {"state": "COMPLETE"},
             },
-            {
-                "name": "thermal",
-                "level": thermal_level,
-                "message": "thermal probes",
-                "values": {"therm1": str(therm1), "therm2": str(therm2), "therm3": str(therm3)},
-            },
+            *thermal_entries,
             {"name": "comms", "level": "OK", "message": "link healthy", "values": {}},
         ]
         self.signals.diagnostics_update.emit(diagnostics)
+
+    @staticmethod
+    def _fake_thermal_entry(name: str):
+        temp_c = round(35 + random.uniform(-2, 8), 1)
+        if temp_c > 55:
+            level = "ERROR"
+        elif temp_c > 45:
+            level = "WARN"
+        else:
+            level = "OK"
+        return {
+            "name": name,
+            "level": level,
+            "message": f"{name} probe",
+            "values": {"temp_c": str(temp_c)},
+        }
 
     # -- outbound commands ------------------------------------------------
 

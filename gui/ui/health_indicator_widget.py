@@ -62,3 +62,29 @@ class HealthIndicatorWidget(QWidget):
 
     def _render(self, text: str, color: str):
         self._value_label.set_state(text, color)
+
+
+class DiagnosticsStatusIndicator(HealthIndicatorWidget):
+    """A HealthIndicatorWidget driven by one named entry out of
+    DataSource.signals.diagnostics_update's list-of-dicts payload (see
+    data_source.py for the shape).
+
+    Subclasses implement `_render_status(status) -> (text, color)`;
+    this base handles finding "its" entry by name on every update — the
+    bit every diagnostics-backed indicator needs, shared in one place
+    instead of copy-pasted per indicator.
+    """
+
+    def __init__(self, title: str, diagnostics_name: str, stale_timeout_ms: int, parent=None):
+        super().__init__(title, stale_timeout_ms, parent)
+        self.diagnostics_name = diagnostics_name
+
+    def on_diagnostics_update(self, statuses):
+        for status in statuses:
+            if status["name"] == self.diagnostics_name:
+                text, color = self._render_status(status)
+                self.update_value(text, color)
+                return
+
+    def _render_status(self, status: dict):
+        raise NotImplementedError
