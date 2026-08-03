@@ -154,10 +154,16 @@ class MissionSmWidget(QWidget):
 
         mission_controls = QHBoxLayout()
         self._next_button = QPushButton()
+        # Fixed width so the row doesn't reflow every click — this button's
+        # text changes length with the target state name ("Next: Science"
+        # vs "Next: Equipment Servicing"), sized to fit the longest one.
+        self._next_button.setFixedWidth(190)
         self._next_button.clicked.connect(self._on_next_clicked)
         self._diagnostics_button = QPushButton()
+        self._diagnostics_button.setFixedWidth(130)
         self._diagnostics_button.clicked.connect(self._on_diagnostics_clicked)
         self._mission_reset_button = QPushButton("Reset Mission")
+        self._mission_reset_button.setFixedWidth(110)
         self._mission_reset_button.clicked.connect(self._on_mission_reset_clicked)
         mission_controls.addWidget(self._next_button)
         mission_controls.addWidget(self._diagnostics_button)
