@@ -95,10 +95,45 @@ class SimulationDataSource(DataSource):
         self.signals.imu_update.emit(imu)
 
     def _emit_diagnostics(self):
+        # Contactor: commanded state rarely fails to match actual, to
+        # exercise the mismatch-alert path in the electrical health cluster.
+        contactor_cmd = "CLOSED"
+        contactor_actual = "CLOSED" if random.random() > 0.05 else "OPEN"
+        contactor_level = "OK" if contactor_cmd == contactor_actual else "ERROR"
+
+        therm1 = round(35 + random.uniform(-2, 8), 1)
+        therm2 = round(35 + random.uniform(-2, 8), 1)
+        therm3 = round(35 + random.uniform(-2, 8), 1)
+        max_therm = max(therm1, therm2, therm3)
+        if max_therm > 55:
+            thermal_level = "ERROR"
+        elif max_therm > 45:
+            thermal_level = "WARN"
+        else:
+            thermal_level = "OK"
+
         diagnostics = [
-            {"name": "battery", "level": "OK", "message": "nominal"},
-            {"name": "comms", "level": "OK", "message": "link healthy"},
-            {"name": "thermal", "level": "OK", "message": "nominal"},
+            {"name": "fault_latched", "level": "OK", "message": "no latched faults", "values": {}},
+            {
+                "name": "contactor",
+                "level": contactor_level,
+                "message": "contactor commanded vs actual",
+                "values": {"commanded": contactor_cmd, "actual": contactor_actual},
+            },
+            {"name": "i_limiter_fault", "level": "OK", "message": "no current limiter fault", "values": {}},
+            {
+                "name": "precharge_state",
+                "level": "OK",
+                "message": "precharge complete",
+                "values": {"state": "COMPLETE"},
+            },
+            {
+                "name": "thermal",
+                "level": thermal_level,
+                "message": "thermal probes",
+                "values": {"therm1": str(therm1), "therm2": str(therm2), "therm3": str(therm3)},
+            },
+            {"name": "comms", "level": "OK", "message": "link healthy", "values": {}},
         ]
         self.signals.diagnostics_update.emit(diagnostics)
 

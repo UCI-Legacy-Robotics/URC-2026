@@ -2,9 +2,19 @@ from rclpy.node import Node
 from rclpy.qos import qos_profile_sensor_data
 
 from sensor_msgs.msg import Image, NavSatFix, BatteryState, Imu
-from diagnostic_msgs.msg import DiagnosticArray
+from diagnostic_msgs.msg import DiagnosticArray, DiagnosticStatus
 
 from data_source import DataSource, DataSourceSignals
+
+# Translates ROS DiagnosticStatus.level (a byte) into the plain strings
+# diagnostics_update carries — SimulationDataSource emits the same
+# strings, so widget code never branches on which DataSource it's on.
+_LEVEL_NAMES = {
+    DiagnosticStatus.OK: "OK",
+    DiagnosticStatus.WARN: "WARN",
+    DiagnosticStatus.ERROR: "ERROR",
+    DiagnosticStatus.STALE: "STALE",
+}
 
 
 class BaseStationNode(Node):
@@ -42,7 +52,19 @@ class BaseStationNode(Node):
         self.signals.imu_update.emit(msg)
 
     def on_diagnostics(self, msg):
-        self.signals.diagnostics_update.emit(msg)
+        # Normalized to plain dicts (name/level/message/values), matching
+        # what SimulationDataSource emits — never the raw ROS message, so
+        # widget code has one shape to parse regardless of source.
+        statuses = [
+            {
+                "name": status.name,
+                "level": _LEVEL_NAMES.get(status.level, "ERROR"),
+                "message": status.message,
+                "values": {kv.key: kv.value for kv in status.values},
+            }
+            for status in msg.status
+        ]
+        self.signals.diagnostics_update.emit(statuses)
 
 
 class RosDataSource(DataSource):

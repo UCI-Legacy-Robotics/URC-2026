@@ -12,6 +12,7 @@ from state_machine import MissionState
 from ui.mission_sm_widget import MissionSmWidget
 from ui.subsystem_launch_widget import SubsystemLaunchWidget
 from ui.control_mode_widget import ControlModeWidget
+from ui.electrical_health_widgets import ElectricalHealthCluster
 
 
 # Which subsystem is implied by which mission — MainWindow applies this
@@ -71,42 +72,6 @@ def _placeholder_box(title: str, min_width: int = 0, min_height: int = 0) -> QFr
     layout = QVBoxLayout(frame)
     layout.addWidget(label)
     return frame
-
-
-class ElectricalHealthCluster(QWidget):
-    """Single row of electrical/safety indicators, stretched to fill all
-    remaining width in the top strip (from the right edge of Subsystem
-    Launch to the right edge of the window). Thermal now lives here at
-    mission-critical visibility per team decision, rather than being
-    buried in the Diagnostics tab."""
-
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-
-        layout = QHBoxLayout(self)
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(6)
-
-        self.fault_latched = _placeholder_box("FAULT\nLATCHED", min_height=60)
-        self.contactor_status = _placeholder_box("CONTACTOR\ncmd vs actual", min_height=60)
-        self.current_limiter_fault = _placeholder_box("I_LIMITER\nFAULT", min_height=60)
-        self.precharge_state = _placeholder_box("PRECHARGE\nSTATE", min_height=60)
-        self.battery_voltage = _placeholder_box("BATTERY\nV / SOC", min_height=60)
-        self.comms_health = _placeholder_box("COMMS\nHEALTH", min_height=60)
-        self.thermal = _placeholder_box("THERMAL\n(THERM1-3)", min_height=60)
-
-        for w in (
-            self.fault_latched,
-            self.contactor_status,
-            self.current_limiter_fault,
-            self.precharge_state,
-            self.battery_voltage,
-            self.comms_health,
-            self.thermal,
-        ):
-            w.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-            layout.addWidget(w, 1)
 
 
 class TopStrip(QWidget):
@@ -214,6 +179,7 @@ class MainWindow(QMainWindow):
             self.data_source.signals.subsystem_status_update.connect(
                 subsystem_launch.set_status
             )
+            self.top_strip.electrical_cluster.bind_data_source(self.data_source)
 
         # -- main content: tabs (left) + sidebar (right) ----------------
         content = QWidget()

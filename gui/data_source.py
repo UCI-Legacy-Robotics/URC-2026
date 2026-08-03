@@ -35,6 +35,13 @@ class DataSourceSignals(QObject):
     diagnostics_update      = pyqtSignal(object)
     subsystem_status_update = pyqtSignal(str, str)  # (subsystem, status)
 
+    # diagnostics_update's payload is always a plain list of dicts:
+    #   {"name": str, "level": "OK"|"WARN"|"ERROR"|"STALE", "message": str,
+    #    "values": dict[str, str]}
+    # RosDataSource translates the raw diagnostic_msgs/DiagnosticArray into
+    # this shape (see ros_node.py); SimulationDataSource fakes it directly.
+    # Widgets should only ever see this shape, never a ROS message type.
+
 
 class DataSource(ABC):
     """Base interface for anything that feeds telemetry to the GUI.
