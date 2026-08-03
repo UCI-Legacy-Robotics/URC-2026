@@ -25,6 +25,17 @@ _SUBSYSTEM_MODE_BY_MISSION_STATE = {
     MissionState.IDLE: "NONE",
 }
 
+# Tab indices, matching the addTab() order below — used to lock tab
+# switching to whichever mission is active. Diagnostics is intentionally
+# absent: it must stay reachable at all times regardless of mission state.
+_TAB_INDEX_BY_MISSION_STATE = {
+    MissionState.SCIENCE: 0,
+    MissionState.DELIVERY: 1,
+    MissionState.EQUIPMENT_SERVICING: 2,
+    MissionState.AUTONOMOUS_NAV: 3,
+}
+_DIAGNOSTICS_TAB_INDEX = 4
+
 
 def _placeholder_box(title: str, min_width: int = 0, min_height: int = 0) -> QFrame:
     """Small helper to make a labeled placeholder box with a visible border,
@@ -175,9 +186,10 @@ class MainWindow(QMainWindow):
         self.top_strip = TopStrip()
         root_layout.addWidget(self.top_strip)
 
-        self.top_strip.mission_sm_widget.state_machine.state_changed.connect(
-            self._on_mission_state_changed
-        )
+        state_machine = self.top_strip.mission_sm_widget.state_machine
+        state_machine.state_changed.connect(self._on_mission_state_changed)
+        state_machine.mission_started.connect(self._on_mission_started_lock_tabs)
+        state_machine.mission_ended.connect(self._on_mission_ended_unlock_tabs)
 
         # -- main content: tabs (left) + sidebar (right) ----------------
         content = QWidget()
@@ -208,3 +220,15 @@ class MainWindow(QMainWindow):
             return  # leave subsystem selection as-is while in Diagnostics
         mode = _SUBSYSTEM_MODE_BY_MISSION_STATE.get(new_state, "NONE")
         self.top_strip.subsystem_launch.set_mode(mode)
+
+    def _on_mission_started_lock_tabs(self, mission_state):
+        active_index = _TAB_INDEX_BY_MISSION_STATE.get(mission_state)
+        if active_index is None:
+            return
+        self.tabs.setCurrentIndex(active_index)
+        for i in range(self.tabs.count()):
+            self.tabs.setTabEnabled(i, i == active_index or i == _DIAGNOSTICS_TAB_INDEX)
+
+    def _on_mission_ended_unlock_tabs(self, ended_state):
+        for i in range(self.tabs.count()):
+            self.tabs.setTabEnabled(i, True)
