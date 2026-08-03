@@ -1,149 +1,187 @@
-import math
+"""
+Main window layout skeleton.
+"""
+
 from PyQt6.QtWidgets import (
-    QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
-    QTabWidget, QLabel, QGridLayout
+    QMainWindow, QWidget, QTabWidget, QVBoxLayout, QHBoxLayout,
+    QFrame, QLabel, QSizePolicy
 )
 from PyQt6.QtCore import Qt
-from widgets.camera_widget import CameraWidget
-from widgets.telemetry_widget import TelemetryWidget
-from widgets.gnss_widget import GnssWidget
-from widgets.status_widget import StatusWidget
-
-_CELL_BG   = '#222222'
-_KEY_STYLE = 'background: transparent; color: #555; font-size: 10px; font-family: monospace;'
-_VAL_STYLE = 'background: transparent; color: #e0e0e0; font-size: 22px; font-family: monospace; font-weight: bold;'
-_LBL_STYLE = 'background: transparent; color: #444; font-size: 10px; font-family: monospace; letter-spacing: 2px;'
 
 
-def _labeled_widget(widget, text):
-    """Wrap a widget with a small label in the top-left corner, outside the widget background."""
-    wrapper = QWidget()
-    vbox = QVBoxLayout(wrapper)
-    vbox.setContentsMargins(0, 0, 0, 0)
-    vbox.setSpacing(4)
-    vbox.setAlignment(Qt.AlignmentFlag.AlignTop)
+def _placeholder_box(title: str, min_width: int = 0, min_height: int = 0) -> QFrame:
+    """Small helper to make a labeled placeholder box with a visible border,
+    so the layout skeleton is legible before real widgets exist."""
+    frame = QFrame()
+    frame.setFrameShape(QFrame.Shape.StyledPanel)
+    frame.setStyleSheet(
+        "QFrame { border: 1px dashed #3a3a3a; border-radius: 4px; background: #111; }"
+    )
+    if min_width:
+        frame.setMinimumWidth(min_width)
+    if min_height:
+        frame.setMinimumHeight(min_height)
 
-    lbl = QLabel(text)
-    lbl.setFixedHeight(16)
-    lbl.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
-    lbl.setStyleSheet(_LBL_STYLE)
+    label = QLabel(title)
+    label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+    label.setStyleSheet("color: #666; font-size: 11px; border: none;")
+    label.setWordWrap(True)
 
-    vbox.addWidget(lbl)
-    vbox.addWidget(widget)
-    return wrapper
+    layout = QVBoxLayout(frame)
+    layout.addWidget(label)
+    return frame
 
 
-class _TelemetryPanel(QWidget):
-    """Square 300×300 data panel shown on the Operator tab."""
+class ElectricalHealthCluster(QWidget):
+    """Single row of electrical/safety indicators, stretched to fill all
+    remaining width in the top strip (from the right edge of Subsystem
+    Launch to the right edge of the window). Thermal now lives here at
+    mission-critical visibility per team decision, rather than being
+    buried in the Diagnostics tab."""
 
-    def __init__(self):
-        super().__init__()
-        self.setFixedSize(300, 300)
-        self.setObjectName('telemetryPanel')
-        self.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
-        self.setStyleSheet('#telemetryPanel { background-color: #1a1a1a; border-radius: 6px; }')
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
-        grid = QGridLayout(self)
-        grid.setContentsMargins(10, 10, 10, 10)
-        grid.setSpacing(8)
+        layout = QHBoxLayout(self)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(6)
 
-        self._battery = self._cell(grid, 0, 0, 'BATTERY', '-- V')
-        self._roll    = self._cell(grid, 0, 1, 'ROLL',    '--°')
-        self._pitch   = self._cell(grid, 1, 0, 'PITCH',   '--°')
-        self._yaw     = self._cell(grid, 1, 1, 'YAW',     '--°')
+        self.fault_latched = _placeholder_box("FAULT\nLATCHED", min_height=60)
+        self.contactor_status = _placeholder_box("CONTACTOR\ncmd vs actual", min_height=60)
+        self.current_limiter_fault = _placeholder_box("I_LIMITER\nFAULT", min_height=60)
+        self.precharge_state = _placeholder_box("PRECHARGE\nSTATE", min_height=60)
+        self.battery_voltage = _placeholder_box("BATTERY\nV / SOC", min_height=60)
+        self.comms_health = _placeholder_box("COMMS\nHEALTH", min_height=60)
+        self.thermal = _placeholder_box("THERMAL\n(THERM1-3)", min_height=60)
 
-    def _cell(self, grid, row, col, key, default):
-        cell = QWidget()
-        cell.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
-        cell.setStyleSheet(f'background-color: {_CELL_BG}; border-radius: 4px;')
+        for w in (
+            self.fault_latched,
+            self.contactor_status,
+            self.current_limiter_fault,
+            self.precharge_state,
+            self.battery_voltage,
+            self.comms_health,
+            self.thermal,
+        ):
+            w.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+            layout.addWidget(w, 1)
 
-        layout = QVBoxLayout(cell)
-        layout.setContentsMargins(10, 8, 10, 8)
-        layout.setSpacing(2)
 
-        key_lbl = QLabel(key)
-        key_lbl.setStyleSheet(_KEY_STYLE)
+class TopStrip(QWidget):
+    """Always-visible strip, three sections left-to-right:
+      1. Mission State Machine (state, timer, controls)
+      2. Subsystem Launch (Science / Arm / None)
+      3. Electrical health cluster, pushed to the top-right corner
+    E-stop and software enable/disable live in the sidebar now, not here.
+    """
 
-        val_lbl = QLabel(default)
-        val_lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        val_lbl.setStyleSheet(_VAL_STYLE)
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setFixedHeight(170)
 
-        layout.addWidget(key_lbl)
-        layout.addWidget(val_lbl, stretch=1)
+        layout = QHBoxLayout(self)
+        layout.setContentsMargins(8, 6, 8, 6)
+        layout.setSpacing(12)
 
-        grid.addWidget(cell, row, col)
-        return val_lbl
+        self.mission_sm_widget = _placeholder_box(
+            "MISSION STATE MACHINE\n(state, timer, start/stop, next-state)",
+            min_width=280,
+        )
+        self.subsystem_launch = _placeholder_box(
+            "SUBSYSTEM LAUNCH\n(Science / Arm / None)",
+            min_width=220,
+        )
+        self.electrical_cluster = ElectricalHealthCluster()
 
-    def on_battery(self, voltage: float):
-        self._battery.setText(f'{voltage:.1f} V')
+        layout.addWidget(self.mission_sm_widget)
+        layout.addWidget(self.subsystem_launch)
+        layout.addWidget(self.electrical_cluster, 1)
 
-    def on_imu(self, msg):
-        self._roll.setText(f'{math.degrees(msg.orientation.x):.1f}°')
-        self._pitch.setText(f'{math.degrees(msg.orientation.y):.1f}°')
-        self._yaw.setText(f'{math.degrees(msg.orientation.z):.1f}°')
+
+class Sidebar(QWidget):
+    """Right-hand column: GNSS map fills most of the space. E-stop and
+    the software enable/disable toggle are pinned to the bottom-right
+    corner, always visible regardless of active tab."""
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setFixedWidth(340)
+
+        layout = QVBoxLayout(self)
+        layout.setContentsMargins(6, 6, 6, 6)
+        layout.setSpacing(8)
+
+        self.gnss_map = _placeholder_box(
+            "GNSS MAP\n(offline tiles, heading arrow, manual pin entry)",
+            min_height=320,
+        )
+        self.gnss_map.setSizePolicy(
+            QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding
+        )
+
+        layout.addWidget(self.gnss_map)
+        layout.addStretch()
+
+        bottom_row = QHBoxLayout()
+        bottom_row.setSpacing(8)
+
+        self.software_toggle = _placeholder_box("SOFTWARE\nENABLE/DISABLE", min_width=140, min_height=70)
+        self.estop_button = _placeholder_box("E-STOP", min_width=140, min_height=70)
+        self.estop_button.setStyleSheet(
+            "QFrame { border: 2px solid #ff4a4a; border-radius: 4px; background: #1a0a0a; }"
+        )
+
+        bottom_row.addWidget(self.software_toggle)
+        bottom_row.addWidget(self.estop_button)
+        layout.addLayout(bottom_row)
+
+
+def _placeholder_tab(title: str) -> QWidget:
+    tab = QWidget()
+    layout = QVBoxLayout(tab)
+    layout.addWidget(_placeholder_box(f"{title} TAB CONTENTS"))
+    return tab
 
 
 class MainWindow(QMainWindow):
-    def __init__(self, node):
-        super().__init__()
-        self.node = node
-        self.setWindowTitle('Legacy Base Station')
 
-        root = QWidget()
-        self.setCentralWidget(root)
-        layout = QVBoxLayout(root)
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(0)
+    def __init__(self, data_source=None):
+        super().__init__()
+        self.data_source = data_source  # unused for now, wired in step 2
+
+        self.setWindowTitle("Rover Base Station")
+
+        central = QWidget()
+        self.setCentralWidget(central)
+        root_layout = QVBoxLayout(central)
+        root_layout.setContentsMargins(0, 0, 0, 0)
+        root_layout.setSpacing(0)
+
+        # -- top strip --------------------------------------------------
+        self.top_strip = TopStrip()
+        root_layout.addWidget(self.top_strip)
+
+        # -- main content: tabs (left) + sidebar (right) ----------------
+        content = QWidget()
+        content_layout = QHBoxLayout(content)
+        content_layout.setContentsMargins(6, 6, 6, 6)
+        content_layout.setSpacing(6)
 
         self.tabs = QTabWidget()
-        self.tabs.setDocumentMode(True)
-        layout.addWidget(self.tabs)
+        self.tabs.addTab(_placeholder_tab("Science"), "Science")
+        self.tabs.addTab(_placeholder_tab("Delivery"), "Delivery")
+        self.tabs.addTab(_placeholder_tab("Equipment Servicing"), "Equipment Servicing")
+        self.tabs.addTab(_placeholder_tab("Autonomous Nav"), "Autonomous Nav")
+        self.tabs.addTab(_placeholder_tab("Diagnostics"), "Diagnostics")
 
-        self._build_tabs()
+        self.tabs.setSizePolicy(
+            QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding
+        )
 
-    def _build_tabs(self):
-        # --- Operator tab: centered, fixed-size widgets ---
-        operator_tab = QWidget()
-        op_layout = QVBoxLayout(operator_tab)
-        op_layout.setContentsMargins(0, 0, 0, 0)
+        self.sidebar = Sidebar()
 
-        row = QWidget()
-        row_layout = QHBoxLayout(row)
-        row_layout.setContentsMargins(0, 0, 0, 0)
-        row_layout.setSpacing(12)
-        row_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
+        content_layout.addWidget(self.tabs)
+        content_layout.addWidget(self.sidebar)
 
-        self.camera_widget = CameraWidget()
-        self.gnss_widget = GnssWidget()
-        self.operator_panel = _TelemetryPanel()
-
-        row_layout.addWidget(_labeled_widget(self.camera_widget,   'CAMERA'))
-        row_layout.addWidget(_labeled_widget(self.gnss_widget,     'GNSS MAP'))
-        row_layout.addWidget(_labeled_widget(self.operator_panel,  'TELEMETRY'))
-
-        op_layout.addStretch()
-        op_layout.addWidget(row, alignment=Qt.AlignmentFlag.AlignHCenter)
-        op_layout.addStretch()
-        self.tabs.addTab(operator_tab, 'Operator')
-
-        # --- Telemetry tab ---
-        self.telemetry_widget = TelemetryWidget()
-        self.tabs.addTab(self.telemetry_widget, 'Telemetry')
-
-        # --- Status tab ---
-        self.status_widget = StatusWidget()
-        self.tabs.addTab(self.status_widget, 'Status')
-
-        # --- Signal wiring ---
-        # QueuedConnection ensures on_frame runs on the Qt main thread, not the ROS spin thread
-        self.node.signals.camera_frame.connect(
-            self.camera_widget.on_frame, Qt.ConnectionType.QueuedConnection)
-        self.node.signals.gnss_fix.connect(self.gnss_widget.on_gnss_fix)
-
-        self.node.signals.battery_update.connect(self.operator_panel.on_battery)
-        self.node.signals.imu_update.connect(self.operator_panel.on_imu)
-
-        self.node.signals.imu_update.connect(self.telemetry_widget.on_imu)
-        self.node.signals.battery_update.connect(self.telemetry_widget.on_battery)
-
-        self.node.signals.diagnostics_update.connect(self.status_widget.on_diagnostics)
+        root_layout.addWidget(content)
