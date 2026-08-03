@@ -8,6 +8,8 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtCore import Qt
 
+from ui.mission_sm_widget import MissionSmWidget
+
 
 def _placeholder_box(title: str, min_width: int = 0, min_height: int = 0) -> QFrame:
     """Small helper to make a labeled placeholder box with a visible border,
@@ -84,10 +86,8 @@ class TopStrip(QWidget):
         layout.setContentsMargins(8, 6, 8, 6)
         layout.setSpacing(12)
 
-        self.mission_sm_widget = _placeholder_box(
-            "MISSION STATE MACHINE\n(state, timer, start/stop, next-state)",
-            min_width=280,
-        )
+        self.mission_sm_widget = MissionSmWidget()
+        self.mission_sm_widget.setMinimumWidth(280)
         self.subsystem_launch = _placeholder_box(
             "SUBSYSTEM LAUNCH\n(Science / Arm / None)",
             min_width=220,
