@@ -1,27 +1,20 @@
-import rclpy
 from rclpy.node import Node
 from rclpy.qos import qos_profile_sensor_data
-from PyQt6.QtCore import QObject, pyqtSignal
 
 from sensor_msgs.msg import Image, NavSatFix, BatteryState, Imu
 from diagnostic_msgs.msg import DiagnosticArray
 
-
-class RosSignals(QObject):
-    """Qt signal carrier — QObject only, no ROS inheritance."""
-    camera_frame       = pyqtSignal(object)
-    gnss_fix           = pyqtSignal(float, float)
-    battery_update     = pyqtSignal(float)
-    imu_update         = pyqtSignal(object)
-    diagnostics_update = pyqtSignal(object)
+from data_source import DataSource, DataSourceSignals
 
 
 class BaseStationNode(Node):
-    """Pure ROS2 node — no Qt inheritance."""
+    """Pure ROS2 node — no Qt inheritance. Wrapped by RosDataSource below
+    to conform to the DataSource interface; use RosDataSource from GUI
+    code, not this class directly."""
 
     def __init__(self):
         super().__init__('base_station_gui')
-        self.signals = RosSignals()
+        self.signals = DataSourceSignals()
 
         self.create_subscription(
             Image, '/image_raw', self.on_camera, 10)
@@ -50,3 +43,25 @@ class BaseStationNode(Node):
 
     def on_diagnostics(self, msg):
         self.signals.diagnostics_update.emit(msg)
+
+
+class RosDataSource(DataSource):
+    """Adapts BaseStationNode to the DataSource interface used by the GUI.
+
+    rclpy.init()/shutdown() and the spin thread are process-wide concerns
+    (including the WSL2 Fast-DDS UDP-only workaround) and stay owned by
+    main.py — this class only wraps the node's signals/lifecycle as far
+    as the DataSource contract is concerned. The node must already exist
+    (and be spinning) for signals to fire; start()/stop() here just track
+    whether this source considers itself active.
+    """
+
+    def __init__(self, node: BaseStationNode = None):
+        self.node = node or BaseStationNode()
+        self.signals = self.node.signals
+
+    def start(self):
+        pass  # subscriptions are created at node construction; spinning is owned by main.py
+
+    def stop(self):
+        self.node.destroy_node()
