@@ -18,14 +18,22 @@ from PyQt6.QtCore import QObject, pyqtSignal
 class DataSourceSignals(QObject):
     """Qt signal contract every DataSource must expose via `.signals`.
 
-    Mirrors RosSignals in ros_node.py. Kept as its own class rather than
-    reusing RosSignals so this module has zero ROS dependency.
+    Used directly by both RosDataSource and SimulationDataSource — not
+    just a matching shape, the literal same class — so there's exactly
+    one place defining what a telemetry stream looks like.
+
+    camera_frame/gnss_fix/battery_update/imu_update/diagnostics_update
+    are inbound (rover -> GUI). subsystem_status_update is also inbound
+    (subsystem process state -> GUI); the outbound direction (GUI ->
+    rover subsystem commands) goes through DataSource.send_subsystem_command
+    below rather than a signal, since it's a request, not a stream.
     """
-    camera_frame       = pyqtSignal(object)
-    gnss_fix           = pyqtSignal(float, float)
-    battery_update     = pyqtSignal(float)
-    imu_update         = pyqtSignal(object)
-    diagnostics_update = pyqtSignal(object)
+    camera_frame            = pyqtSignal(object)
+    gnss_fix                = pyqtSignal(float, float)
+    battery_update          = pyqtSignal(float)
+    imu_update              = pyqtSignal(object)
+    diagnostics_update      = pyqtSignal(object)
+    subsystem_status_update = pyqtSignal(str, str)  # (subsystem, status)
 
 
 class DataSource(ABC):
@@ -48,4 +56,17 @@ class DataSource(ABC):
     @abstractmethod
     def stop(self):
         """Stop producing data and release any resources it holds."""
+        raise NotImplementedError
+
+    @abstractmethod
+    def send_subsystem_command(self, subsystem: str, action: str):
+        """Request a subsystem be launched or stopped.
+
+        subsystem: "SCIENCE" or "ARM". action: "launch" or "stop".
+        Real subsystem process management is out of scope for the GUI —
+        implementations just log/no-op on this for now (see handoff
+        Step 8); SimulationDataSource additionally fakes a status
+        progression via subsystem_status_update so the UI has something
+        to react to in --sim mode.
+        """
         raise NotImplementedError

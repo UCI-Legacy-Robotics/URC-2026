@@ -65,3 +65,8 @@ class RosDataSource(DataSource):
 
     def stop(self):
         self.node.destroy_node()
+
+    def send_subsystem_command(self, subsystem: str, action: str):
+        # Real subsystem process management is out of scope for the GUI —
+        # no launch topic/service exists yet, so just log for now.
+        self.node.get_logger().info(f'subsystem command (no-op): {subsystem} -> {action}')

@@ -24,6 +24,9 @@ _BATTERY_START_VOLTAGE = 29.0
 _BATTERY_MIN_VOLTAGE = 22.0
 _BATTERY_DECAY_PER_TICK = 0.01
 
+# How long a fake subsystem launch takes to go from STARTING to RUNNING.
+_SUBSYSTEM_STARTUP_MS = 2000
+
 
 class SimulationDataSource(DataSource):
     """Fakes plausible telemetry on the same signal contract as
@@ -98,6 +101,19 @@ class SimulationDataSource(DataSource):
         ]
         self.signals.diagnostics_update.emit(diagnostics)
 
+    # -- outbound commands ------------------------------------------------
+
+    def send_subsystem_command(self, subsystem: str, action: str):
+        print(f"[sim] subsystem command: {subsystem} -> {action}")
+        if action == "launch":
+            self.signals.subsystem_status_update.emit(subsystem, "STARTING")
+            QTimer.singleShot(
+                _SUBSYSTEM_STARTUP_MS,
+                lambda: self.signals.subsystem_status_update.emit(subsystem, "RUNNING"),
+            )
+        elif action == "stop":
+            self.signals.subsystem_status_update.emit(subsystem, "IDLE")
+
 
 if __name__ == '__main__':
     import sys
@@ -114,7 +130,10 @@ if __name__ == '__main__':
         lambda imu: print(f"imu_update: yaw={imu.yaw_deg:.1f}"))
     sim.signals.diagnostics_update.connect(
         lambda d: print(f"diagnostics_update: {d}"))
+    sim.signals.subsystem_status_update.connect(
+        lambda name, status: print(f"subsystem_status_update: {name} -> {status}"))
 
     sim.start()
+    QTimer.singleShot(500, lambda: sim.send_subsystem_command("SCIENCE", "launch"))
     QTimer.singleShot(6000, app.quit)
     app.exec()

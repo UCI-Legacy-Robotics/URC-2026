@@ -188,7 +188,7 @@ class MainWindow(QMainWindow):
 
     def __init__(self, data_source=None):
         super().__init__()
-        self.data_source = data_source  # unused for now, wired in step 2
+        self.data_source = data_source
 
         self.setWindowTitle("Rover Base Station")
 
@@ -206,6 +206,14 @@ class MainWindow(QMainWindow):
         state_machine.state_changed.connect(self._on_mission_state_changed)
         state_machine.mission_started.connect(self._on_mission_started_lock_tabs)
         state_machine.mission_ended.connect(self._on_mission_ended_unlock_tabs)
+
+        subsystem_launch = self.top_strip.subsystem_launch
+        subsystem_launch.launch_requested.connect(self._on_subsystem_launch_requested)
+        subsystem_launch.stop_requested.connect(self._on_subsystem_stop_requested)
+        if self.data_source is not None:
+            self.data_source.signals.subsystem_status_update.connect(
+                subsystem_launch.set_status
+            )
 
         # -- main content: tabs (left) + sidebar (right) ----------------
         content = QWidget()
@@ -252,3 +260,11 @@ class MainWindow(QMainWindow):
     def _on_mission_ended_unlock_tabs(self, ended_state):
         for i in range(self.tabs.count()):
             self.tabs.setTabEnabled(i, True)
+
+    def _on_subsystem_launch_requested(self, subsystem):
+        if self.data_source is not None:
+            self.data_source.send_subsystem_command(subsystem, "launch")
+
+    def _on_subsystem_stop_requested(self, subsystem):
+        if self.data_source is not None:
+            self.data_source.send_subsystem_command(subsystem, "stop")
