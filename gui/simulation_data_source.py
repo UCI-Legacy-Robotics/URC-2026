@@ -33,6 +33,9 @@ _HEARTBEAT_INTERVAL_MS = 500
 # How long a fake software enable/disable command takes to confirm.
 _SOFTWARE_ENABLE_ACK_MS = 800
 
+# How long a fake E-Stop request takes to confirm, when not withheld.
+_ESTOP_CONFIRM_MS = 1000
+
 
 class SimulationDataSource(DataSource):
     """Fakes plausible telemetry on the same signal contract as
@@ -46,6 +49,7 @@ class SimulationDataSource(DataSource):
         self._voltage = _BATTERY_START_VOLTAGE
         self._yaw_deg = 0.0
         self._software_enabled = True
+        self._withhold_estop_confirmation = False
 
         self._gnss_timer = QTimer()
         self._gnss_timer.setInterval(1000)
@@ -93,6 +97,12 @@ class SimulationDataSource(DataSource):
             self._heartbeat_timer.start()
         else:
             self._heartbeat_timer.stop()
+
+    def set_withhold_estop_confirmation(self, withhold: bool):
+        """Testing/demo hook to exercise EstopWidget's "no confirmation
+        received" timeout path — makes send_estop_request() never confirm,
+        simulating a lost/dropped confirmation."""
+        self._withhold_estop_confirmation = withhold
 
     # -- fake data generators -------------------------------------------
 
@@ -192,6 +202,15 @@ class SimulationDataSource(DataSource):
 
         QTimer.singleShot(_SOFTWARE_ENABLE_ACK_MS, _confirm)
 
+    def send_estop_request(self):
+        print(f"[sim] estop request (withheld={self._withhold_estop_confirmation})")
+        if self._withhold_estop_confirmation:
+            return  # simulate a lost confirmation for testing the timeout path
+        QTimer.singleShot(
+            _ESTOP_CONFIRM_MS,
+            lambda: self.signals.estop_confirmed.emit(True),
+        )
+
 
 if __name__ == '__main__':
     import sys
@@ -211,9 +230,12 @@ if __name__ == '__main__':
     sim.signals.subsystem_status_update.connect(
         lambda name, status: print(f"subsystem_status_update: {name} -> {status}"))
     sim.signals.heartbeat.connect(lambda: print("heartbeat"))
+    sim.signals.estop_confirmed.connect(
+        lambda confirmed: print(f"estop_confirmed: {confirmed}"))
 
     sim.start()
     QTimer.singleShot(500, lambda: sim.send_subsystem_command("SCIENCE", "launch"))
     QTimer.singleShot(2000, lambda: sim.set_heartbeat_enabled(False))
+    QTimer.singleShot(2500, sim.send_estop_request)
     QTimer.singleShot(6000, app.quit)
     app.exec()

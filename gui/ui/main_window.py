@@ -15,6 +15,7 @@ from ui.subsystem_launch_widget import SubsystemLaunchWidget
 from ui.control_mode_widget import ControlModeWidget
 from ui.electrical_health_cluster import ElectricalHealthCluster
 from ui.software_enable_widget import SoftwareEnableWidget
+from ui.estop_widget import EstopWidget
 
 
 # Which subsystem is implied by which mission — MainWindow applies this
@@ -135,10 +136,8 @@ class Sidebar(QWidget):
 
         self.software_toggle = SoftwareEnableWidget()
         self.software_toggle.setMinimumHeight(70)
-        self.estop_button = _placeholder_box("E-STOP", min_height=70)
-        self.estop_button.setStyleSheet(
-            "QFrame { border: 2px solid #ff4a4a; border-radius: 4px; background: #1a0a0a; }"
-        )
+        self.estop_button = EstopWidget()
+        self.estop_button.setMinimumHeight(70)
 
         bottom_stack.addWidget(self.software_toggle)
         bottom_stack.addWidget(self.estop_button)
@@ -213,8 +212,13 @@ class MainWindow(QMainWindow):
 
         software_toggle = self.sidebar.software_toggle
         software_toggle.enable_requested.connect(self._on_software_enable_requested)
+
+        estop_button = self.sidebar.estop_button
+        estop_button.estop_requested.connect(self._on_estop_requested)
+
         if self.data_source is not None:
             self.data_source.signals.software_enable_ack.connect(software_toggle.set_ack)
+            self.data_source.signals.estop_confirmed.connect(estop_button.set_confirmed)
 
         content_layout.addWidget(self.tabs)
         content_layout.addWidget(self.sidebar)
@@ -257,3 +261,7 @@ class MainWindow(QMainWindow):
     def _on_software_enable_requested(self, enabled):
         if self.data_source is not None:
             self.data_source.send_software_enable_command(enabled)
+
+    def _on_estop_requested(self):
+        if self.data_source is not None:
+            self.data_source.send_estop_request()

@@ -103,3 +103,10 @@ class RosDataSource(DataSource):
         # No software-enable topic/service exists yet — log only, same as
         # subsystem commands above.
         self.node.get_logger().info(f'software enable command (no-op): {enabled}')
+
+    def send_estop_request(self):
+        # No E-Stop topic/service exists yet — log only; this is
+        # deliberately never faked/auto-confirmed the way sim does, so a
+        # missing real backend shows up as "no confirmation received"
+        # rather than silently pretending to work.
+        self.node.get_logger().info('estop request (no-op, NOT confirmed)')

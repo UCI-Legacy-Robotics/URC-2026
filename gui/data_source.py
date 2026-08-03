@@ -36,6 +36,7 @@ class DataSourceSignals(QObject):
     subsystem_status_update = pyqtSignal(str, str)  # (subsystem, status)
     heartbeat               = pyqtSignal()          # comms liveness pulse, no payload
     software_enable_ack     = pyqtSignal(bool)      # confirmed enabled/disabled state
+    estop_confirmed         = pyqtSignal(bool)      # True = confirmed stopped, False = reset
 
     # diagnostics_update's payload is always a plain list of dicts:
     #   {"name": str, "level": "OK"|"WARN"|"ERROR"|"STALE", "message": str,
@@ -94,5 +95,19 @@ class DataSource(ABC):
         comms (see estop_widget.py, Step 12, for that). Confirmation
         comes back asynchronously via signals.software_enable_ack, the
         same requested-vs-confirmed pattern as subsystem launch.
+        """
+        raise NotImplementedError
+
+    @abstractmethod
+    def send_estop_request(self):
+        """Request an E-Stop (hardware-equivalent kill of power/comms).
+
+        This is a request, not a command that takes effect immediately —
+        signals.estop_confirmed is the only thing that means the rover
+        actually stopped. The two must never be collapsed into one event;
+        EstopWidget (ui/estop_widget.py) visibly flags the gap if
+        confirmation doesn't arrive in time. One-directional from the
+        GUI's side: there's no "un-estop" request, only detecting a
+        hardware reset if the rover reports estop_confirmed(False).
         """
         raise NotImplementedError
