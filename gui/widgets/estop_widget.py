@@ -21,7 +21,7 @@ estop_confirmed(False).
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton
 from PyQt6.QtCore import Qt, QTimer, pyqtSignal
 
-from ui.color_coded_label import ColorCodedLabel
+from widgets.color_coded_label import ColorCodedLabel
 
 _COLOR_READY = "#1a0a0a"
 _COLOR_PENDING = "#8a6d1a"

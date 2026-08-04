@@ -12,7 +12,7 @@ the diagnostics_update payload.
 
 from PyQt6.QtWidgets import QWidget, QHBoxLayout, QSizePolicy
 
-from ui.electrical_health_widgets import (
+from widgets.electrical_health_widgets import (
     FaultLatchedIndicator,
     ContactorIndicator,
     CurrentLimiterFaultIndicator,

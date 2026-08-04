@@ -15,7 +15,7 @@ a generic placeholder that loses the last-known reading.
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel
 from PyQt6.QtCore import Qt
 
-from ui.color_coded_label import ColorCodedLabel
+from widgets.color_coded_label import ColorCodedLabel
 from stale_data import StaleDataWatcher
 
 _STALE_COLOR = "#4a4a2a"

@@ -10,13 +10,13 @@ from PyQt6.QtCore import Qt
 
 from state_machine import MissionState, HealthStateMachine
 from comms_health_controller import CommsHealthController
-from ui.mission_sm_widget import MissionSmWidget
-from ui.subsystem_launch_widget import SubsystemLaunchWidget
-from ui.control_mode_widget import ControlModeWidget
-from ui.electrical_health_cluster import ElectricalHealthCluster
-from ui.software_enable_widget import SoftwareEnableWidget
-from ui.estop_widget import EstopWidget
-from ui.gnss_map_widget import GnssMapWidget
+from widgets.mission_sm_widget import MissionSmWidget
+from widgets.subsystem_launch_widget import SubsystemLaunchWidget
+from widgets.control_mode_widget import ControlModeWidget
+from widgets.electrical_health_cluster import ElectricalHealthCluster
+from widgets.software_enable_widget import SoftwareEnableWidget
+from widgets.estop_widget import EstopWidget
+from widgets.gnss_map_widget import GnssMapWidget
 
 
 # Which subsystem is implied by which mission — MainWindow applies this

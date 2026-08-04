@@ -15,7 +15,7 @@ never red — since this isn't a hardware-equivalent safety action.
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton
 from PyQt6.QtCore import Qt, pyqtSignal
 
-from ui.color_coded_label import ColorCodedLabel
+from widgets.color_coded_label import ColorCodedLabel
 
 _COLOR_ENABLED = "#1b5e20"
 _COLOR_DISABLED = "#0d47a1"

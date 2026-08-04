@@ -25,8 +25,8 @@ DataSource implementation logs or no-ops on (see data_source.py).
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QPushButton
 from PyQt6.QtCore import pyqtSignal
 
-from ui.mode_badge_widget import ModeBadgeWidget
-from ui.color_coded_label import ColorCodedLabel
+from widgets.mode_badge_widget import ModeBadgeWidget
+from widgets.color_coded_label import ColorCodedLabel
 
 _MODE_COLORS = {
     "SCIENCE": "#1b5e20",

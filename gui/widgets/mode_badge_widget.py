@@ -9,7 +9,7 @@ data stream — those get their own dedicated widget.
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel
 from PyQt6.QtCore import Qt
 
-from ui.color_coded_label import ColorCodedLabel
+from widgets.color_coded_label import ColorCodedLabel
 
 
 class ModeBadgeWidget(QWidget):

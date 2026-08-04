@@ -31,7 +31,7 @@ from PyQt6.QtWidgets import (
 
 from state_machine import MissionState, MissionStateMachine, InvalidTransitionError
 from widgets.timer_widget import MissionTimerWidget
-from ui.color_coded_label import ColorCodedLabel
+from widgets.color_coded_label import ColorCodedLabel
 
 
 # Sensible starting duration per mission, in seconds. Editable at runtime

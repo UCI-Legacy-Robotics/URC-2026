@@ -17,8 +17,8 @@ precharge stuck) is computed at the publishing side
 isn't part of the diagnostics contract and so is evaluated here.
 """
 
-from ui.health_indicator_widget import DiagnosticsStatusIndicator, HealthIndicatorWidget
-from ui.mode_badge_widget import ModeBadgeWidget
+from widgets.health_indicator_widget import DiagnosticsStatusIndicator, HealthIndicatorWidget
+from widgets.mode_badge_widget import ModeBadgeWidget
 from state_machine import HealthState
 
 _LEVEL_COLORS = {

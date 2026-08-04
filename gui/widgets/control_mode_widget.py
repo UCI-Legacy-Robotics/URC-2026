@@ -11,7 +11,7 @@ real control-mode topic shows up later, this is the seam to wire it into
 instead of mission state.
 """
 
-from ui.mode_badge_widget import ModeBadgeWidget
+from widgets.mode_badge_widget import ModeBadgeWidget
 
 _COLORS = {
     "TELEOPERATION": "#0d47a1",
