@@ -37,7 +37,13 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtWebEngineWidgets import QWebEngineView
 from PyQt6.QtWebEngineCore import QWebEnginePage
 
+from stale_data import StaleDataWatcher
+
 _ASSETS_DIR = Path(__file__).resolve().parent.parent / "assets" / "gnss_map"
+
+# How long without a GNSS fix before the rover marker dims. Placeholder —
+# real threshold TBD with systems/electrical, same as elsewhere in the app.
+_GNSS_STALE_TIMEOUT_MS = 5000
 
 
 class _AssetServer:
@@ -202,6 +208,13 @@ class GnssMapWidget(QWidget):
         self._page_ready = False
         self._pending_js_calls = []
 
+        # Degrades visibly per the top-level ground rule: if gnss_fix goes
+        # quiet, the marker should visibly dim rather than just freezing at
+        # its last position with no indication the feed died.
+        self._gnss_watcher = StaleDataWatcher(_GNSS_STALE_TIMEOUT_MS, parent=self)
+        self._gnss_watcher.became_stale.connect(lambda: self.set_rover_stale(True))
+        self._gnss_watcher.became_fresh.connect(lambda: self.set_rover_stale(False))
+
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(4)
@@ -259,6 +272,7 @@ class GnssMapWidget(QWidget):
     def _on_gnss_fix(self, lat: float, lon: float):
         self._last_lat = lat
         self._last_lon = lon
+        self._gnss_watcher.notify()
         self._push_rover_position()
 
     def _on_imu_update(self, imu):
