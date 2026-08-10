@@ -14,11 +14,13 @@ from PyQt6.QtCore import QTimer
 
 from data_source import DataSource
 
-# Arbitrary starting point in the general vicinity of URC (Mars Desert
-# Research Station, Utah) — just a plausible-looking default, not real
-# telemetry.
-_BASE_LATITUDE = 38.4060
-_BASE_LONGITUDE = -110.7918
+# UCI campus — matches the offline map tiles downloaded into
+# assets/gnss_map/tiles/ and app.js's DEFAULT_CENTER, so the sim rover
+# actually drifts over real map imagery instead of blank/untiled area.
+# Not the real competition site (MDRS, Utah) — swap both together
+# whenever real competition-area tiles get downloaded.
+_BASE_LATITUDE = 33.6405
+_BASE_LONGITUDE = -117.8443
 
 _BATTERY_START_VOLTAGE = 29.0
 _BATTERY_MIN_VOLTAGE = 22.0
