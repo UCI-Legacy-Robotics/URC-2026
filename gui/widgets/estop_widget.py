@@ -60,8 +60,9 @@ class EstopWidget(QWidget):
         layout.addWidget(self._status_label)
 
         self._button = QPushButton("E-STOP")
+        self._button.setMinimumHeight(48)
         self._button.setStyleSheet(
-            "QPushButton { font-weight: bold; } "
+            "QPushButton { font-weight: bold; font-size: 16px; } "
             "QPushButton:enabled { border: 2px solid #ff4a4a; }"
         )
         self._button.clicked.connect(self._on_button_clicked)

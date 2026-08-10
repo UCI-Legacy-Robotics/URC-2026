@@ -119,7 +119,7 @@ class Sidebar(QWidget):
         layout.setSpacing(8)
 
         self.gnss_map = GnssMapWidget()
-        self.gnss_map.setMinimumHeight(320)
+        self.gnss_map.setMinimumHeight(220)
         self.gnss_map.setSizePolicy(
             QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding
         )
@@ -128,15 +128,16 @@ class Sidebar(QWidget):
         layout.addStretch()
 
         self.control_mode = ControlModeWidget()
+        self.control_mode.setMinimumHeight(60)
         layout.addWidget(self.control_mode)
 
         bottom_stack = QVBoxLayout()
         bottom_stack.setSpacing(8)
 
         self.software_toggle = SoftwareEnableWidget()
-        self.software_toggle.setMinimumHeight(70)
+        self.software_toggle.setMinimumHeight(110)
         self.estop_button = EstopWidget()
-        self.estop_button.setMinimumHeight(70)
+        self.estop_button.setMinimumHeight(110)
 
         bottom_stack.addWidget(self.software_toggle)
         bottom_stack.addWidget(self.estop_button)
