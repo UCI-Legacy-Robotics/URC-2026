@@ -58,12 +58,26 @@ class GnssMapWidget(QWidget):
 
         self._asset_server = _AssetServer(_ASSETS_DIR)
 
+        # gnss_fix and imu_update arrive as two independent streams —
+        # heading comes from IMU, position from GNSS, and the rover
+        # marker needs both together. Cache the latest of each and push
+        # a combined update to JS whenever either one changes, rather
+        # than waiting for both to update in lockstep (which they won't,
+        # since they're on different timers/topics).
+        self._last_lat = None
+        self._last_lon = None
+        self._last_heading_deg = 0.0
+
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
 
         self._view = QWebEngineView()
         self._view.load(QUrl(self._asset_server.base_url + "index.html"))
         layout.addWidget(self._view)
+
+    def bind_data_source(self, data_source):
+        data_source.signals.gnss_fix.connect(self._on_gnss_fix)
+        data_source.signals.imu_update.connect(self._on_imu_update)
 
     # -- public API, thin wrappers over the JS functions in app.js -----
 
@@ -95,6 +109,20 @@ class GnssMapWidget(QWidget):
         self._run_js("zoomOut")
 
     # -- internal -------------------------------------------------------
+
+    def _on_gnss_fix(self, lat: float, lon: float):
+        self._last_lat = lat
+        self._last_lon = lon
+        self._push_rover_position()
+
+    def _on_imu_update(self, imu):
+        self._last_heading_deg = imu.yaw_deg
+        self._push_rover_position()
+
+    def _push_rover_position(self):
+        if self._last_lat is None or self._last_lon is None:
+            return  # no GNSS fix yet — nothing to place on the map
+        self.set_rover_position(self._last_lat, self._last_lon, self._last_heading_deg)
 
     def _run_js(self, function_name: str, *args):
         # json.dumps rather than manual string formatting/f-strings for
