@@ -11,6 +11,13 @@ handling has enough quirks around relative asset resolution that a local
 server sidesteps them cleanly — this is purely a loading mechanism, not
 a live/CDN fetch: nothing here ever leaves 127.0.0.1, matching the "no
 internet at the competition site" constraint.
+
+Waypoint pins are added by manual coordinate entry only — no
+click-to-place — per current design decision. Pin IDs are generated
+here (a simple incrementing counter) and tracked in self._pins purely
+so the pin list widget and Remove/Clear buttons have something to act
+on; app.js's own `pins` dict is the actual source of truth for what's
+drawn on the map.
 """
 
 import functools
@@ -19,8 +26,11 @@ import json
 import threading
 from pathlib import Path
 
-from PyQt6.QtCore import QUrl
-from PyQt6.QtWidgets import QWidget, QVBoxLayout
+from PyQt6.QtCore import Qt, QUrl
+from PyQt6.QtWidgets import (
+    QWidget, QVBoxLayout, QHBoxLayout, QLineEdit, QPushButton,
+    QDoubleSpinBox, QListWidget, QListWidgetItem
+)
 from PyQt6.QtWebEngineWidgets import QWebEngineView
 
 _ASSETS_DIR = Path(__file__).resolve().parent.parent / "assets" / "gnss_map"
@@ -78,13 +88,57 @@ class GnssMapWidget(QWidget):
         self._page_ready = False
         self._pending_js_calls = []
 
+        # pin_id -> (lat, lon, label) — mirrors app.js's own `pins` dict
+        # just enough for the list widget below to show what's placed and
+        # for Remove/Clear to know what IDs to send back to JS.
+        self._pins = {}
+        self._next_pin_id = 1
+
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(4)
 
         self._view = QWebEngineView()
         self._view.loadFinished.connect(self._on_load_finished)
         self._view.load(QUrl(self._asset_server.base_url + "index.html"))
         layout.addWidget(self._view)
+
+        # -- manual waypoint pin entry (no click-to-place) -------------
+
+        coord_row = QHBoxLayout()
+        self._lat_spin = QDoubleSpinBox()
+        self._lat_spin.setRange(-90.0, 90.0)
+        self._lat_spin.setDecimals(6)
+        self._lat_spin.setPrefix("lat ")
+        self._lon_spin = QDoubleSpinBox()
+        self._lon_spin.setRange(-180.0, 180.0)
+        self._lon_spin.setDecimals(6)
+        self._lon_spin.setPrefix("lon ")
+        coord_row.addWidget(self._lat_spin)
+        coord_row.addWidget(self._lon_spin)
+        layout.addLayout(coord_row)
+
+        label_row = QHBoxLayout()
+        self._pin_label_edit = QLineEdit()
+        self._pin_label_edit.setPlaceholderText("Label (optional)")
+        self._add_pin_button = QPushButton("Add Pin")
+        self._add_pin_button.clicked.connect(self._on_add_pin_clicked)
+        label_row.addWidget(self._pin_label_edit)
+        label_row.addWidget(self._add_pin_button)
+        layout.addLayout(label_row)
+
+        self._pin_list = QListWidget()
+        self._pin_list.setMaximumHeight(80)
+        layout.addWidget(self._pin_list)
+
+        pin_controls_row = QHBoxLayout()
+        self._remove_pin_button = QPushButton("Remove Selected")
+        self._remove_pin_button.clicked.connect(self._on_remove_selected_pin_clicked)
+        self._clear_pins_button = QPushButton("Clear All")
+        self._clear_pins_button.clicked.connect(self._on_clear_pins_clicked)
+        pin_controls_row.addWidget(self._remove_pin_button)
+        pin_controls_row.addWidget(self._clear_pins_button)
+        layout.addLayout(pin_controls_row)
 
     def bind_data_source(self, data_source):
         data_source.signals.gnss_fix.connect(self._on_gnss_fix)
@@ -120,6 +174,39 @@ class GnssMapWidget(QWidget):
         self._run_js("zoomOut")
 
     # -- internal -------------------------------------------------------
+
+    def _on_add_pin_clicked(self):
+        lat = self._lat_spin.value()
+        lon = self._lon_spin.value()
+        label = self._pin_label_edit.text().strip() or None
+
+        pin_id = str(self._next_pin_id)
+        self._next_pin_id += 1
+        self._pins[pin_id] = (lat, lon, label)
+        self.add_pin(pin_id, lat, lon, label)
+
+        item_text = f"{lat:.6f}, {lon:.6f}"
+        if label:
+            item_text += f" — {label}"
+        item = QListWidgetItem(item_text)
+        item.setData(Qt.ItemDataRole.UserRole, pin_id)
+        self._pin_list.addItem(item)
+
+        self._pin_label_edit.clear()
+
+    def _on_remove_selected_pin_clicked(self):
+        item = self._pin_list.currentItem()
+        if item is None:
+            return
+        pin_id = item.data(Qt.ItemDataRole.UserRole)
+        self.remove_pin(pin_id)
+        self._pins.pop(pin_id, None)
+        self._pin_list.takeItem(self._pin_list.row(item))
+
+    def _on_clear_pins_clicked(self):
+        self.clear_pins()
+        self._pins.clear()
+        self._pin_list.clear()
 
     def _on_gnss_fix(self, lat: float, lon: float):
         self._last_lat = lat
