@@ -15,6 +15,7 @@ internet at the competition site" constraint.
 
 import functools
 import http.server
+import json
 import threading
 from pathlib import Path
 
@@ -63,3 +64,42 @@ class GnssMapWidget(QWidget):
         self._view = QWebEngineView()
         self._view.load(QUrl(self._asset_server.base_url + "index.html"))
         layout.addWidget(self._view)
+
+    # -- public API, thin wrappers over the JS functions in app.js -----
+
+    def set_rover_position(self, lat: float, lon: float, heading_degrees: float):
+        self._run_js("setRoverPosition", lat, lon, heading_degrees)
+
+    def set_rover_stale(self, is_stale: bool):
+        self._run_js("setRoverStale", is_stale)
+
+    def center_on_rover(self):
+        self._run_js("centerOnRover")
+
+    def add_pin(self, pin_id, lat: float, lon: float, label: str = None):
+        self._run_js("addPin", pin_id, lat, lon, label)
+
+    def remove_pin(self, pin_id):
+        self._run_js("removePin", pin_id)
+
+    def clear_pins(self):
+        self._run_js("clearPins")
+
+    def set_zoom(self, level: int):
+        self._run_js("setZoom", level)
+
+    def zoom_in(self):
+        self._run_js("zoomIn")
+
+    def zoom_out(self):
+        self._run_js("zoomOut")
+
+    # -- internal -------------------------------------------------------
+
+    def _run_js(self, function_name: str, *args):
+        # json.dumps rather than manual string formatting/f-strings for
+        # the arguments — handles quote/unicode escaping correctly (e.g.
+        # a pin label containing a quote or backslash) and turns None
+        # into JS's `null`, which app.js's falsy checks already expect.
+        args_js = ", ".join(json.dumps(arg) for arg in args)
+        self._view.page().runJavaScript(f"{function_name}({args_js});")
