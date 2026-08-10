@@ -35,6 +35,7 @@ from PyQt6.QtWidgets import (
     QDoubleSpinBox, QListWidget, QListWidgetItem
 )
 from PyQt6.QtWebEngineWidgets import QWebEngineView
+from PyQt6.QtWebEngineCore import QWebEnginePage
 
 _ASSETS_DIR = Path(__file__).resolve().parent.parent / "assets" / "gnss_map"
 
@@ -62,6 +63,26 @@ class _AssetServer:
     @property
     def base_url(self) -> str:
         return f"http://127.0.0.1:{self.port}/"
+
+
+class _LockedWebEnginePage(QWebEnginePage):
+    """Blocks all navigation except within our own local map page.
+
+    The competition site has no internet, so any link inside the page
+    (Leaflet/OSM attribution, or anything else that ends up in there
+    later) navigating away would strand the operator on a dead/blank
+    page with no way back short of restarting the app. This is on top
+    of removing the attribution control in app.js — that fixes the
+    specific link, this is the general safety net for any navigation
+    attempt, from anywhere in the page.
+    """
+
+    def __init__(self, allowed_url_prefix: str, parent=None):
+        super().__init__(parent)
+        self._allowed_url_prefix = allowed_url_prefix
+
+    def acceptNavigationRequest(self, url, nav_type, is_main_frame):
+        return url.toString().startswith(self._allowed_url_prefix)
 
 
 class _PinManagerDialog(QDialog):
@@ -186,6 +207,7 @@ class GnssMapWidget(QWidget):
         layout.setSpacing(4)
 
         self._view = QWebEngineView()
+        self._view.setPage(_LockedWebEnginePage(self._asset_server.base_url, self._view))
         self._view.loadFinished.connect(self._on_load_finished)
         self._view.load(QUrl(self._asset_server.base_url + "index.html"))
         layout.addWidget(self._view)

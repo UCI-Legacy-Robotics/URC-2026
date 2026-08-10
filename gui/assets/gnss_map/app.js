@@ -11,7 +11,12 @@ const MAX_ZOOM = 17;
 
 const map = L.map('map', {
   zoomControl: true,
-  attributionControl: true,
+  // No attribution control: its OpenStreetMap/Leaflet links point out to
+  // the internet, which the competition site doesn't have — an operator
+  // clicking one would strand this view on a dead/blank page with no way
+  // back short of restarting the app. (Python also blocks any navigation
+  // away from the local map page as a second layer, see gnss_map_widget.py.)
+  attributionControl: false,
 }).setView(DEFAULT_CENTER, DEFAULT_ZOOM);
 
 // Local offline tiles only — no CDN/live tile fetching, competition site
@@ -21,7 +26,6 @@ L.tileLayer('tiles/{z}/{x}/{y}.png', {
   minZoom: MIN_ZOOM,
   maxZoom: MAX_ZOOM,
   noWrap: true,
-  attribution: '&copy; OpenStreetMap contributors',
   errorTileUrl: '', // missing tiles just render blank, not broken-image icons
 }).addTo(map);
 
