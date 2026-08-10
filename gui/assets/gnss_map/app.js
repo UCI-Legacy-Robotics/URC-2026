@@ -6,8 +6,8 @@
 // (MDRS, Utah) tiles are downloaded — see scripts/download_tiles.py.
 const DEFAULT_CENTER = [33.6405, -117.8443];
 const DEFAULT_ZOOM = 16;
-const MIN_ZOOM = 12;
-const MAX_ZOOM = 18;
+const MIN_ZOOM = 15;
+const MAX_ZOOM = 17;
 
 const map = L.map('map', {
   zoomControl: true,

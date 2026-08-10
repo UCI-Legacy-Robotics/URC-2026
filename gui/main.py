@@ -11,6 +11,13 @@ os.environ.setdefault(
     os.path.join(os.path.dirname(__file__), 'fastdds_no_shm.xml'),
 )
 
+# WSL2: QtWebEngine's GPU compositor (used by the GNSS map widget) fails
+# to share buffers over WSL2's virtualized GPU ("Failed to get native
+# pixmap due to dma_buf acquisition failure", "Backend texture is not a
+# Vulkan texture") — force software rendering. setdefault so a machine
+# with working GPU passthrough can still override this before launch.
+os.environ.setdefault('QTWEBENGINE_CHROMIUM_FLAGS', '--disable-gpu')
+
 _STYLESHEET = """
     QWidget {
         background-color: #0a0a0a;

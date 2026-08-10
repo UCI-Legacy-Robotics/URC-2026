@@ -68,10 +68,21 @@ class GnssMapWidget(QWidget):
         self._last_lon = None
         self._last_heading_deg = 0.0
 
+        # gnss_fix/imu_update can start arriving (via bind_data_source)
+        # before the page has finished loading app.js — SimulationDataSource
+        # in particular starts its timers immediately, well before the
+        # localhost round-trip to fetch and parse the page completes. Calls
+        # made before load finishes are queued here and flushed once ready,
+        # instead of hitting "X is not defined" in the JS console and being
+        # silently dropped.
+        self._page_ready = False
+        self._pending_js_calls = []
+
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
 
         self._view = QWebEngineView()
+        self._view.loadFinished.connect(self._on_load_finished)
         self._view.load(QUrl(self._asset_server.base_url + "index.html"))
         layout.addWidget(self._view)
 
@@ -124,10 +135,22 @@ class GnssMapWidget(QWidget):
             return  # no GNSS fix yet — nothing to place on the map
         self.set_rover_position(self._last_lat, self._last_lon, self._last_heading_deg)
 
+    def _on_load_finished(self, ok: bool):
+        if not ok:
+            return
+        self._page_ready = True
+        for js in self._pending_js_calls:
+            self._view.page().runJavaScript(js)
+        self._pending_js_calls.clear()
+
     def _run_js(self, function_name: str, *args):
         # json.dumps rather than manual string formatting/f-strings for
         # the arguments — handles quote/unicode escaping correctly (e.g.
         # a pin label containing a quote or backslash) and turns None
         # into JS's `null`, which app.js's falsy checks already expect.
         args_js = ", ".join(json.dumps(arg) for arg in args)
-        self._view.page().runJavaScript(f"{function_name}({args_js});")
+        js = f"{function_name}({args_js});"
+        if self._page_ready:
+            self._view.page().runJavaScript(js)
+        else:
+            self._pending_js_calls.append(js)
