@@ -14,7 +14,6 @@ from PyQt6.QtCore import QObject, pyqtSignal
 
 
 class MissionState(Enum):
-    DIAGNOSTICS = auto()
     IDLE = auto()
     SCIENCE = auto()
     DELIVERY = auto()
@@ -41,14 +40,10 @@ _MISSION_STATES = frozenset({
 # no jumping directly from one mission to another.
 _ALLOWED_TRANSITIONS = {
     MissionState.IDLE: {
-        MissionState.DIAGNOSTICS,
         MissionState.SCIENCE,
         MissionState.DELIVERY,
         MissionState.EQUIPMENT_SERVICING,
         MissionState.AUTONOMOUS_NAV,
-    },
-    MissionState.DIAGNOSTICS: {
-        MissionState.IDLE,
     },
     MissionState.SCIENCE: {MissionState.IDLE},
     MissionState.DELIVERY: {MissionState.IDLE},

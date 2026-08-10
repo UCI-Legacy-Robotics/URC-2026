@@ -10,9 +10,9 @@ Mission transitions are driven by a single "Next" button that walks a
 fixed cycle (IDLE -> SCIENCE -> IDLE -> DELIVERY -> IDLE ->
 EQUIPMENT_SERVICING -> IDLE -> AUTONOMOUS_NAV -> IDLE -> ...) rather than
 a free-form dropdown, since that's the actual competition run order and
-picking-then-confirming every time was pure friction. Diagnostics sits
-outside that cycle (only reachable from/returning to IDLE) behind its own
-toggle button, since it isn't part of the mission run order.
+picking-then-confirming every time was pure friction. Diagnostics is not
+part of this cycle at all — it's a plain always-available tab with no
+ties to MissionStateMachine (see MainWindow's tab-lock exemption).
 
 Embeds MissionTimerWidget for the countdown: entering a mission state
 auto-starts the timer at a per-mission default duration (editable via the
@@ -47,7 +47,6 @@ _DEFAULT_DURATIONS_SECONDS = {
 
 _STATE_LABELS = {
     MissionState.IDLE: "Idle",
-    MissionState.DIAGNOSTICS: "Diagnostics",
     MissionState.SCIENCE: "Science",
     MissionState.DELIVERY: "Delivery",
     MissionState.EQUIPMENT_SERVICING: "Equipment Servicing",
@@ -58,7 +57,6 @@ _STATE_LABELS = {
 # state — every mission state reads the same "in progress" green.
 _COLOR_IDLE = "#3a3a3a"
 _COLOR_MISSION = "#1b5e20"
-_COLOR_DIAGNOSTICS = "#7a1f1f"
 
 # Fixed run-order cycle the "Next" button walks. IDLE reappears between
 # every mission on purpose (matches MissionStateMachine's rule that
@@ -159,14 +157,10 @@ class MissionSmWidget(QWidget):
         # vs "Next: Equipment Servicing"), sized to fit the longest one.
         self._next_button.setFixedWidth(190)
         self._next_button.clicked.connect(self._on_next_clicked)
-        self._diagnostics_button = QPushButton()
-        self._diagnostics_button.setFixedWidth(130)
-        self._diagnostics_button.clicked.connect(self._on_diagnostics_clicked)
         self._mission_reset_button = QPushButton("Reset Mission")
         self._mission_reset_button.setFixedWidth(110)
         self._mission_reset_button.clicked.connect(self._on_mission_reset_clicked)
         mission_controls.addWidget(self._next_button)
-        mission_controls.addWidget(self._diagnostics_button)
         mission_controls.addWidget(self._mission_reset_button)
         layout.addLayout(mission_controls)
 
@@ -203,17 +197,6 @@ class MissionSmWidget(QWidget):
         self._cycle_index = (self._cycle_index + 1) % len(_MISSION_CYCLE)
         self._update_controls()
 
-    def _on_diagnostics_clicked(self):
-        target = (
-            MissionState.IDLE
-            if self.state_machine.state == MissionState.DIAGNOSTICS
-            else MissionState.DIAGNOSTICS
-        )
-        try:
-            self.state_machine.transition_to(target)
-        except InvalidTransitionError as exc:
-            QMessageBox.warning(self, "Invalid transition", str(exc))
-
     def _on_mission_reset_clicked(self):
         """Force back to IDLE and restart the mission cycle from the top
         (next click on "Next" goes to Science) — an abort/restart control,
@@ -241,26 +224,9 @@ class MissionSmWidget(QWidget):
 
     def _refresh_state_label(self):
         state = self.state_machine.state
-
-        if state == MissionState.DIAGNOSTICS:
-            bg = _COLOR_DIAGNOSTICS
-        elif state == MissionState.IDLE:
-            bg = _COLOR_IDLE
-        else:
-            bg = _COLOR_MISSION
-
+        bg = _COLOR_IDLE if state == MissionState.IDLE else _COLOR_MISSION
         self._state_label.set_state(_STATE_LABELS[state], bg)
 
     def _update_controls(self):
-        state = self.state_machine.state
-
         next_target = _MISSION_CYCLE[self._cycle_index]
         self._next_button.setText(f"Next: {_STATE_LABELS[next_target]}")
-        self._next_button.setEnabled(state != MissionState.DIAGNOSTICS)
-
-        self._diagnostics_button.setText(
-            "Exit Diagnostics" if state == MissionState.DIAGNOSTICS else "Diagnostics"
-        )
-        self._diagnostics_button.setEnabled(
-            state in (MissionState.IDLE, MissionState.DIAGNOSTICS)
-        )

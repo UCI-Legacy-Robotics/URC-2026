@@ -5,7 +5,9 @@ Shows whether the rover is presently under teleoperation or autonomous
 control. Derived from mission state rather than a separate ROS topic:
 in URC's ruleset, only the Autonomous Navigation mission drives itself —
 every other active mission (Science, Delivery, Equipment Servicing) is
-teleoperated, and Idle/Diagnostics have no drive mode at all. MainWindow
+teleoperated, and Idle has no drive mode at all. Diagnostics isn't a
+mission state and never appears here — it's an always-available tab
+with no bearing on control mode. MainWindow
 drives `set_mode()` the same way it drives SubsystemLaunchWidget. If a
 real control-mode topic shows up later, this is the seam to wire it into
 instead of mission state.

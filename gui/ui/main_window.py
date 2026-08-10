@@ -21,8 +21,7 @@ from widgets.gnss_map_widget import GnssMapWidget
 
 # Which subsystem is implied by which mission — MainWindow applies this
 # automatically on mission state changes so operators don't have to pick
-# it manually. Diagnostics is intentionally absent: subsystem selection
-# is left untouched while in Diagnostics mode.
+# it manually.
 _SUBSYSTEM_MODE_BY_MISSION_STATE = {
     MissionState.SCIENCE: "SCIENCE",
     MissionState.DELIVERY: "ARM",
@@ -32,8 +31,9 @@ _SUBSYSTEM_MODE_BY_MISSION_STATE = {
 }
 
 # Tab indices, matching the addTab() order below — used to lock tab
-# switching to whichever mission is active. Diagnostics is intentionally
-# absent: it must stay reachable at all times regardless of mission state.
+# switching to whichever mission is active. Diagnostics has no entry
+# here and no ties to MissionStateMachine at all; it's exempted from
+# the lock below by index so it stays reachable at all times.
 _TAB_INDEX_BY_MISSION_STATE = {
     MissionState.SCIENCE: 0,
     MissionState.DELIVERY: 1,
@@ -51,7 +51,6 @@ _CONTROL_MODE_BY_MISSION_STATE = {
     MissionState.EQUIPMENT_SERVICING: "TELEOPERATION",
     MissionState.AUTONOMOUS_NAV: "AUTONOMOUS",
     MissionState.IDLE: "STANDBY",
-    MissionState.DIAGNOSTICS: "STANDBY",
 }
 
 
@@ -231,8 +230,6 @@ class MainWindow(QMainWindow):
             _CONTROL_MODE_BY_MISSION_STATE.get(new_state, "STANDBY")
         )
 
-        if new_state == MissionState.DIAGNOSTICS:
-            return  # leave subsystem selection as-is while in Diagnostics
         mode = _SUBSYSTEM_MODE_BY_MISSION_STATE.get(new_state, "NONE")
         self.top_strip.subsystem_launch.set_mode(mode)
 
