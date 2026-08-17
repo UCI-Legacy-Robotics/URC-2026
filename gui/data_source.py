@@ -30,6 +30,17 @@ class CameraID(Enum):
     BIRDS_EYE = "birds_eye"
 
 
+# Human-readable labels, keyed by CameraID value — shared by
+# CameraFeedWidget's status strip and the MUX panel (Step 4) so there's
+# one place to edit if a label needs to change.
+CAMERA_LABELS = {
+    CameraID.SCIENCE_PAYLOAD.value: "Science Payload Camera",
+    CameraID.ARM_CAM_1.value: "Arm Camera 1",
+    CameraID.ARM_CAM_2.value: "Arm Camera 2",
+    CameraID.BIRDS_EYE.value: "Bird's Eye Camera",
+}
+
+
 class DataSourceSignals(QObject):
     """Qt signal contract every DataSource must expose via `.signals`.
 
