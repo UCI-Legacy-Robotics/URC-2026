@@ -225,9 +225,17 @@ class GnssMapWidget(QWidget):
         self._view.load(QUrl(self._asset_server.base_url + "index.html"))
         layout.addWidget(self._view)
 
+        button_row = QHBoxLayout()
+
+        self._center_on_rover_button = QPushButton("Center on Rover")
+        self._center_on_rover_button.clicked.connect(self.center_on_rover)
+        button_row.addWidget(self._center_on_rover_button)
+
         self._manage_pins_button = QPushButton("Manage Waypoints...")
         self._manage_pins_button.clicked.connect(self._on_manage_pins_clicked)
-        layout.addWidget(self._manage_pins_button)
+        button_row.addWidget(self._manage_pins_button)
+
+        layout.addLayout(button_row)
 
         self._pin_dialog = _PinManagerDialog(self, parent=self)
 
