@@ -7,16 +7,14 @@ decoded video frame while its camera is enabled and healthy, a fixed
 (never overlaid on the video image) with the camera label, state, and
 current data rate.
 
-DataSource has no "is this camera currently enabled" query — only the
-enable_camera()/disable_camera() commands — so this widget can't infer
-its own on/off state from the backend. Whoever toggles a camera (the
-MUX panel, Step 4) is responsible for calling set_enabled() here in
-the same action as calling enable_camera()/disable_camera(), so the
-widget's displayed state and the DataSource's actual subscription
-state never drift apart.
+State/rate tracking lives in CameraFeedTracker (shared with the MUX
+panel's per-camera row); this widget only turns that into pixels.
+Whoever toggles a camera (the MUX panel, Step 4) is responsible for
+calling set_enabled() here in the same action as calling
+enable_camera()/disable_camera() on the DataSource — see
+camera_feed_tracker.py for why that can't be inferred from the
+DataSource alone.
 """
-
-from collections import deque
 
 import cv2
 import numpy as np
@@ -24,17 +22,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QImage, QPixmap
 from PyQt6.QtWidgets import QLabel, QVBoxLayout, QWidget
 
-from stale_data import StaleDataWatcher
-
-# Rolling window size for the Mbps average — starting point per the
-# handoff, tune later.
-_RATE_WINDOW_N = 30
-
-# How long an enabled camera can go quiet before the widget flags NO
-# SIGNAL instead of ON — same class of issue as the usb_cam startup
-# crash: a subscription can exist while the topic itself stays silent
-# (bad cable, camera unpowered, wrong topic).
-_NO_SIGNAL_TIMEOUT_MS = 2000
+from widgets.camera_feed_tracker import CameraFeedTracker
 
 _STATE_COLORS = {
     "ON": "#3ba33b",
@@ -79,12 +67,9 @@ class CameraFeedWidget(QWidget):
         super().__init__(parent)
         self.camera_id = camera_id
         self._label_text = label
-        self._enabled = False
-        self._rate_samples = deque(maxlen=_RATE_WINDOW_N)  # (timestamp, frame_bytes)
 
-        self._watcher = StaleDataWatcher(_NO_SIGNAL_TIMEOUT_MS, parent=self)
-        self._watcher.became_stale.connect(self._render)
-        self._watcher.became_fresh.connect(self._render)
+        self.tracker = CameraFeedTracker(camera_id, parent=self)
+        self.tracker.changed.connect(self._render)
 
         self.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
         self.setStyleSheet('CameraFeedWidget { background-color: #1a1a1a; border-radius: 6px; }')
@@ -114,70 +99,36 @@ class CameraFeedWidget(QWidget):
     # -- public API -----------------------------------------------------
 
     def bind_data_source(self, data_source):
-        data_source.signals.camera_frame.connect(self._on_camera_frame)
+        self.tracker.bind_data_source(data_source)
 
     def set_enabled(self, enabled: bool):
         """Call whenever the MUX panel toggles this camera on/off — see
-        class docstring for why this can't be inferred from the
+        module docstring for why this can't be inferred from the
         DataSource alone."""
-        if enabled == self._enabled:
-            return
-        self._enabled = enabled
-        self._rate_samples.clear()
-        self._watcher.stop()
-        if not enabled:
-            self._video_label.clear()
-        self._render()
-
-    # -- signal handling --------------------------------------------------
-
-    def _on_camera_frame(self, camera_id, frame, frame_bytes, timestamp):
-        if camera_id != self.camera_id or not self._enabled:
-            return
-
-        self._watcher.notify()
-        self._rate_samples.append((timestamp, frame_bytes))
-
-        try:
-            pixmap = _frame_to_pixmap(frame).scaled(
-                self._video_label.size(),
-                Qt.AspectRatioMode.KeepAspectRatio,
-                Qt.TransformationMode.SmoothTransformation,
-            )
-            self._video_label.setPixmap(pixmap)
-        except Exception as e:
-            self._video_label.setText(f'Decode error: {e}')
-
-        self._render()
+        self.tracker.set_enabled(enabled)
 
     # -- rendering --------------------------------------------------------
 
-    def _current_state(self) -> str:
-        if not self._enabled:
-            return "OFF"
-        if self._watcher.is_stale() or not self._rate_samples:
-            return "NO SIGNAL"
-        return "ON"
-
-    def _current_rate_mbps(self) -> float:
-        if len(self._rate_samples) < 2:
-            return 0.0
-        t_first, _ = self._rate_samples[0]
-        t_last, _ = self._rate_samples[-1]
-        elapsed = t_last - t_first
-        if elapsed <= 0:
-            return 0.0
-        total_bits = sum(frame_bytes for _, frame_bytes in self._rate_samples) * 8
-        return (total_bits / elapsed) / 1_000_000
-
     def _render(self):
-        state = self._current_state()
-        if state != "ON":
+        state = self.tracker.current_state()
+        frame = self.tracker.latest_frame()
+
+        if state == "ON" and frame is not None:
+            try:
+                pixmap = _frame_to_pixmap(frame).scaled(
+                    self._video_label.size(),
+                    Qt.AspectRatioMode.KeepAspectRatio,
+                    Qt.TransformationMode.SmoothTransformation,
+                )
+                self._video_label.setPixmap(pixmap)
+            except Exception as e:
+                self._video_label.setText(f'Decode error: {e}')
+        else:
             # Same fixed placeholder text for OFF and NO SIGNAL — the
             # status strip below is what distinguishes the two.
             self._video_label.setText("NO SIGNAL")
 
-        rate = self._current_rate_mbps()
+        rate = self.tracker.current_rate_mbps()
         self._status_strip.setText(f"{self._label_text}   {state}   {rate:.2f} Mbps")
         self._status_strip.setStyleSheet(
             'background: #0d0d0d; font-size: 10px; font-family: monospace; '
