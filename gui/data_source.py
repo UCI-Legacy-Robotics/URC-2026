@@ -12,7 +12,22 @@ pulling in ROS.
 """
 
 from abc import ABC, abstractmethod
+from enum import Enum
+
 from PyQt6.QtCore import QObject, pyqtSignal
+
+
+class CameraID(Enum):
+    """The 4 camera feeds the second-monitor MUX window can toggle.
+
+    Values are the plain strings carried by camera_frame/enable_camera/
+    disable_camera — the enum exists so call sites don't hand-type these
+    strings, not because the signal contract requires an enum type.
+    """
+    SCIENCE_PAYLOAD = "science_payload"
+    ARM_CAM_1 = "arm_cam_1"
+    ARM_CAM_2 = "arm_cam_2"
+    BIRDS_EYE = "birds_eye"
 
 
 class DataSourceSignals(QObject):
@@ -28,7 +43,7 @@ class DataSourceSignals(QObject):
     rover subsystem commands) goes through DataSource.send_subsystem_command
     below rather than a signal, since it's a request, not a stream.
     """
-    camera_frame            = pyqtSignal(object)
+    camera_frame            = pyqtSignal(str, object, int, float)  # (camera_id, frame, frame_bytes, timestamp)
     gnss_fix                = pyqtSignal(float, float)
     battery_update          = pyqtSignal(float)
     imu_update              = pyqtSignal(object)
@@ -55,6 +70,17 @@ class DataSourceSignals(QObject):
     # RosDataSource converts the raw sensor_msgs/Imu orientation quaternion
     # into this shape (see ros_node.py); SimulationDataSource fakes it
     # directly. GnssMapWidget's heading arrow reads yaw_deg off this.
+    #
+    # camera_frame's frame argument is always SimpleNamespace(encoding,
+    # data, height, width) — the same fields sensor_msgs/Image exposes,
+    # duck-typed so CameraFeedWidget's decode code (numpy/cv2, no
+    # cv_bridge) works unchanged regardless of source. camera_id is one
+    # of the CameraID enum's string values. frame_bytes/timestamp are
+    # emitted alongside every frame (not polled separately) so both
+    # backends can drive CameraFeedWidget's rolling data-rate average
+    # the same way; frame_bytes is provided explicitly (rather than
+    # widgets reading len(frame.data) themselves) so the rate calc
+    # doesn't depend on frame's exact shape.
 
 
 class DataSource(ABC):
@@ -101,6 +127,30 @@ class DataSource(ABC):
         comms (see estop_widget.py, Step 12, for that). Confirmation
         comes back asynchronously via signals.software_enable_ack, the
         same requested-vs-confirmed pattern as subsystem launch.
+        """
+        raise NotImplementedError
+
+    @abstractmethod
+    def enable_camera(self, camera_id: str):
+        """Start receiving frames for the given camera (a CameraID value).
+
+        Manual, per-camera, and independent of MissionState — the MUX
+        panel is the only thing that calls this, there is no automatic
+        enable tied to the active mission (see handoff: same philosophy
+        as the Diagnostics tab decoupling). Idempotent: enabling an
+        already-enabled camera is a no-op.
+        """
+        raise NotImplementedError
+
+    @abstractmethod
+    def disable_camera(self, camera_id: str):
+        """Stop receiving frames for the given camera (a CameraID value).
+
+        Must actually stop the data flow (RosDataSource tears down the
+        subscription via destroy_subscription, not just stop forwarding
+        frames to widgets) — the point is to reclaim bandwidth, not just
+        hide the feed in the UI. Idempotent: disabling an already-disabled
+        camera is a no-op.
         """
         raise NotImplementedError
 

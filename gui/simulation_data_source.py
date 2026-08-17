@@ -8,11 +8,13 @@ touching the existing ones.
 """
 
 import random
+import time
 from types import SimpleNamespace
 
+import numpy as np
 from PyQt6.QtCore import QTimer
 
-from data_source import DataSource
+from data_source import DataSource, CameraID
 
 # UCI campus — matches the offline map tiles downloaded into
 # assets/gnss_map/tiles/ and app.js's DEFAULT_CENTER, so the sim rover
@@ -38,6 +40,38 @@ _SOFTWARE_ENABLE_ACK_MS = 800
 # How long a fake E-Stop request takes to confirm, when not withheld.
 _ESTOP_CONFIRM_MS = 1000
 
+# Fake camera frames: small resolution + ~5fps is plausible for a
+# bandwidth-limited field link, and keeps the encode/emit cost trivial.
+_CAMERA_FRAME_INTERVAL_MS = 200
+_CAMERA_FRAME_HEIGHT = 240
+_CAMERA_FRAME_WIDTH = 320
+
+# Solid background per camera, purely so the 4 feeds are visually
+# distinguishable in --sim.
+_CAMERA_COLORS = {
+    CameraID.SCIENCE_PAYLOAD.value: (40, 120, 40),
+    CameraID.ARM_CAM_1.value: (40, 40, 120),
+    CameraID.ARM_CAM_2.value: (120, 40, 120),
+    CameraID.BIRDS_EYE.value: (120, 90, 20),
+}
+
+
+def _make_fake_camera_frame(camera_id: str, counter: int) -> SimpleNamespace:
+    """Solid-color test pattern with a sweeping bar so it reads as live,
+    not a static image. Same SimpleNamespace(encoding, data, height,
+    width) shape RosDataSource normalizes real frames into, so
+    CameraFeedWidget's decode path can't tell the two apart."""
+    color = _CAMERA_COLORS.get(camera_id, (80, 80, 80))
+    arr = np.full((_CAMERA_FRAME_HEIGHT, _CAMERA_FRAME_WIDTH, 3), color, dtype=np.uint8)
+    bar_x = (counter * 4) % _CAMERA_FRAME_WIDTH
+    arr[:, bar_x:bar_x + 10] = (255, 255, 255)
+    return SimpleNamespace(
+        encoding='rgb8',
+        data=arr.tobytes(),
+        height=_CAMERA_FRAME_HEIGHT,
+        width=_CAMERA_FRAME_WIDTH,
+    )
+
 
 class SimulationDataSource(DataSource):
     """Fakes plausible telemetry on the same signal contract as
@@ -52,6 +86,12 @@ class SimulationDataSource(DataSource):
         self._yaw_deg = 0.0
         self._software_enabled = True
         self._withhold_estop_confirmation = False
+
+        # Cameras start disabled (no timers running) — same "opt in via
+        # MUX" behavior as RosDataSource's subscriptions, so --sim
+        # exercises the same enable/disable lifecycle as real hardware.
+        self._camera_timers = {}
+        self._camera_frame_counters = {}
 
         self._gnss_timer = QTimer()
         self._gnss_timer.setInterval(1000)
@@ -90,6 +130,28 @@ class SimulationDataSource(DataSource):
     def stop(self):
         for timer in self._timers:
             timer.stop()
+        for timer in self._camera_timers.values():
+            timer.stop()
+
+    def enable_camera(self, camera_id: str):
+        if camera_id in self._camera_timers:
+            return  # already enabled
+        timer = QTimer()
+        timer.setInterval(_CAMERA_FRAME_INTERVAL_MS)
+        timer.timeout.connect(lambda: self._emit_camera_frame(camera_id))
+        self._camera_timers[camera_id] = timer
+        timer.start()
+
+    def disable_camera(self, camera_id: str):
+        timer = self._camera_timers.pop(camera_id, None)
+        if timer is not None:
+            timer.stop()
+
+    def _emit_camera_frame(self, camera_id: str):
+        counter = self._camera_frame_counters.get(camera_id, 0) + 1
+        self._camera_frame_counters[camera_id] = counter
+        frame = _make_fake_camera_frame(camera_id, counter)
+        self.signals.camera_frame.emit(camera_id, frame, len(frame.data), time.time())
 
     def set_heartbeat_enabled(self, enabled: bool):
         """Testing/demo hook to simulate a comms dropout — stops just the

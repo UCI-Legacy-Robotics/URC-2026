@@ -1,4 +1,6 @@
+import functools
 import math
+import time
 from types import SimpleNamespace
 
 from rclpy.node import Node
@@ -8,7 +10,19 @@ from sensor_msgs.msg import Image, NavSatFix, BatteryState, Imu
 from diagnostic_msgs.msg import DiagnosticArray, DiagnosticStatus
 from std_msgs.msg import Empty
 
-from data_source import DataSource, DataSourceSignals
+from data_source import DataSource, DataSourceSignals, CameraID
+
+# TODO(camera-mux): placeholder topic names — none of these are confirmed
+# with the team yet, including birds_eye (the old unconditional /image_raw
+# subscription this replaced was only ever a dev-machine test webcam, not
+# the real tower camera). Swap in real topics once known; nothing else
+# about the subscribe/unsubscribe wiring below should need to change.
+_CAMERA_TOPICS = {
+    CameraID.SCIENCE_PAYLOAD.value: '/cameras/science_payload/image_raw',
+    CameraID.ARM_CAM_1.value: '/cameras/arm_cam_1/image_raw',
+    CameraID.ARM_CAM_2.value: '/cameras/arm_cam_2/image_raw',
+    CameraID.BIRDS_EYE.value: '/cameras/birds_eye/image_raw',
+}
 
 # Translates ROS DiagnosticStatus.level (a byte) into the plain strings
 # diagnostics_update carries — SimulationDataSource emits the same
@@ -30,8 +44,12 @@ class BaseStationNode(Node):
         super().__init__('base_station_gui')
         self.signals = DataSourceSignals()
 
-        self.create_subscription(
-            Image, '/image_raw', self.on_camera, 10)
+        # All 4 cameras start disabled — no subscriptions until the MUX
+        # panel calls enable_camera(), unlike the fixed subscriptions
+        # below which are always live. Keyed by camera_id -> subscription
+        # handle, so disable_camera() has something to destroy_subscription() on.
+        self._camera_subs = {}
+
         self.create_subscription(
             NavSatFix, '/gnss/fix', self.on_gnss, 10)
         self.create_subscription(
@@ -45,8 +63,36 @@ class BaseStationNode(Node):
 
         self.get_logger().info('Base station GUI node started')
 
-    def on_camera(self, msg):
-        self.signals.camera_frame.emit(msg)
+    def enable_camera(self, camera_id: str):
+        if camera_id in self._camera_subs:
+            return  # already enabled
+        topic = _CAMERA_TOPICS.get(camera_id)
+        if topic is None:
+            self.get_logger().warning(f'enable_camera: unknown camera_id {camera_id!r}')
+            return
+        # Depth 10, default (RELIABLE) QoS — matches the old /image_raw
+        # subscription; BEST_EFFORT here silently drops a RELIABLE
+        # publisher's data (see e6a2e64's WSL2 camera-feed fix).
+        self._camera_subs[camera_id] = self.create_subscription(
+            Image, topic, functools.partial(self._on_camera_frame, camera_id), 10)
+
+    def disable_camera(self, camera_id: str):
+        sub = self._camera_subs.pop(camera_id, None)
+        if sub is not None:
+            self.destroy_subscription(sub)
+
+    def _on_camera_frame(self, camera_id, msg):
+        # Normalized to SimpleNamespace(encoding, data, height, width),
+        # matching what SimulationDataSource fakes — same convention as
+        # imu_update/diagnostics_update above, so CameraFeedWidget's
+        # decode code never touches a raw ROS message type.
+        frame = SimpleNamespace(
+            encoding=msg.encoding,
+            data=bytes(msg.data),  # copy immediately, DDS can reclaim the buffer under us
+            height=msg.height,
+            width=msg.width,
+        )
+        self.signals.camera_frame.emit(camera_id, frame, len(frame.data), time.time())
 
     def on_gnss(self, msg):
         self.signals.gnss_fix.emit(msg.latitude, msg.longitude)
@@ -111,6 +157,12 @@ class RosDataSource(DataSource):
 
     def stop(self):
         self.node.destroy_node()
+
+    def enable_camera(self, camera_id: str):
+        self.node.enable_camera(camera_id)
+
+    def disable_camera(self, camera_id: str):
+        self.node.disable_camera(camera_id)
 
     def send_subsystem_command(self, subsystem: str, action: str):
         # Real subsystem process management is out of scope for the GUI —
