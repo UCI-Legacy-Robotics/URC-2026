@@ -10,7 +10,7 @@ reflows based on which cameras are active; an inactive slot just shows
 its own tile's "NO SIGNAL" placeholder in place.
 """
 
-from PyQt6.QtWidgets import QGridLayout, QVBoxLayout, QWidget
+from PyQt6.QtWidgets import QGridLayout, QHBoxLayout, QVBoxLayout, QWidget
 
 from data_source import CAMERA_LABELS, CameraID
 from widgets.camera_feed_widget import CameraFeedWidget
@@ -40,7 +40,15 @@ class CameraWindow(QWidget):
 
         self.mux_panel = CameraMuxPanel()
         self.mux_panel.camera_toggle_requested.connect(self._on_camera_toggle_requested)
-        layout.addWidget(self.mux_panel)
+
+        # Panel only needs ~1/6 of the window's width, not a full-width
+        # strip — stretch factors (1 vs. 5) split the row that way and
+        # keep the rest empty rather than stretching the panel's own
+        # rows to fill the leftover space.
+        top_row = QHBoxLayout()
+        top_row.addWidget(self.mux_panel, 1)
+        top_row.addStretch(5)
+        layout.addLayout(top_row)
 
         grid_container = QWidget()
         grid = QGridLayout(grid_container)

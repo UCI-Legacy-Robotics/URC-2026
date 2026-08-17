@@ -4,8 +4,10 @@ Single camera-slot widget for the second-monitor camera MUX window.
 One instance per camera (see CameraID in data_source.py) — shows the
 decoded video frame while its camera is enabled and healthy, a fixed
 "NO SIGNAL" placeholder otherwise, and a status strip in the chrome
-(never overlaid on the video image) with the camera label, state, and
-current data rate.
+above the video image (never overlaid on it) with the camera label,
+state, and current data rate. The video area itself is locked to a
+9:16 portrait box (letterboxed within whatever space the grid gives
+this widget) rather than stretching to fill a wide grid cell.
 
 State/rate tracking lives in CameraFeedTracker (shared with the MUX
 panel's per-camera row); this widget only turns that into pixels.
@@ -29,6 +31,11 @@ _STATE_COLORS = {
     "OFF": "#888888",
     "NO SIGNAL": "#c0392b",
 }
+
+# Video area is locked to this aspect ratio (portrait — width:height),
+# letterboxed within whatever space the grid cell gives this widget.
+_VIDEO_ASPECT_W = 9
+_VIDEO_ASPECT_H = 16
 
 
 def _frame_to_pixmap(frame) -> QPixmap:
@@ -78,23 +85,41 @@ class CameraFeedWidget(QWidget):
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
 
-        self._video_label = QLabel()
-        self._video_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self._video_label.setMinimumSize(160, 120)
-        self._video_label.setStyleSheet(
-            'background: transparent; color: #555; font-size: 13px; font-family: monospace;'
-        )
-        layout.addWidget(self._video_label, 1)
-
-        # Status strip in the chrome, below the image — never overlaid
+        # Status strip in the chrome, above the image — never overlaid
         # on the video itself (handoff Step 3).
         self._status_strip = QLabel()
         self._status_strip.setStyleSheet(
-            'background: #0d0d0d; font-size: 10px; font-family: monospace; padding: 3px 6px;'
+            'background: #0d0d0d; font-size: 15px; font-family: monospace; padding: 5px 8px;'
         )
         layout.addWidget(self._status_strip)
 
+        self._video_label = QLabel()
+        self._video_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self._video_label.setMinimumSize(90, 160)  # 9:16 floor, resizeEvent takes over once shown
+        self._video_label.setStyleSheet(
+            'background: transparent; color: #555; font-size: 13px; font-family: monospace;'
+        )
+        layout.addWidget(self._video_label, 1, Qt.AlignmentFlag.AlignCenter)
+
         self._render()
+
+    def resizeEvent(self, event):
+        # Lock the video area to a 9:16 portrait box, letterboxed
+        # within whatever space this widget currently has (a grid cell
+        # is much wider than tall, and a plain landscape-filling label
+        # ends up looking like a wide letterbox instead of a feed).
+        avail_h = max(self.height() - self._status_strip.sizeHint().height(), 0)
+        avail_w = self.width()
+
+        target_w = avail_h * _VIDEO_ASPECT_W / _VIDEO_ASPECT_H
+        if target_w <= avail_w:
+            video_w, video_h = target_w, avail_h
+        else:
+            video_w = avail_w
+            video_h = avail_w * _VIDEO_ASPECT_H / _VIDEO_ASPECT_W
+
+        self._video_label.setFixedSize(max(int(video_w), 1), max(int(video_h), 1))
+        super().resizeEvent(event)
 
     # -- public API -----------------------------------------------------
 
@@ -131,6 +156,6 @@ class CameraFeedWidget(QWidget):
         rate = self.tracker.current_rate_mbps()
         self._status_strip.setText(f"{self._label_text}   {state}   {rate:.2f} Mbps")
         self._status_strip.setStyleSheet(
-            'background: #0d0d0d; font-size: 10px; font-family: monospace; '
-            f'padding: 3px 6px; color: {_STATE_COLORS[state]};'
+            'background: #0d0d0d; font-size: 15px; font-family: monospace; '
+            f'padding: 5px 8px; color: {_STATE_COLORS[state]};'
         )
