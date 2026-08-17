@@ -4,6 +4,7 @@ import sys
 import threading
 from PyQt6.QtWidgets import QApplication
 from ui.main_window import MainWindow
+from ui.camera_window import CameraWindow
 
 # WSL2: Fast-DDS shared memory transport segfaults; force UDP-only.
 os.environ.setdefault(
@@ -85,7 +86,33 @@ def main():
     data_source.start()
 
     window = MainWindow(data_source)
-    window.showMaximized()
+    camera_window = CameraWindow(data_source)
+
+    screens = app.screens()
+    if len(screens) > 1:
+        # Real deployment: primary window fullscreen on monitor 1,
+        # camera window fullscreen on monitor 2. Move-then-maximize
+        # rather than a direct setScreen() call, since the widget has
+        # no native window (and hence no assignable QScreen) until
+        # it's shown — moving first onto the target screen's geometry
+        # is what makes showMaximized() land there instead of monitor 1.
+        window.showMaximized()
+        camera_window.move(screens[1].availableGeometry().topLeft())
+        camera_window.showMaximized()
+    else:
+        # Dev machines often don't have a second monitor — tile both
+        # windows side by side on the one screen so the camera window
+        # is still usable/testable rather than fully hidden behind the
+        # maximized primary window.
+        print('WARNING: only one screen detected — tiling camera window '
+              'next to the primary window instead of a second monitor.')
+        avail = screens[0].availableGeometry()
+        half_width = avail.width() // 2
+        window.setGeometry(avail.x(), avail.y(), half_width, avail.height())
+        window.show()
+        camera_window.setGeometry(
+            avail.x() + half_width, avail.y(), avail.width() - half_width, avail.height())
+        camera_window.show()
 
     exit_code = app.exec()
 
