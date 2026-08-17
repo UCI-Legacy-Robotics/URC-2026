@@ -6,8 +6,8 @@ decoded video frame while its camera is enabled and healthy, a fixed
 "NO SIGNAL" placeholder otherwise, and a status strip in the chrome
 above the video image (never overlaid on it) with the camera label,
 state, and current data rate. The video area itself is locked to a
-9:16 portrait box (letterboxed within whatever space the grid gives
-this widget) rather than stretching to fill a wide grid cell.
+16:9 box (letterboxed within whatever space the grid gives this
+widget) rather than stretching arbitrarily to fill the grid cell.
 
 State/rate tracking lives in CameraFeedTracker (shared with the MUX
 panel's per-camera row); this widget only turns that into pixels.
@@ -32,10 +32,11 @@ _STATE_COLORS = {
     "NO SIGNAL": "#c0392b",
 }
 
-# Video area is locked to this aspect ratio (portrait — width:height),
-# letterboxed within whatever space the grid cell gives this widget.
-_VIDEO_ASPECT_W = 9
-_VIDEO_ASPECT_H = 16
+# Video area is locked to this aspect ratio (16:9 — a typical camera/
+# screen ratio, e.g. 1920x1080), letterboxed within whatever space the
+# grid cell gives this widget.
+_VIDEO_ASPECT_W = 16
+_VIDEO_ASPECT_H = 9
 
 
 def _frame_to_pixmap(frame) -> QPixmap:
@@ -95,7 +96,7 @@ class CameraFeedWidget(QWidget):
 
         self._video_label = QLabel()
         self._video_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self._video_label.setMinimumSize(90, 160)  # 9:16 floor, resizeEvent takes over once shown
+        self._video_label.setMinimumSize(160, 90)  # 16:9 floor, resizeEvent takes over once shown
         self._video_label.setStyleSheet(
             'background: transparent; color: #555; font-size: 13px; font-family: monospace;'
         )
