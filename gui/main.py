@@ -58,7 +58,29 @@ def _parse_args():
         help='Run against SimulationDataSource instead of live ROS '
              '(no rclpy/ROS install required).',
     )
+    parser.add_argument(
+        '--primary-screen', type=int, default=0, metavar='N',
+        help='Screen index for the primary window (see --list-screens). Default: 0.',
+    )
+    parser.add_argument(
+        '--camera-screen', type=int, default=1, metavar='N',
+        help='Screen index for the camera window (see --list-screens). Default: 1.',
+    )
+    parser.add_argument(
+        '--list-screens', action='store_true',
+        help='List detected screens (index, name, resolution) and exit — use this '
+             'to find the right indices for --primary-screen/--camera-screen when '
+             'more than 2 monitors are connected (e.g. a laptop plus two externals).',
+    )
     return parser.parse_args()
+
+
+def _print_screens(app):
+    primary = app.primaryScreen()
+    for i, screen in enumerate(app.screens()):
+        geo = screen.availableGeometry()
+        marker = '  (OS primary)' if screen is primary else ''
+        print(f'  [{i}] {screen.name()}  {geo.width()}x{geo.height()}+{geo.x()}+{geo.y()}{marker}')
 
 
 def main():
@@ -67,6 +89,10 @@ def main():
     app = QApplication(sys.argv)
     app.setApplicationName('Rover Base Station')
     app.setStyleSheet(_STYLESHEET)
+
+    if args.list_screens:
+        _print_screens(app)
+        sys.exit(0)
 
     rclpy = None
     ros_thread = None
@@ -89,23 +115,40 @@ def main():
     camera_window = CameraWindow(data_source)
 
     screens = app.screens()
-    if len(screens) > 1:
-        # Real deployment: primary window fullscreen on monitor 1,
-        # camera window fullscreen on monitor 2. Move-then-maximize
-        # rather than a direct setScreen() call, since the widget has
-        # no native window (and hence no assignable QScreen) until
-        # it's shown — moving first onto the target screen's geometry
-        # is what makes showMaximized() land there instead of monitor 1.
+    primary_idx, camera_idx = args.primary_screen, args.camera_screen
+    indices_valid = (
+        0 <= primary_idx < len(screens)
+        and 0 <= camera_idx < len(screens)
+        and primary_idx != camera_idx
+    )
+
+    if indices_valid:
+        # Real deployment (2, or 3+ with explicit --primary-screen/
+        # --camera-screen — e.g. a laptop plus two external monitors):
+        # each window fullscreen on its own chosen monitor. Move-then-
+        # maximize rather than a direct setScreen() call, since a
+        # widget has no native window (and hence no assignable
+        # QScreen) until it's shown — moving first onto the target
+        # screen's geometry is what makes showMaximized() land there
+        # instead of wherever Qt would otherwise default to.
+        window.move(screens[primary_idx].availableGeometry().topLeft())
         window.showMaximized()
-        camera_window.move(screens[1].availableGeometry().topLeft())
+        camera_window.move(screens[camera_idx].availableGeometry().topLeft())
         camera_window.showMaximized()
     else:
-        # Dev machines often don't have a second monitor — tile both
-        # windows side by side on the one screen so the camera window
-        # is still usable/testable rather than fully hidden behind the
-        # maximized primary window.
-        print('WARNING: only one screen detected — tiling camera window '
-              'next to the primary window instead of a second monitor.')
+        # Dev machines often don't have a second monitor, and a bad
+        # --primary-screen/--camera-screen index (run --list-screens to
+        # see valid ones) shouldn't crash — tile both windows side by
+        # side on one screen so the camera window is still usable/
+        # testable rather than fully hidden behind the maximized
+        # primary window.
+        if len(screens) <= 1:
+            print('WARNING: only one screen detected — tiling camera window '
+                  'next to the primary window instead of a second monitor.')
+        else:
+            print(f'WARNING: --primary-screen={primary_idx}/--camera-screen={camera_idx} '
+                  f'invalid for {len(screens)} detected screens (run --list-screens to see '
+                  f'valid indices) — falling back to tiling both windows on one screen.')
         avail = screens[0].availableGeometry()
         half_width = avail.width() // 2
         window.setGeometry(avail.x(), avail.y(), half_width, avail.height())
