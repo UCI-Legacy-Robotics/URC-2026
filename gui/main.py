@@ -1,7 +1,9 @@
 import argparse
 import os
+import signal
 import sys
 import threading
+from PyQt6.QtCore import QTimer
 from PyQt6.QtWidgets import QApplication
 from ui.main_window import MainWindow
 from ui.camera_window import CameraWindow
@@ -93,6 +95,16 @@ def main():
     if args.list_screens:
         _print_screens(app)
         sys.exit(0)
+
+    # Qt's event loop is a blocking C++ call, so Python never gets a
+    # chance to run a signal handler while app.exec() is running —
+    # Ctrl+C is silently swallowed by default. quit() on SIGINT plus a
+    # no-op periodic timer (just to hand control back to the Python
+    # interpreter regularly) is the standard PyQt fix.
+    signal.signal(signal.SIGINT, lambda *_: app.quit())
+    _sigint_pump = QTimer()
+    _sigint_pump.timeout.connect(lambda: None)
+    _sigint_pump.start(200)
 
     rclpy = None
     ros_thread = None
