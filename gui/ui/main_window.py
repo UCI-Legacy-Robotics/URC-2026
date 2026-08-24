@@ -230,6 +230,15 @@ class MainWindow(QMainWindow):
             _CONTROL_MODE_BY_MISSION_STATE.get(new_state, "STANDBY")
         )
 
+        # Stop whatever subsystem the OLD mission had running (bug fix:
+        # set_mode() below only resets the widget's own displayed status
+        # to IDLE — it never actually stops anything, so a mission reset
+        # while its subsystem was RUNNING left it running for real, and
+        # anything gated on subsystem_status_update, like the camera
+        # MUX, never saw it stop). Must run before set_mode() below,
+        # since that's what overwrites the status this check reads.
+        self.top_strip.subsystem_launch.stop_if_running()
+
         mode = _SUBSYSTEM_MODE_BY_MISSION_STATE.get(new_state, "NONE")
         self.top_strip.subsystem_launch.set_mode(mode)
 

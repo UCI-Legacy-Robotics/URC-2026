@@ -94,6 +94,18 @@ class SubsystemLaunchWidget(QWidget):
         self._refresh_status_label()
         self._refresh_button()
 
+    def stop_if_running(self):
+        """Force-stop the current subsystem if it's running/starting.
+        Call this BEFORE set_mode() when a mission ends — set_mode()
+        only resets this widget's own displayed status to IDLE, it
+        never tells the DataSource to actually stop anything, so a
+        subsystem left running through a mission reset would keep
+        running (and anything gated on subsystem_status_update, like
+        the camera MUX, would never learn it stopped) unless something
+        explicitly emits stop_requested first."""
+        if self._status in _RUNNING_LIKE_STATUSES:
+            self.stop_requested.emit(self._mode)
+
     # -- internal ---------------------------------------------------------
 
     def _on_button_clicked(self):
