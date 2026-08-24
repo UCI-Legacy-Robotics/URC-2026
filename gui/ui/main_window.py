@@ -199,6 +199,8 @@ class MainWindow(QMainWindow):
 
         self.tabs = QTabWidget()
         self.science_tab = ScienceTabWidget()
+        self.science_tab.launch_requested.connect(self._on_science_launch_requested)
+        self.science_tab.stop_requested.connect(self._on_science_stop_requested)
         self.tabs.addTab(self.science_tab, "Science")
         self.tabs.addTab(_placeholder_tab("Delivery"), "Delivery")
         self.tabs.addTab(_placeholder_tab("Equipment Servicing"), "Equipment Servicing")
@@ -264,6 +266,14 @@ class MainWindow(QMainWindow):
     def _on_subsystem_stop_requested(self, subsystem):
         if self.data_source is not None:
             self.data_source.send_subsystem_command(subsystem, "stop")
+
+    def _on_science_launch_requested(self, sequence, collect_to_cache):
+        if self.data_source is not None:
+            self.data_source.send_science_sequence_command(sequence, "launch", collect_to_cache)
+
+    def _on_science_stop_requested(self, sequence):
+        if self.data_source is not None:
+            self.data_source.send_science_sequence_command(sequence, "stop")
 
     def _on_health_state_changed(self, old_state, new_state):
         self.top_strip.electrical_cluster.comms_health.set_health_state(new_state)

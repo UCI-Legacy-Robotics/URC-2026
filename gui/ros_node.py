@@ -169,6 +169,15 @@ class RosDataSource(DataSource):
         # no launch topic/service exists yet, so just log for now.
         self.node.get_logger().info(f'subsystem command (no-op): {subsystem} -> {action}')
 
+    def send_science_sequence_command(self, sequence: str, action: str, collect_to_cache: bool = False):
+        # Real sequence execution is out of scope for the GUI -- no
+        # launch topic/service exists yet, so just log for now (same
+        # as send_subsystem_command above).
+        self.node.get_logger().info(
+            f'science sequence command (no-op): {sequence} -> {action} '
+            f'(collect_to_cache={collect_to_cache})'
+        )
+
     def send_software_enable_command(self, enabled: bool):
         # No software-enable topic/service exists yet — log only, same as
         # subsystem commands above.

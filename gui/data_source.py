@@ -64,6 +64,18 @@ class DataSourceSignals(QObject):
     software_enable_ack     = pyqtSignal(bool)      # confirmed enabled/disabled state
     estop_confirmed         = pyqtSignal(bool)      # True = confirmed stopped, False = reset
 
+    # Science Mission sequence telemetry — see send_science_sequence_command
+    # below for the outbound (launch/stop) side. `sequence` is always one
+    # of "SPECTROMETER"/"NPK"/"PANORAMA"/"STRATIGRAPHY", multiplexed onto
+    # shared signals the same way camera_frame multiplexes on camera_id
+    # and subsystem_status_update multiplexes on subsystem — one signal
+    # per data shape rather than one per sequence, so widgets/the data
+    # store can listen once and dispatch by tag.
+    science_sequence_status = pyqtSignal(str, str, str)          # (sequence, status, message)
+    science_gnss_fix        = pyqtSignal(str, float, float)      # (sequence, lat, lon) -- sample-site coords reported BY the rover, distinct from gnss_fix (the rover's own live position)
+    science_image           = pyqtSignal(str, object, int, float)  # (sequence, frame, frame_bytes, timestamp) -- frame is the same SimpleNamespace(encoding, data, height, width) shape as camera_frame
+    science_reading         = pyqtSignal(str, object)            # (sequence, reading: dict) -- opaque key/value payload, shape is rover-defined; widgets/store treat it generically rather than assuming fields
+
     # diagnostics_update's payload is always a plain list of dicts:
     #   {"name": str, "level": "OK"|"WARN"|"ERROR"|"STALE", "message": str,
     #    "values": dict[str, str]}
@@ -162,6 +174,27 @@ class DataSource(ABC):
         frames to widgets) — the point is to reclaim bandwidth, not just
         hide the feed in the UI. Idempotent: disabling an already-disabled
         camera is a no-op.
+        """
+        raise NotImplementedError
+
+    @abstractmethod
+    def send_science_sequence_command(self, sequence: str, action: str, collect_to_cache: bool = False):
+        """Request a Science Mission sequence be launched or stopped.
+
+        sequence: "SPECTROMETER", "NPK", "PANORAMA", or "STRATIGRAPHY".
+        action: "launch" or "stop". Panorama and Stratigraphic Photo are
+        start-only sequences (no operator-initiated abort) — callers
+        never send action="stop" for them.
+
+        collect_to_cache only applies to sequence="SPECTROMETER" with
+        action="launch" (only one site's sample can occupy the physical
+        cache at a time); implementations should ignore it otherwise.
+
+        Like send_subsystem_command, real sequence execution lives on
+        the rover — implementations just log/no-op on this for now,
+        no launch topic/service exists yet. Progress comes back
+        asynchronously via signals.science_sequence_status and the
+        science_gnss_fix/science_image/science_reading data signals.
         """
         raise NotImplementedError
 

@@ -40,6 +40,11 @@ _SOFTWARE_ENABLE_ACK_MS = 800
 # How long a fake E-Stop request takes to confirm, when not withheld.
 _ESTOP_CONFIRM_MS = 1000
 
+# Spacing between chained fake status messages within a science sequence,
+# and how long a fake abort takes to confirm STOPPING -> STOPPED.
+_SCIENCE_STEP_INTERVAL_MS = 900
+_SCIENCE_STOP_CONFIRM_MS = 800
+
 # Fake camera frames: small resolution + ~5fps is plausible for a
 # bandwidth-limited field link, and keeps the encode/emit cost trivial.
 _CAMERA_FRAME_INTERVAL_MS = 200
@@ -93,6 +98,13 @@ class SimulationDataSource(DataSource):
         self._camera_timers = {}
         self._camera_frame_counters = {}
 
+        # Science sequences: each sequence's chain of fake QTimers, kept
+        # around (rather than using static QTimer.singleShot calls) so a
+        # "stop" request can actually cancel whatever's still pending --
+        # see _cancel_science_timers.
+        self._science_timers = {}
+        self._science_image_counters = {}
+
         self._gnss_timer = QTimer()
         self._gnss_timer.setInterval(1000)
         self._gnss_timer.timeout.connect(self._emit_gnss)
@@ -132,6 +144,9 @@ class SimulationDataSource(DataSource):
             timer.stop()
         for timer in self._camera_timers.values():
             timer.stop()
+        for timers in self._science_timers.values():
+            for timer in timers:
+                timer.stop()
 
     def enable_camera(self, camera_id: str):
         if camera_id in self._camera_timers:
@@ -274,6 +289,83 @@ class SimulationDataSource(DataSource):
             _ESTOP_CONFIRM_MS,
             lambda: self.signals.estop_confirmed.emit(True),
         )
+
+    # -- science sequences -------------------------------------------------
+
+    def send_science_sequence_command(self, sequence: str, action: str, collect_to_cache: bool = False):
+        print(f"[sim] science sequence command: {sequence} -> {action} (collect_to_cache={collect_to_cache})")
+        if action == "launch":
+            self._cancel_science_timers(sequence)
+            if sequence == "SPECTROMETER":
+                self._launch_spectrometer_sequence()
+        elif action == "stop":
+            self._abort_science_sequence(sequence)
+
+    def _cancel_science_timers(self, sequence: str):
+        for timer in self._science_timers.pop(sequence, []):
+            timer.stop()
+
+    def _schedule_science_step(self, sequence: str, delay_ms: int, fn):
+        """Cancelable equivalent of QTimer.singleShot — kept on
+        self._science_timers[sequence] so _cancel_science_timers can stop
+        anything still pending if the operator aborts mid-sequence."""
+        timer = QTimer()
+        timer.setSingleShot(True)
+        timer.timeout.connect(fn)
+        self._science_timers.setdefault(sequence, []).append(timer)
+        timer.start(delay_ms)
+
+    def _abort_science_sequence(self, sequence: str):
+        self._cancel_science_timers(sequence)
+        self.signals.science_sequence_status.emit(sequence, "STOPPING", "")
+        self._schedule_science_step(
+            sequence, _SCIENCE_STOP_CONFIRM_MS,
+            lambda: self.signals.science_sequence_status.emit(sequence, "STOPPED", ""),
+        )
+
+    def _launch_spectrometer_sequence(self):
+        sequence = "SPECTROMETER"
+        self.signals.science_sequence_status.emit(sequence, "STARTING", "lowering drill")
+
+        running_messages = (
+            "drill lowered, loading sample into cache",
+            "sample loaded into mixer",
+            "mixer emptying into spectrometer vials",
+            "spectrometer reading in progress",
+        )
+        delay = _SCIENCE_STEP_INTERVAL_MS
+        for message in running_messages:
+            self._schedule_science_step(
+                sequence, delay,
+                lambda m=message: self.signals.science_sequence_status.emit(sequence, "RUNNING", m),
+            )
+            delay += _SCIENCE_STEP_INTERVAL_MS
+
+        self._schedule_science_step(sequence, delay, lambda: self._emit_spectrometer_results(sequence))
+        delay += _SCIENCE_STEP_INTERVAL_MS
+        self._schedule_science_step(
+            sequence, delay,
+            lambda: self.signals.science_sequence_status.emit(sequence, "STOPPED", "sequence complete"),
+        )
+
+    def _emit_spectrometer_results(self, sequence: str):
+        # Sample-site GNSS, reported by the rover -- not sampled from the
+        # base station's own gnss_fix stream, per the "rover is source of
+        # truth for the sample site" requirement.
+        lat = self._latitude + random.uniform(-0.0001, 0.0001)
+        lon = self._longitude + random.uniform(-0.0001, 0.0001)
+        self.signals.science_gnss_fix.emit(sequence, lat, lon)
+
+        counter = self._science_image_counters.get(sequence, 0) + 1
+        self._science_image_counters[sequence] = counter
+        frame = _make_fake_camera_frame(CameraID.SCIENCE_PAYLOAD.value, counter)
+        self.signals.science_image.emit(sequence, frame, len(frame.data), time.time())
+
+        reading = {
+            "peak_wavelength_nm": round(random.uniform(400, 700), 1),
+            "absorbance": round(random.uniform(0.0, 2.0), 3),
+        }
+        self.signals.science_reading.emit(sequence, reading)
 
 
 if __name__ == '__main__':
