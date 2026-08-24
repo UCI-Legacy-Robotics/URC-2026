@@ -54,6 +54,8 @@ class _CameraMuxRow(QWidget):
         self._state_label.setStyleSheet("font-size: 12px; font-family: monospace;")
         self._rate_label = QLabel()
         self._rate_label.setStyleSheet("font-size: 12px; font-family: monospace; color: #999;")
+        self._fps_label = QLabel()
+        self._fps_label.setStyleSheet("font-size: 12px; font-family: monospace; color: #999;")
         self._button = QPushButton()
         self._button.setFixedWidth(90)
         self._button.clicked.connect(self._on_button_clicked)
@@ -61,7 +63,8 @@ class _CameraMuxRow(QWidget):
         layout.addWidget(self._label, 0, 0)
         layout.addWidget(self._state_label, 0, 1)
         layout.addWidget(self._rate_label, 0, 2)
-        layout.addWidget(self._button, 0, 3)
+        layout.addWidget(self._fps_label, 0, 3)
+        layout.addWidget(self._button, 0, 4)
         layout.setColumnStretch(0, 1)
 
         self._render()
@@ -82,12 +85,14 @@ class _CameraMuxRow(QWidget):
     def _render(self):
         state = self.tracker.current_state()
         rate = self.tracker.current_rate_mbps()
+        fps = self.tracker.current_fps()
 
         self._state_label.setText(state)
         self._state_label.setStyleSheet(
             f"font-size: 12px; font-family: monospace; color: {_STATE_COLORS[state]};"
         )
         self._rate_label.setText(f"{rate:.2f} Mbps")
+        self._fps_label.setText(f"{fps:.1f} fps")
         self._button.setText("Disable" if self.tracker.is_enabled() else "Enable")
 
 

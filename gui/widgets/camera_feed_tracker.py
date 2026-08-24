@@ -81,6 +81,17 @@ class CameraFeedTracker(QObject):
         total_bits = sum(frame_bytes for _, frame_bytes in self._rate_samples) * 8
         return (total_bits / elapsed) / 1_000_000
 
+    def current_fps(self) -> float:
+        if len(self._rate_samples) < 2:
+            return 0.0
+        t_first, _ = self._rate_samples[0]
+        t_last, _ = self._rate_samples[-1]
+        elapsed = t_last - t_first
+        if elapsed <= 0:
+            return 0.0
+        frame_intervals = len(self._rate_samples) - 1
+        return frame_intervals / elapsed
+
     def _on_camera_frame(self, camera_id, frame, frame_bytes, timestamp):
         if camera_id != self.camera_id or not self._enabled:
             return

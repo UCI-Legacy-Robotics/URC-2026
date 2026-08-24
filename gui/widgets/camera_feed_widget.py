@@ -155,7 +155,8 @@ class CameraFeedWidget(QWidget):
             self._video_label.setText("NO SIGNAL")
 
         rate = self.tracker.current_rate_mbps()
-        self._status_strip.setText(f"{self._label_text}   {state}   {rate:.2f} Mbps")
+        fps = self.tracker.current_fps()
+        self._status_strip.setText(f"{self._label_text}   {state}   {rate:.2f} Mbps   {fps:.1f} fps")
         self._status_strip.setStyleSheet(
             'background: #0d0d0d; font-size: 15px; font-family: monospace; '
             f'padding: 5px 8px; color: {_STATE_COLORS[state]};'
