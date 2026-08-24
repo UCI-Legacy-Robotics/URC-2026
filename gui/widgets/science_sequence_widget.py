@@ -41,6 +41,35 @@ _RUNNING_LIKE_STATUSES = ("STARTING", "RUNNING")
 
 _SEQUENCE_BADGE_COLORS = {"ACTIVE": "#1b5e20"}
 
+# Fixed-height text boxes for status message / GNSS / reading -- height is
+# hardcoded rather than derived from QLabel.fontMetrics() (which doesn't
+# reflect a stylesheet's font-size until the widget has been polished/
+# shown, so it can't be trusted at construction time). The point of a
+# fixed height is that a widget updating its own displayed text (a longer
+# status message, a new reading) never grows/shrinks the card and shifts
+# the rest of the dashboard around it.
+_MESSAGE_BOX_HEIGHT = 44   # 2 rows at 12px
+_DATA_BOX_HEIGHT = 48      # up to 2 rows at 14px
+
+# Thumbnail size the image slot is fixed to, 4:3 to match the science
+# payload camera's frame aspect (see _CAMERA_FRAME_WIDTH/HEIGHT in
+# simulation_data_source.py) -- deliberately small/fixed rather than
+# stretching to fill the card, so it doesn't dominate the layout.
+_IMAGE_THUMB_WIDTH = 400
+_IMAGE_THUMB_HEIGHT = 300
+
+
+def _fixed_text_box(height: int, font_size: int) -> QLabel:
+    label = QLabel()
+    label.setWordWrap(True)
+    label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+    label.setFixedHeight(height)
+    label.setStyleSheet(
+        f"color: #ccc; font-size: {font_size}px; background: #161616; "
+        "border: 1px solid #2a2a2a; border-radius: 4px; padding: 2px;"
+    )
+    return label
+
 
 class ScienceSequenceWidget(QWidget):
 
@@ -70,6 +99,9 @@ class ScienceSequenceWidget(QWidget):
         self._status_label = ColorCodedLabel()
         layout.addWidget(self._status_label)
 
+        self._message_label = _fixed_text_box(_MESSAGE_BOX_HEIGHT, font_size=12)
+        layout.addWidget(self._message_label)
+
         if has_cache_flag:
             self._cache_checkbox = QCheckBox("Collect to cache")
             layout.addWidget(self._cache_checkbox)
@@ -82,24 +114,25 @@ class ScienceSequenceWidget(QWidget):
 
         self._gnss_label = None
         if show_gnss:
-            self._gnss_label = QLabel("GNSS: --")
-            self._gnss_label.setStyleSheet("color: #999; font-size: 10px;")
+            self._gnss_label = _fixed_text_box(_DATA_BOX_HEIGHT, font_size=14)
+            self._gnss_label.setText("GNSS: --")
             layout.addWidget(self._gnss_label)
 
         self._image_label = None
         if show_image:
             self._image_label = QLabel()
             self._image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-            self._image_label.setMinimumHeight(80)
+            self._image_label.setFixedSize(_IMAGE_THUMB_WIDTH, _IMAGE_THUMB_HEIGHT)
             self._image_label.setStyleSheet("background: #000; border: 1px solid #2a2a2a;")
-            layout.addWidget(self._image_label, 1)
+            layout.addWidget(self._image_label, 0, Qt.AlignmentFlag.AlignHCenter)
 
         self._reading_label = None
         if show_reading:
-            self._reading_label = QLabel("No reading yet")
-            self._reading_label.setStyleSheet("color: #999; font-size: 10px;")
-            self._reading_label.setWordWrap(True)
+            self._reading_label = _fixed_text_box(_DATA_BOX_HEIGHT, font_size=14)
+            self._reading_label.setText("No reading yet")
             layout.addWidget(self._reading_label)
+
+        layout.addStretch()
 
         self._refresh_status_label()
         self._refresh_button()
@@ -126,7 +159,7 @@ class ScienceSequenceWidget(QWidget):
         if self._image_label is not None:
             self._image_label.setPixmap(
                 pixmap.scaled(
-                    self._image_label.width() or 160, 90,
+                    _IMAGE_THUMB_WIDTH, _IMAGE_THUMB_HEIGHT,
                     Qt.AspectRatioMode.KeepAspectRatio,
                     Qt.TransformationMode.SmoothTransformation,
                 )
@@ -149,8 +182,8 @@ class ScienceSequenceWidget(QWidget):
 
     def _refresh_status_label(self, message: str = ""):
         color = _STATUS_COLORS.get(self._status, _STATUS_COLORS["IDLE"])
-        text = self._status if not message else f"{self._status} — {message}"
-        self._status_label.set_state(text, color)
+        self._status_label.set_state(self._status, color)
+        self._message_label.setText(message)
 
     def _refresh_button(self):
         if self._blocked:
