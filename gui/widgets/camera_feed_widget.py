@@ -30,6 +30,7 @@ _STATE_COLORS = {
     "ON": "#3ba33b",
     "OFF": "#888888",
     "NO SIGNAL": "#c0392b",
+    "LOCKED": "#666666",
 }
 
 # Video area is locked to this aspect ratio (16:9 — a typical camera/
@@ -75,6 +76,7 @@ class CameraFeedWidget(QWidget):
         super().__init__(parent)
         self.camera_id = camera_id
         self._label_text = label
+        self._locked = False
 
         self.tracker = CameraFeedTracker(camera_id, parent=self)
         self.tracker.changed.connect(self._render)
@@ -105,8 +107,8 @@ class CameraFeedWidget(QWidget):
         self._render()
 
     def resizeEvent(self, event):
-        # Lock the video area to a 9:16 portrait box, letterboxed
-        # within whatever space this widget currently has (a grid cell
+        # Lock the video area to a 16:9 box, letterboxed within
+        # whatever space this widget currently has (a grid cell
         # is much wider than tall, and a plain landscape-filling label
         # ends up looking like a wide letterbox instead of a feed).
         avail_h = max(self.height() - self._status_strip.sizeHint().height(), 0)
@@ -133,11 +135,22 @@ class CameraFeedWidget(QWidget):
         DataSource alone."""
         self.tracker.set_enabled(enabled)
 
+    def set_locked(self, locked: bool):
+        """Call whenever this camera's gating subsystem (Science/Arm)
+        transitions to/from RUNNING — see CameraWindow. Locked is a
+        display-only concept layered on top of OFF; it never affects
+        the tracker itself, only whether OFF renders as "LOCKED"."""
+        if locked == self._locked:
+            return
+        self._locked = locked
+        self._render()
+
     # -- rendering --------------------------------------------------------
 
     def _render(self):
         state = self.tracker.current_state()
         frame = self.tracker.latest_frame()
+        display_state = "LOCKED" if (self._locked and state == "OFF") else state
 
         if state == "ON" and frame is not None:
             try:
@@ -151,13 +164,17 @@ class CameraFeedWidget(QWidget):
                 self._video_label.setText(f'Decode error: {e}')
         else:
             # Same fixed placeholder text for OFF and NO SIGNAL — the
-            # status strip below is what distinguishes the two.
-            self._video_label.setText("NO SIGNAL")
+            # status strip below is what distinguishes the two. LOCKED
+            # gets its own text so "why is this camera unavailable"
+            # doesn't look identical to "should be on but isn't".
+            self._video_label.setText("LOCKED" if display_state == "LOCKED" else "NO SIGNAL")
 
         rate = self.tracker.current_rate_mbps()
         fps = self.tracker.current_fps()
-        self._status_strip.setText(f"{self._label_text}   {state}   {rate:.2f} Mbps   {fps:.1f} fps")
+        self._status_strip.setText(
+            f"{self._label_text}   {display_state}   {rate:.2f} Mbps   {fps:.1f} fps"
+        )
         self._status_strip.setStyleSheet(
             'background: #0d0d0d; font-size: 15px; font-family: monospace; '
-            f'padding: 5px 8px; color: {_STATE_COLORS[state]};'
+            f'padding: 5px 8px; color: {_STATE_COLORS[display_state]};'
         )

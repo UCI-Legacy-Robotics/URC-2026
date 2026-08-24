@@ -7,7 +7,18 @@ Pure display + the MUX panel — this window does not own any other GUI
 state (mission state, electrical health, etc. stay on MainWindow only,
 per the handoff). The grid's slot assignment is fixed and never
 reflows based on which cameras are active; an inactive slot just shows
-its own tile's "NO SIGNAL" placeholder in place.
+its own tile's "NO SIGNAL"/"LOCKED" placeholder in place.
+
+Science and Arm cameras are gated on their payload's subsystem being
+confirmed RUNNING via DataSource.signals.subsystem_status_update — a
+camera physically can't produce a feed before its payload has power.
+This is the one deliberate exception to "the MUX is otherwise fully
+manual, no MissionState ties" (see camera_mux_panel.py): it's wired to
+subsystem launch confirmation, not to MissionState directly, and it
+only gates *enabling* a camera — it doesn't select/lock the mission
+tabs or anything else MissionStateMachine already governs. Bird's Eye
+lives on the comms tower, independent of any subsystem, so it's never
+gated.
 """
 
 from PyQt6.QtWidgets import QGridLayout, QHBoxLayout, QVBoxLayout, QWidget
@@ -25,12 +36,25 @@ _GRID_POSITIONS = {
     CameraID.ARM_CAM_2.value: (1, 1),        # bottom-right
 }
 
+# Which subsystem_status_update subsystem name gates each camera.
+# Cameras with no entry here (Bird's Eye) are never locked.
+_CAMERA_GATING_SUBSYSTEM = {
+    CameraID.SCIENCE_PAYLOAD.value: "SCIENCE",
+    CameraID.ARM_CAM_1.value: "ARM",
+    CameraID.ARM_CAM_2.value: "ARM",
+}
+
 
 class CameraWindow(QWidget):
 
     def __init__(self, data_source=None, parent=None):
         super().__init__(parent)
         self.data_source = data_source
+
+        # Gated cameras start locked — no subsystem is RUNNING until an
+        # operator launches it, regardless of whether a DataSource is
+        # even wired up.
+        self._subsystem_running = {"SCIENCE": False, "ARM": False}
 
         self.setWindowTitle("Rover Base Station — Cameras")
 
@@ -70,8 +94,20 @@ class CameraWindow(QWidget):
             self.mux_panel.bind_data_source(self.data_source)
             for tile in self.tiles.values():
                 tile.bind_data_source(self.data_source)
+            self.data_source.signals.subsystem_status_update.connect(
+                self._on_subsystem_status_update
+            )
+
+        # Apply the initial locked state to both mirrors of every gated
+        # camera (all locked, since self._subsystem_running starts
+        # all-False above).
+        for camera_id in _CAMERA_GATING_SUBSYSTEM:
+            self._set_camera_locked(camera_id, True)
 
     def _on_camera_toggle_requested(self, camera_id, enabled):
+        if enabled and self._is_camera_locked(camera_id):
+            return  # belt-and-suspenders — the MUX button is disabled while locked anyway
+
         if self.data_source is not None:
             if enabled:
                 self.data_source.enable_camera(camera_id)
@@ -83,3 +119,32 @@ class CameraWindow(QWidget):
         # can't drive either display.
         self.mux_panel.set_camera_enabled(camera_id, enabled)
         self.tiles[camera_id].set_enabled(enabled)
+
+    def _on_subsystem_status_update(self, subsystem, status):
+        if subsystem not in self._subsystem_running:
+            return  # not a gating subsystem (or an unrecognized name) — nothing to do
+
+        running = status == "RUNNING"
+        if running == self._subsystem_running[subsystem]:
+            return
+        self._subsystem_running[subsystem] = running
+
+        for camera_id, gating_subsystem in _CAMERA_GATING_SUBSYSTEM.items():
+            if gating_subsystem != subsystem:
+                continue
+            self._set_camera_locked(camera_id, not running)
+            if not running:
+                # Subsystem confirmed stopped — auto-disable the camera
+                # too rather than leaving it ON with no power behind
+                # it; re-enabling requires the payload to launch again.
+                self._on_camera_toggle_requested(camera_id, False)
+
+    def _is_camera_locked(self, camera_id):
+        subsystem = _CAMERA_GATING_SUBSYSTEM.get(camera_id)
+        if subsystem is None:
+            return False
+        return not self._subsystem_running[subsystem]
+
+    def _set_camera_locked(self, camera_id, locked):
+        self.mux_panel.set_camera_locked(camera_id, locked)
+        self.tiles[camera_id].set_locked(locked)
