@@ -1,0 +1,14 @@
+/**:
+  ros__parameters:
+    image_topic: "/camera1/image_raw"
+    detections_topic: "/yolo/detections"
+    detections_json_topic: "/yolo/detections_json"
+    debug_image_topic: "/yolo/debug_image"
+    model_path: ""
+    confidence_threshold: 0.25
+    imgsz: 640
+    device: "0"
+    image_encoding: "bgr8"
+    max_fps: 10.0
+    publish_json: true
+    publish_debug_image: false
