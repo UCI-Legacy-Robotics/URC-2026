@@ -17,6 +17,7 @@ from widgets.electrical_health_cluster import ElectricalHealthCluster
 from widgets.software_enable_widget import SoftwareEnableWidget
 from widgets.estop_widget import EstopWidget
 from widgets.gnss_map_widget import GnssMapWidget
+from widgets.science_tab_widget import ScienceTabWidget
 
 
 # Which subsystem is implied by which mission — MainWindow applies this
@@ -197,7 +198,8 @@ class MainWindow(QMainWindow):
         content_layout.setSpacing(6)
 
         self.tabs = QTabWidget()
-        self.tabs.addTab(_placeholder_tab("Science"), "Science")
+        self.science_tab = ScienceTabWidget()
+        self.tabs.addTab(self.science_tab, "Science")
         self.tabs.addTab(_placeholder_tab("Delivery"), "Delivery")
         self.tabs.addTab(_placeholder_tab("Equipment Servicing"), "Equipment Servicing")
         self.tabs.addTab(_placeholder_tab("Autonomous Nav"), "Autonomous Nav")
@@ -219,6 +221,7 @@ class MainWindow(QMainWindow):
             self.data_source.signals.software_enable_ack.connect(software_toggle.set_ack)
             self.data_source.signals.estop_confirmed.connect(estop_button.set_confirmed)
             self.sidebar.gnss_map.bind_data_source(self.data_source)
+            self.science_tab.bind_data_source(self.data_source)
 
         content_layout.addWidget(self.tabs)
         content_layout.addWidget(self.sidebar)
