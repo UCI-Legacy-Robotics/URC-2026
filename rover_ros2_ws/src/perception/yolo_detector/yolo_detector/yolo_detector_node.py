@@ -4,12 +4,22 @@ from pathlib import Path
 from typing import Any, Iterable, Optional
 
 import rclpy
+from ament_index_python.packages import PackageNotFoundError, get_package_share_directory
 from cv_bridge import CvBridge, CvBridgeError
 from rclpy.node import Node
 from rclpy.qos import qos_profile_sensor_data
 from sensor_msgs.msg import Image
 from std_msgs.msg import String
 from vision_msgs.msg import Detection2D, Detection2DArray, ObjectHypothesisWithPose
+
+from yolo_detector.detector_api import Detection, Detector
+
+PACKAGE_NAME = 'yolo_detector'
+
+# Stock checkpoint installed to share/yolo_detector/models. Used when
+# model_path is left unset so the node runs out of the box; a trained .engine
+# passed via model_path takes priority.
+DEFAULT_MODEL_FILE = 'yolo11s.pt'
 
 
 class YoloDetectorNode(Node):
@@ -74,11 +84,18 @@ class YoloDetectorNode(Node):
         self.declare_parameter('publish_json', True)
         self.declare_parameter('publish_debug_image', False)
 
-    def _create_detector(self) -> Any:
+    def _create_detector(self) -> Detector:
         model_path = self._expanded_model_path()
         if not model_path:
-            raise RuntimeError(
-                'model_path is required. Pass a .pt, .onnx, or .engine path.'
+            model_path = self._packaged_model_path()
+            if not model_path:
+                raise RuntimeError(
+                    'model_path is unset and the bundled '
+                    f'{DEFAULT_MODEL_FILE} could not be located. Pass a .pt, '
+                    '.onnx, or .engine path explicitly.'
+                )
+            self.get_logger().info(
+                f"model_path is unset; using the bundled {DEFAULT_MODEL_FILE}"
             )
 
         if not Path(model_path).exists():
@@ -87,27 +104,27 @@ class YoloDetectorNode(Node):
                 "Ultralytics will still try to resolve it."
             )
 
-        try:
-            from object_detection.detector_api import Detector
-        except ImportError as exc:
-            raise RuntimeError(
-                'Could not import object_detection.detector_api.Detector. '
-                'Install the yolo-object-factory repo into this Python '
-                'environment or add its checkout root to PYTHONPATH.'
-            ) from exc
-
         device = self._parse_device(self._str_param('device'))
         self.get_logger().info(
             f"Loading YOLO model {model_path} with conf="
             f"{self._float_param('confidence_threshold')}, "
             f"imgsz={self._int_param('imgsz')}, device={device}"
         )
-        return Detector(
-            model_path=model_path,
-            conf=self._float_param('confidence_threshold'),
-            imgsz=self._int_param('imgsz'),
-            device=device,
-        )
+        try:
+            return Detector(
+                model_path=model_path,
+                conf=self._float_param('confidence_threshold'),
+                imgsz=self._int_param('imgsz'),
+                device=device,
+            )
+        except ImportError as exc:
+            # Detector imports Ultralytics lazily, so a missing dependency
+            # surfaces here rather than at import time.
+            raise RuntimeError(
+                'Could not load the YOLO model. Install Ultralytics into the '
+                'Python environment ROS runs in: python3 -m pip install '
+                'ultralytics'
+            ) from exc
 
     def _image_callback(self, msg: Image) -> None:
         if self._should_skip_frame():
@@ -156,7 +173,7 @@ class YoloDetectorNode(Node):
     def _to_detection_array(
         self,
         image_msg: Image,
-        detections: Iterable[Any],
+        detections: Iterable[Detection],
     ) -> Detection2DArray:
         array_msg = Detection2DArray()
         array_msg.header = image_msg.header
@@ -166,7 +183,11 @@ class YoloDetectorNode(Node):
         ]
         return array_msg
 
-    def _to_detection_msg(self, image_msg: Image, detection: Any) -> Detection2D:
+    def _to_detection_msg(
+        self,
+        image_msg: Image,
+        detection: Detection,
+    ) -> Detection2D:
         x1, y1, x2, y2 = detection.bbox
         width = max(0.0, float(x2 - x1))
         height = max(0.0, float(y2 - y1))
@@ -203,7 +224,7 @@ class YoloDetectorNode(Node):
     def _to_json_message(
         self,
         image_msg: Image,
-        detections: Iterable[Any],
+        detections: Iterable[Detection],
     ) -> String:
         payload = {
             'stamp': {
@@ -229,7 +250,7 @@ class YoloDetectorNode(Node):
         self,
         image_msg: Image,
         frame: Any,
-        detections: Iterable[Any],
+        detections: Iterable[Detection],
     ) -> None:
         cv2 = self._load_cv2()
         if cv2 is None:
@@ -274,6 +295,19 @@ class YoloDetectorNode(Node):
 
         self._cv2 = cv2
         return self._cv2
+
+    @staticmethod
+    def _packaged_model_path() -> str:
+        """Locate the checkpoint shipped in this package's share directory.
+
+        Returns an empty string when the package is not on the ament index,
+        e.g. when the node is run straight from a source checkout.
+        """
+        try:
+            share_dir = get_package_share_directory(PACKAGE_NAME)
+        except PackageNotFoundError:
+            return ''
+        return str(Path(share_dir) / 'models' / DEFAULT_MODEL_FILE)
 
     def _expanded_model_path(self) -> str:
         model_path = self._str_param('model_path').strip()

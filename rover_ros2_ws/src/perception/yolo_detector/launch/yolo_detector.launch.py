@@ -55,7 +55,8 @@ def generate_launch_description():
         DeclareLaunchArgument(
             'model_path',
             default_value='',
-            description='Path to a YOLO .pt, .onnx, or .engine model.',
+            description='Path to a YOLO .pt, .onnx, or .engine model. Empty '
+                        'uses the bundled yolo11s.pt.',
         ),
         DeclareLaunchArgument(
             'confidence_threshold',
