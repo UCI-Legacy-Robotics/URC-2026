@@ -4,8 +4,7 @@ Science Mission tab.
 Composes the Science-mission-specific controls: the current-site label
 (ScienceSiteBar) and the four rover-driven sequences (Spectrometer, NPK
 probe, Panorama, Stratigraphic Photo), each a ScienceSequenceWidget.
-Panorama's payload-lowered gating and the review dialog arrive in
-later steps.
+The review dialog arrives in a later step.
 
 This widget owns the "which sequence is this data for" dispatch:
 DataSource.signals.science_* are multiplexed by a `sequence` tag (see
@@ -26,8 +25,8 @@ nothing is silently dropped if that assumption ever changes.
 
 The site bar separately locks itself while Spectrometer or NPK is
 running (STARTING/RUNNING/STOPPING) -- payload-lowered, not just
-"site required" -- the same _PAYLOAD_LOWERED_SEQUENCES Step 8 reuses
-to gate Panorama.
+"site required" -- and Panorama is blocked on that same condition,
+since it needs the science payload raised for its 360 rotation.
 """
 
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QPushButton
@@ -146,13 +145,24 @@ class ScienceTabWidget(QWidget):
 
     def _refresh_gating(self):
         site_set = self.site_bar.current_site() is not None
-        for sequence in _SITE_REQUIRED_SEQUENCES:
-            widget = self._sequence_widgets.get(sequence)
-            if widget is not None:
-                widget.set_blocked(not site_set, "Set a site first")
-
         payload_lowered = any(
             self._sequence_statuses.get(sequence) in _PAYLOAD_LOWERED_STATUSES
             for sequence in _PAYLOAD_LOWERED_SEQUENCES
         )
+
+        # Two independent block reasons can apply to the same widget
+        # (Panorama needs a site AND the payload not lowered) -- combine
+        # them into one set_blocked() call per widget rather than two
+        # calls that would just have the second overwrite the first.
+        for sequence in _SITE_REQUIRED_SEQUENCES:
+            widget = self._sequence_widgets.get(sequence)
+            if widget is None:
+                continue
+            if not site_set:
+                widget.set_blocked(True, "Set a site first")
+            elif sequence == "PANORAMA" and payload_lowered:
+                widget.set_blocked(True, "Blocked: payload lowered")
+            else:
+                widget.set_blocked(False)
+
         self.site_bar.set_locked(payload_lowered)
