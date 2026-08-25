@@ -2,9 +2,10 @@
 Science Mission tab.
 
 Composes the Science-mission-specific controls: the current-site label
-(ScienceSiteBar) and the four rover-driven sequences (Spectrometer, NPK
-probe, Panorama, Stratigraphic Photo), each a ScienceSequenceWidget.
-The review dialog arrives in a later step.
+(ScienceSiteBar), the four rover-driven sequences (Spectrometer, NPK
+probe, Panorama, Stratigraphic Photo, each a ScienceSequenceWidget),
+and a "Review Sites..." button opening ScienceReviewDialog to browse
+what's been saved so far.
 
 This widget owns the "which sequence is this data for" dispatch:
 DataSource.signals.science_* are multiplexed by a `sequence` tag (see
@@ -34,6 +35,7 @@ from PyQt6.QtCore import pyqtSignal
 
 from widgets.science_site_bar import ScienceSiteBar
 from widgets.science_sequence_widget import ScienceSequenceWidget
+from widgets.science_review_dialog import ScienceReviewDialog
 from widgets.camera_feed_widget import _frame_to_pixmap
 from science_data_store import ScienceDataStore
 
@@ -101,8 +103,9 @@ class ScienceTabWidget(QWidget):
 
         layout.addLayout(sequences_row, 1)
 
+        self._review_dialog = ScienceReviewDialog(self._store, parent=self)
         self.review_button = QPushButton("Review Sites...")
-        self.review_button.setEnabled(False)  # wired in Step 10
+        self.review_button.clicked.connect(self._review_dialog.exec)
         layout.addWidget(self.review_button)
 
         self._refresh_gating()  # Spectrometer/NPK start blocked -- no site set yet
