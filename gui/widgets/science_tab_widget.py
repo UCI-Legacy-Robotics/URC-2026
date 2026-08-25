@@ -33,7 +33,7 @@ from widgets.science_site_bar import ScienceSiteBar
 from widgets.science_sequence_widget import ScienceSequenceWidget
 from widgets.camera_feed_widget import _frame_to_pixmap
 
-_PLACEHOLDER_TITLES = ("Panorama", "Stratigraphic Photo")
+_PLACEHOLDER_TITLES = ("Stratigraphic Photo",)
 
 
 def _placeholder_slot(title: str) -> QFrame:
@@ -95,6 +95,12 @@ class ScienceTabWidget(QWidget):
         )
         self._register_sequence_widget(npk)
         sequences_row.addWidget(npk)
+
+        panorama = ScienceSequenceWidget(
+            sequence="PANORAMA", title="Panorama", stoppable=False, show_image=True,
+        )
+        self._register_sequence_widget(panorama)
+        sequences_row.addWidget(panorama)
 
         for title in _PLACEHOLDER_TITLES:
             sequences_row.addWidget(_placeholder_slot(title))

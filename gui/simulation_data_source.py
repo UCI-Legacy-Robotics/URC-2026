@@ -300,6 +300,8 @@ class SimulationDataSource(DataSource):
                 self._launch_spectrometer_sequence()
             elif sequence == "NPK":
                 self._launch_npk_sequence()
+            elif sequence == "PANORAMA":
+                self._launch_panorama_sequence()
         elif action == "stop":
             self._abort_science_sequence(sequence)
 
@@ -397,6 +399,35 @@ class SimulationDataSource(DataSource):
             "potassium_ppm": round(random.uniform(5, 80), 1),
         }
         self.signals.science_reading.emit(sequence, reading)
+
+    def _launch_panorama_sequence(self):
+        # Start-only -- no _abort_science_sequence path is ever reached
+        # for this sequence since ScienceSequenceWidget(stoppable=False)
+        # never emits a stop_requested for it.
+        sequence = "PANORAMA"
+        self.signals.science_sequence_status.emit(sequence, "STARTING", "beginning 360 rotation")
+
+        rotation_messages = ("rotating, capturing frames", "stitching panorama")
+        delay = _SCIENCE_STEP_INTERVAL_MS
+        for message in rotation_messages:
+            self._schedule_science_step(
+                sequence, delay,
+                lambda m=message: self.signals.science_sequence_status.emit(sequence, "RUNNING", m),
+            )
+            delay += _SCIENCE_STEP_INTERVAL_MS
+
+        self._schedule_science_step(sequence, delay, lambda: self._emit_panorama_result(sequence))
+        delay += _SCIENCE_STEP_INTERVAL_MS
+        self._schedule_science_step(
+            sequence, delay,
+            lambda: self.signals.science_sequence_status.emit(sequence, "STOPPED", "panorama complete"),
+        )
+
+    def _emit_panorama_result(self, sequence: str):
+        counter = self._science_image_counters.get(sequence, 0) + 1
+        self._science_image_counters[sequence] = counter
+        frame = _make_fake_camera_frame(sequence, counter)
+        self.signals.science_image.emit(sequence, frame, len(frame.data), time.time())
 
 
 if __name__ == '__main__':
