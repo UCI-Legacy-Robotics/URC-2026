@@ -21,7 +21,7 @@ derived enablement would otherwise allow.
 """
 
 from PyQt6.QtWidgets import (
-    QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QCheckBox
+    QWidget, QVBoxLayout, QLabel, QPushButton, QCheckBox
 )
 from PyQt6.QtCore import Qt, pyqtSignal
 
@@ -49,7 +49,8 @@ _SEQUENCE_BADGE_COLORS = {"ACTIVE": "#1b5e20"}
 # status message, a new reading) never grows/shrinks the card and shifts
 # the rest of the dashboard around it.
 _MESSAGE_BOX_HEIGHT = 44   # 2 rows at 12px
-_DATA_BOX_HEIGHT = 48      # up to 2 rows at 14px
+_DATA_BOX_HEIGHT = 56      # up to 2 rows at 18px
+_DATA_BOX_FONT_SIZE = 18
 
 # Thumbnail size the image slot is fixed to, 4:3 to match the science
 # payload camera's frame aspect (see _CAMERA_FRAME_WIDTH/HEIGHT in
@@ -79,6 +80,7 @@ class ScienceSequenceWidget(QWidget):
     def __init__(self, sequence: str, title: str, stoppable: bool,
                  has_cache_flag: bool = False, show_gnss: bool = False,
                  show_image: bool = False, show_reading: bool = False,
+                 reading_fields: list[tuple[str, str]] | None = None,
                  parent=None):
         super().__init__(parent)
         self.sequence = sequence
@@ -114,7 +116,7 @@ class ScienceSequenceWidget(QWidget):
 
         self._gnss_label = None
         if show_gnss:
-            self._gnss_label = _fixed_text_box(_DATA_BOX_HEIGHT, font_size=14)
+            self._gnss_label = _fixed_text_box(_DATA_BOX_HEIGHT, font_size=_DATA_BOX_FONT_SIZE)
             self._gnss_label.setText("GNSS: --")
             layout.addWidget(self._gnss_label)
 
@@ -126,9 +128,25 @@ class ScienceSequenceWidget(QWidget):
             self._image_label.setStyleSheet("background: #000; border: 1px solid #2a2a2a;")
             layout.addWidget(self._image_label, 0, Qt.AlignmentFlag.AlignHCenter)
 
+        # reading_fields (e.g. NPK's nitrogen/phosphorus/potassium) splits
+        # the reading into one fixed box per element, laid out in a row,
+        # instead of a single box with every key crammed into one line --
+        # readable per-element rather than a single show_reading box
+        # (Spectrometer's peak-wavelength/absorbance pair, still one box).
         self._reading_label = None
-        if show_reading:
-            self._reading_label = _fixed_text_box(_DATA_BOX_HEIGHT, font_size=14)
+        self._reading_boxes = None
+        if reading_fields:
+            self._reading_boxes = {}
+            reading_column = QVBoxLayout()
+            reading_column.setSpacing(4)
+            for key, field_label in reading_fields:
+                box = _fixed_text_box(_DATA_BOX_HEIGHT, font_size=_DATA_BOX_FONT_SIZE)
+                box.setText(f"{field_label}\n--")
+                self._reading_boxes[key] = (box, field_label)
+                reading_column.addWidget(box)
+            layout.addLayout(reading_column)
+        elif show_reading:
+            self._reading_label = _fixed_text_box(_DATA_BOX_HEIGHT, font_size=_DATA_BOX_FONT_SIZE)
             self._reading_label.setText("No reading yet")
             layout.addWidget(self._reading_label)
 
@@ -166,7 +184,11 @@ class ScienceSequenceWidget(QWidget):
             )
 
     def set_reading(self, reading: dict):
-        if self._reading_label is not None:
+        if self._reading_boxes is not None:
+            for key, (box, field_label) in self._reading_boxes.items():
+                if key in reading:
+                    box.setText(f"{field_label}\n{reading[key]}")
+        elif self._reading_label is not None:
             self._reading_label.setText(
                 "  ".join(f"{k}: {v}" for k, v in reading.items())
             )

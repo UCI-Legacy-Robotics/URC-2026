@@ -33,7 +33,7 @@ from widgets.science_site_bar import ScienceSiteBar
 from widgets.science_sequence_widget import ScienceSequenceWidget
 from widgets.camera_feed_widget import _frame_to_pixmap
 
-_PLACEHOLDER_TITLES = ("NPK Probe", "Panorama", "Stratigraphic Photo")
+_PLACEHOLDER_TITLES = ("Panorama", "Stratigraphic Photo")
 
 
 def _placeholder_slot(title: str) -> QFrame:
@@ -84,6 +84,17 @@ class ScienceTabWidget(QWidget):
         )
         self._register_sequence_widget(spectrometer)
         sequences_row.addWidget(spectrometer)
+
+        npk = ScienceSequenceWidget(
+            sequence="NPK", title="NPK Probe", stoppable=True,
+            reading_fields=[
+                ("nitrogen_ppm", "N (ppm)"),
+                ("phosphorus_ppm", "P (ppm)"),
+                ("potassium_ppm", "K (ppm)"),
+            ],
+        )
+        self._register_sequence_widget(npk)
+        sequences_row.addWidget(npk)
 
         for title in _PLACEHOLDER_TITLES:
             sequences_row.addWidget(_placeholder_slot(title))

@@ -298,6 +298,8 @@ class SimulationDataSource(DataSource):
             self._cancel_science_timers(sequence)
             if sequence == "SPECTROMETER":
                 self._launch_spectrometer_sequence()
+            elif sequence == "NPK":
+                self._launch_npk_sequence()
         elif action == "stop":
             self._abort_science_sequence(sequence)
 
@@ -364,6 +366,35 @@ class SimulationDataSource(DataSource):
         reading = {
             "peak_wavelength_nm": round(random.uniform(400, 700), 1),
             "absorbance": round(random.uniform(0.0, 2.0), 3),
+        }
+        self.signals.science_reading.emit(sequence, reading)
+
+    def _launch_npk_sequence(self):
+        # Shorter than Spectrometer -- just lowering a probe and reading
+        # back soil data, no cache/mixer/vial steps -- and independently
+        # keyed in _science_timers, so it can run concurrently alongside
+        # Spectrometer without either interfering with the other.
+        sequence = "NPK"
+        self.signals.science_sequence_status.emit(sequence, "STARTING", "lowering NPK probe")
+
+        delay = _SCIENCE_STEP_INTERVAL_MS
+        self._schedule_science_step(
+            sequence, delay,
+            lambda: self.signals.science_sequence_status.emit(sequence, "RUNNING", "probe in soil, reading"),
+        )
+        delay += _SCIENCE_STEP_INTERVAL_MS
+        self._schedule_science_step(sequence, delay, lambda: self._emit_npk_results(sequence))
+        delay += _SCIENCE_STEP_INTERVAL_MS
+        self._schedule_science_step(
+            sequence, delay,
+            lambda: self.signals.science_sequence_status.emit(sequence, "STOPPED", "sequence complete"),
+        )
+
+    def _emit_npk_results(self, sequence: str):
+        reading = {
+            "nitrogen_ppm": round(random.uniform(5, 60), 1),
+            "phosphorus_ppm": round(random.uniform(2, 40), 1),
+            "potassium_ppm": round(random.uniform(5, 80), 1),
         }
         self.signals.science_reading.emit(sequence, reading)
 
