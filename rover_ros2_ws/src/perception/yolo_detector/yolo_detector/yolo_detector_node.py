@@ -65,7 +65,7 @@ class YoloDetectorNode(Node):
         self.declare_parameter('detections_topic', '/yolo/detections')
         self.declare_parameter('detections_json_topic', '/yolo/detections_json')
         self.declare_parameter('debug_image_topic', '/yolo/debug_image')
-        self.declare_parameter('model_path', '')
+        self.declare_parameter('model_path', '/yolo/yolo11s.pt')
         self.declare_parameter('confidence_threshold', 0.25)
         self.declare_parameter('imgsz', 640)
         self.declare_parameter('device', '0')

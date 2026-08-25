@@ -4,7 +4,7 @@
     detections_topic: "/yolo/detections"
     detections_json_topic: "/yolo/detections_json"
     debug_image_topic: "/yolo/debug_image"
-    model_path: ""
+    model_path: "/yolo/yolo11s.pt"
     confidence_threshold: 0.25
     imgsz: 640
     device: "0"
