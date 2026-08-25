@@ -106,7 +106,7 @@ class YoloDetectorNode(Node):
         )
 
     def _declare_parameters(self) -> None:
-        self.declare_parameter('image_topic', '/camera1/image_raw')
+        self.declare_parameter('image_topic', '/zed/zed_node/rgb/color/rect/image')
         self.declare_parameter('detections_topic', '/yolo/detections')
         self.declare_parameter('detections_json_topic', '/yolo/detections_json')
         self.declare_parameter('debug_image_topic', '/yolo/debug_image')
