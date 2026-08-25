@@ -17,10 +17,13 @@ sync when the upstream API changes.
 ## Runtime Setup
 
 The detector loads Ultralytics lazily, so it must be installed in the same
-Python environment ROS runs in:
+Python environment ROS runs in. Pin NumPy in the same command: Ultralytics
+accepts anything `>=1.23`, so pip will otherwise pull NumPy 2.x, which breaks
+`cv_bridge` and the message packages built against the apt NumPy 1.x (see
+Troubleshooting):
 
 ```bash
-python3 -m pip install ultralytics
+python3 -m pip install ultralytics "numpy<2"
 ```
 
 Install ROS dependencies if they are not already present:
@@ -95,3 +98,32 @@ Relative paths are a common source of this — the node's working directory unde
 keeps a config dir at `~/.config/Ultralytics`. Recent versions fall back to
 `/tmp` when that is not writable; if the Jetson's version does not, set
 `YOLO_CONFIG_DIR` to a writable directory before launching.
+
+**`AttributeError: _ARRAY_API not found`, usually with a wall of NumPy text
+about modules compiled against NumPy 1.x.** Two NumPy major versions are in
+play. `cv_bridge` and the message packages are C extensions built against the
+apt NumPy that ROS was packaged with (1.x); `pip install ultralytics` pulls
+NumPy 2.x into `~/.local/lib/python3.*/site-packages`, which comes *before*
+`/usr/lib/python3/dist-packages` on `sys.path`. The extension then loads under
+the wrong ABI and fails.
+
+Pin NumPy to match the ROS build. Ultralytics only requires `numpy>=1.23`, so
+it keeps working:
+
+```bash
+python3 -m pip install "numpy<2"
+```
+
+Then confirm exactly one NumPy is visible to the interpreter ROS uses:
+
+```bash
+python3 -c "import numpy; print(numpy.__version__, numpy.__file__)"
+```
+
+It should print a `1.x` version. If it still prints `2.x` from `~/.local`, that
+copy is shadowing the apt one — remove it with
+`python3 -m pip uninstall numpy` and reinstall with the pin above.
+
+The node detects this case and raises the explanation instead of the raw
+`AttributeError`, but the fix is environmental: no code change makes a NumPy
+1.x extension load under NumPy 2.x.

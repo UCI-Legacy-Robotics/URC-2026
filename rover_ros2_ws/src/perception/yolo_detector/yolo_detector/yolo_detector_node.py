@@ -3,16 +3,50 @@ import os
 from pathlib import Path
 from typing import Any, Iterable, Optional
 
-import rclpy
-from ament_index_python.packages import PackageNotFoundError, get_package_share_directory
-from cv_bridge import CvBridge, CvBridgeError
-from rclpy.node import Node
-from rclpy.qos import qos_profile_sensor_data
-from sensor_msgs.msg import Image
-from std_msgs.msg import String
-from vision_msgs.msg import Detection2D, Detection2DArray, ObjectHypothesisWithPose
+# cv_bridge and the message packages are C extensions built against the NumPy
+# that ROS was packaged with. Importing them under a different NumPy major
+# version fails deep inside the extension with "AttributeError: _ARRAY_API not
+# found", which says nothing about the actual problem, so translate it here.
+try:
+    import rclpy
+    from ament_index_python.packages import (
+        PackageNotFoundError,
+        get_package_share_directory,
+    )
+    from cv_bridge import CvBridge, CvBridgeError
+    from rclpy.node import Node
+    from rclpy.qos import qos_profile_sensor_data
+    from sensor_msgs.msg import Image
+    from std_msgs.msg import String
+    from vision_msgs.msg import (
+        Detection2D,
+        Detection2DArray,
+        ObjectHypothesisWithPose,
+    )
 
-from yolo_detector.detector_api import Detection, Detector
+    from yolo_detector.detector_api import Detection, Detector
+except (ImportError, AttributeError) as exc:
+    _reason = str(exc)
+    if '_ARRAY_API' not in _reason and 'numpy' not in _reason.lower():
+        raise
+    try:
+        import numpy
+
+        _loaded = f'{numpy.__version__} from {numpy.__file__}'
+    except Exception:  # noqa: BLE001 - numpy is what is broken here.
+        _loaded = 'unknown'
+    raise ImportError(
+        'NumPy ABI mismatch. A ROS C extension (cv_bridge or a message '
+        'package) was compiled against a different NumPy major version than '
+        f'the one being loaded: {_loaded}. This usually means pip installed '
+        'NumPy 2.x into ~/.local while ROS was built against the apt NumPy '
+        '1.x, and ~/.local takes priority on sys.path. Pin NumPy to match '
+        'the ROS build:\n'
+        '    python3 -m pip install "numpy<2"\n'
+        'Ultralytics only requires numpy>=1.23, so it is unaffected. Then '
+        'check that one NumPy is visible:\n'
+        '    python3 -c "import numpy; print(numpy.__version__, numpy.__file__)"'
+    ) from exc
 
 PACKAGE_NAME = 'yolo_detector'
 
