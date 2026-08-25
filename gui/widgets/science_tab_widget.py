@@ -4,10 +4,8 @@ Science Mission tab.
 Composes the Science-mission-specific controls: the current-site label
 (ScienceSiteBar) and the four rover-driven sequences (Spectrometer, NPK
 probe, Panorama, Stratigraphic Photo), each a ScienceSequenceWidget.
-NPK/Panorama/Stratigraphic Photo are still dashed placeholders here —
-they get their own ScienceSequenceWidget instances in Steps 3-5, same
-incremental-build approach as the rest of the tab (site tagging,
-persistence, gating, review dialog) arriving in later steps.
+Site tagging, persistence, gating (Panorama blocked while the payload
+is lowered), and the review dialog arrive in later steps.
 
 This widget owns the "which sequence is this data for" dispatch:
 DataSource.signals.science_* are multiplexed by a `sequence` tag (see
@@ -24,38 +22,12 @@ _frame_to_pixmap directly -- Step 6 extracts that into a shared
 frame_decode module so this import goes away.
 """
 
-from PyQt6.QtWidgets import (
-    QWidget, QVBoxLayout, QHBoxLayout, QFrame, QLabel, QPushButton
-)
-from PyQt6.QtCore import Qt, pyqtSignal
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QPushButton
+from PyQt6.QtCore import pyqtSignal
 
 from widgets.science_site_bar import ScienceSiteBar
 from widgets.science_sequence_widget import ScienceSequenceWidget
 from widgets.camera_feed_widget import _frame_to_pixmap
-
-_PLACEHOLDER_TITLES = ("Stratigraphic Photo",)
-
-
-def _placeholder_slot(title: str) -> QFrame:
-    """Dashed-border stand-in for a not-yet-built ScienceSequenceWidget,
-    same visual language as main_window.py's _placeholder_box so the
-    tab doesn't look inconsistent with the other still-placeholder
-    tabs while this one is under construction."""
-    frame = QFrame()
-    frame.setFrameShape(QFrame.Shape.StyledPanel)
-    frame.setMinimumHeight(160)
-    frame.setStyleSheet(
-        "QFrame { border: 1px dashed #3a3a3a; border-radius: 4px; background: #111; }"
-    )
-
-    label = QLabel(f"{title}\n(not yet implemented)")
-    label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-    label.setStyleSheet("color: #666; font-size: 11px; border: none;")
-    label.setWordWrap(True)
-
-    layout = QVBoxLayout(frame)
-    layout.addWidget(label)
-    return frame
 
 
 class ScienceTabWidget(QWidget):
@@ -102,8 +74,11 @@ class ScienceTabWidget(QWidget):
         self._register_sequence_widget(panorama)
         sequences_row.addWidget(panorama)
 
-        for title in _PLACEHOLDER_TITLES:
-            sequences_row.addWidget(_placeholder_slot(title))
+        stratigraphy = ScienceSequenceWidget(
+            sequence="STRATIGRAPHY", title="Stratigraphic Photo", stoppable=False, show_image=True,
+        )
+        self._register_sequence_widget(stratigraphy)
+        sequences_row.addWidget(stratigraphy)
 
         layout.addLayout(sequences_row, 1)
 

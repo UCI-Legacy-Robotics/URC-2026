@@ -302,6 +302,8 @@ class SimulationDataSource(DataSource):
                 self._launch_npk_sequence()
             elif sequence == "PANORAMA":
                 self._launch_panorama_sequence()
+            elif sequence == "STRATIGRAPHY":
+                self._launch_stratigraphy_sequence()
         elif action == "stop":
             self._abort_science_sequence(sequence)
 
@@ -416,18 +418,33 @@ class SimulationDataSource(DataSource):
             )
             delay += _SCIENCE_STEP_INTERVAL_MS
 
-        self._schedule_science_step(sequence, delay, lambda: self._emit_panorama_result(sequence))
+        self._schedule_science_step(sequence, delay, lambda: self._emit_science_image_result(sequence))
         delay += _SCIENCE_STEP_INTERVAL_MS
         self._schedule_science_step(
             sequence, delay,
             lambda: self.signals.science_sequence_status.emit(sequence, "STOPPED", "panorama complete"),
         )
 
-    def _emit_panorama_result(self, sequence: str):
+    def _emit_science_image_result(self, sequence: str):
         counter = self._science_image_counters.get(sequence, 0) + 1
         self._science_image_counters[sequence] = counter
         frame = _make_fake_camera_frame(sequence, counter)
         self.signals.science_image.emit(sequence, frame, len(frame.data), time.time())
+
+    def _launch_stratigraphy_sequence(self):
+        # Shortest chain of the four -- the operator has already driven
+        # the rover into position, so this is just "capture and send one
+        # image", no rotation/soil-probing/cache steps like the others.
+        sequence = "STRATIGRAPHY"
+        self.signals.science_sequence_status.emit(sequence, "STARTING", "capturing stratigraphic photo")
+
+        delay = _SCIENCE_STEP_INTERVAL_MS
+        self._schedule_science_step(sequence, delay, lambda: self._emit_science_image_result(sequence))
+        delay += _SCIENCE_STEP_INTERVAL_MS
+        self._schedule_science_step(
+            sequence, delay,
+            lambda: self.signals.science_sequence_status.emit(sequence, "STOPPED", "photo complete"),
+        )
 
 
 if __name__ == '__main__':
