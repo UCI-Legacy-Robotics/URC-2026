@@ -4,6 +4,7 @@
     detections_topic: "/yolo/detections"
     detections_json_topic: "/yolo/detections_json"
     debug_image_topic: "/yolo/debug_image"
+    # Empty falls back to the bundled share/yolo_detector/models/yolo11s.pt.
     model_path: ""
     confidence_threshold: 0.25
     imgsz: 640

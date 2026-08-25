@@ -6,8 +6,12 @@ consumes a trained model. Callers get plain dataclasses back, never Ultralytics
 objects, so a ROS node can depend on this module without depending on
 Ultralytics or on how the model was trained.
 
+Vendored from UCI-Legacy-Robotics/yolo-object-factory
+(object_detection/detector_api.py) so this package runs without that repo
+installed. Keep the two in sync when the upstream API changes.
+
 Usage:
-    from object_detection.detector_api import Detector
+    from yolo_detector.detector_api import Detector
 
     # Load once, e.g. in a ROS node's __init__.
     detector = Detector("models/best.engine", conf=0.25, imgsz=640, device=0)
@@ -15,8 +19,6 @@ Usage:
     # Call per frame, e.g. in an image callback.
     for detection in detector.detect(frame):   # frame: BGR numpy array
         print(detection.class_name, detection.confidence, detection.bbox)
-
-For standalone CLI testing outside ROS, use src/inference.py instead.
 """
 
 from __future__ import annotations
@@ -76,8 +78,9 @@ class Detector:
                 match the imgsz the model was exported with.
             device: GPU index (0), or "cpu" / "mps" where no CUDA device exists.
         """
-        # Imported here rather than at module scope so importing the package
-        # stays cheap — same reasoning as yolo_model_factory.create_model().
+        # Imported here rather than at module scope so importing this module
+        # (and therefore the ROS node) stays cheap: Ultralytics pulls in torch,
+        # which costs seconds at import time.
         from ultralytics import YOLO
 
         self.model_path = Path(model_path)
