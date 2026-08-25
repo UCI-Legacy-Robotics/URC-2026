@@ -58,6 +58,40 @@ ros2 launch yolo_detector yolo_detector.launch.py \
 `model_path` accepts a `.pt`, `.onnx`, or `.engine` file; Ultralytics picks the
 runtime from the extension. On the Jetson prefer an `.engine` exported at the
 same `imgsz` the node is configured with.
-
 For a ZED camera, set `image_topic` to the RGB image topic published by the ZED
 wrapper, for example the camera's `rgb/image_rect_color` topic.
+
+## Where models live
+
+There is one models directory and no second copy:
+
+| | |
+|---|---|
+| Source | `models/` in this package |
+| Installed | `share/yolo_detector/models/` |
+| Selected by | `model_path` (empty = bundled `yolo11s.pt`) |
+
+Drop new `.pt`, `.onnx`, or `.engine` files into `models/` and rebuild to have
+them installed, or leave a trained model outside the workspace and point
+`model_path` at it with an absolute path. Do not add model files anywhere else
+in the package — nothing will look for them there.
+
+## Troubleshooting
+
+**`Permission denied` / `Read-only file system` mentioning a model directory.**
+`model_path` pointed at a file that does not exist. Ultralytics reads an
+unresolvable path as the *name* of a model to download and tries to create the
+parent directory to download into, so a bad path fails as a permission error on
+that directory rather than as a missing file. A hardcoded `/yolo/yolo11s.pt`
+caused exactly this: `/yolo` is at the filesystem root, which a non-root user
+cannot create. The node now checks the file exists and is readable before
+handing it to Ultralytics, so this surfaces as `Model file not found: <path>`.
+
+Relative paths are a common source of this — the node's working directory under
+`ros2 launch` is not the package directory. Use an absolute path, or leave
+`model_path` empty.
+
+**`Permission denied` writing an Ultralytics settings or font file.** Ultralytics
+keeps a config dir at `~/.config/Ultralytics`. Recent versions fall back to
+`/tmp` when that is not writable; if the Jetson's version does not, set
+`YOLO_CONFIG_DIR` to a writable directory before launching.

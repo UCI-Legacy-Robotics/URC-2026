@@ -16,9 +16,10 @@ from yolo_detector.detector_api import Detection, Detector
 
 PACKAGE_NAME = 'yolo_detector'
 
-# Stock checkpoint installed to share/yolo_detector/models. Used when
-# model_path is left unset so the node runs out of the box; a trained .engine
-# passed via model_path takes priority.
+# Models live in exactly one place: models/ in the source package, installed to
+# share/yolo_detector/models/. There is no second copy anywhere, and nothing
+# resolves a model relative to the working directory.
+MODELS_DIR_NAME = 'models'
 DEFAULT_MODEL_FILE = 'yolo11s.pt'
 
 
@@ -75,7 +76,7 @@ class YoloDetectorNode(Node):
         self.declare_parameter('detections_topic', '/yolo/detections')
         self.declare_parameter('detections_json_topic', '/yolo/detections_json')
         self.declare_parameter('debug_image_topic', '/yolo/debug_image')
-        self.declare_parameter('model_path', '/yolo/yolo11s.pt')
+        self.declare_parameter('model_path', '')
         self.declare_parameter('confidence_threshold', 0.25)
         self.declare_parameter('imgsz', 640)
         self.declare_parameter('device', '0')
@@ -85,25 +86,7 @@ class YoloDetectorNode(Node):
         self.declare_parameter('publish_debug_image', False)
 
     def _create_detector(self) -> Detector:
-        model_path = self._expanded_model_path()
-        if not model_path:
-            model_path = self._packaged_model_path()
-            if not model_path:
-                raise RuntimeError(
-                    'model_path is unset and the bundled '
-                    f'{DEFAULT_MODEL_FILE} could not be located. Pass a .pt, '
-                    '.onnx, or .engine path explicitly.'
-                )
-            self.get_logger().info(
-                f"model_path is unset; using the bundled {DEFAULT_MODEL_FILE}"
-            )
-
-        if not Path(model_path).exists():
-            self.get_logger().warn(
-                f"Model path does not exist locally: {model_path}. "
-                "Ultralytics will still try to resolve it."
-            )
-
+        model_path = self._resolve_model_path()
         device = self._parse_device(self._str_param('device'))
         self.get_logger().info(
             f"Loading YOLO model {model_path} with conf="
@@ -296,24 +279,72 @@ class YoloDetectorNode(Node):
         self._cv2 = cv2
         return self._cv2
 
-    @staticmethod
-    def _packaged_model_path() -> str:
-        """Locate the checkpoint shipped in this package's share directory.
+    def _resolve_model_path(self) -> str:
+        """Resolve the one model file this node will load.
 
-        Returns an empty string when the package is not on the ament index,
-        e.g. when the node is run straight from a source checkout.
+        There are exactly two sources, in priority order: an explicit
+        model_path parameter, or the checkpoint bundled in this package's
+        share directory. The result is always an absolute path to a file that
+        exists and is readable.
+
+        That last guarantee is the point. Ultralytics interprets a path it
+        cannot find as the *name* of a downloadable asset and tries to create
+        the parent directory to download into, so a wrong model_path surfaces
+        as "Permission denied: /yolo" from deep inside Ultralytics rather than
+        as a missing-file error. Failing here keeps the message actionable.
         """
+        configured = self._str_param('model_path').strip()
+        if configured:
+            path = Path(os.path.expandvars(configured)).expanduser()
+            source = 'the model_path parameter'
+        else:
+            path = self._bundled_model_path()
+            source = f'the bundled {DEFAULT_MODEL_FILE}'
+
+        # Absolute, so the model never depends on the node's working
+        # directory - which under ros2 launch is not the package directory.
+        path = path.absolute()
+
+        if not path.is_file():
+            raise RuntimeError(
+                f"Model file not found: {path} (from {source}). Set model_path "
+                f"to a .pt, .onnx, or .engine file, or leave it empty to use "
+                f"the bundled {DEFAULT_MODEL_FILE}."
+            )
+        if not os.access(path, os.R_OK):
+            raise RuntimeError(
+                f"Model file is not readable: {path} ({self._describe_perms(path)}). "
+                f"Fix the file's permissions, or run the node as a user that "
+                f"can read it."
+            )
+
+        self.get_logger().info(f"Using model {path} (from {source})")
+        return str(path)
+
+    @staticmethod
+    def _bundled_model_path() -> Path:
+        """Path to the checkpoint installed alongside this package."""
         try:
             share_dir = get_package_share_directory(PACKAGE_NAME)
-        except PackageNotFoundError:
-            return ''
-        return str(Path(share_dir) / 'models' / DEFAULT_MODEL_FILE)
+        except PackageNotFoundError as exc:
+            raise RuntimeError(
+                f"Package '{PACKAGE_NAME}' is not on the ament index, so the "
+                f"bundled {DEFAULT_MODEL_FILE} cannot be located. Source the "
+                f"workspace's install/setup.bash, or set model_path explicitly."
+            ) from exc
+        return Path(share_dir) / MODELS_DIR_NAME / DEFAULT_MODEL_FILE
 
-    def _expanded_model_path(self) -> str:
-        model_path = self._str_param('model_path').strip()
-        if not model_path:
-            return ''
-        return str(Path(os.path.expandvars(model_path)).expanduser())
+    @staticmethod
+    def _describe_perms(path: Path) -> str:
+        """Owner and mode of a path, to make a permission failure diagnosable."""
+        try:
+            info = path.stat()
+        except OSError as exc:
+            return f'could not stat: {exc}'
+        return (
+            f'mode {info.st_mode & 0o777:o}, owner uid {info.st_uid}; '
+            f'node runs as uid {os.getuid()}'
+        )
 
     @staticmethod
     def _parse_device(device: str) -> Any:

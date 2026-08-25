@@ -13,7 +13,9 @@ setup(
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name + '/config', glob('config/*.yaml')),
         ('share/' + package_name + '/launch', glob('launch/*.launch.py')),
-        ('share/' + package_name + '/models', glob('models/*.pt')),
+        # The single models directory. Every weight format ships from here.
+        ('share/' + package_name + '/models',
+            glob('models/*.pt') + glob('models/*.onnx') + glob('models/*.engine')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
