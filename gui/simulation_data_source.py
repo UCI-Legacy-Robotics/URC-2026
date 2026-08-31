@@ -399,6 +399,9 @@ class SimulationDataSource(DataSource):
             "nitrogen_ppm": round(random.uniform(5, 60), 1),
             "phosphorus_ppm": round(random.uniform(2, 40), 1),
             "potassium_ppm": round(random.uniform(5, 80), 1),
+            "temperature_c": round(random.uniform(10, 35), 1),
+            "humidity_pct": round(random.uniform(10, 90), 1),
+            "ph": round(random.uniform(4.5, 8.5), 2),
         }
         self.signals.science_reading.emit(sequence, reading)
 

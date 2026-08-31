@@ -84,6 +84,9 @@ class ScienceTabWidget(QWidget):
                 ("nitrogen_ppm", "N (ppm)"),
                 ("phosphorus_ppm", "P (ppm)"),
                 ("potassium_ppm", "K (ppm)"),
+                ("temperature_c", "Temp (°C)"),
+                ("humidity_pct", "Humidity (%)"),
+                ("ph", "pH"),
             ],
         )
         self._register_sequence_widget(npk)
