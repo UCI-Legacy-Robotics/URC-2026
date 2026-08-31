@@ -44,10 +44,13 @@ _PAYLOAD_LOWERED_SEQUENCES = ("SPECTROMETER", "NPK")
 _SITE_REQUIRED_SEQUENCES = ("SPECTROMETER", "NPK", "PANORAMA", "STRATIGRAPHY")
 
 
+_RESOURCE_LABELS = {"CACHE": "Cache", "SPECTRO": "Spectrometer/vials"}
+
+
 class ScienceTabWidget(QWidget):
 
-    launch_requested = pyqtSignal(str, bool)  # (sequence, collect_to_cache)
-    stop_requested = pyqtSignal(str)          # (sequence)
+    launch_requested = pyqtSignal(str, str)  # (sequence, mode -- "" if the sequence has none)
+    stop_requested = pyqtSignal(str)         # (sequence)
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -69,12 +72,16 @@ class ScienceTabWidget(QWidget):
 
         spectrometer = ScienceSequenceWidget(
             sequence="SPECTROMETER", title="Spectrometer", stoppable=True,
-            has_cache_flag=True, show_gnss=True, show_image=True, show_reading=True,
+            launch_modes=[
+                ("SPECTRO", "Run Spectrometer Analysis"),
+                ("CACHE", "Collect to Cache"),
+            ],
+            show_gnss=True, show_image=True, show_reading=True,
         )
-        # Spectrometer's collect-to-cache flag needs a confirm-before-
-        # overwrite check the other sequences don't -- routed through a
-        # dedicated handler instead of the generic pass-through so a
-        # "No" on the conflict dialog can abort the launch entirely.
+        # Spectrometer's mode choice needs a confirm-before-overwrite
+        # check the other sequences don't -- routed through a dedicated
+        # handler instead of the generic pass-through so a "No" on the
+        # conflict dialog can abort the launch entirely.
         self._register_sequence_widget(spectrometer, launch_handler=self._on_spectrometer_launch_requested)
         sequences_row.addWidget(spectrometer)
 
@@ -127,21 +134,25 @@ class ScienceTabWidget(QWidget):
         widget.launch_requested.connect(launch_handler or self.launch_requested)
         widget.stop_requested.connect(self.stop_requested)
 
-    def _on_spectrometer_launch_requested(self, sequence: str, collect_to_cache: bool):
-        if collect_to_cache:
-            current_site = self.site_bar.current_site()
-            owner = self._store.get_cache_owner()
-            if owner is not None and owner != current_site:
-                reply = QMessageBox.question(
-                    self, "Cache in use",
-                    f"Cache currently holds a sample from '{owner}' — overwrite with '{current_site}'?",
-                    QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
-                    QMessageBox.StandardButton.No,
-                )
-                if reply != QMessageBox.StandardButton.Yes:
-                    return  # abort -- no command sent, no status change
-            self._store.set_cache_owner(current_site)
-        self.launch_requested.emit(sequence, collect_to_cache)
+    def _on_spectrometer_launch_requested(self, sequence: str, mode: str):
+        # CACHE and SPECTRO are each their own site-exclusive resource
+        # (only one site's sample can occupy the cache, separately only
+        # one site's sample can go through the spectrometer/vials) --
+        # same conflict-confirm shape for either, just keyed by mode.
+        current_site = self.site_bar.current_site()
+        owner = self._store.get_resource_owner(mode)
+        if owner is not None and owner != current_site:
+            resource_label = _RESOURCE_LABELS.get(mode, mode)
+            reply = QMessageBox.question(
+                self, f"{resource_label} in use",
+                f"{resource_label} currently holds a sample from '{owner}' — overwrite with '{current_site}'?",
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+                QMessageBox.StandardButton.No,
+            )
+            if reply != QMessageBox.StandardButton.Yes:
+                return  # abort -- no command sent, no status change
+        self._store.set_resource_owner(mode, current_site)
+        self.launch_requested.emit(sequence, mode)
 
     def _on_science_status(self, sequence: str, status: str, message: str):
         widget = self._sequence_widgets.get(sequence)

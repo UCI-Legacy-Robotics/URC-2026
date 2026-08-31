@@ -21,7 +21,7 @@ derived enablement would otherwise allow.
 """
 
 from PyQt6.QtWidgets import (
-    QWidget, QVBoxLayout, QLabel, QPushButton, QCheckBox
+    QWidget, QVBoxLayout, QLabel, QPushButton, QRadioButton, QButtonGroup
 )
 from PyQt6.QtCore import Qt, pyqtSignal
 
@@ -74,11 +74,12 @@ def _fixed_text_box(height: int, font_size: int) -> QLabel:
 
 class ScienceSequenceWidget(QWidget):
 
-    launch_requested = pyqtSignal(str, bool)  # (sequence, collect_to_cache)
-    stop_requested = pyqtSignal(str)          # (sequence)
+    launch_requested = pyqtSignal(str, str)  # (sequence, mode -- "" if launch_modes wasn't given)
+    stop_requested = pyqtSignal(str)         # (sequence)
 
     def __init__(self, sequence: str, title: str, stoppable: bool,
-                 has_cache_flag: bool = False, show_gnss: bool = False,
+                 launch_modes: list[tuple[str, str]] | None = None,
+                 show_gnss: bool = False,
                  show_image: bool = False, show_reading: bool = False,
                  reading_fields: list[tuple[str, str]] | None = None,
                  parent=None):
@@ -104,11 +105,24 @@ class ScienceSequenceWidget(QWidget):
         self._message_label = _fixed_text_box(_MESSAGE_BOX_HEIGHT, font_size=12)
         layout.addWidget(self._message_label)
 
-        if has_cache_flag:
-            self._cache_checkbox = QCheckBox("Collect to cache")
-            layout.addWidget(self._cache_checkbox)
-        else:
-            self._cache_checkbox = None
+        # launch_modes (e.g. Spectrometer's Cache-vs-Analyze choice) is a
+        # radio group, not checkboxes -- these are mutually exclusive
+        # site-exclusive resources (only one site's sample can occupy the
+        # cache, and separately only one site's sample can go through the
+        # spectrometer/vials), so a site picks exactly one, never both/
+        # neither.
+        self._mode_group = None
+        self._mode_buttons = None
+        if launch_modes:
+            self._mode_buttons = {}
+            self._mode_group = QButtonGroup(self)
+            for i, (mode_key, mode_label) in enumerate(launch_modes):
+                button = QRadioButton(mode_label)
+                if i == 0:
+                    button.setChecked(True)
+                self._mode_group.addButton(button)
+                self._mode_buttons[mode_key] = button
+                layout.addWidget(button)
 
         self._launch_button = QPushButton()
         self._launch_button.clicked.connect(self._on_button_clicked)
@@ -199,8 +213,12 @@ class ScienceSequenceWidget(QWidget):
         if self._stoppable and self._status in _RUNNING_LIKE_STATUSES:
             self.stop_requested.emit(self.sequence)
         else:
-            collect_to_cache = self._cache_checkbox.isChecked() if self._cache_checkbox else False
-            self.launch_requested.emit(self.sequence, collect_to_cache)
+            mode = ""
+            if self._mode_buttons:
+                mode = next(
+                    (key for key, button in self._mode_buttons.items() if button.isChecked()), ""
+                )
+            self.launch_requested.emit(self.sequence, mode)
 
     def _refresh_status_label(self, message: str = ""):
         color = _STATUS_COLORS.get(self._status, _STATUS_COLORS["IDLE"])

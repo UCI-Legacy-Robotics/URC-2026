@@ -267,9 +267,9 @@ class MainWindow(QMainWindow):
         if self.data_source is not None:
             self.data_source.send_subsystem_command(subsystem, "stop")
 
-    def _on_science_launch_requested(self, sequence, collect_to_cache):
+    def _on_science_launch_requested(self, sequence, mode):
         if self.data_source is not None:
-            self.data_source.send_science_sequence_command(sequence, "launch", collect_to_cache)
+            self.data_source.send_science_sequence_command(sequence, "launch", mode)
 
     def _on_science_stop_requested(self, sequence):
         if self.data_source is not None:

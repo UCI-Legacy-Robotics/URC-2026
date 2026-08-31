@@ -292,12 +292,12 @@ class SimulationDataSource(DataSource):
 
     # -- science sequences -------------------------------------------------
 
-    def send_science_sequence_command(self, sequence: str, action: str, collect_to_cache: bool = False):
-        print(f"[sim] science sequence command: {sequence} -> {action} (collect_to_cache={collect_to_cache})")
+    def send_science_sequence_command(self, sequence: str, action: str, mode: str = ""):
+        print(f"[sim] science sequence command: {sequence} -> {action} (mode={mode})")
         if action == "launch":
             self._cancel_science_timers(sequence)
             if sequence == "SPECTROMETER":
-                self._launch_spectrometer_sequence()
+                self._launch_spectrometer_sequence(mode)
             elif sequence == "NPK":
                 self._launch_npk_sequence()
             elif sequence == "PANORAMA":
@@ -329,16 +329,31 @@ class SimulationDataSource(DataSource):
             lambda: self.signals.science_sequence_status.emit(sequence, "STOPPED", ""),
         )
 
-    def _launch_spectrometer_sequence(self):
+    def _launch_spectrometer_sequence(self, mode: str):
+        # CACHE and SPECTRO are two separate site-exclusive resources
+        # (see send_science_sequence_command's docstring in data_source.py)
+        # with genuinely different rover-side sequences, not just a
+        # bookkeeping flag on top of one shared chain: CACHE stops after
+        # the drill, SPECTRO skips the cache entirely and goes straight
+        # to the mixer/vials/spectrometer. Both still document the sample
+        # site (GNSS + arducam image) -- only SPECTRO also produces a
+        # spectrometer reading.
         sequence = "SPECTROMETER"
         self.signals.science_sequence_status.emit(sequence, "STARTING", "lowering drill")
 
-        running_messages = (
-            "drill lowered, loading sample into cache",
-            "sample loaded into mixer",
-            "mixer emptying into spectrometer vials",
-            "spectrometer reading in progress",
-        )
+        if mode == "CACHE":
+            running_messages = ("drill lowered, collecting sample into cache",)
+            complete_message = "cache sequence complete"
+            emit_reading = False
+        else:
+            running_messages = (
+                "drill lowered, collecting sample into mixer",
+                "mixer piping sample into spectrometer vials",
+                "spectrometer reading in progress",
+            )
+            complete_message = "spectro sequence complete"
+            emit_reading = True
+
         delay = _SCIENCE_STEP_INTERVAL_MS
         for message in running_messages:
             self._schedule_science_step(
@@ -347,17 +362,21 @@ class SimulationDataSource(DataSource):
             )
             delay += _SCIENCE_STEP_INTERVAL_MS
 
-        self._schedule_science_step(sequence, delay, lambda: self._emit_spectrometer_results(sequence))
+        self._schedule_science_step(
+            sequence, delay, lambda: self._emit_spectrometer_results(sequence, emit_reading)
+        )
         delay += _SCIENCE_STEP_INTERVAL_MS
         self._schedule_science_step(
             sequence, delay,
-            lambda: self.signals.science_sequence_status.emit(sequence, "STOPPED", "sequence complete"),
+            lambda: self.signals.science_sequence_status.emit(sequence, "STOPPED", complete_message),
         )
 
-    def _emit_spectrometer_results(self, sequence: str):
+    def _emit_spectrometer_results(self, sequence: str, emit_reading: bool):
         # Sample-site GNSS, reported by the rover -- not sampled from the
         # base station's own gnss_fix stream, per the "rover is source of
-        # truth for the sample site" requirement.
+        # truth for the sample site" requirement. Sent for both CACHE and
+        # SPECTRO -- documenting the site is independent of which resource
+        # the sample went to.
         lat = self._latitude + random.uniform(-0.0001, 0.0001)
         lon = self._longitude + random.uniform(-0.0001, 0.0001)
         self.signals.science_gnss_fix.emit(sequence, lat, lon)
@@ -366,6 +385,9 @@ class SimulationDataSource(DataSource):
         self._science_image_counters[sequence] = counter
         frame = _make_fake_camera_frame(CameraID.SCIENCE_PAYLOAD.value, counter)
         self.signals.science_image.emit(sequence, frame, len(frame.data), time.time())
+
+        if not emit_reading:
+            return  # CACHE mode never touches the spectrometer/vials
 
         reading = {
             "peak_wavelength_nm": round(random.uniform(400, 700), 1),

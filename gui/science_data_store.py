@@ -13,7 +13,7 @@ On-disk layout, rooted at gui/science_data/ by default (generated data,
 not source -- see .gitignore):
 
     science_data/
-      _cache_state.json          {"cached_site": "...", "set_at": "..."}
+      _resource_state.json       {"CACHE": {"site": "...", "set_at": "..."}, "SPECTRO": {...}}
       <slug>/
         site.json                {"label", "slug", "created_at", "events": [...]}
         images/<sequence>_<timestamp_ms>.png
@@ -128,13 +128,20 @@ class ScienceDataStore(QObject):
         self._write_site_json(slug, data)
         self.sites_changed.emit()
 
-    # -- cache slot -------------------------------------------------------
+    # -- site-exclusive resources (CACHE, SPECTRO) -------------------------
+    #
+    # Each is its own single-owner slot -- only one site's sample can
+    # occupy the physical cache, and separately only one site's sample
+    # can go through the spectrometer/vials -- so they're tracked as two
+    # independent entries rather than one boolean.
 
-    def get_cache_owner(self) -> str | None:
-        return self._read_cache_state().get("cached_site")
+    def get_resource_owner(self, resource: str) -> str | None:
+        return self._read_resource_state().get(resource, {}).get("site")
 
-    def set_cache_owner(self, site_label: str):
-        self._write_cache_state({"cached_site": site_label, "set_at": _now_iso()})
+    def set_resource_owner(self, resource: str, site_label: str):
+        state = self._read_resource_state()
+        state[resource] = {"site": site_label, "set_at": _now_iso()}
+        self._write_resource_state(state)
 
     # -- review (Step 10) -------------------------------------------------
 
@@ -184,18 +191,18 @@ class ScienceDataStore(QObject):
         with open(path, "w") as f:
             json.dump(data, f, indent=2)
 
-    def _cache_state_path(self) -> Path:
-        return self._root / "_cache_state.json"
+    def _resource_state_path(self) -> Path:
+        return self._root / "_resource_state.json"
 
-    def _read_cache_state(self) -> dict:
-        path = self._cache_state_path()
+    def _read_resource_state(self) -> dict:
+        path = self._resource_state_path()
         if not path.exists():
             return {}
         with open(path) as f:
             return json.load(f)
 
-    def _write_cache_state(self, state: dict):
-        path = self._cache_state_path()
+    def _write_resource_state(self, state: dict):
+        path = self._resource_state_path()
         path.parent.mkdir(parents=True, exist_ok=True)
         with open(path, "w") as f:
             json.dump(state, f, indent=2)
@@ -225,14 +232,16 @@ if __name__ == '__main__':
         store.record_gnss("Site Alpha", "SPECTROMETER", 33.6405, -117.8443)
         store.record_image("Site Alpha", "SPECTROMETER", fake_frame)
         store.record_reading("Site Alpha", "SPECTROMETER", {"peak_wavelength_nm": 550.0, "absorbance": 1.2})
-        store.set_cache_owner("Site Alpha")
+        store.set_resource_owner("SPECTRO", "Site Alpha")
 
         store.record_status("Site Beta", "NPK", "STARTING", "lowering probe")
         store.record_reading("Site Beta", "NPK", {"nitrogen_ppm": 30.0})
+        store.set_resource_owner("CACHE", "Site Beta")
 
         store.record_image(None, "PANORAMA", fake_frame)  # no site set -> Unsited bucket
 
-        print("cache owner:", store.get_cache_owner())
+        print("spectro owner:", store.get_resource_owner("SPECTRO"))
+        print("cache owner:", store.get_resource_owner("CACHE"))
         print("sites:", store.list_sites())
 
         alpha_slug = store.ensure_site("Site Alpha")

@@ -178,7 +178,7 @@ class DataSource(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def send_science_sequence_command(self, sequence: str, action: str, collect_to_cache: bool = False):
+    def send_science_sequence_command(self, sequence: str, action: str, mode: str = ""):
         """Request a Science Mission sequence be launched or stopped.
 
         sequence: "SPECTROMETER", "NPK", "PANORAMA", or "STRATIGRAPHY".
@@ -186,9 +186,15 @@ class DataSource(ABC):
         start-only sequences (no operator-initiated abort) — callers
         never send action="stop" for them.
 
-        collect_to_cache only applies to sequence="SPECTROMETER" with
-        action="launch" (only one site's sample can occupy the physical
-        cache at a time); implementations should ignore it otherwise.
+        mode only applies to sequence="SPECTROMETER" with action="launch":
+        "CACHE" (lower drill, collect sample into the cache -- no mixer/
+        vials/spectrometer reading) or "SPECTRO" (lower drill, collect
+        sample into the mixer, pipe into vials, read on the onboard
+        spectrometer). A site can only do one or the other -- the cache
+        and the spectrometer/vials are each a site-exclusive resource,
+        same as each other, just two separate ones -- never both and
+        never neither. Implementations should ignore mode for any other
+        sequence.
 
         Like send_subsystem_command, real sequence execution lives on
         the rover — implementations just log/no-op on this for now,
