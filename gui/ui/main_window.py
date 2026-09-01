@@ -224,6 +224,9 @@ class MainWindow(QMainWindow):
             self.data_source.signals.estop_confirmed.connect(estop_button.set_confirmed)
             self.sidebar.gnss_map.bind_data_source(self.data_source)
             self.science_tab.bind_data_source(self.data_source)
+            self.data_source.signals.subsystem_status_update.connect(
+                self.science_tab.set_science_subsystem_status
+            )
 
         content_layout.addWidget(self.tabs)
         content_layout.addWidget(self.sidebar)
@@ -246,6 +249,7 @@ class MainWindow(QMainWindow):
 
         mode = _SUBSYSTEM_MODE_BY_MISSION_STATE.get(new_state, "NONE")
         self.top_strip.subsystem_launch.set_mode(mode)
+        self.science_tab.set_subsystem_mode(mode)
 
     def _on_mission_started_lock_tabs(self, mission_state):
         active_index = _TAB_INDEX_BY_MISSION_STATE.get(mission_state)

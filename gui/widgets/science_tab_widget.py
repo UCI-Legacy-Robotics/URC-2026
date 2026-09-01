@@ -24,6 +24,19 @@ every sequence now requires a site to be set before it's launchable
 should never actually be hit in practice, but stays as a safety net so
 nothing is silently dropped if that assumption ever changes.
 
+No sequence is launchable at all until the rover has confirmed the
+SCIENCE subsystem is actually RUNNING -- set_subsystem_mode()/
+set_science_subsystem_status() track that (MainWindow calls them the
+same way it drives SubsystemLaunchWidget), and both explicitly depend
+on the mission being Science: set_subsystem_mode(mode != "SCIENCE")
+forces the tracked RUNNING flag back off, so a stale confirmation from
+a previous Science mission can't leak into gating for a different one.
+In --sim this becomes true as soon as the top-strip Launch button's
+fake progression reaches RUNNING; against real ROS it stays false
+until a real launch topic/service exists and actually confirms it
+(RosDataSource.send_subsystem_command is a no-op today -- see
+ros_node.py), which is the intended fail-closed behavior, not a bug.
+
 The site bar separately locks itself while Spectrometer or NPK is
 running (STARTING/RUNNING/STOPPING) -- payload-lowered, not just
 "site required" -- and Panorama is blocked on that same condition,
@@ -57,6 +70,8 @@ class ScienceTabWidget(QWidget):
         self._data_source = None
         self._sequence_widgets = {}  # sequence -> ScienceSequenceWidget, filled in as each is built
         self._sequence_statuses = {}  # sequence -> last known status, for payload-lowered gating
+        self._mission_is_science = False
+        self._science_subsystem_running = False
         self._store = ScienceDataStore()
 
         layout = QVBoxLayout(self)
@@ -118,7 +133,7 @@ class ScienceTabWidget(QWidget):
         self.review_button.clicked.connect(self._review_dialog.exec)
         layout.addWidget(self.review_button)
 
-        self._refresh_gating()  # Spectrometer/NPK start blocked -- no site set yet
+        self._refresh_gating()  # everything starts blocked -- no subsystem confirmation, no site set yet
 
     def bind_data_source(self, data_source):
         self._data_source = data_source
@@ -126,6 +141,29 @@ class ScienceTabWidget(QWidget):
         data_source.signals.science_gnss_fix.connect(self._on_science_gnss)
         data_source.signals.science_image.connect(self._on_science_image)
         data_source.signals.science_reading.connect(self._on_science_reading)
+
+    # -- public API, called by MainWindow ----------------------------------
+
+    def set_subsystem_mode(self, mode: str):
+        """Mirrors SubsystemLaunchWidget.set_mode() -- MainWindow calls
+        this on every mission state change, same call site. Resetting
+        the tracked RUNNING flag whenever the mission isn't Science
+        (rather than only ever setting it from status updates) is what
+        stops a launch confirmation from a previous Science mission
+        from leaking into gating the next time Science comes around."""
+        self._mission_is_science = (mode == "SCIENCE")
+        if not self._mission_is_science:
+            self._science_subsystem_running = False
+        self._refresh_gating()
+
+    def set_science_subsystem_status(self, subsystem: str, status: str):
+        """Wire to DataSource.signals.subsystem_status_update. Ignored
+        for any subsystem but SCIENCE, same filtering convention as
+        ScienceSequenceWidget.set_status() filtering by its own sequence."""
+        if subsystem != "SCIENCE":
+            return
+        self._science_subsystem_running = (status == "RUNNING")
+        self._refresh_gating()
 
     # -- internal ---------------------------------------------------------
 
@@ -181,21 +219,25 @@ class ScienceTabWidget(QWidget):
         self._store.record_reading(self.site_bar.current_site(), sequence, reading)
 
     def _refresh_gating(self):
+        subsystem_ready = self._mission_is_science and self._science_subsystem_running
         site_set = self.site_bar.current_site() is not None
         payload_lowered = any(
             self._sequence_statuses.get(sequence) in _PAYLOAD_LOWERED_STATUSES
             for sequence in _PAYLOAD_LOWERED_SEQUENCES
         )
 
-        # Two independent block reasons can apply to the same widget
-        # (Panorama needs a site AND the payload not lowered) -- combine
-        # them into one set_blocked() call per widget rather than two
-        # calls that would just have the second overwrite the first.
+        # Multiple independent block reasons can apply to the same widget
+        # (Panorama needs the subsystem up, a site set, AND the payload
+        # not lowered) -- combine them into one set_blocked() call per
+        # widget, checked in priority order, rather than separate calls
+        # that would just have the last one overwrite the rest.
         for sequence in _SITE_REQUIRED_SEQUENCES:
             widget = self._sequence_widgets.get(sequence)
             if widget is None:
                 continue
-            if not site_set:
+            if not subsystem_ready:
+                widget.set_blocked(True, "Science subsystem not launched")
+            elif not site_set:
                 widget.set_blocked(True, "Set a site first")
             elif sequence == "PANORAMA" and payload_lowered:
                 widget.set_blocked(True, "Blocked: payload lowered")
