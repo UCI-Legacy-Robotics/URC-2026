@@ -19,6 +19,7 @@ from widgets.software_enable_widget import SoftwareEnableWidget
 from widgets.estop_widget import EstopWidget
 from widgets.gnss_map_widget import GnssMapWidget
 from widgets.science_tab_widget import ScienceTabWidget
+from widgets.delivery_checklist_widget import DeliveryChecklistWidget
 
 
 # Which subsystem is implied by which mission — MainWindow applies this
@@ -196,7 +197,7 @@ class MainWindow(QMainWindow):
         self.science_tab.launch_requested.connect(self._on_science_launch_requested)
         self.science_tab.stop_requested.connect(self._on_science_stop_requested)
         self.tabs.addTab(self.science_tab, "Science")
-        self.tabs.addTab(_placeholder_tab("Delivery"), "Delivery")
+        self.tabs.addTab(DeliveryChecklistWidget(), "Delivery")
         self.tabs.addTab(_placeholder_tab("Equipment Servicing"), "Equipment Servicing")
         self.tabs.addTab(_placeholder_tab("Autonomous Nav"), "Autonomous Nav")
         self.tabs.addTab(_placeholder_tab("Diagnostics"), "Diagnostics")
