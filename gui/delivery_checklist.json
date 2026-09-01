@@ -1,0 +1,21 @@
+{
+  "stages": [
+    {"id": "stage_1", "label": "Stage 1", "unlock_threshold": 40},
+    {"id": "stage_2", "label": "Stage 2"}
+  ],
+  "tasks": [
+    {"id": "sample_pickup", "stage": "stage_1", "label": "Retrieve sample from toolbox", "type": "checkbox", "points": 10},
+    {"id": "sample_deposit", "stage": "stage_1", "label": "Deposit sample in cache", "type": "checkbox", "points": 10},
+    {
+      "id": "wreckage", "stage": "stage_1", "label": "Deliver wreckage pieces", "type": "counter",
+      "options": [
+        {"label": "Large piece", "points": 2},
+        {"label": "Small piece", "points": 5}
+      ],
+      "total_points": 30
+    },
+    {"id": "task_3", "stage": "stage_1", "label": "Complete Task 3 (drone or rover path)", "type": "checkbox", "points": 20},
+    {"id": "object_2", "stage": "stage_2", "label": "Deliver designated object to Astronaut 2", "type": "checkbox", "points": 10},
+    {"id": "remote_wreckage", "stage": "stage_2", "label": "Deliver remote wreckage to Astronaut 2", "type": "checkbox", "points": 20}
+  ]
+}
