@@ -43,17 +43,6 @@ _TAB_INDEX_BY_MISSION_STATE = {
 }
 _DIAGNOSTICS_TAB_INDEX = 4
 
-# Rover control mode implied by mission state — only Autonomous Nav
-# drives itself, every other active mission is teleoperated, and there's
-# no drive mode at all outside a mission.
-_CONTROL_MODE_BY_MISSION_STATE = {
-    MissionState.SCIENCE: "TELEOPERATION",
-    MissionState.DELIVERY: "TELEOPERATION",
-    MissionState.EQUIPMENT_SERVICING: "TELEOPERATION",
-    MissionState.AUTONOMOUS_NAV: "AUTONOMOUS",
-    MissionState.IDLE: "STANDBY",
-}
-
 
 def _placeholder_box(title: str, min_width: int = 0, min_height: int = 0) -> QFrame:
     """Small helper to make a labeled placeholder box with a visible border,
@@ -237,9 +226,12 @@ class MainWindow(QMainWindow):
         root_layout.addWidget(content)
 
     def _on_mission_state_changed(self, old_state, new_state):
-        self.sidebar.control_mode.set_mode(
-            _CONTROL_MODE_BY_MISSION_STATE.get(new_state, "STANDBY")
-        )
+        # Control mode is NOT derived from mission state -- the rover can
+        # be teleoperated by the game controller whether or not a mission
+        # is even active, and self-drives specific maneuvers (e.g.
+        # Panorama's rotation) independent of which mission is running.
+        # It's sourced entirely from DataSource.signals.rover_control_mode
+        # (see main_window.py's connection below and control_mode_widget.py).
 
         # Stop whatever subsystem the OLD mission had running (bug fix:
         # set_mode() below only resets the widget's own displayed status
