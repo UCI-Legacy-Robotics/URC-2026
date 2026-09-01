@@ -37,10 +37,12 @@ until a real launch topic/service exists and actually confirms it
 (RosDataSource.send_subsystem_command is a no-op today -- see
 ros_node.py), which is the intended fail-closed behavior, not a bug.
 
-The site bar separately locks itself while Bradford/Cache or NPK is
-running (STARTING/RUNNING/STOPPING) -- payload-lowered, not just
-"site required" -- and Panorama is blocked on that same condition,
-since it needs the science payload raised for its 360 rotation.
+Only one sequence may be running at a time: whenever any sequence is
+STARTING/RUNNING/STOPPING, every *other* sequence is blocked from
+launching until it finishes. The site bar additionally locks itself
+while Bradford/Cache or NPK specifically is running -- payload-lowered,
+not just "another sequence is busy" -- since editing the site label
+mid-sequence would mislabel whatever data is still in flight.
 """
 
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QMessageBox
@@ -52,7 +54,7 @@ from widgets.science_review_dialog import ScienceReviewDialog
 from widgets.camera_feed_widget import _frame_to_pixmap
 from science_data_store import ScienceDataStore
 
-_PAYLOAD_LOWERED_STATUSES = ("STARTING", "RUNNING", "STOPPING")
+_BUSY_STATUSES = ("STARTING", "RUNNING", "STOPPING")
 _PAYLOAD_LOWERED_SEQUENCES = ("BRADFORD_CACHE", "NPK")
 _SITE_REQUIRED_SEQUENCES = ("BRADFORD_CACHE", "NPK", "PANORAMA", "STRATIGRAPHY")
 
@@ -69,7 +71,7 @@ class ScienceTabWidget(QWidget):
         super().__init__(parent)
         self._data_source = None
         self._sequence_widgets = {}  # sequence -> ScienceSequenceWidget, filled in as each is built
-        self._sequence_statuses = {}  # sequence -> last known status, for payload-lowered gating
+        self._sequence_statuses = {}  # sequence -> last known status, for mutual-exclusion + payload-lowered gating
         self._mission_is_science = False
         self._science_subsystem_running = False
         self._store = ScienceDataStore()
@@ -222,25 +224,30 @@ class ScienceTabWidget(QWidget):
         subsystem_ready = self._mission_is_science and self._science_subsystem_running
         site_set = self.site_bar.current_site() is not None
         payload_lowered = any(
-            self._sequence_statuses.get(sequence) in _PAYLOAD_LOWERED_STATUSES
+            self._sequence_statuses.get(sequence) in _BUSY_STATUSES
             for sequence in _PAYLOAD_LOWERED_SEQUENCES
         )
+        busy_sequences = {
+            seq for seq, status in self._sequence_statuses.items() if status in _BUSY_STATUSES
+        }
 
         # Multiple independent block reasons can apply to the same widget
-        # (Panorama needs the subsystem up, a site set, AND the payload
-        # not lowered) -- combine them into one set_blocked() call per
-        # widget, checked in priority order, rather than separate calls
-        # that would just have the last one overwrite the rest.
+        # (e.g. Panorama needs the subsystem up, a site set, AND no other
+        # sequence currently running) -- combine them into one
+        # set_blocked() call per widget, checked in priority order,
+        # rather than separate calls that would just have the last one
+        # overwrite the rest.
         for sequence in _SITE_REQUIRED_SEQUENCES:
             widget = self._sequence_widgets.get(sequence)
             if widget is None:
                 continue
+            other_running = bool(busy_sequences - {sequence})
             if not subsystem_ready:
                 widget.set_blocked(True, "Science subsystem not launched")
             elif not site_set:
                 widget.set_blocked(True, "Set a site first")
-            elif sequence == "PANORAMA" and payload_lowered:
-                widget.set_blocked(True, "Blocked: payload lowered")
+            elif other_running:
+                widget.set_blocked(True, "Another sequence is running")
             else:
                 widget.set_blocked(False)
 
