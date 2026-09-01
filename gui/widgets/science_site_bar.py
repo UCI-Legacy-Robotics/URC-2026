@@ -2,7 +2,7 @@
 Science Site Bar
 
 Lets the operator label the "current site" before launching a
-site-scoped sequence (Spectrometer / NPK) — the science team visits
+site-scoped sequence (Bradford/Cache / NPK) — the science team visits
 multiple sites per run, and everything those sequences report (status,
 GNSS, images, readings) needs to land tagged under the right site
 rather than getting mixed together (see ScienceDataStore, Step 6).
@@ -10,7 +10,7 @@ rather than getting mixed together (see ScienceDataStore, Step 6).
 This widget only tracks the label text itself; it has no DataSource
 dependency and doesn't know anything about sequences, gating, or
 persistence — ScienceTabWidget composes those concerns on top of it
-(disabling Spectrometer/NPK launch while no site is set, locking this
+(disabling Bradford/Cache/NPK launch while no site is set, locking this
 bar while one is running, in Step 7).
 """
 

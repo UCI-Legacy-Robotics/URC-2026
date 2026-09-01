@@ -2,7 +2,7 @@
 Science Mission tab.
 
 Composes the Science-mission-specific controls: the current-site label
-(ScienceSiteBar), the four rover-driven sequences (Spectrometer, NPK
+(ScienceSiteBar), the four rover-driven sequences (Bradford/Cache, NPK
 probe, Panorama, Stratigraphic Photo, each a ScienceSequenceWidget),
 and a "Review Sites..." button opening ScienceReviewDialog to browse
 what's been saved so far.
@@ -37,7 +37,7 @@ until a real launch topic/service exists and actually confirms it
 (RosDataSource.send_subsystem_command is a no-op today -- see
 ros_node.py), which is the intended fail-closed behavior, not a bug.
 
-The site bar separately locks itself while Spectrometer or NPK is
+The site bar separately locks itself while Bradford/Cache or NPK is
 running (STARTING/RUNNING/STOPPING) -- payload-lowered, not just
 "site required" -- and Panorama is blocked on that same condition,
 since it needs the science payload raised for its 360 rotation.
@@ -53,8 +53,8 @@ from widgets.camera_feed_widget import _frame_to_pixmap
 from science_data_store import ScienceDataStore
 
 _PAYLOAD_LOWERED_STATUSES = ("STARTING", "RUNNING", "STOPPING")
-_PAYLOAD_LOWERED_SEQUENCES = ("SPECTROMETER", "NPK")
-_SITE_REQUIRED_SEQUENCES = ("SPECTROMETER", "NPK", "PANORAMA", "STRATIGRAPHY")
+_PAYLOAD_LOWERED_SEQUENCES = ("BRADFORD_CACHE", "NPK")
+_SITE_REQUIRED_SEQUENCES = ("BRADFORD_CACHE", "NPK", "PANORAMA", "STRATIGRAPHY")
 
 
 _RESOURCE_LABELS = {"CACHE": "Cache", "SPECTRO": "Spectrometer/vials"}
@@ -85,20 +85,20 @@ class ScienceTabWidget(QWidget):
         sequences_row = QHBoxLayout()
         sequences_row.setSpacing(8)
 
-        spectrometer = ScienceSequenceWidget(
-            sequence="SPECTROMETER", title="Spectrometer", stoppable=True,
+        bradford_cache = ScienceSequenceWidget(
+            sequence="BRADFORD_CACHE", title="Bradford/Cache", stoppable=True,
             launch_modes=[
                 ("SPECTRO", "Run Spectrometer Analysis"),
                 ("CACHE", "Collect to Cache"),
             ],
             show_gnss=True, show_image=True, show_reading=True,
         )
-        # Spectrometer's mode choice needs a confirm-before-overwrite
+        # Bradford/Cache's mode choice needs a confirm-before-overwrite
         # check the other sequences don't -- routed through a dedicated
         # handler instead of the generic pass-through so a "No" on the
         # conflict dialog can abort the launch entirely.
-        self._register_sequence_widget(spectrometer, launch_handler=self._on_spectrometer_launch_requested)
-        sequences_row.addWidget(spectrometer)
+        self._register_sequence_widget(bradford_cache, launch_handler=self._on_bradford_cache_launch_requested)
+        sequences_row.addWidget(bradford_cache)
 
         npk = ScienceSequenceWidget(
             sequence="NPK", title="NPK Probe", stoppable=True,
@@ -172,7 +172,7 @@ class ScienceTabWidget(QWidget):
         widget.launch_requested.connect(launch_handler or self.launch_requested)
         widget.stop_requested.connect(self.stop_requested)
 
-    def _on_spectrometer_launch_requested(self, sequence: str, mode: str):
+    def _on_bradford_cache_launch_requested(self, sequence: str, mode: str):
         # CACHE and SPECTRO are each their own site-exclusive resource
         # (only one site's sample can occupy the cache, separately only
         # one site's sample can go through the spectrometer/vials) --

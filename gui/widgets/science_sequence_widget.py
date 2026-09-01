@@ -1,7 +1,7 @@
 """
 Science Sequence widget.
 
-One instance per Science Mission sequence (Spectrometer, NPK Probe,
+One instance per Science Mission sequence (Bradford/Cache, NPK Probe,
 Panorama, Stratigraphic Photo) — generic over which sequence it is
 and what data it displays, the same "one widget class, configured per
 instance" pattern CameraFeedWidget uses for CameraID. Status/button
@@ -105,7 +105,7 @@ class ScienceSequenceWidget(QWidget):
         self._message_label = _fixed_text_box(_MESSAGE_BOX_HEIGHT, font_size=12)
         layout.addWidget(self._message_label)
 
-        # launch_modes (e.g. Spectrometer's Cache-vs-Analyze choice) is a
+        # launch_modes (e.g. Bradford/Cache's Cache-vs-Analyze choice) is a
         # radio group, not checkboxes -- these are mutually exclusive
         # site-exclusive resources (only one site's sample can occupy the
         # cache, and separately only one site's sample can go through the
@@ -143,10 +143,11 @@ class ScienceSequenceWidget(QWidget):
             layout.addWidget(self._image_label, 0, Qt.AlignmentFlag.AlignHCenter)
 
         # reading_fields (e.g. NPK's nitrogen/phosphorus/potassium) splits
-        # the reading into one fixed box per element, laid out in a row,
-        # instead of a single box with every key crammed into one line --
-        # readable per-element rather than a single show_reading box
-        # (Spectrometer's peak-wavelength/absorbance pair, still one box).
+        # the reading into one fixed box per element, laid out in a
+        # column, instead of a single box with every key crammed into
+        # one line -- readable per-element rather than a single
+        # show_reading box (Bradford/Cache's peak-wavelength/absorbance
+        # pair, still one box).
         self._reading_label = None
         self._reading_boxes = None
         if reading_fields:

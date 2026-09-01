@@ -66,7 +66,7 @@ class DataSourceSignals(QObject):
 
     # Science Mission sequence telemetry — see send_science_sequence_command
     # below for the outbound (launch/stop) side. `sequence` is always one
-    # of "SPECTROMETER"/"NPK"/"PANORAMA"/"STRATIGRAPHY", multiplexed onto
+    # of "BRADFORD_CACHE"/"NPK"/"PANORAMA"/"STRATIGRAPHY", multiplexed onto
     # shared signals the same way camera_frame multiplexes on camera_id
     # and subsystem_status_update multiplexes on subsystem — one signal
     # per data shape rather than one per sequence, so widgets/the data
@@ -181,12 +181,12 @@ class DataSource(ABC):
     def send_science_sequence_command(self, sequence: str, action: str, mode: str = ""):
         """Request a Science Mission sequence be launched or stopped.
 
-        sequence: "SPECTROMETER", "NPK", "PANORAMA", or "STRATIGRAPHY".
+        sequence: "BRADFORD_CACHE", "NPK", "PANORAMA", or "STRATIGRAPHY".
         action: "launch" or "stop". Panorama and Stratigraphic Photo are
         start-only sequences (no operator-initiated abort) — callers
         never send action="stop" for them.
 
-        mode only applies to sequence="SPECTROMETER" with action="launch":
+        mode only applies to sequence="BRADFORD_CACHE" with action="launch":
         "CACHE" (lower drill, collect sample into the cache -- no mixer/
         vials/spectrometer reading) or "SPECTRO" (lower drill, collect
         sample into the mixer, pipe into vials, read on the onboard

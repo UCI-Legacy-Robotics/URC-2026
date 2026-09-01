@@ -296,8 +296,8 @@ class SimulationDataSource(DataSource):
         print(f"[sim] science sequence command: {sequence} -> {action} (mode={mode})")
         if action == "launch":
             self._cancel_science_timers(sequence)
-            if sequence == "SPECTROMETER":
-                self._launch_spectrometer_sequence(mode)
+            if sequence == "BRADFORD_CACHE":
+                self._launch_bradford_cache_sequence(mode)
             elif sequence == "NPK":
                 self._launch_npk_sequence()
             elif sequence == "PANORAMA":
@@ -329,7 +329,7 @@ class SimulationDataSource(DataSource):
             lambda: self.signals.science_sequence_status.emit(sequence, "STOPPED", ""),
         )
 
-    def _launch_spectrometer_sequence(self, mode: str):
+    def _launch_bradford_cache_sequence(self, mode: str):
         # CACHE and SPECTRO are two separate site-exclusive resources
         # (see send_science_sequence_command's docstring in data_source.py)
         # with genuinely different rover-side sequences, not just a
@@ -338,7 +338,7 @@ class SimulationDataSource(DataSource):
         # to the mixer/vials/spectrometer. Both still document the sample
         # site (GNSS + arducam image) -- only SPECTRO also produces a
         # spectrometer reading.
-        sequence = "SPECTROMETER"
+        sequence = "BRADFORD_CACHE"
         self.signals.science_sequence_status.emit(sequence, "STARTING", "lowering drill")
 
         if mode == "CACHE":
@@ -363,7 +363,7 @@ class SimulationDataSource(DataSource):
             delay += _SCIENCE_STEP_INTERVAL_MS
 
         self._schedule_science_step(
-            sequence, delay, lambda: self._emit_spectrometer_results(sequence, emit_reading)
+            sequence, delay, lambda: self._emit_bradford_cache_results(sequence, emit_reading)
         )
         delay += _SCIENCE_STEP_INTERVAL_MS
         self._schedule_science_step(
@@ -371,7 +371,7 @@ class SimulationDataSource(DataSource):
             lambda: self.signals.science_sequence_status.emit(sequence, "STOPPED", complete_message),
         )
 
-    def _emit_spectrometer_results(self, sequence: str, emit_reading: bool):
+    def _emit_bradford_cache_results(self, sequence: str, emit_reading: bool):
         # Sample-site GNSS, reported by the rover -- not sampled from the
         # base station's own gnss_fix stream, per the "rover is source of
         # truth for the sample site" requirement. Sent for both CACHE and
@@ -396,10 +396,10 @@ class SimulationDataSource(DataSource):
         self.signals.science_reading.emit(sequence, reading)
 
     def _launch_npk_sequence(self):
-        # Shorter than Spectrometer -- just lowering a probe and reading
+        # Shorter than Bradford/Cache -- just lowering a probe and reading
         # back soil data, no cache/mixer/vial steps -- and independently
         # keyed in _science_timers, so it can run concurrently alongside
-        # Spectrometer without either interfering with the other.
+        # Bradford/Cache without either interfering with the other.
         sequence = "NPK"
         self.signals.science_sequence_status.emit(sequence, "STARTING", "lowering NPK probe")
 

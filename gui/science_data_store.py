@@ -228,10 +228,10 @@ if __name__ == '__main__':
             height=10, width=10,
         )
 
-        store.record_status("Site Alpha", "SPECTROMETER", "STARTING", "lowering drill")
-        store.record_gnss("Site Alpha", "SPECTROMETER", 33.6405, -117.8443)
-        store.record_image("Site Alpha", "SPECTROMETER", fake_frame)
-        store.record_reading("Site Alpha", "SPECTROMETER", {"peak_wavelength_nm": 550.0, "absorbance": 1.2})
+        store.record_status("Site Alpha", "BRADFORD_CACHE", "STARTING", "lowering drill")
+        store.record_gnss("Site Alpha", "BRADFORD_CACHE", 33.6405, -117.8443)
+        store.record_image("Site Alpha", "BRADFORD_CACHE", fake_frame)
+        store.record_reading("Site Alpha", "BRADFORD_CACHE", {"peak_wavelength_nm": 550.0, "absorbance": 1.2})
         store.set_resource_owner("SPECTRO", "Site Alpha")
 
         store.record_status("Site Beta", "NPK", "STARTING", "lowering probe")
