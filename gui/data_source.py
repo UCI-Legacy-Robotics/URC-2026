@@ -76,6 +76,16 @@ class DataSourceSignals(QObject):
     science_image           = pyqtSignal(str, object, int, float)  # (sequence, frame, frame_bytes, timestamp) -- frame is the same SimpleNamespace(encoding, data, height, width) shape as camera_frame
     science_reading         = pyqtSignal(str, object)            # (sequence, reading: dict) -- opaque key/value payload, shape is rover-defined; widgets/store treat it generically rather than assuming fields
 
+    # Rover-reported live control mode -- "TELEOPERATION" or "AUTONOMOUS",
+    # same vocabulary ControlModeWidget.set_mode() already takes. Distinct
+    # from the mission-implied default MainWindow applies on mission state
+    # change: the rover can independently switch itself into AUTONOMOUS
+    # for a self-driven maneuver (e.g. Panorama's 360 rotation) and
+    # broadcasts that over ROS while it's happening, then reports back to
+    # TELEOPERATION when it hands control back -- MainWindow just forwards
+    # each report directly to the widget, it doesn't try to merge/infer.
+    rover_control_mode      = pyqtSignal(str)
+
     # diagnostics_update's payload is always a plain list of dicts:
     #   {"name": str, "level": "OK"|"WARN"|"ERROR"|"STALE", "message": str,
     #    "values": dict[str, str]}

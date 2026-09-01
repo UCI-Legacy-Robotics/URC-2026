@@ -8,7 +8,7 @@ from rclpy.qos import qos_profile_sensor_data
 
 from sensor_msgs.msg import Image, NavSatFix, BatteryState, Imu
 from diagnostic_msgs.msg import DiagnosticArray, DiagnosticStatus
-from std_msgs.msg import Empty
+from std_msgs.msg import Empty, String
 
 from data_source import DataSource, DataSourceSignals, CameraID
 
@@ -60,6 +60,12 @@ class BaseStationNode(Node):
             DiagnosticArray, '/diagnostics', self.on_diagnostics, 10)
         self.create_subscription(
             Empty, '/heartbeat', self.on_heartbeat, 10)
+        # TODO: unconfirmed topic/message type -- see _CAMERA_TOPICS above
+        # for the same caveat. Placeholder is a plain String carrying
+        # "TELEOPERATION"/"AUTONOMOUS", matching what SimulationDataSource
+        # fakes and what ControlModeWidget.set_mode() already accepts.
+        self.create_subscription(
+            String, '/rover/control_mode', self.on_control_mode, 10)
 
         self.get_logger().info('Base station GUI node started')
 
@@ -135,6 +141,9 @@ class BaseStationNode(Node):
 
     def on_heartbeat(self, msg):
         self.signals.heartbeat.emit()
+
+    def on_control_mode(self, msg):
+        self.signals.rover_control_mode.emit(msg.data)
 
 
 class RosDataSource(DataSource):

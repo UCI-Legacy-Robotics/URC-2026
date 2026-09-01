@@ -45,6 +45,13 @@ _ESTOP_CONFIRM_MS = 1000
 _SCIENCE_STEP_INTERVAL_MS = 900
 _SCIENCE_STOP_CONFIRM_MS = 800
 
+# Panorama stops and photographs at this many points around the 360
+# rotation before stitching -- randomized per launch within URC's
+# typical range rather than a fixed count, same "plausible, not exact"
+# spirit as the other fake sequence timings.
+_PANORAMA_MIN_POSITIONS = 4
+_PANORAMA_MAX_POSITIONS = 6
+
 # Fake camera frames: small resolution + ~5fps is plausible for a
 # bandwidth-limited field link, and keeps the encode/emit cost trivial.
 _CAMERA_FRAME_INTERVAL_MS = 200
@@ -430,13 +437,27 @@ class SimulationDataSource(DataSource):
     def _launch_panorama_sequence(self):
         # Start-only -- no _abort_science_sequence path is ever reached
         # for this sequence since ScienceSequenceWidget(stoppable=False)
-        # never emits a stop_requested for it.
+        # never emits a stop_requested for it. The rover self-drives the
+        # rotation, so it broadcasts AUTONOMOUS for the duration and
+        # hands control back to TELEOPERATION once it's done -- see
+        # rover_control_mode in data_source.py.
         sequence = "PANORAMA"
         self.signals.science_sequence_status.emit(sequence, "STARTING", "beginning 360 rotation")
+        self.signals.rover_control_mode.emit("AUTONOMOUS")
 
-        rotation_messages = ("rotating, capturing frames", "stitching panorama")
+        # One stop-and-photograph status step per position around the
+        # rotation, then a final stitching step -- not one "rotating,
+        # capturing frames" step glossing over the fact that the rover
+        # actually stops at each point rather than shooting on the move.
+        position_count = random.randint(_PANORAMA_MIN_POSITIONS, _PANORAMA_MAX_POSITIONS)
+        running_messages = [
+            f"stopped at position {i}/{position_count}, capturing photo"
+            for i in range(1, position_count + 1)
+        ]
+        running_messages.append("stitching panorama onboard")
+
         delay = _SCIENCE_STEP_INTERVAL_MS
-        for message in rotation_messages:
+        for message in running_messages:
             self._schedule_science_step(
                 sequence, delay,
                 lambda m=message: self.signals.science_sequence_status.emit(sequence, "RUNNING", m),
@@ -445,6 +466,9 @@ class SimulationDataSource(DataSource):
 
         self._schedule_science_step(sequence, delay, lambda: self._emit_science_image_result(sequence))
         delay += _SCIENCE_STEP_INTERVAL_MS
+        self._schedule_science_step(
+            sequence, delay, lambda: self.signals.rover_control_mode.emit("TELEOPERATION")
+        )
         self._schedule_science_step(
             sequence, delay,
             lambda: self.signals.science_sequence_status.emit(sequence, "STOPPED", "panorama complete"),

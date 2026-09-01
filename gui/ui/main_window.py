@@ -227,6 +227,9 @@ class MainWindow(QMainWindow):
             self.data_source.signals.subsystem_status_update.connect(
                 self.science_tab.set_science_subsystem_status
             )
+            self.data_source.signals.rover_control_mode.connect(
+                self.sidebar.control_mode.set_mode
+            )
 
         content_layout.addWidget(self.tabs)
         content_layout.addWidget(self.sidebar)
