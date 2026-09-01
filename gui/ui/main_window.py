@@ -13,6 +13,7 @@ from comms_health_controller import CommsHealthController
 from widgets.mission_sm_widget import MissionSmWidget
 from widgets.subsystem_launch_widget import SubsystemLaunchWidget
 from widgets.control_mode_widget import ControlModeWidget
+from widgets.joystick_mode_widget import JoystickModeWidget
 from widgets.electrical_health_cluster import ElectricalHealthCluster
 from widgets.software_enable_widget import SoftwareEnableWidget
 from widgets.estop_widget import EstopWidget
@@ -120,6 +121,10 @@ class Sidebar(QWidget):
         self.control_mode.setMinimumHeight(60)
         layout.addWidget(self.control_mode)
 
+        self.joystick_mode = JoystickModeWidget()
+        self.joystick_mode.setMinimumHeight(60)
+        layout.addWidget(self.joystick_mode)
+
         bottom_stack = QVBoxLayout()
         bottom_stack.setSpacing(8)
 
@@ -218,6 +223,9 @@ class MainWindow(QMainWindow):
             )
             self.data_source.signals.rover_control_mode.connect(
                 self.sidebar.control_mode.set_mode
+            )
+            self.data_source.signals.joystick_mode.connect(
+                self.sidebar.joystick_mode.set_mode
             )
 
         content_layout.addWidget(self.tabs)

@@ -77,14 +77,21 @@ class DataSourceSignals(QObject):
     science_reading         = pyqtSignal(str, object)            # (sequence, reading: dict) -- opaque key/value payload, shape is rover-defined; widgets/store treat it generically rather than assuming fields
 
     # Rover-reported live control mode -- "TELEOPERATION" or "AUTONOMOUS",
-    # same vocabulary ControlModeWidget.set_mode() already takes. Distinct
-    # from the mission-implied default MainWindow applies on mission state
-    # change: the rover can independently switch itself into AUTONOMOUS
-    # for a self-driven maneuver (e.g. Panorama's 360 rotation) and
-    # broadcasts that over ROS while it's happening, then reports back to
-    # TELEOPERATION when it hands control back -- MainWindow just forwards
-    # each report directly to the widget, it doesn't try to merge/infer.
+    # same vocabulary ControlModeWidget.set_mode() already takes. Not
+    # derived from GUI/mission state at all (see control_mode_widget.py):
+    # the rover switches itself into AUTONOMOUS for a self-driven
+    # maneuver (e.g. Panorama's 360 rotation) and broadcasts that over
+    # ROS while it's happening, then reports back to TELEOPERATION when
+    # it hands control back -- MainWindow just forwards each report
+    # directly to the widget, it doesn't try to merge/infer.
     rover_control_mode      = pyqtSignal(str)
+
+    # Which subsystem the physical game controller currently drives --
+    # "DRIVETRAIN" or "ARM". Picked by a hardware mode button on the
+    # joystick itself, not the GUI; this just displays whatever the
+    # rover reports, same forward-straight-to-the-widget pattern as
+    # rover_control_mode. See JoystickModeWidget.
+    joystick_mode            = pyqtSignal(str)
 
     # diagnostics_update's payload is always a plain list of dicts:
     #   {"name": str, "level": "OK"|"WARN"|"ERROR"|"STALE", "message": str,

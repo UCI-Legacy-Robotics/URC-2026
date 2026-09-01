@@ -66,6 +66,12 @@ class BaseStationNode(Node):
         # fakes and what ControlModeWidget.set_mode() already accepts.
         self.create_subscription(
             String, '/rover/control_mode', self.on_control_mode, 10)
+        # TODO: unconfirmed topic/message type, same caveat as above.
+        # Placeholder is a plain String carrying "DRIVETRAIN"/"ARM",
+        # matching what SimulationDataSource fakes and what
+        # JoystickModeWidget.set_mode() already accepts.
+        self.create_subscription(
+            String, '/rover/joystick_mode', self.on_joystick_mode, 10)
 
         self.get_logger().info('Base station GUI node started')
 
@@ -144,6 +150,9 @@ class BaseStationNode(Node):
 
     def on_control_mode(self, msg):
         self.signals.rover_control_mode.emit(msg.data)
+
+    def on_joystick_mode(self, msg):
+        self.signals.joystick_mode.emit(msg.data)
 
 
 class RosDataSource(DataSource):

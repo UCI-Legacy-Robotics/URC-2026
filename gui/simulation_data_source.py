@@ -99,6 +99,12 @@ class SimulationDataSource(DataSource):
         self._software_enabled = True
         self._withhold_estop_confirmation = False
 
+        # subsystem -> last known status ("SCIENCE"/"ARM" today), kept
+        # around so set_joystick_mode() can check whether ARM is actually
+        # RUNNING before allowing joystick_mode to claim ARM.
+        self._subsystem_statuses = {}
+        self._joystick_mode = "DRIVETRAIN"
+
         # Cameras start disabled (no timers running) — same "opt in via
         # MUX" behavior as RosDataSource's subscriptions, so --sim
         # exercises the same enable/disable lifecycle as real hardware.
@@ -267,17 +273,39 @@ class SimulationDataSource(DataSource):
     def send_subsystem_command(self, subsystem: str, action: str):
         print(f"[sim] subsystem command: {subsystem} -> {action}")
         if action == "launch":
-            self.signals.subsystem_status_update.emit(subsystem, "STARTING")
+            self._set_subsystem_status(subsystem, "STARTING")
             QTimer.singleShot(
                 _SUBSYSTEM_STARTUP_MS,
-                lambda: self.signals.subsystem_status_update.emit(subsystem, "RUNNING"),
+                lambda: self._set_subsystem_status(subsystem, "RUNNING"),
             )
         elif action == "stop":
-            self.signals.subsystem_status_update.emit(subsystem, "STOPPING")
+            self._set_subsystem_status(subsystem, "STOPPING")
             QTimer.singleShot(
                 _SUBSYSTEM_SHUTDOWN_MS,
-                lambda: self.signals.subsystem_status_update.emit(subsystem, "STOPPED"),
+                lambda: self._set_subsystem_status(subsystem, "STOPPED"),
             )
+
+    def _set_subsystem_status(self, subsystem: str, status: str):
+        self._subsystem_statuses[subsystem] = status
+        self.signals.subsystem_status_update.emit(subsystem, status)
+        # The joystick can't stay bound to ARM once the Arm subsystem
+        # isn't RUNNING anymore -- mirrors CameraWindow auto-disabling a
+        # gated camera when its subsystem stops (see ros_node.py/
+        # camera_window.py), just for joystick_mode instead of a camera.
+        if subsystem == "ARM" and status != "RUNNING" and self._joystick_mode == "ARM":
+            self.set_joystick_mode("DRIVETRAIN")
+
+    def set_joystick_mode(self, mode: str):
+        """Testing/demo hook -- a hardware mode button on the joystick
+        itself picks this on real hardware, so there's no GUI-driven
+        command path (unlike subsystem launch). ARM is refused unless
+        the Arm subsystem is actually RUNNING, since the joystick can't
+        be bound to a subsystem that isn't launched."""
+        if mode == "ARM" and self._subsystem_statuses.get("ARM") != "RUNNING":
+            print("[sim] joystick mode ARM refused -- ARM subsystem not RUNNING")
+            return
+        self._joystick_mode = mode
+        self.signals.joystick_mode.emit(mode)
 
     def send_software_enable_command(self, enabled: bool):
         print(f"[sim] software enable command: {enabled}")
