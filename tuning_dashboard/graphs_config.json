@@ -1,0 +1,28 @@
+{
+  "window_seconds": 60,
+  "graphs": [
+    {"id": "studica_1_position", "title": "Studica 1 Position", "units": "deg", "topic": "/tuning/studica_1/position", "msg_type": "std_msgs/msg/Float32", "field": "data"},
+    {"id": "studica_2_position", "title": "Studica 2 Position", "units": "deg", "topic": "/tuning/studica_2/position", "msg_type": "std_msgs/msg/Float32", "field": "data"},
+
+    {"id": "yellowjacket_1_velocity", "title": "Yellowjacket 1 Velocity", "units": "m/s", "topic": "/tuning/yellowjacket_1/velocity", "msg_type": "std_msgs/msg/Float32", "field": "data"},
+    {"id": "yellowjacket_2_velocity", "title": "Yellowjacket 2 Velocity", "units": "m/s", "topic": "/tuning/yellowjacket_2/velocity", "msg_type": "std_msgs/msg/Float32", "field": "data"},
+    {"id": "yellowjacket_3_velocity", "title": "Yellowjacket 3 Velocity", "units": "m/s", "topic": "/tuning/yellowjacket_3/velocity", "msg_type": "std_msgs/msg/Float32", "field": "data"},
+    {"id": "yellowjacket_4_velocity", "title": "Yellowjacket 4 Velocity", "units": "m/s", "topic": "/tuning/yellowjacket_4/velocity", "msg_type": "std_msgs/msg/Float32", "field": "data"},
+    {"id": "yellowjacket_5_velocity", "title": "Yellowjacket 5 Velocity", "units": "m/s", "topic": "/tuning/yellowjacket_5/velocity", "msg_type": "std_msgs/msg/Float32", "field": "data"},
+    {"id": "yellowjacket_6_velocity", "title": "Yellowjacket 6 Velocity", "units": "m/s", "topic": "/tuning/yellowjacket_6/velocity", "msg_type": "std_msgs/msg/Float32", "field": "data"},
+
+    {"id": "studica_1_current", "title": "Studica 1 Current", "units": "A", "topic": "/tuning/studica_1/current", "msg_type": "std_msgs/msg/Float32", "field": "data"},
+    {"id": "studica_2_current", "title": "Studica 2 Current", "units": "A", "topic": "/tuning/studica_2/current", "msg_type": "std_msgs/msg/Float32", "field": "data"},
+    {"id": "yellowjacket_1_current", "title": "Yellowjacket 1 Current", "units": "A", "topic": "/tuning/yellowjacket_1/current", "msg_type": "std_msgs/msg/Float32", "field": "data"},
+    {"id": "yellowjacket_2_current", "title": "Yellowjacket 2 Current", "units": "A", "topic": "/tuning/yellowjacket_2/current", "msg_type": "std_msgs/msg/Float32", "field": "data"},
+    {"id": "yellowjacket_3_current", "title": "Yellowjacket 3 Current", "units": "A", "topic": "/tuning/yellowjacket_3/current", "msg_type": "std_msgs/msg/Float32", "field": "data"},
+    {"id": "yellowjacket_4_current", "title": "Yellowjacket 4 Current", "units": "A", "topic": "/tuning/yellowjacket_4/current", "msg_type": "std_msgs/msg/Float32", "field": "data"},
+    {"id": "yellowjacket_5_current", "title": "Yellowjacket 5 Current", "units": "A", "topic": "/tuning/yellowjacket_5/current", "msg_type": "std_msgs/msg/Float32", "field": "data"},
+    {"id": "yellowjacket_6_current", "title": "Yellowjacket 6 Current", "units": "A", "topic": "/tuning/yellowjacket_6/current", "msg_type": "std_msgs/msg/Float32", "field": "data"},
+
+    {"id": "stepper_pump_velocity", "title": "Stepper Pump Velocity", "units": "cm/s", "topic": "/tuning/stepper_pump/velocity", "msg_type": "std_msgs/msg/Float32", "field": "data"},
+
+    {"id": "stepper_1_position", "title": "Stepper 1 Position", "units": "m", "topic": "/tuning/stepper_1/position", "msg_type": "std_msgs/msg/Float32", "field": "data"},
+    {"id": "stepper_2_position", "title": "Stepper 2 Position", "units": "m", "topic": "/tuning/stepper_2/position", "msg_type": "std_msgs/msg/Float32", "field": "data"}
+  ]
+}
