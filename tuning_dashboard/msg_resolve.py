@@ -41,6 +41,19 @@ def get_field(msg, field: str):
         raise ValueError(f"field {field!r} not found on {type(msg).__name__} ({e})")
 
 
+def set_field(msg, field: str, value):
+    """Dotted-path attribute set, the write-side counterpart to
+    get_field -- used by test_publisher.py to fill in the same field
+    path a graph's config says to read. Raises ValueError (not
+    AttributeError) on a missing attribute, same convention as get_field."""
+    parts = field.split(".")
+    try:
+        target = functools.reduce(getattr, parts[:-1], msg)
+        setattr(target, parts[-1], value)
+    except AttributeError as e:
+        raise ValueError(f"field {field!r} not found on {type(msg).__name__} ({e})")
+
+
 def get_header_stamp(msg):
     """Returns the message's header timestamp in seconds (float), or None
     if it has no std_msgs/Header -- most of this rover's own telemetry
