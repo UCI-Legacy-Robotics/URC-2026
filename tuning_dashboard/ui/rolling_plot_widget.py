@@ -14,6 +14,16 @@ scroll-to-zoom on the ViewBox (enabled by default, no extra code needed
 here) become the scroll-back/rescale controls. "Jump to Live" snaps the
 view back and resumes auto-follow; nothing was lost while paused since
 the buffer kept growing underneath.
+
+add_sample() only buffers -- it deliberately does NOT touch the plot.
+Redrawing (curve.setData + setXRange) happens separately, on refresh(),
+called by MainWindow on a fixed-rate timer shared across all tiles.
+Redrawing on every single incoming sample was tried first and made the
+whole window unresponsive (couldn't even click Pause or close it) once
+real topics were publishing at their actual rate -- 19 tiles x ~20 Hz is
+~380 repaints/sec competing with the GUI thread for button clicks and
+the close event. Capping the redraw rate independent of the data rate
+is the standard fix for this in real-time plotting.
 """
 
 import time
@@ -33,6 +43,7 @@ class RollingPlotWidget(QWidget):
         self._buffer = deque()  # [(t_relative, value), ...], oldest first
         self._paused = False
         self._last_update_wall = None  # time.time() of most recent sample, for the age label
+        self._dirty = False  # True when the buffer has samples refresh() hasn't drawn yet
 
         self._title_label = QLabel(f"{title} ({units})" if units else title)
         self._title_label.setStyleSheet("font-weight: bold;")
@@ -66,17 +77,29 @@ class RollingPlotWidget(QWidget):
         self._age_timer.start(_AGE_TICK_MS)
 
     def add_sample(self, t_relative: float, value: float):
+        """Cheap: buffer the sample and mark dirty. Never touches the
+        plot itself -- see the class docstring for why."""
         self._buffer.append((t_relative, value))
         cutoff = t_relative - self._window_seconds
         while self._buffer and self._buffer[0][0] < cutoff:
             self._buffer.popleft()
 
+        self._last_update_wall = time.time()
+        self._dirty = True
+
+    def refresh(self):
+        """Redraws the curve from the current buffer, if it's changed
+        since the last refresh. Called by MainWindow on a fixed-rate
+        timer shared across all tiles -- not from add_sample."""
+        if not self._dirty:
+            return
+        self._dirty = False
+
         xs, ys = zip(*self._buffer)
         self._curve.setData(xs, ys)
-
-        self._last_update_wall = time.time()
         if not self._paused:
-            self._plot.setXRange(t_relative - self._window_seconds, t_relative, padding=0)
+            latest_t = xs[-1]
+            self._plot.setXRange(latest_t - self._window_seconds, latest_t, padding=0)
 
     def _toggle_paused(self):
         self._paused = not self._paused

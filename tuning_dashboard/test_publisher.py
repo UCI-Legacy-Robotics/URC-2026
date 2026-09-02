@@ -20,6 +20,7 @@ import time
 
 import rclpy
 from rclpy.node import Node
+from rclpy.qos import qos_profile_sensor_data
 
 from graphs_config_loader import load_graphs_config
 from msg_resolve import resolve_msg_type, set_field
@@ -44,7 +45,10 @@ class TestPublisherNode(Node):
 
         for i, graph in enumerate(config["graphs"]):
             msg_class = resolve_msg_type(graph["msg_type"])
-            publisher = self.create_publisher(msg_class, graph["topic"], 10)
+            # BEST_EFFORT, matching TuningNode's subscriptions -- see
+            # ros_node.py's docstring for why RELIABLE's heartbeat/
+            # acknack overhead matters here.
+            publisher = self.create_publisher(msg_class, graph["topic"], qos_profile_sensor_data)
             self._entries.append({
                 "graph": graph,
                 "msg_class": msg_class,

@@ -6,11 +6,18 @@ screen at once), plus a Pause All/Resume All toolbar.
 
 import math
 
+from PyQt6.QtCore import QTimer
 from PyQt6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QGridLayout, QPushButton, QScrollArea,
 )
 
 from ui.rolling_plot_widget import RollingPlotWidget
+
+# Redraw rate cap, shared across every tile -- independent of how fast
+# ROS samples actually arrive. See rolling_plot_widget.py's docstring:
+# redrawing on every incoming sample saturated the GUI thread at real
+# publish rates and made the window unresponsive.
+_REFRESH_INTERVAL_MS = 50
 
 
 class MainWindow(QWidget):
@@ -45,6 +52,14 @@ class MainWindow(QWidget):
         layout = QVBoxLayout(self)
         layout.addLayout(toolbar)
         layout.addWidget(scroll_area)
+
+        self._refresh_timer = QTimer(self)
+        self._refresh_timer.timeout.connect(self._refresh_all)
+        self._refresh_timer.start(_REFRESH_INTERVAL_MS)
+
+    def _refresh_all(self):
+        for widget in self._widgets.values():
+            widget.refresh()
 
     def on_sample(self, graph_id: str, t_relative: float, value: float):
         widget = self._widgets.get(graph_id)

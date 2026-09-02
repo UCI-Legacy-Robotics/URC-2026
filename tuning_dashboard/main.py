@@ -1,14 +1,14 @@
 import argparse
+import multiprocessing
+import queue
 import signal
 import sys
-import threading
 
-import rclpy
 from PyQt6.QtCore import QTimer
 from PyQt6.QtWidgets import QApplication
 
 from graphs_config_loader import load_graphs_config
-from ros_node import TuningNode
+from ros_worker import run as run_ros_worker
 from ui.main_window import MainWindow
 
 _STYLESHEET = """
@@ -28,6 +28,15 @@ _STYLESHEET = """
         background: transparent;
     }
 """
+
+# How often the Qt process drains the sample queue -- independent of
+# ROS's actual publish rate, same reasoning as RollingPlotWidget's
+# redraw throttling.
+_QUEUE_DRAIN_INTERVAL_MS = 30
+# Safety bound on samples drained per tick, in case the ROS process
+# ever gets far ahead of the GUI -- keeps one tick from blocking
+# indefinitely rather than assuming that can't happen.
+_MAX_DRAIN_PER_TICK = 5000
 
 
 def _parse_args():
@@ -55,20 +64,34 @@ def main():
     _sigint_pump.timeout.connect(lambda: None)
     _sigint_pump.start(200)
 
-    rclpy.init()
-    node = TuningNode(config)
-    ros_thread = threading.Thread(target=rclpy.spin, args=(node,), daemon=True)
-    ros_thread.start()
+    # ROS runs in its own process, not a thread in this one -- see
+    # ros_node.py's docstring for the GUI-responsiveness investigation
+    # behind this.
+    sample_queue = multiprocessing.Queue()
+    ros_process = multiprocessing.Process(
+        target=run_ros_worker, args=(config, sample_queue), daemon=True)
+    ros_process.start()
 
     window = MainWindow(config)
-    node.signals.sample.connect(window.on_sample)
     window.resize(1600, 900)
     window.show()
 
+    def drain_queue():
+        for _ in range(_MAX_DRAIN_PER_TICK):
+            try:
+                graph_id, t_relative, value = sample_queue.get_nowait()
+            except queue.Empty:
+                return
+            window.on_sample(graph_id, t_relative, value)
+
+    drain_timer = QTimer()
+    drain_timer.timeout.connect(drain_queue)
+    drain_timer.start(_QUEUE_DRAIN_INTERVAL_MS)
+
     exit_code = app.exec()
 
-    node.destroy_node()
-    rclpy.shutdown()
+    ros_process.terminate()
+    ros_process.join(timeout=2)
     sys.exit(exit_code)
 
 
