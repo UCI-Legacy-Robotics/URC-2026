@@ -1,4 +1,4 @@
-#include "servo_can_node.hpp"
+#include "blender_can_node.hpp"
 #include "epoll_event_loop.hpp"
 #include "socket_can.hpp"
 #include <thread>
@@ -6,7 +6,7 @@
 int main(int argc, char* argv[]) {
     rclcpp::init(argc, argv);
     EpollEventLoop event_loop;
-    auto can_node = std::make_shared<ServoCanNode>("ServoCanNode");
+    auto can_node = std::make_shared<BlenderCanNode>("BlenderCanNode");
 
     if (!can_node->init(&event_loop)) return -1;
 

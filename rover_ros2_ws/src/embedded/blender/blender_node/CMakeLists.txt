@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(servo_can)
+project(blender_can)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -19,22 +19,22 @@ ament_export_dependencies(rosidl_default_runtime)
 include_directories(include)
 include_directories(../can_base/include)
 
-add_executable(servo_can_node 
+add_executable(blender_can_node 
   ../can_base/src/epoll_event_loop.cpp
   ../can_base/src/socket_can.cpp
-  src/servo_can_node.cpp
+  src/blender_can_node.cpp
   src/main.cpp
-  include/servo_can_node.hpp)
+  include/blender_can_node.hpp)
 
-ament_target_dependencies(servo_can_node
+ament_target_dependencies(blender_can_node
   rclcpp
   std_srvs
 )
 
-target_compile_features(servo_can_node PRIVATE cxx_std_20)
+target_compile_features(blender_can_node PRIVATE cxx_std_20)
 
 install(
-  TARGETS servo_can_node
+  TARGETS blender_can_node
   DESTINATION lib/${PROJECT_NAME}
 )
 
@@ -45,6 +45,6 @@ install(DIRECTORY launch
 rosidl_get_typesupport_target(cpp_typesupport_target
   ${PROJECT_NAME} rosidl_typesupport_cpp)
 
-target_link_libraries(servo_can_node "${cpp_typesupport_target}")
+target_link_libraries(blender_can_node "${cpp_typesupport_target}")
 
 ament_package()
