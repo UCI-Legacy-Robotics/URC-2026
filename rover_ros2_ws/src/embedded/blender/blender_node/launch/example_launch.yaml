@@ -1,1 +1,14 @@
 launch:
+
+- node:
+    pkg: "blender_can"
+    exec: "blender_can_node"
+    name: "can_node"
+    namespace: "blender_axis0"
+    param:
+    -
+      name: "node_id"
+      value: 37
+    -
+      name: "interface"
+      value: "can0"
