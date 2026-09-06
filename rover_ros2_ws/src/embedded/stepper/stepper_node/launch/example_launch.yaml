@@ -8,7 +8,22 @@ launch:
     param:
     -
       name: "node_id"
-      value: 7
+      value: 21
+    -
+      name: "interface"
+      value: "can0"
+
+launch:
+
+- node:
+    pkg: "stepper_can"
+    exec: "stepper_can_node"
+    name: "can_node"
+    namespace: "stepper_axis1"
+    param:
+    -
+      name: "node_id"
+      value: 22
     -
       name: "interface"
       value: "can0"
