@@ -79,7 +79,44 @@ launch:
       value: "can0"
 
 - node:
+    pkg: "yellowjacket_can"
+    exec: "yellowjacket_can_node"
+    name: "can_node"
+    namespace: "steer_fr"
+    param:
+    -
+      name: "node_id"
+      value: 10
+    -
+      name: "interface"
+      value: "can0"
+
+- node:
+    pkg: "yellowjacket_can"
+    exec: "yellowjacket_can_node"
+    name: "can_node"
+    namespace: "steer_fl"
+    param:
+    -
+      name: "node_id"
+      value: 11
+    -
+      name: "interface"
+      value: "can0"
+
+- node:
     pkg: "drive_manager"
     exec: "drive_manager_node"
     name: "drive_node"
-    namespace: "drive_manager"
+    namespace: "drive_manager_node"
+
+- node:
+    pkg: "drive_teleop"
+    exec: "drive_teleop_node"
+    name: "teleop_node"
+    namespace: "drive_teleop_node"
+
+
+- node:
+    pkg: "joy"
+    exec: "joy_node"

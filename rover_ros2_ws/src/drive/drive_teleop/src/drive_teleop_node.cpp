@@ -70,7 +70,8 @@ void DriveTeleopNode::joy_callback(const sensor_msgs::msg::Joy::SharedPtr msg)
 {
   // Get max velocities to cap outputs at
   // int max_pwm = this->get_parameter("max_pwm").as_int();
-  double max_pwm = 32000.0;
+  double max_pwm_drive = 32000.0;
+  double max_pwm_steer = 20000.0;
 
   // Make output message
   auto drive_msg = std::make_unique<drive_teleop::msg::DriveControlMessage>();
@@ -83,31 +84,31 @@ void DriveTeleopNode::joy_callback(const sensor_msgs::msg::Joy::SharedPtr msg)
 
   double speed = 0.0;
   double turn = 0.0;
-  double left_input = 0.0;
-  double right_input = 0.0;
+  double drive_input = 0.0;
+  double turn_input = 0.0;
 
   if (deadman_pressed) {
     speed = get_axis_value(msg, speed_axis_);
-    turn = -get_axis_value(msg, turn_axis_);
+    turn = get_axis_value(msg, turn_axis_);
 
     // Calculate left and right speed from turn
-    left_input = speed + turn;
-    right_input = speed - turn;
+    drive_input = speed;
+    turn_input = turn;
 
     // Apply deadband
     //TODO
 
-    drive_msg->left_input_pwm   = static_cast<int>(compute_velocity_output(left_input, max_pwm));
-    drive_msg->right_input_pwm  = static_cast<int>(compute_velocity_output(right_input, max_pwm));
+    drive_msg->drive_input_pwm   = static_cast<int>(compute_velocity_output(drive_input, max_pwm_drive));
+    drive_msg->steer_input_pwm  = static_cast<int>(compute_velocity_output(turn_input, max_pwm_steer));
   }
 
   RCLCPP_DEBUG(get_logger(), "Drive deadman switch pressed: %d", deadman_pressed);
   RCLCPP_DEBUG(get_logger(), "Drive speed input (-1, 1): %.2f", speed);
   RCLCPP_DEBUG(get_logger(), "Drive turn input (-1, 1): %.2f", turn);
-  RCLCPP_DEBUG(get_logger(), "Drive left input (-1, 1): %.2f", left_input);
-  RCLCPP_DEBUG(get_logger(), "Drive right input (-1, 1): %.2f", right_input);
-  RCLCPP_DEBUG(get_logger(), "Drive left pwm (-32000, 32000): %d", drive_msg->left_input_pwm);
-  RCLCPP_DEBUG(get_logger(), "Drive right pwm (-32000, 32000): %d", drive_msg->right_input_pwm);
+  RCLCPP_DEBUG(get_logger(), "Drive left input (-1, 1): %.2f", drive_input);
+  RCLCPP_DEBUG(get_logger(), "Drive right input (-1, 1): %.2f", turn_input);
+  RCLCPP_DEBUG(get_logger(), "Drive pwm (-32000, 32000): %d", drive_msg->drive_input_pwm);
+  RCLCPP_DEBUG(get_logger(), "Steer pwm (-20000, 20000): %d", drive_msg->steer_input_pwm);
 
   drive_pub_->publish(std::move(drive_msg));
 }

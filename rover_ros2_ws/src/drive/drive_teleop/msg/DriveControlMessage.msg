@@ -1,3 +1,3 @@
 std_msgs/Header header
-int32 left_input_pwm
-int32 right_input_pwm
+int32 drive_input_pwm
+int32 steer_input_pwm
