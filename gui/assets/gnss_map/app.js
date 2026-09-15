@@ -72,11 +72,31 @@ function centerOnRover() {
 
 const pins = {}; // id -> L.Marker
 
-function addPin(id, lat, lon, label) {
+// Autonomous Nav's 3 waypoint categories get their own pin color so
+// they're distinguishable at a glance on the map; anything else
+// (the general-purpose "Manage Waypoints..." dialog's plain pins)
+// falls back to grey via pinType being undefined/unrecognized.
+const PIN_TYPE_COLORS = {
+  accurate: '#4a9eff',
+  post: '#e0a02a',
+  object: '#3ba33b',
+};
+
+function pinIcon(pinType) {
+  const color = PIN_TYPE_COLORS[pinType] || '#cccccc';
+  return L.divIcon({
+    className: '',
+    html: `<div class="waypoint-pin-icon" style="background:${color}"></div>`,
+    iconSize: [14, 14],
+    iconAnchor: [7, 7],
+  });
+}
+
+function addPin(id, lat, lon, label, pinType) {
   if (pins[id]) {
     map.removeLayer(pins[id]);
   }
-  const marker = L.marker([lat, lon]).addTo(map);
+  const marker = L.marker([lat, lon], { icon: pinIcon(pinType) }).addTo(map);
   if (label) {
     marker.bindTooltip(label, {
       permanent: true,

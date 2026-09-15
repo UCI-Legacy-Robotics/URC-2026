@@ -58,6 +58,12 @@ _EQUIPMENT_STOP_CONFIRM_MS = 800
 # autonomous, so it's left out.
 _AUTONOMOUS_EQUIPMENT_SEQUENCES = ("LAUNCH_KEY",)
 
+# Same spacing/abort-confirm idea, for Autonomous Nav's navigation
+# attempts -- its own pair of constants since a fake traverse should
+# plausibly take a bit longer than typing a key or reading a card.
+_NAV_STEP_INTERVAL_MS = 900
+_NAV_STOP_CONFIRM_MS = 800
+
 # Panorama stops and photographs at this many points around the 360
 # rotation before stitching -- randomized per launch within URC's
 # typical range rather than a fixed count, same "plausible, not exact"
@@ -137,6 +143,11 @@ class SimulationDataSource(DataSource):
         # sequence names ("LAUNCH_KEY"/"USB_READ").
         self._equipment_timers = {}
 
+        # Autonomous Nav: same cancelable-timer-chain shape again, keyed
+        # by waypoint_id instead of a fixed sequence name (see
+        # autonomous_nav_status in data_source.py).
+        self._autonomous_nav_timers = {}
+
         self._gnss_timer = QTimer()
         self._gnss_timer.setInterval(1000)
         self._gnss_timer.timeout.connect(self._emit_gnss)
@@ -180,6 +191,9 @@ class SimulationDataSource(DataSource):
             for timer in timers:
                 timer.stop()
         for timers in self._equipment_timers.values():
+            for timer in timers:
+                timer.stop()
+        for timers in self._autonomous_nav_timers.values():
             for timer in timers:
                 timer.stop()
 
@@ -641,6 +655,84 @@ class SimulationDataSource(DataSource):
         lat = self._latitude + random.uniform(-0.0001, 0.0001)
         lon = self._longitude + random.uniform(-0.0001, 0.0001)
         self.signals.equipment_gnss_fix.emit(sequence, lat, lon)
+
+    # -- autonomous nav sequences --------------------------------------------
+
+    def send_autonomous_nav_command(self, waypoint_id: str, action: str,
+                                     lat: float = 0.0, lon: float = 0.0,
+                                     label: str = "", waypoint_type: str = ""):
+        print(f"[sim] autonomous nav command: {waypoint_id} -> {action} "
+              f"(lat={lat}, lon={lon}, label={label!r}, type={waypoint_type!r})")
+        if action == "launch":
+            self._cancel_nav_timers(waypoint_id)
+            self._launch_nav_sequence(waypoint_id, label, waypoint_type)
+        elif action == "stop":
+            self._abort_nav_sequence(waypoint_id)
+
+    def _cancel_nav_timers(self, waypoint_id: str):
+        for timer in self._autonomous_nav_timers.pop(waypoint_id, []):
+            timer.stop()
+
+    def _schedule_nav_step(self, waypoint_id: str, delay_ms: int, fn):
+        """Cancelable equivalent of QTimer.singleShot, same shape as
+        _schedule_science_step -- see that method's docstring."""
+        timer = QTimer()
+        timer.setSingleShot(True)
+        timer.timeout.connect(fn)
+        self._autonomous_nav_timers.setdefault(waypoint_id, []).append(timer)
+        timer.start(delay_ms)
+
+    def _abort_nav_sequence(self, waypoint_id: str):
+        # Per the mission rules, an operator may abort at any point and
+        # the rover autonomously returns/stops -- either way control
+        # comes back to teleoperation, same as a normal completion.
+        self._cancel_nav_timers(waypoint_id)
+        self.signals.autonomous_nav_status.emit(waypoint_id, "STOPPING", "")
+        self.signals.rover_control_mode.emit("TELEOPERATION")
+        self._schedule_nav_step(
+            waypoint_id, _NAV_STOP_CONFIRM_MS,
+            lambda: self.signals.autonomous_nav_status.emit(waypoint_id, "STOPPED", "aborted"),
+        )
+
+    def _launch_nav_sequence(self, waypoint_id: str, label: str, waypoint_type: str):
+        # Autonomous traverse to a GNSS-only location, a post, or an
+        # object -- one fake chain regardless of type (the rules'
+        # per-type tolerances/obstacle-avoidance are a rover-side
+        # concern, not something this fake status feed needs to model
+        # differently). Ends with ARRIVED (the rover's obvious "reached
+        # the target" signal -- see set_status()'s docstring in
+        # data_source.py) before handing control back and reporting
+        # STOPPED, same "self-driven maneuver reports AUTONOMOUS, then
+        # hands back to TELEOPERATION when done" shape Panorama uses.
+        target = label or waypoint_type or "waypoint"
+        self.signals.autonomous_nav_status.emit(waypoint_id, "STARTING", f"plotting route to {target}")
+        self.signals.rover_control_mode.emit("AUTONOMOUS")
+
+        running_messages = [f"en route to {target}"]
+        if waypoint_type == "object":
+            running_messages.append("obstacle detected, planning avoidance path")
+        running_messages.append("running image detection" if waypoint_type == "object" else "approaching target")
+
+        delay = _NAV_STEP_INTERVAL_MS
+        for message in running_messages:
+            self._schedule_nav_step(
+                waypoint_id, delay,
+                lambda m=message: self.signals.autonomous_nav_status.emit(waypoint_id, "RUNNING", m),
+            )
+            delay += _NAV_STEP_INTERVAL_MS
+
+        self._schedule_nav_step(
+            waypoint_id, delay,
+            lambda: self.signals.autonomous_nav_status.emit(waypoint_id, "ARRIVED", f"arrived at {target}"),
+        )
+        delay += _NAV_STEP_INTERVAL_MS
+        self._schedule_nav_step(
+            waypoint_id, delay, lambda: self.signals.rover_control_mode.emit("TELEOPERATION")
+        )
+        self._schedule_nav_step(
+            waypoint_id, delay,
+            lambda: self.signals.autonomous_nav_status.emit(waypoint_id, "STOPPED", "ready for further instructions"),
+        )
 
 
 if __name__ == '__main__':

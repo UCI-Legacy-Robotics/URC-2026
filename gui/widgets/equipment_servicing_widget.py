@@ -2,8 +2,8 @@
 Equipment Servicing tab.
 
 Composes the Equipment Servicing Mission's controls: the plain
-completion checklist (EquipmentChecklistWidget, no scoring -- see that
-module) for the manual/teleoperated sub-tasks (cache into the lander
+completion checklist (ChecklistWidget, no scoring -- see
+checklist_widget.py) for the manual/teleoperated sub-tasks (cache into the lander
 drawer, the hinged panel latch, the fuel hose/cam-lock, the 1/4-turn
 valve, buttons/switches/knobs), plus two launch/stop sequence cards for
 the two sub-tasks that aren't a single checkbox:
@@ -34,15 +34,19 @@ SCIENCE subsystem. The checklist itself is not gated -- like Delivery,
 it's just a running tally an operator ticks off by hand, not telemetry.
 """
 
+from pathlib import Path
+
 from PyQt6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton
 )
 from PyQt6.QtGui import QValidator
 from PyQt6.QtCore import Qt, pyqtSignal
 
-from widgets.equipment_checklist_widget import EquipmentChecklistWidget
+from widgets.checklist_widget import ChecklistWidget
 from widgets.mode_badge_widget import ModeBadgeWidget
 from widgets.color_coded_label import ColorCodedLabel
+
+_DEFAULT_CHECKLIST_PATH = Path(__file__).resolve().parent.parent / "equipment_servicing_checklist.json"
 
 _STATUS_COLORS = {
     "IDLE": "#3a3a3a",
@@ -246,7 +250,7 @@ class EquipmentServicingWidget(QWidget):
         top_row = QHBoxLayout()
         top_row.setSpacing(8)
 
-        self.checklist = EquipmentChecklistWidget(checklist_path)
+        self.checklist = ChecklistWidget(checklist_path or _DEFAULT_CHECKLIST_PATH)
         top_row.addWidget(self.checklist, 1)
 
         sequences_column = QVBoxLayout()

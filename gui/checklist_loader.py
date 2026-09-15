@@ -1,18 +1,13 @@
 """
-Equipment Servicing checklist loader.
+Grouped-checklist loader.
 
-Loads equipment_servicing_checklist.json -- the manual/teleoperated
-sub-tasks of the Equipment Servicing Mission (cache handling, the
-lander panel/latch, the hose/valve/switches), grouped for display but
-otherwise flat, plain checkboxes. Same "swap the JSON, nothing in the
-GUI changes" shape as delivery_checklist_loader.py, just without any
-points/scoring -- Equipment Servicing's rules don't publish a points
-table the way Delivery's do, so this is a checklist, not a scoreboard.
-
-The Autonomous Typing (launch key) and USB-card GNSS-read sub-tasks are
-deliberately NOT in this checklist -- they're full launch/stop
-sequences with their own status feedback (see EquipmentServicingWidget
-/ EquipmentSequenceCard), not something a checkbox can represent.
+Loads a plain completion checklist JSON -- grouped for display, plain
+checkboxes, no points/scoring. Shared by any mission whose published
+rules are just a list of sub-tasks rather than a points table (unlike
+Delivery, which does score -- see delivery_checklist_loader.py for
+that separate, points-bearing schema): Equipment Servicing
+(equipment_servicing_checklist.json) and Autonomous Nav
+(autonomous_nav_checklist.json) both use this same shape today.
 
 Schema:
     {
@@ -24,18 +19,17 @@ Schema:
 import json
 from pathlib import Path
 
-_DEFAULT_PATH = Path(__file__).parent / "equipment_servicing_checklist.json"
 
 _REQUIRED_GROUP_FIELDS = ("id", "label")
 _REQUIRED_TASK_FIELDS = ("id", "group", "label")
 
 
-def load_equipment_servicing_checklist(path: str | Path | None = None) -> dict:
-    """Reads and validates the checklist JSON, returning
+def load_checklist(path: str | Path) -> dict:
+    """Reads and validates a checklist JSON, returning
     {"groups": [...], "tasks": [...]} unchanged. Raises ValueError with
     a specific message on any malformed entry, rather than letting
     widget code fail obscurely on a missing field later."""
-    path = Path(path) if path is not None else _DEFAULT_PATH
+    path = Path(path)
     with open(path) as f:
         data = json.load(f)
 
@@ -64,10 +58,14 @@ def _require_fields(obj: dict, fields: tuple, context: str):
 
 
 if __name__ == '__main__':
-    checklist = load_equipment_servicing_checklist()
-    print(f"groups: {len(checklist['groups'])}")
-    for group in checklist["groups"]:
-        print(" ", group)
-    print(f"tasks: {len(checklist['tasks'])}")
-    for task in checklist["tasks"]:
-        print(" ", task)
+    import sys
+
+    for path in sys.argv[1:] or [Path(__file__).parent / "equipment_servicing_checklist.json"]:
+        checklist = load_checklist(path)
+        print(f"{path}:")
+        print(f"  groups: {len(checklist['groups'])}")
+        for group in checklist["groups"]:
+            print("   ", group)
+        print(f"  tasks: {len(checklist['tasks'])}")
+        for task in checklist["tasks"]:
+            print("   ", task)

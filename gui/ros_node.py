@@ -203,6 +203,17 @@ class RosDataSource(DataSource):
             f'equipment sequence command (no-op): {sequence} -> {action} (key={key})'
         )
 
+    def send_autonomous_nav_command(self, waypoint_id: str, action: str,
+                                     lat: float = 0.0, lon: float = 0.0,
+                                     label: str = "", waypoint_type: str = ""):
+        # Real sequence execution is out of scope for the GUI -- no
+        # launch topic/service exists yet, so just log for now (same
+        # as send_science_sequence_command above).
+        self.node.get_logger().info(
+            f'autonomous nav command (no-op): {waypoint_id} -> {action} '
+            f'(lat={lat}, lon={lon}, label={label!r}, type={waypoint_type!r})'
+        )
+
     def send_software_enable_command(self, enabled: bool):
         # No software-enable topic/service exists yet — log only, same as
         # subsystem commands above.

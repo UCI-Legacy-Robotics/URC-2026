@@ -87,6 +87,21 @@ class DataSourceSignals(QObject):
     equipment_sequence_status = pyqtSignal(str, str, str)        # (sequence, status, message)
     equipment_gnss_fix        = pyqtSignal(str, float, float)    # (sequence, lat, lon) -- USB_READ's coords read off the memory card's text file
 
+    # Autonomous Nav Mission sequence telemetry -- see
+    # send_autonomous_nav_command below for the outbound side. Tagged by
+    # `waypoint_id` rather than a fixed sequence name like the science_*/
+    # equipment_* signals above: there's only ever one active navigation
+    # attempt at a time, but which *waypoint* that attempt targets
+    # changes every launch, and tagging by waypoint_id is what lets
+    # AutonomousNavStore correlate a status event back to the right
+    # waypoint record. status includes "ARRIVED" (in addition to the
+    # STARTING/RUNNING/STOPPING/STOPPED/ERROR vocabulary the other
+    # sequences use) -- the rover's own obvious "reached the target"
+    # signal per the mission rules, distinct from STOPPED (which means
+    # control has been handed back to teleoperation and the rover is
+    # ready for the next instruction).
+    autonomous_nav_status = pyqtSignal(str, str, str)             # (waypoint_id, status, message)
+
     # Rover-reported live control mode -- "TELEOPERATION" or "AUTONOMOUS",
     # same vocabulary ControlModeWidget.set_mode() already takes. Not
     # derived from GUI/mission state at all (see control_mode_widget.py):
@@ -253,6 +268,31 @@ class DataSource(ABC):
         on the rover -- implementations just log/no-op on this for now.
         Progress comes back asynchronously via signals.equipment_sequence_status
         and, for USB_READ, signals.equipment_gnss_fix.
+        """
+        raise NotImplementedError
+
+    @abstractmethod
+    def send_autonomous_nav_command(self, waypoint_id: str, action: str,
+                                     lat: float = 0.0, lon: float = 0.0,
+                                     label: str = "", waypoint_type: str = ""):
+        """Request an Autonomous Nav Mission navigation attempt be
+        launched or stopped.
+
+        waypoint_id identifies which waypoint this is (see
+        AutonomousNavStore.add_waypoint). action: "launch" or "stop".
+        Stoppable at any point per the mission rules ("operators may at
+        any point send a signal to the rover to abort the current
+        attempt") -- there's no start-only variant here, unlike
+        Panorama/Stratigraphic Photo on the Science tab.
+
+        lat/lon/label/waypoint_type ("accurate"/"post"/"object") only
+        apply to action="launch" -- the target to navigate to.
+        Implementations should ignore them for "stop".
+
+        Like the other sequence commands, real navigation lives on the
+        rover -- implementations just log/no-op on this for now.
+        Progress comes back asynchronously via
+        signals.autonomous_nav_status.
         """
         raise NotImplementedError
 

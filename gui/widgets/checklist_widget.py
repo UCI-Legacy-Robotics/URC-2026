@@ -1,13 +1,17 @@
 """
-Equipment Servicing checklist widget.
+Grouped checklist widget.
 
-Renders whatever's in equipment_servicing_checklist.json as a plain
-completion checklist, grouped by the JSON's group order -- a QCheckBox
-per task, a "done / total" tally per group and overall. Unlike
-DeliveryChecklistWidget there is no scoring here at all: Equipment
-Servicing's published rules don't hand out a points table, just a list
-of sub-tasks that get done or don't, so this widget tracks completion
-only.
+Renders whatever's in a checklist JSON (see checklist_loader.py) as a
+plain completion checklist, grouped by the JSON's group order -- a
+QCheckBox per task, a "done / total" tally per group and overall.
+Unlike DeliveryChecklistWidget there is no scoring here at all: not
+every mission's published rules hand out a points table -- some are
+just a list of sub-tasks that get done or don't, so this widget tracks
+completion only. Generic over which mission's checklist it's showing
+(configured entirely by checklist_path), the same "one widget class,
+one JSON per instance" shape as ScienceSequenceWidget/CameraFeedWidget
+use -- both Equipment Servicing and Autonomous Nav use this unchanged,
+just pointed at their own JSON file.
 
 Every frame/checkbox here sets its own explicit border/indicator style
 rather than relying on the app-wide dark stylesheet, same reasoning as
@@ -16,13 +20,13 @@ QCheckBox indicator both render with essentially no visible edge
 against a fully dark theme otherwise.
 
 Fully self-contained: no DataSource/bind_data_source, same as
-DeliveryChecklistWidget -- every task here is physically performed by
-an operator watching the arm/cache/panel, not telemetry.
+DeliveryChecklistWidget -- every task here is physically performed or
+externally verified by an operator, not telemetry.
 """
 
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QCheckBox, QPushButton, QFrame
 
-from equipment_servicing_checklist_loader import load_equipment_servicing_checklist
+from checklist_loader import load_checklist
 
 _SECTION_STYLE = (
     "QFrame#groupSection { border: 1px solid #444; border-radius: 6px; "
@@ -43,11 +47,11 @@ _BUTTON_STYLE = (
 )
 
 
-class EquipmentChecklistWidget(QWidget):
+class ChecklistWidget(QWidget):
 
-    def __init__(self, checklist_path=None, parent=None):
+    def __init__(self, checklist_path, parent=None):
         super().__init__(parent)
-        checklist = load_equipment_servicing_checklist(checklist_path)
+        checklist = load_checklist(checklist_path)
 
         self._checkboxes = []       # [(QCheckBox, group_id), ...]
         self._group_sections = {}   # group_id -> {"tally_label", "checkbox_count"}

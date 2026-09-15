@@ -1,0 +1,12 @@
+{
+  "groups": [
+    {"id": "pre_mission", "label": "Pre-Mission Setup"},
+    {"id": "indicators", "label": "Indicators & Display"}
+  ],
+  "tasks": [
+    {"id": "reference_coordinate", "group": "pre_mission", "label": "Capture the high-accuracy reference coordinate given at the start gate"},
+    {"id": "differential_gnss", "group": "pre_mission", "label": "Differential GNSS correction enabled"},
+    {"id": "led_indicator", "group": "indicators", "label": "LED indicator confirmed working (Red = autonomous, Blue = teleoperation, Flashing Green = arrival)"},
+    {"id": "object_highlight_display", "group": "indicators", "label": "Object-recognition highlight confirmed visible on the C2 station display"}
+  ]
+}

@@ -21,6 +21,7 @@ from widgets.gnss_map_widget import GnssMapWidget
 from widgets.science_tab_widget import ScienceTabWidget
 from widgets.delivery_checklist_widget import DeliveryChecklistWidget
 from widgets.equipment_servicing_widget import EquipmentServicingWidget
+from widgets.autonomous_nav_widget import AutonomousNavWidget
 
 
 # Which subsystem is implied by which mission — MainWindow applies this
@@ -201,10 +202,14 @@ class MainWindow(QMainWindow):
         self.equipment_tab.launch_requested.connect(self._on_equipment_launch_requested)
         self.equipment_tab.stop_requested.connect(self._on_equipment_stop_requested)
 
+        self.autonomous_nav_tab = AutonomousNavWidget()
+        self.autonomous_nav_tab.launch_requested.connect(self._on_autonomous_nav_launch_requested)
+        self.autonomous_nav_tab.stop_requested.connect(self._on_autonomous_nav_stop_requested)
+
         self.tabs.addTab(self.science_tab, "Science")
         self.tabs.addTab(DeliveryChecklistWidget(), "Delivery")
         self.tabs.addTab(self.equipment_tab, "Equipment Servicing")
-        self.tabs.addTab(_placeholder_tab("Autonomous Nav"), "Autonomous Nav")
+        self.tabs.addTab(self.autonomous_nav_tab, "Autonomous Nav")
         self.tabs.addTab(_placeholder_tab("Diagnostics"), "Diagnostics")
 
         self.tabs.setSizePolicy(
@@ -212,6 +217,14 @@ class MainWindow(QMainWindow):
         )
 
         self.sidebar = Sidebar()
+
+        # Pure GUI-to-GUI wiring, independent of data_source -- a waypoint
+        # entered on the Autonomous Nav tab should show up on the map
+        # whether or not a real/sim telemetry feed is attached.
+        self.autonomous_nav_tab.waypoint_added.connect(
+            lambda waypoint_id, lat, lon, label, waypoint_type:
+                self.sidebar.gnss_map.add_pin(waypoint_id, lat, lon, label, waypoint_type)
+        )
 
         software_toggle = self.sidebar.software_toggle
         software_toggle.enable_requested.connect(self._on_software_enable_requested)
@@ -231,6 +244,7 @@ class MainWindow(QMainWindow):
             self.data_source.signals.subsystem_status_update.connect(
                 self.equipment_tab.set_equipment_subsystem_status
             )
+            self.autonomous_nav_tab.bind_data_source(self.data_source)
             self.data_source.signals.rover_control_mode.connect(
                 self.sidebar.control_mode.set_mode
             )
@@ -300,6 +314,16 @@ class MainWindow(QMainWindow):
     def _on_equipment_stop_requested(self, sequence):
         if self.data_source is not None:
             self.data_source.send_equipment_sequence_command(sequence, "stop")
+
+    def _on_autonomous_nav_launch_requested(self, waypoint_id, lat, lon, label, waypoint_type):
+        if self.data_source is not None:
+            self.data_source.send_autonomous_nav_command(
+                waypoint_id, "launch", lat, lon, label, waypoint_type
+            )
+
+    def _on_autonomous_nav_stop_requested(self, waypoint_id):
+        if self.data_source is not None:
+            self.data_source.send_autonomous_nav_command(waypoint_id, "stop")
 
     def _on_health_state_changed(self, old_state, new_state):
         self.top_strip.electrical_cluster.comms_health.set_health_state(new_state)

@@ -254,8 +254,12 @@ class GnssMapWidget(QWidget):
     def center_on_rover(self):
         self._run_js("centerOnRover")
 
-    def add_pin(self, pin_id, lat: float, lon: float, label: str = None):
-        self._run_js("addPin", pin_id, lat, lon, label)
+    def add_pin(self, pin_id, lat: float, lon: float, label: str = None, pin_type: str = None):
+        """pin_type colors the marker in app.js (PIN_TYPE_COLORS) --
+        "accurate"/"post"/"object" for Autonomous Nav's waypoints, or
+        None for a plain grey pin (e.g. the Manage Waypoints... dialog,
+        which has no notion of waypoint category)."""
+        self._run_js("addPin", pin_id, lat, lon, label, pin_type)
 
     def remove_pin(self, pin_id):
         self._run_js("removePin", pin_id)
