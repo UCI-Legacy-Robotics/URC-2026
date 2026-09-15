@@ -2,14 +2,17 @@
 Autonomous Nav tab.
 
 Composes the Autonomous Nav Mission's controls: a plain completion
-checklist (ChecklistWidget, see checklist_widget.py) for the
-pre-mission/hardware items the rules call out (reference coordinate,
-differential GNSS, LED indicator, object-highlight display), plus a
-GNSS waypoint form that's simultaneously the entry point for the
-mission's one navigation sequence -- per the rules, every GNSS
-coordinate entered ("2 GNSS-only locations, 2 posts, 3 objects,
-visited in any order") IS the start of an autonomous traverse to it,
-there's no separate "just record a coordinate" action.
+checklist (ChecklistWidget, see checklist_widget.py) listing the 7
+required targets the rules fix in advance -- 2 GNSS-only locations, 2
+posts, 3 objects -- so operators can track at a glance what's left
+regardless of the order they're visited in, plus a GNSS waypoint form
+that's simultaneously the entry point for the mission's one navigation
+sequence: per the rules, every GNSS coordinate entered IS the start of
+an autonomous traverse to it, there's no separate "just record a
+coordinate" action. The checklist and the waypoint form are
+independent -- ticking a checklist box is a manual "yes, that one's
+done" note, separate from the pass/fail state the status box/store
+track for whatever's actually in flight.
 
 Unlike ScienceTabWidget/EquipmentServicingWidget there's only ever one
 navigation attempt in flight, so this widget owns the sequence

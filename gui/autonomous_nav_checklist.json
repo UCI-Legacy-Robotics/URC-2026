@@ -1,12 +1,16 @@
 {
   "groups": [
-    {"id": "pre_mission", "label": "Pre-Mission Setup"},
-    {"id": "indicators", "label": "Indicators & Display"}
+    {"id": "accurate", "label": "GNSS-Only Locations"},
+    {"id": "post", "label": "Posts (AR Tags)"},
+    {"id": "object", "label": "Objects"}
   ],
   "tasks": [
-    {"id": "reference_coordinate", "group": "pre_mission", "label": "Capture the high-accuracy reference coordinate given at the start gate"},
-    {"id": "differential_gnss", "group": "pre_mission", "label": "Differential GNSS correction enabled"},
-    {"id": "led_indicator", "group": "indicators", "label": "LED indicator confirmed working (Red = autonomous, Blue = teleoperation, Flashing Green = arrival)"},
-    {"id": "object_highlight_display", "group": "indicators", "label": "Object-recognition highlight confirmed visible on the C2 station display"}
+    {"id": "accurate_1", "group": "accurate", "label": "GNSS-only location 1 (highly accurate coordinate, no visual marker)"},
+    {"id": "accurate_2", "group": "accurate", "label": "GNSS-only location 2 (highly accurate coordinate, no visual marker)"},
+    {"id": "post_1", "group": "post", "label": "Post 1 (5-10m from given GNSS point, ArUco 4x4_50)"},
+    {"id": "post_2", "group": "post", "label": "Post 2 (10-20m from given GNSS point, ArUco 4x4_50)"},
+    {"id": "object_mallet", "group": "object", "label": "Orange rubber mallet (<3m GNSS accuracy)"},
+    {"id": "object_rock_pick", "group": "object", "label": "Rock pick hammer (<3m GNSS accuracy)"},
+    {"id": "object_bottle", "group": "object", "label": "1L wide-mouth water bottle (<10m GNSS accuracy, obstacle field)"}
   ]
 }
