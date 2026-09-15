@@ -86,7 +86,15 @@ _TYPE_DISPLAY_BY_VALUE = {value: display for display, value in _WAYPOINT_TYPES}
 _ENTRY_STYLE = (
     "QLineEdit, QComboBox, QDoubleSpinBox { font-size: 14px; color: #e0e0e0; "
     "background: #1a1a1a; border: 1px solid #555; border-radius: 4px; padding: 4px; } "
-    "QLineEdit:focus, QComboBox:focus, QDoubleSpinBox:focus { border: 1px solid #888; }"
+    "QLineEdit:focus, QComboBox:focus, QDoubleSpinBox:focus { border: 1px solid #888; } "
+    # QComboBox's popup list is a separate top-level view the app-wide
+    # dark stylesheet doesn't reach (main.py's _STYLESHEET only styles
+    # QWidget/QTabWidget/QLabel/QTextEdit) -- without this it renders
+    # with the OS's default light palette, standing out against every
+    # other dark control on the page.
+    "QComboBox QAbstractItemView { font-size: 14px; color: #e0e0e0; "
+    "background: #1a1a1a; border: 1px solid #555; "
+    "selection-background-color: #2a2a2a; selection-color: #ffffff; }"
 )
 _BUTTON_STYLE = (
     "QPushButton { font-size: 14px; font-weight: bold; color: #e0e0e0; "
