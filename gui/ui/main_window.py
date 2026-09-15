@@ -20,6 +20,7 @@ from widgets.estop_widget import EstopWidget
 from widgets.gnss_map_widget import GnssMapWidget
 from widgets.science_tab_widget import ScienceTabWidget
 from widgets.delivery_checklist_widget import DeliveryChecklistWidget
+from widgets.equipment_servicing_widget import EquipmentServicingWidget
 
 
 # Which subsystem is implied by which mission — MainWindow applies this
@@ -196,9 +197,13 @@ class MainWindow(QMainWindow):
         self.science_tab = ScienceTabWidget()
         self.science_tab.launch_requested.connect(self._on_science_launch_requested)
         self.science_tab.stop_requested.connect(self._on_science_stop_requested)
+        self.equipment_tab = EquipmentServicingWidget()
+        self.equipment_tab.launch_requested.connect(self._on_equipment_launch_requested)
+        self.equipment_tab.stop_requested.connect(self._on_equipment_stop_requested)
+
         self.tabs.addTab(self.science_tab, "Science")
         self.tabs.addTab(DeliveryChecklistWidget(), "Delivery")
-        self.tabs.addTab(_placeholder_tab("Equipment Servicing"), "Equipment Servicing")
+        self.tabs.addTab(self.equipment_tab, "Equipment Servicing")
         self.tabs.addTab(_placeholder_tab("Autonomous Nav"), "Autonomous Nav")
         self.tabs.addTab(_placeholder_tab("Diagnostics"), "Diagnostics")
 
@@ -221,6 +226,10 @@ class MainWindow(QMainWindow):
             self.science_tab.bind_data_source(self.data_source)
             self.data_source.signals.subsystem_status_update.connect(
                 self.science_tab.set_science_subsystem_status
+            )
+            self.equipment_tab.bind_data_source(self.data_source)
+            self.data_source.signals.subsystem_status_update.connect(
+                self.equipment_tab.set_equipment_subsystem_status
             )
             self.data_source.signals.rover_control_mode.connect(
                 self.sidebar.control_mode.set_mode
@@ -254,6 +263,7 @@ class MainWindow(QMainWindow):
         mode = _SUBSYSTEM_MODE_BY_MISSION_STATE.get(new_state, "NONE")
         self.top_strip.subsystem_launch.set_mode(mode)
         self.science_tab.set_subsystem_mode(mode)
+        self.equipment_tab.set_mission_active(new_state == MissionState.EQUIPMENT_SERVICING)
 
     def _on_mission_started_lock_tabs(self, mission_state):
         active_index = _TAB_INDEX_BY_MISSION_STATE.get(mission_state)
@@ -282,6 +292,14 @@ class MainWindow(QMainWindow):
     def _on_science_stop_requested(self, sequence):
         if self.data_source is not None:
             self.data_source.send_science_sequence_command(sequence, "stop")
+
+    def _on_equipment_launch_requested(self, sequence, key):
+        if self.data_source is not None:
+            self.data_source.send_equipment_sequence_command(sequence, "launch", key)
+
+    def _on_equipment_stop_requested(self, sequence):
+        if self.data_source is not None:
+            self.data_source.send_equipment_sequence_command(sequence, "stop")
 
     def _on_health_state_changed(self, old_state, new_state):
         self.top_strip.electrical_cluster.comms_health.set_health_state(new_state)

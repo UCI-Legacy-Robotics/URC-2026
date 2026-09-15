@@ -45,6 +45,19 @@ _ESTOP_CONFIRM_MS = 1000
 _SCIENCE_STEP_INTERVAL_MS = 900
 _SCIENCE_STOP_CONFIRM_MS = 800
 
+# Same spacing/abort-confirm idea, for Equipment Servicing's sequences
+# (Autonomous Typing, USB read) -- kept as its own pair of constants
+# rather than reusing the science ones since the two tabs' pacing is
+# free to diverge independently.
+_EQUIPMENT_STEP_INTERVAL_MS = 700
+_EQUIPMENT_STOP_CONFIRM_MS = 800
+
+# Equipment Servicing sequences that put the rover into AUTONOMOUS
+# control for their duration (see rover_control_mode) -- just
+# Autonomous Typing today. USB_READ is arm-assisted/teleoperated, not
+# autonomous, so it's left out.
+_AUTONOMOUS_EQUIPMENT_SEQUENCES = ("LAUNCH_KEY",)
+
 # Panorama stops and photographs at this many points around the 360
 # rotation before stitching -- randomized per launch within URC's
 # typical range rather than a fixed count, same "plausible, not exact"
@@ -118,6 +131,12 @@ class SimulationDataSource(DataSource):
         self._science_timers = {}
         self._science_image_counters = {}
 
+        # Equipment Servicing sequences (Autonomous Typing / USB read):
+        # same cancelable-timer-chain shape as _science_timers, kept in a
+        # separate dict since these run on their own tab with their own
+        # sequence names ("LAUNCH_KEY"/"USB_READ").
+        self._equipment_timers = {}
+
         self._gnss_timer = QTimer()
         self._gnss_timer.setInterval(1000)
         self._gnss_timer.timeout.connect(self._emit_gnss)
@@ -158,6 +177,9 @@ class SimulationDataSource(DataSource):
         for timer in self._camera_timers.values():
             timer.stop()
         for timers in self._science_timers.values():
+            for timer in timers:
+                timer.stop()
+        for timers in self._equipment_timers.values():
             for timer in timers:
                 timer.stop()
 
@@ -522,6 +544,103 @@ class SimulationDataSource(DataSource):
             sequence, delay,
             lambda: self.signals.science_sequence_status.emit(sequence, "STOPPED", "photo complete"),
         )
+
+    # -- equipment servicing sequences --------------------------------------
+
+    def send_equipment_sequence_command(self, sequence: str, action: str, key: str = ""):
+        print(f"[sim] equipment sequence command: {sequence} -> {action} (key={key})")
+        if action == "launch":
+            self._cancel_equipment_timers(sequence)
+            if sequence == "LAUNCH_KEY":
+                self._launch_launch_key_sequence(key)
+            elif sequence == "USB_READ":
+                self._launch_usb_read_sequence()
+        elif action == "stop":
+            self._abort_equipment_sequence(sequence)
+
+    def _cancel_equipment_timers(self, sequence: str):
+        for timer in self._equipment_timers.pop(sequence, []):
+            timer.stop()
+
+    def _schedule_equipment_step(self, sequence: str, delay_ms: int, fn):
+        """Cancelable equivalent of QTimer.singleShot, same shape as
+        _schedule_science_step -- see that method's docstring."""
+        timer = QTimer()
+        timer.setSingleShot(True)
+        timer.timeout.connect(fn)
+        self._equipment_timers.setdefault(sequence, []).append(timer)
+        timer.start(delay_ms)
+
+    def _abort_equipment_sequence(self, sequence: str):
+        self._cancel_equipment_timers(sequence)
+        self.signals.equipment_sequence_status.emit(sequence, "STOPPING", "")
+        if sequence in _AUTONOMOUS_EQUIPMENT_SEQUENCES:
+            self.signals.rover_control_mode.emit("TELEOPERATION")
+        self._schedule_equipment_step(
+            sequence, _EQUIPMENT_STOP_CONFIRM_MS,
+            lambda: self.signals.equipment_sequence_status.emit(sequence, "STOPPED", ""),
+        )
+
+    def _launch_launch_key_sequence(self, key: str):
+        # Autonomous Typing: the rover reports AUTONOMOUS for the
+        # duration (same rover_control_mode broadcast Panorama's
+        # self-driven rotation uses), typing one status step per letter
+        # of the programmed key, then hands control back. A blank key
+        # (nothing programmed yet) still runs, just with a single
+        # generic step, rather than refusing to launch -- the widget's
+        # own validation is what should stop an op with no key from
+        # ever reaching here for real hardware.
+        sequence = "LAUNCH_KEY"
+        self.signals.equipment_sequence_status.emit(sequence, "STARTING", "entering autonomous mode")
+        self.signals.rover_control_mode.emit("AUTONOMOUS")
+
+        letters = list(key) if key else ["?"]
+        running_messages = [
+            f"typing '{letter}' ({i}/{len(letters)})" for i, letter in enumerate(letters, start=1)
+        ]
+
+        delay = _EQUIPMENT_STEP_INTERVAL_MS
+        for message in running_messages:
+            self._schedule_equipment_step(
+                sequence, delay,
+                lambda m=message: self.signals.equipment_sequence_status.emit(sequence, "RUNNING", m),
+            )
+            delay += _EQUIPMENT_STEP_INTERVAL_MS
+
+        self._schedule_equipment_step(
+            sequence, delay, lambda: self.signals.rover_control_mode.emit("TELEOPERATION")
+        )
+        self._schedule_equipment_step(
+            sequence, delay,
+            lambda: self.signals.equipment_sequence_status.emit(sequence, "STOPPED", "launch key entered"),
+        )
+
+    def _launch_usb_read_sequence(self):
+        # USB-C cable into the lander's card slot, then read GNSS
+        # coordinates back off the memory card's text file -- no
+        # autonomous-mode toggle (arm-assisted/teleoperated insertion),
+        # just a status chain ending in a reported fix, same shape as
+        # Bradford/Cache's site-GNSS report.
+        sequence = "USB_READ"
+        self.signals.equipment_sequence_status.emit(sequence, "STARTING", "connecting to memory card")
+
+        delay = _EQUIPMENT_STEP_INTERVAL_MS
+        self._schedule_equipment_step(
+            sequence, delay,
+            lambda: self.signals.equipment_sequence_status.emit(sequence, "RUNNING", "reading GNSS file from card"),
+        )
+        delay += _EQUIPMENT_STEP_INTERVAL_MS
+        self._schedule_equipment_step(sequence, delay, lambda: self._emit_usb_read_results(sequence))
+        delay += _EQUIPMENT_STEP_INTERVAL_MS
+        self._schedule_equipment_step(
+            sequence, delay,
+            lambda: self.signals.equipment_sequence_status.emit(sequence, "STOPPED", "read complete"),
+        )
+
+    def _emit_usb_read_results(self, sequence: str):
+        lat = self._latitude + random.uniform(-0.0001, 0.0001)
+        lon = self._longitude + random.uniform(-0.0001, 0.0001)
+        self.signals.equipment_gnss_fix.emit(sequence, lat, lon)
 
 
 if __name__ == '__main__':

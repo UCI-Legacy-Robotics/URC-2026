@@ -1,0 +1,16 @@
+{
+  "groups": [
+    {"id": "cache", "label": "Sample Cache"},
+    {"id": "panel", "label": "Lander Panel & Connections"},
+    {"id": "controls", "label": "Controls"}
+  ],
+  "tasks": [
+    {"id": "tube_into_cache", "group": "cache", "label": "Insert sample tube into cache container, close lid, turn lock"},
+    {"id": "transport_cache", "group": "cache", "label": "Transport cache container to the lander"},
+    {"id": "cache_into_drawer", "group": "cache", "label": "Open lander drawer, insert cache into tight-fitting space, close drawer"},
+    {"id": "open_panel", "group": "panel", "label": "Undo latch on hinged panel and open it"},
+    {"id": "connect_hose", "group": "panel", "label": "Connect fuel hose to lander (1.5\" GatorLock cam lock, push-on, gasket removed)"},
+    {"id": "turn_valve", "group": "controls", "label": "Turn the 1/4-turn lever valve handle"},
+    {"id": "buttons_switches_knobs", "group": "controls", "label": "Push buttons, flip switches, turn knobs"}
+  ]
+}

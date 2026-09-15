@@ -76,6 +76,17 @@ class DataSourceSignals(QObject):
     science_image           = pyqtSignal(str, object, int, float)  # (sequence, frame, frame_bytes, timestamp) -- frame is the same SimpleNamespace(encoding, data, height, width) shape as camera_frame
     science_reading         = pyqtSignal(str, object)            # (sequence, reading: dict) -- opaque key/value payload, shape is rover-defined; widgets/store treat it generically rather than assuming fields
 
+    # Equipment Servicing Mission sequence telemetry -- see
+    # send_equipment_sequence_command below for the outbound side. Same
+    # multiplex-by-tag shape as the science_* signals above, just a
+    # separate pair of signals rather than reusing science_sequence_status/
+    # science_gnss_fix, since these two live on a different tab with no
+    # Science-subsystem gating and no ScienceDataStore recording.
+    # `sequence` is one of "LAUNCH_KEY" (Autonomous Typing) or
+    # "USB_READ" (USB-card GNSS read).
+    equipment_sequence_status = pyqtSignal(str, str, str)        # (sequence, status, message)
+    equipment_gnss_fix        = pyqtSignal(str, float, float)    # (sequence, lat, lon) -- USB_READ's coords read off the memory card's text file
+
     # Rover-reported live control mode -- "TELEOPERATION" or "AUTONOMOUS",
     # same vocabulary ControlModeWidget.set_mode() already takes. Not
     # derived from GUI/mission state at all (see control_mode_widget.py):
@@ -218,6 +229,30 @@ class DataSource(ABC):
         no launch topic/service exists yet. Progress comes back
         asynchronously via signals.science_sequence_status and the
         science_gnss_fix/science_image/science_reading data signals.
+        """
+        raise NotImplementedError
+
+    @abstractmethod
+    def send_equipment_sequence_command(self, sequence: str, action: str, key: str = ""):
+        """Request an Equipment Servicing Mission sequence be launched or
+        stopped.
+
+        sequence: "LAUNCH_KEY" (Autonomous Typing) or "USB_READ" (USB-card
+        GNSS read). action: "launch" or "stop". Both sequences are
+        stoppable -- per the mission rules, operator intervention on
+        Autonomous Typing is allowed only to exit autonomous mode and
+        abort/restart the attempt from the beginning, which maps onto the
+        same launch/stop round trip every other sequence uses.
+
+        key only applies to sequence="LAUNCH_KEY" with action="launch": the
+        3-6 letter launch key programmed into the rover before the mission
+        starts (see EquipmentServicingWidget). Implementations should
+        ignore key for "USB_READ".
+
+        Like send_science_sequence_command, real sequence execution lives
+        on the rover -- implementations just log/no-op on this for now.
+        Progress comes back asynchronously via signals.equipment_sequence_status
+        and, for USB_READ, signals.equipment_gnss_fix.
         """
         raise NotImplementedError
 
