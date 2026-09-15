@@ -53,10 +53,11 @@ _EQUIPMENT_STEP_INTERVAL_MS = 700
 _EQUIPMENT_STOP_CONFIRM_MS = 800
 
 # Equipment Servicing sequences that put the rover into AUTONOMOUS
-# control for their duration (see rover_control_mode) -- just
-# Autonomous Typing today. USB_READ is arm-assisted/teleoperated, not
-# autonomous, so it's left out.
-_AUTONOMOUS_EQUIPMENT_SEQUENCES = ("LAUNCH_KEY",)
+# control for their duration (see rover_control_mode) -- both
+# Autonomous Typing and USB Read are rover-driven alignment/insertion
+# sequences (ArUco-marker-aided), so both report AUTONOMOUS for the
+# duration and hand back to TELEOPERATION when done/aborted.
+_AUTONOMOUS_EQUIPMENT_SEQUENCES = ("LAUNCH_KEY", "USB_READ")
 
 # Same spacing/abort-confirm idea, for Autonomous Nav's navigation
 # attempts -- its own pair of constants since a fake traverse should
@@ -630,13 +631,15 @@ class SimulationDataSource(DataSource):
         )
 
     def _launch_usb_read_sequence(self):
-        # USB-C cable into the lander's card slot, then read GNSS
-        # coordinates back off the memory card's text file -- no
-        # autonomous-mode toggle (arm-assisted/teleoperated insertion),
-        # just a status chain ending in a reported fix, same shape as
-        # Bradford/Cache's site-GNSS report.
+        # USB-C cable into the lander's card slot (ArUco-marker-aided
+        # alignment), then read GNSS coordinates back off the memory
+        # card's text file -- the rover self-drives the alignment/
+        # insertion, so it reports AUTONOMOUS for the duration same as
+        # Autonomous Typing, handing back to TELEOPERATION once the
+        # read completes.
         sequence = "USB_READ"
         self.signals.equipment_sequence_status.emit(sequence, "STARTING", "connecting to memory card")
+        self.signals.rover_control_mode.emit("AUTONOMOUS")
 
         delay = _EQUIPMENT_STEP_INTERVAL_MS
         self._schedule_equipment_step(
@@ -646,6 +649,9 @@ class SimulationDataSource(DataSource):
         delay += _EQUIPMENT_STEP_INTERVAL_MS
         self._schedule_equipment_step(sequence, delay, lambda: self._emit_usb_read_results(sequence))
         delay += _EQUIPMENT_STEP_INTERVAL_MS
+        self._schedule_equipment_step(
+            sequence, delay, lambda: self.signals.rover_control_mode.emit("TELEOPERATION")
+        )
         self._schedule_equipment_step(
             sequence, delay,
             lambda: self.signals.equipment_sequence_status.emit(sequence, "STOPPED", "read complete"),
