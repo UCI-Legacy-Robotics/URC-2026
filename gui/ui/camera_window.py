@@ -23,9 +23,9 @@ gated.
 
 from PyQt6.QtWidgets import QGridLayout, QHBoxLayout, QVBoxLayout, QWidget
 
-from data_source import CAMERA_LABELS, CameraID
-from widgets.camera_feed_widget import CameraFeedWidget
-from widgets.camera_mux_panel import CameraMuxPanel
+from data_sources.data_source import CAMERA_LABELS, CameraID
+from widgets.camera.camera_feed_widget import CameraFeedWidget
+from widgets.camera.camera_mux_panel import CameraMuxPanel
 
 # Fixed slot assignment (row, col) — never changes based on which
 # cameras are enabled/disabled.

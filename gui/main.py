@@ -5,14 +5,15 @@ import sys
 import threading
 from PyQt6.QtCore import QTimer
 from PyQt6.QtWidgets import QApplication
-import theme
+from core.paths import CONFIG_DIR
+from ui import theme
 from ui.main_window import MainWindow
 from ui.camera_window import CameraWindow
 
 # WSL2: Fast-DDS shared memory transport segfaults; force UDP-only.
 os.environ.setdefault(
     'FASTRTPS_DEFAULT_PROFILES_FILE',
-    os.path.join(os.path.dirname(__file__), 'fastdds_no_shm.xml'),
+    str(CONFIG_DIR / 'fastdds_no_shm.xml'),
 )
 
 # WSL2: QtWebEngine's GPU compositor (used by the GNSS map widget) fails
@@ -80,11 +81,11 @@ def main():
     ros_thread = None
 
     if args.sim:
-        from simulation_data_source import SimulationDataSource
+        from data_sources.simulation_data_source import SimulationDataSource
         data_source = SimulationDataSource()
     else:
         import rclpy
-        from ros_node import RosDataSource
+        from data_sources.ros_node import RosDataSource
         rclpy.init()
         data_source = RosDataSource()
         ros_thread = threading.Thread(

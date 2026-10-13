@@ -4,5 +4,5 @@ __pycache__/
 *.pyc
 *.pyo
 
-science_data/
-autonomous_nav_data/
+# Runtime output from the mission data stores (storage/)
+mission_data/

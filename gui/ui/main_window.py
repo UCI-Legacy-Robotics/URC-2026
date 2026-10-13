@@ -8,22 +8,22 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import Qt, QSize
 from qfluentwidgets import CaptionLabel
 
-import theme
-from widgets.common import SectionCard
-from state_machine import MissionState, HealthStateMachine
-from comms_health_controller import CommsHealthController
-from widgets.mission_sm_widget import MissionSmWidget
-from widgets.subsystem_launch_widget import SubsystemLaunchWidget
-from widgets.control_mode_widget import ControlModeWidget
-from widgets.joystick_mode_widget import JoystickModeWidget
-from widgets.electrical_health_cluster import ElectricalHealthCluster
-from widgets.software_enable_widget import SoftwareEnableWidget
-from widgets.estop_widget import EstopWidget
-from widgets.gnss_map_widget import GnssMapWidget
-from widgets.science_tab_widget import ScienceTabWidget
-from widgets.delivery_checklist_widget import DeliveryChecklistWidget
-from widgets.equipment_servicing_widget import EquipmentServicingWidget
-from widgets.autonomous_nav_widget import AutonomousNavWidget
+from ui import theme
+from widgets.shared.controls import SectionCard
+from core.state_machine import MissionState, HealthStateMachine
+from core.comms_health_controller import CommsHealthController
+from widgets.status.mission_sm_widget import MissionSmWidget
+from widgets.status.subsystem_launch_widget import SubsystemLaunchWidget
+from widgets.status.control_mode_widget import ControlModeWidget
+from widgets.status.joystick_mode_widget import JoystickModeWidget
+from widgets.status.electrical_health_cluster import ElectricalHealthCluster
+from widgets.status.software_enable_widget import SoftwareEnableWidget
+from widgets.status.estop_widget import EstopWidget
+from widgets.status.gnss_map_widget import GnssMapWidget
+from widgets.missions.science_tab_widget import ScienceTabWidget
+from widgets.missions.delivery_checklist_widget import DeliveryChecklistWidget
+from widgets.missions.equipment_servicing_widget import EquipmentServicingWidget
+from widgets.missions.autonomous_nav_widget import AutonomousNavWidget
 
 
 # Which subsystem is implied by which mission — MainWindow applies this
