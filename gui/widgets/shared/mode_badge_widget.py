@@ -22,7 +22,8 @@ class ModeBadgeWidget(QWidget):
         self._default_color = colors.get(default_mode, theme.NEUTRAL)
 
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(8, 6, 8, 6)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(2)
 
         title_label = CaptionLabel(title)
         title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)

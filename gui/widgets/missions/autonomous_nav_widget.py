@@ -96,14 +96,14 @@ class AutonomousNavWidget(QWidget):
         self._list_items = {}  # waypoint_id -> QListWidgetItem
 
         layout = QHBoxLayout(self)
-        layout.setContentsMargins(6, 6, 6, 6)
-        layout.setSpacing(8)
+        layout.setContentsMargins(0, 4, 0, 0)
+        layout.setSpacing(4)
 
         self.checklist = ChecklistWidget(checklist_path or _DEFAULT_CHECKLIST_PATH)
         layout.addWidget(self.checklist, 1)
 
         right_column = QVBoxLayout()
-        right_column.setSpacing(8)
+        right_column.setSpacing(4)
         right_column.addWidget(self._build_entry_form())
         right_column.addWidget(self._build_status_card())
         right_column.addWidget(self._build_waypoint_list())

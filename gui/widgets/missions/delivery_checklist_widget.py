@@ -94,8 +94,8 @@ class DeliveryChecklistWidget(QWidget):
         self._stage_sections = {}  # stage_id -> {"subtotal_label", "unlock_threshold", "threshold_badge"}
 
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(6, 6, 6, 6)
-        layout.setSpacing(8)
+        layout.setContentsMargins(0, 4, 0, 0)
+        layout.setSpacing(4)
 
         tasks_by_stage = {}
         for task in checklist["tasks"]:
@@ -153,7 +153,7 @@ class DeliveryChecklistWidget(QWidget):
     def _build_counter_row(self, task: dict) -> CardWidget:
         frame = CardWidget()
         frame_layout = QVBoxLayout(frame)
-        frame_layout.setContentsMargins(10, 8, 10, 8)
+        frame_layout.setContentsMargins(8, 4, 8, 4)
 
         frame_layout.addWidget(StrongBodyLabel(task["label"]))
 

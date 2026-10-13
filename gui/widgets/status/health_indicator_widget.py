@@ -36,7 +36,7 @@ class HealthIndicatorWidget(QWidget):
         self.watcher.became_fresh.connect(self._on_became_fresh)
 
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(4, 4, 4, 4)
+        layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(2)
 
         title_label = CaptionLabel(title)

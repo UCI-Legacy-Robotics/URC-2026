@@ -51,7 +51,7 @@ class EstopWidget(QWidget):
         self._timeout_timer.timeout.connect(self._on_no_confirmation_timeout)
 
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(4, 4, 4, 4)
+        layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(2)
 
         title_label = CaptionLabel("E-STOP")

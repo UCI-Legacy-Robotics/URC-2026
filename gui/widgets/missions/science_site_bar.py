@@ -35,7 +35,7 @@ class ScienceSiteBar(QWidget):
 
         layout = QHBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(6)
+        layout.setSpacing(4)
 
         self._input = LineEdit()
         self._input.setPlaceholderText("Site label (e.g. Outcrop North)")

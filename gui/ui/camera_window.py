@@ -59,8 +59,8 @@ class CameraWindow(QWidget):
         self.setWindowTitle("Rover Base Station — Cameras")
 
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(6, 6, 6, 6)
-        layout.setSpacing(6)
+        layout.setContentsMargins(4, 4, 4, 4)
+        layout.setSpacing(4)
 
         self.mux_panel = CameraMuxPanel()
         self.mux_panel.camera_toggle_requested.connect(self._on_camera_toggle_requested)
@@ -76,7 +76,7 @@ class CameraWindow(QWidget):
 
         grid_container = QWidget()
         grid = QGridLayout(grid_container)
-        grid.setSpacing(6)
+        grid.setSpacing(4)
         grid.setColumnStretch(0, 1)
         grid.setColumnStretch(1, 1)
         grid.setRowStretch(0, 1)

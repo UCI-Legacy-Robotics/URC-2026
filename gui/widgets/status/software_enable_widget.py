@@ -35,7 +35,7 @@ class SoftwareEnableWidget(QWidget):
         self._pending_target = None     # None if not awaiting a confirmation
 
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(4, 4, 4, 4)
+        layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(2)
 
         title_label = CaptionLabel("SOFTWARE ENABLE/DISABLE")

@@ -79,15 +79,15 @@ class ScienceTabWidget(QWidget):
         self._store = ScienceDataStore()
 
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(6, 6, 6, 6)
-        layout.setSpacing(8)
+        layout.setContentsMargins(0, 4, 0, 0)
+        layout.setSpacing(4)
 
         self.site_bar = ScienceSiteBar()
         self.site_bar.site_confirmed.connect(self._refresh_gating)
         layout.addWidget(self.site_bar)
 
         sequences_row = QHBoxLayout()
-        sequences_row.setSpacing(8)
+        sequences_row.setSpacing(4)
 
         bradford_cache = ScienceSequenceWidget(
             sequence="BRADFORD_CACHE", title="Bradford/Cache", stoppable=True,

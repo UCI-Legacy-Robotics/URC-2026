@@ -15,12 +15,12 @@ class SectionCard(SimpleCardWidget):
     def __init__(self, title: str = None, icon_name: str = None, parent=None):
         super().__init__(parent)
         self.body = QVBoxLayout(self)
-        self.body.setContentsMargins(12, 10, 12, 10)
-        self.body.setSpacing(6)
+        self.body.setContentsMargins(6, 4, 6, 4)
+        self.body.setSpacing(4)
 
         if title:
             header = QHBoxLayout()
-            header.setSpacing(8)
+            header.setSpacing(6)
             if icon_name:
                 header_icon = IconWidget(theme.icon(icon_name, theme.ACCENT))
                 header_icon.setFixedSize(16, 16)

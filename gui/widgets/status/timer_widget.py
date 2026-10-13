@@ -44,7 +44,7 @@ class MissionTimerWidget(QWidget):
         self._label.setStyleSheet(self._LABEL_STYLE.format(color=self._COLOR_STOPPED))
 
         layout = QHBoxLayout(self)
-        layout.setContentsMargins(8, 0, 8, 0)
+        layout.setContentsMargins(0, 0, 0, 0)
         layout.addWidget(self._label)
 
     # -- public control API --------------------------------------------

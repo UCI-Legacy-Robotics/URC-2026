@@ -72,9 +72,23 @@ def _placeholder_box(title: str) -> SectionCard:
     return card
 
 
-def _wrap_in_card(widget: QWidget, title: str, icon_name: str) -> SectionCard:
-    card = SectionCard(title, icon_name)
-    card.body.addWidget(widget, 1)
+def _wrap_in_card(*widgets: QWidget, horizontal: bool = False) -> SectionCard:
+    """Headerless card around one or more widgets -- the always-visible
+    strip and sidebar skip titles, since every widget in them already
+    carries its own caption and vertical space is at a premium."""
+    card = SectionCard()
+    if horizontal:
+        row = QHBoxLayout()
+        row.setSpacing(6)
+        card.body.addLayout(row)
+        target = row
+    else:
+        target = card.body
+    for widget in widgets:
+        # Top-aligned so side-by-side widgets of different heights (the
+        # E-stop button is taller than Software Enable's) still line up
+        # caption-to-caption.
+        target.addWidget(widget, 1, Qt.AlignmentFlag.AlignTop if horizontal else Qt.AlignmentFlag(0))
     return card
 
 
@@ -88,59 +102,50 @@ class TopStrip(QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setFixedHeight(200)
+        self.setFixedHeight(136)
 
         layout = QHBoxLayout(self)
-        layout.setContentsMargins(8, 8, 8, 0)
-        layout.setSpacing(8)
+        layout.setContentsMargins(4, 4, 4, 0)
+        layout.setSpacing(4)
 
         self.mission_sm_widget = MissionSmWidget()
-        self.mission_sm_widget.setMinimumWidth(320)
+        self.mission_sm_widget.setMinimumWidth(300)
         self.subsystem_launch = SubsystemLaunchWidget()
-        self.subsystem_launch.setMinimumWidth(200)
+        self.subsystem_launch.setMinimumWidth(170)
         self.electrical_cluster = ElectricalHealthCluster()
 
-        layout.addWidget(_wrap_in_card(self.mission_sm_widget, "Mission", "mdi6.flag-checkered"))
-        layout.addWidget(_wrap_in_card(self.subsystem_launch, "Subsystem Launch", "mdi6.rocket-launch"))
-        layout.addWidget(
-            _wrap_in_card(self.electrical_cluster, "Electrical Health", "mdi6.lightning-bolt"), 1
-        )
+        layout.addWidget(_wrap_in_card(self.mission_sm_widget))
+        layout.addWidget(_wrap_in_card(self.subsystem_launch))
+        layout.addWidget(_wrap_in_card(self.electrical_cluster), 1)
 
 
 class Sidebar(QWidget):
-    """Right-hand column: GNSS map fills most of the space. E-stop and
-    the software enable/disable toggle are pinned to the bottom-right
-    corner, always visible regardless of active tab."""
+    """Right-hand column: GNSS map fills most of the space. Mode badges
+    and the E-stop/software enable pair sit side by side in two compact
+    rows pinned to the bottom-right corner, always visible regardless of
+    active tab."""
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setFixedWidth(340)
+        self.setFixedWidth(440)
 
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(8)
+        layout.setSpacing(4)
 
         self.gnss_map = GnssMapWidget()
         self.gnss_map.setMinimumHeight(220)
-        map_card = _wrap_in_card(self.gnss_map, "GNSS", "mdi6.map")
+        map_card = _wrap_in_card(self.gnss_map)
         map_card.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         layout.addWidget(map_card, 1)
 
-        modes_card = SectionCard("Rover Mode", "mdi6.gamepad-variant")
         self.control_mode = ControlModeWidget()
         self.joystick_mode = JoystickModeWidget()
-        modes_card.body.addWidget(self.control_mode)
-        modes_card.body.addWidget(self.joystick_mode)
-        layout.addWidget(modes_card)
+        layout.addWidget(_wrap_in_card(self.control_mode, self.joystick_mode, horizontal=True))
 
-        safety_card = SectionCard("Safety", "mdi6.shield-alert-outline")
         self.software_toggle = SoftwareEnableWidget()
-        self.software_toggle.setMinimumHeight(100)
         self.estop_button = EstopWidget()
-        self.estop_button.setMinimumHeight(110)
-        safety_card.body.addWidget(self.software_toggle)
-        safety_card.body.addWidget(self.estop_button)
-        layout.addWidget(safety_card)
+        layout.addWidget(_wrap_in_card(self.software_toggle, self.estop_button, horizontal=True))
 
 
 def _placeholder_tab(title: str) -> QWidget:
@@ -193,8 +198,8 @@ class MainWindow(QMainWindow):
         # -- main content: tabs (left) + sidebar (right) ----------------
         content = QWidget()
         content_layout = QHBoxLayout(content)
-        content_layout.setContentsMargins(8, 8, 8, 8)
-        content_layout.setSpacing(8)
+        content_layout.setContentsMargins(4, 4, 4, 4)
+        content_layout.setSpacing(4)
 
         self.tabs = QTabWidget()
         self.tabs.setDocumentMode(True)

@@ -125,7 +125,7 @@ class MissionSmWidget(QWidget):
         self._cycle_index = 0
 
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(8, 6, 8, 6)
+        layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(4)
 
         self._state_label = ColorCodedLabel()

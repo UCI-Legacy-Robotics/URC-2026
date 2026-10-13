@@ -197,17 +197,17 @@ class EquipmentServicingWidget(QWidget):
         self._arm_subsystem_running = False
 
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(6, 6, 6, 6)
-        layout.setSpacing(8)
+        layout.setContentsMargins(0, 4, 0, 0)
+        layout.setSpacing(4)
 
         top_row = QHBoxLayout()
-        top_row.setSpacing(8)
+        top_row.setSpacing(4)
 
         self.checklist = ChecklistWidget(checklist_path or _DEFAULT_CHECKLIST_PATH)
         top_row.addWidget(self.checklist, 1)
 
         sequences_column = QVBoxLayout()
-        sequences_column.setSpacing(8)
+        sequences_column.setSpacing(4)
 
         launch_key_card = _EquipmentSequenceCard(
             sequence="LAUNCH_KEY", title="Autonomous Typing", icon_name="mdi6.keyboard",

@@ -35,7 +35,7 @@ class ElectricalHealthCluster(QWidget):
 
         layout = QHBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(6)
+        layout.setSpacing(4)
 
         self.fault_latched = FaultLatchedIndicator(_STALE_TIMEOUT_MS)
         self.contactor_status = ContactorIndicator(_STALE_TIMEOUT_MS)
