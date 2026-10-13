@@ -1,0 +1,28 @@
+# Setup (from gui/):   uv sync
+# Run, simulated:      uv run main.py --sim
+# Run, live ROS:       source /opt/ros/humble/setup.bash && uv run main.py
+# Add a dependency:    uv add <package>   (updates this file and uv.lock)
+
+[project]
+name = "rover-base-station-gui"
+version = "0.1.0"
+description = "URC rover base station GUI"
+# Pinned to 3.10 to match ROS 2 Humble's rclpy/message packages, which
+# are compiled for the system Python 3.10 and come in via PYTHONPATH
+# from `source /opt/ros/humble/setup.bash` rather than from this project.
+requires-python = "==3.10.*"
+dependencies = [
+    "PyQt6>=6.11",
+    "PyQt6-WebEngine>=6.11",
+    "PyQt6-Fluent-Widgets>=1.11.3",
+    "pyqtdarktheme>=2.1.0",
+    "qtawesome>=1.4.2",
+    "numpy>=2.2",
+    "opencv-python>=4.13,<5",
+    "pillow>=9.0",
+]
+
+[tool.uv]
+# An application, not an installable library — `uv sync` just installs
+# the dependencies above into .venv.
+package = false

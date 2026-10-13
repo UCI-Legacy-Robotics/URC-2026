@@ -16,9 +16,9 @@ from datetime import datetime
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import (
-    QDialog, QVBoxLayout, QHBoxLayout, QListWidget, QListWidgetItem,
-    QTextEdit, QLabel, QScrollArea, QWidget
+    QDialog, QVBoxLayout, QHBoxLayout, QListWidgetItem, QLabel, QScrollArea, QWidget
 )
+from qfluentwidgets import ListWidget, PlainTextEdit, SubtitleLabel
 
 from science_data_store import ScienceDataStore
 
@@ -61,18 +61,17 @@ class ScienceReviewDialog(QDialog):
 
         layout = QHBoxLayout(self)
 
-        self._site_list = QListWidget()
+        self._site_list = ListWidget()
         self._site_list.setMaximumWidth(220)
         self._site_list.currentItemChanged.connect(self._on_site_selected)
         layout.addWidget(self._site_list)
 
         detail_layout = QVBoxLayout()
 
-        self._detail_title = QLabel("Select a site")
-        self._detail_title.setStyleSheet("font-size: 14px; font-weight: bold;")
+        self._detail_title = SubtitleLabel("Select a site")
         detail_layout.addWidget(self._detail_title)
 
-        self._event_log = QTextEdit()
+        self._event_log = PlainTextEdit()
         self._event_log.setReadOnly(True)
         detail_layout.addWidget(self._event_log, 1)
 

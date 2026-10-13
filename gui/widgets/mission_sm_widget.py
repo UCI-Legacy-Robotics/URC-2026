@@ -24,11 +24,13 @@ IDLE resets the timer, since a stale countdown from the last mission has
 no meaning once you're no longer in it.
 """
 
-from PyQt6.QtWidgets import (
-    QWidget, QVBoxLayout, QHBoxLayout, QPushButton,
-    QSpinBox, QMessageBox, QDialog, QDialogButtonBox, QFormLayout
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QFormLayout
+from qfluentwidgets import (
+    BodyLabel, InfoBar, InfoBarPosition, MessageBoxBase, PushButton, SpinBox,
+    SubtitleLabel, ToolButton
 )
 
+import theme
 from state_machine import MissionState, MissionStateMachine, InvalidTransitionError
 from widgets.timer_widget import MissionTimerWidget
 from widgets.color_coded_label import ColorCodedLabel
@@ -55,8 +57,8 @@ _STATE_LABELS = {
 
 # Box color behind the state label, keyed by category rather than exact
 # state — every mission state reads the same "in progress" green.
-_COLOR_IDLE = "#3a3a3a"
-_COLOR_MISSION = "#1b5e20"
+_COLOR_IDLE = theme.NEUTRAL
+_COLOR_MISSION = theme.GREEN
 
 # Fixed run-order cycle the "Next" button walks. IDLE reappears between
 # every mission on purpose (matches MissionStateMachine's rule that
@@ -76,8 +78,10 @@ _MISSION_CYCLE = [
 ]
 
 
-class _DurationsDialog(QDialog):
-    """Modal for editing per-mission default durations, in minutes."""
+class _DurationsDialog(MessageBoxBase):
+    """Modal for editing per-mission default durations, in minutes.
+    Fluent's MessageBoxBase draws as an overlay on top of `parent`, so
+    pass the top-level window rather than this widget."""
 
     _EDITABLE_STATES = (
         MissionState.SCIENCE,
@@ -88,26 +92,22 @@ class _DurationsDialog(QDialog):
 
     def __init__(self, current_durations_seconds: dict, parent=None):
         super().__init__(parent)
-        self.setWindowTitle("Mission Durations")
+        self.viewLayout.addWidget(SubtitleLabel("Mission Durations"))
 
-        layout = QFormLayout(self)
-
+        form = QFormLayout()
+        form.setSpacing(10)
         self._spins = {}
         for state in self._EDITABLE_STATES:
-            spin = QSpinBox()
+            spin = SpinBox()
             spin.setRange(1, 180)
             spin.setSuffix(" min")
             spin.setValue(current_durations_seconds[state] // 60)
             self._spins[state] = spin
-            layout.addRow(f"{_STATE_LABELS[state]}:", spin)
+            form.addRow(BodyLabel(f"{_STATE_LABELS[state]}:"), spin)
+        self.viewLayout.addLayout(form)
 
-        buttons = QDialogButtonBox(
-            QDialogButtonBox.StandardButton.Ok
-            | QDialogButtonBox.StandardButton.Cancel
-        )
-        buttons.accepted.connect(self.accept)
-        buttons.rejected.connect(self.reject)
-        layout.addRow(buttons)
+        self.yesButton.setText("Save")
+        self.widget.setMinimumWidth(360)
 
     def result_durations_seconds(self) -> dict:
         return {state: spin.value() * 60 for state, spin in self._spins.items()}
@@ -132,33 +132,39 @@ class MissionSmWidget(QWidget):
         layout.addWidget(self._state_label)
 
         self.timer_widget = MissionTimerWidget()
-        layout.addWidget(self.timer_widget)
 
+        # Timer controls are icon-only ToolButtons (with tooltips) so the
+        # whole row fits beside the countdown in the fixed-height strip.
         timer_controls = QHBoxLayout()
-        self._start_button = QPushButton("Start")
-        self._pause_button = QPushButton("Pause")
-        self._reset_button = QPushButton("Reset")
+        timer_controls.setSpacing(4)
+        self._start_button = ToolButton(theme.icon("mdi6.play"))
+        self._start_button.setToolTip("Start / resume timer")
+        self._pause_button = ToolButton(theme.icon("mdi6.pause"))
+        self._pause_button.setToolTip("Pause timer")
+        self._reset_button = ToolButton(theme.icon("mdi6.restart"))
+        self._reset_button.setToolTip("Reset timer")
+        self._durations_button = ToolButton(theme.icon("mdi6.timer-cog-outline"))
+        self._durations_button.setToolTip("Set mission durations...")
         self._start_button.clicked.connect(self._on_start_clicked)
         self._pause_button.clicked.connect(self._on_pause_clicked)
         self._reset_button.clicked.connect(self.timer_widget.reset)
+        self._durations_button.clicked.connect(self._on_edit_durations)
+        timer_controls.addWidget(self.timer_widget, 1)
         timer_controls.addWidget(self._start_button)
         timer_controls.addWidget(self._pause_button)
         timer_controls.addWidget(self._reset_button)
+        timer_controls.addWidget(self._durations_button)
         layout.addLayout(timer_controls)
 
-        self._durations_button = QPushButton("Set Durations...")
-        self._durations_button.clicked.connect(self._on_edit_durations)
-        layout.addWidget(self._durations_button)
-
         mission_controls = QHBoxLayout()
-        self._next_button = QPushButton()
+        self._next_button = PushButton(theme.icon("mdi6.skip-next"), "")
         # Fixed width so the row doesn't reflow every click — this button's
         # text changes length with the target state name ("Next: Science"
         # vs "Next: Equipment Servicing"), sized to fit the longest one.
-        self._next_button.setFixedWidth(190)
+        self._next_button.setFixedWidth(230)
         self._next_button.clicked.connect(self._on_next_clicked)
-        self._mission_reset_button = QPushButton("Reset Mission")
-        self._mission_reset_button.setFixedWidth(110)
+        self._mission_reset_button = PushButton(theme.icon("mdi6.restart-alert"), "Reset")
+        self._mission_reset_button.setToolTip("Reset mission: back to Idle, restart the cycle from Science")
         self._mission_reset_button.clicked.connect(self._on_mission_reset_clicked)
         mission_controls.addWidget(self._next_button)
         mission_controls.addWidget(self._mission_reset_button)
@@ -183,8 +189,8 @@ class MissionSmWidget(QWidget):
         self.timer_widget.pause()
 
     def _on_edit_durations(self):
-        dialog = _DurationsDialog(self._durations, self)
-        if dialog.exec() == QDialog.DialogCode.Accepted:
+        dialog = _DurationsDialog(self._durations, self.window())
+        if dialog.exec():
             self._durations = dialog.result_durations_seconds()
 
     def _on_next_clicked(self):
@@ -192,7 +198,7 @@ class MissionSmWidget(QWidget):
         try:
             self.state_machine.transition_to(target)
         except InvalidTransitionError as exc:
-            QMessageBox.warning(self, "Invalid transition", str(exc))
+            self._show_transition_error(exc)
             return
         self._cycle_index = (self._cycle_index + 1) % len(_MISSION_CYCLE)
         self._update_controls()
@@ -205,11 +211,17 @@ class MissionSmWidget(QWidget):
             try:
                 self.state_machine.transition_to(MissionState.IDLE)
             except InvalidTransitionError as exc:
-                QMessageBox.warning(self, "Invalid transition", str(exc))
+                self._show_transition_error(exc)
                 return
         self._cycle_index = 0
         self.timer_widget.reset()
         self._update_controls()
+
+    def _show_transition_error(self, exc):
+        InfoBar.error(
+            "Invalid transition", str(exc),
+            duration=5000, position=InfoBarPosition.TOP, parent=self.window(),
+        )
 
     def _on_state_changed(self, old_state, new_state):
         self._refresh_state_label()

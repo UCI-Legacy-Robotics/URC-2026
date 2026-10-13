@@ -13,38 +13,17 @@ one JSON per instance" shape as ScienceSequenceWidget/CameraFeedWidget
 use -- both Equipment Servicing and Autonomous Nav use this unchanged,
 just pointed at their own JSON file.
 
-Every frame/checkbox here sets its own explicit border/indicator style
-rather than relying on the app-wide dark stylesheet, same reasoning as
-delivery_checklist_widget.py -- a bare QFrame.StyledPanel and default
-QCheckBox indicator both render with essentially no visible edge
-against a fully dark theme otherwise.
-
 Fully self-contained: no DataSource/bind_data_source, same as
 DeliveryChecklistWidget -- every task here is physically performed or
 externally verified by an operator, not telemetry.
 """
 
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QCheckBox, QPushButton, QFrame
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
+from qfluentwidgets import CaptionLabel, CheckBox, PushButton, SubtitleLabel
 
+import theme
 from checklist_loader import load_checklist
-
-_SECTION_STYLE = (
-    "QFrame#groupSection { border: 1px solid #444; border-radius: 6px; "
-    "background: #141414; }"
-)
-_CHECKBOX_STYLE = (
-    "QCheckBox { font-size: 15px; spacing: 8px; } "
-    "QCheckBox::indicator { width: 22px; height: 22px; border: 1px solid #888; "
-    "border-radius: 4px; background: #1a1a1a; } "
-    "QCheckBox::indicator:hover { border: 1px solid #aaa; } "
-    "QCheckBox::indicator:checked { background: #1b5e20; border: 1px solid #3ba33b; }"
-)
-_BUTTON_STYLE = (
-    "QPushButton { font-size: 14px; padding: 6px; color: #e0e0e0; "
-    "background: #1e1e1e; border: 1px solid #555; border-radius: 4px; } "
-    "QPushButton:hover { background: #2a2a2a; border: 1px solid #777; } "
-    "QPushButton:pressed { background: #333; }"
-)
+from widgets.common import SectionCard
 
 
 class ChecklistWidget(QWidget):
@@ -57,6 +36,8 @@ class ChecklistWidget(QWidget):
         self._group_sections = {}   # group_id -> {"tally_label", "checkbox_count"}
 
         layout = QVBoxLayout(self)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(8)
 
         tasks_by_group = {}
         for task in checklist["tasks"]:
@@ -67,40 +48,29 @@ class ChecklistWidget(QWidget):
 
         layout.addStretch()
 
-        self._total_label = QLabel()
-        self._total_label.setStyleSheet("font-size: 18px; font-weight: bold;")
-        layout.addWidget(self._total_label)
-
-        self._reset_button = QPushButton("Reset")
-        self._reset_button.setStyleSheet(_BUTTON_STYLE)
+        footer = QHBoxLayout()
+        self._total_label = SubtitleLabel()
+        footer.addWidget(self._total_label, 1)
+        self._reset_button = PushButton(theme.icon("mdi6.restart"), "Reset")
         self._reset_button.clicked.connect(self._on_reset_clicked)
-        layout.addWidget(self._reset_button)
+        footer.addWidget(self._reset_button)
+        layout.addLayout(footer)
 
         self._recompute_tallies()
 
     # -- section/row construction -----------------------------------------
 
-    def _build_group_section(self, group: dict, tasks: list) -> QFrame:
-        section = QFrame()
-        section.setObjectName("groupSection")
-        section.setFrameShape(QFrame.Shape.StyledPanel)
-        section.setStyleSheet(_SECTION_STYLE)
-        section_layout = QVBoxLayout(section)
-
-        header = QLabel(group["label"])
-        header.setStyleSheet("font-size: 16px; font-weight: bold; border: none;")
-        section_layout.addWidget(header)
+    def _build_group_section(self, group: dict, tasks: list) -> SectionCard:
+        section = SectionCard(group["label"], "mdi6.format-list-checks")
 
         for task in tasks:
-            checkbox = QCheckBox(task["label"])
-            checkbox.setStyleSheet(_CHECKBOX_STYLE)
+            checkbox = CheckBox(task["label"])
             checkbox.stateChanged.connect(self._recompute_tallies)
             self._checkboxes.append((checkbox, group["id"]))
-            section_layout.addWidget(checkbox)
+            section.body.addWidget(checkbox)
 
-        tally_label = QLabel()
-        tally_label.setStyleSheet("font-size: 14px; border: none;")
-        section_layout.addWidget(tally_label)
+        tally_label = CaptionLabel()
+        section.body.addWidget(tally_label)
 
         self._group_sections[group["id"]] = {
             "tally_label": tally_label,

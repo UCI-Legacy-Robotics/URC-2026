@@ -12,14 +12,17 @@ software_enable_ack. Visually lower severity than E-Stop — green/blue,
 never red — since this isn't a hardware-equivalent safety action.
 """
 
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton
+from PyQt6.QtWidgets import QWidget, QVBoxLayout
 from PyQt6.QtCore import Qt, pyqtSignal
+from qfluentwidgets import CaptionLabel, PushButton
 
+import theme
 from widgets.color_coded_label import ColorCodedLabel
+from widgets.common import set_button
 
-_COLOR_ENABLED = "#1b5e20"
-_COLOR_DISABLED = "#0d47a1"
-_COLOR_PENDING = "#8a6d1a"
+_COLOR_ENABLED = theme.GREEN
+_COLOR_DISABLED = theme.BLUE
+_COLOR_PENDING = theme.AMBER
 
 
 class SoftwareEnableWidget(QWidget):
@@ -35,15 +38,14 @@ class SoftwareEnableWidget(QWidget):
         layout.setContentsMargins(4, 4, 4, 4)
         layout.setSpacing(2)
 
-        title_label = QLabel("SOFTWARE\nENABLE/DISABLE")
+        title_label = CaptionLabel("SOFTWARE ENABLE/DISABLE")
         title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        title_label.setStyleSheet("color: #888; font-size: 10px;")
         layout.addWidget(title_label)
 
         self._status_label = ColorCodedLabel()
         layout.addWidget(self._status_label)
 
-        self._button = QPushButton()
+        self._button = PushButton()
         self._button.clicked.connect(self._on_button_clicked)
         layout.addWidget(self._button)
 
@@ -76,6 +78,9 @@ class SoftwareEnableWidget(QWidget):
 
         self._button.setEnabled(self._pending_target is None)
         if self._pending_target is None:
-            self._button.setText("Disable" if self._confirmed_enabled else "Enable")
+            if self._confirmed_enabled:
+                set_button(self._button, "Disable", "mdi6.power-plug-off")
+            else:
+                set_button(self._button, "Enable", "mdi6.power-plug")
         else:
-            self._button.setText("Requesting...")
+            set_button(self._button, "Requesting...", "mdi6.dots-horizontal")

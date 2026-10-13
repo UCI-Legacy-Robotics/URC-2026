@@ -12,14 +12,16 @@ rather than freezing on the old value with no indication, or blanking to
 a generic placeholder that loses the last-known reading.
 """
 
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel
+from PyQt6.QtWidgets import QWidget, QVBoxLayout
 from PyQt6.QtCore import Qt
+from qfluentwidgets import CaptionLabel
 
+import theme
 from widgets.color_coded_label import ColorCodedLabel
 from stale_data import StaleDataWatcher
 
-_STALE_COLOR = "#4a4a2a"
-_DEFAULT_COLOR = "#3a3a3a"
+_STALE_COLOR = theme.STALE
+_DEFAULT_COLOR = theme.NEUTRAL
 
 
 class HealthIndicatorWidget(QWidget):
@@ -37,9 +39,8 @@ class HealthIndicatorWidget(QWidget):
         layout.setContentsMargins(4, 4, 4, 4)
         layout.setSpacing(2)
 
-        title_label = QLabel(title)
+        title_label = CaptionLabel(title)
         title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        title_label.setStyleSheet("color: #888; font-size: 9px;")
         layout.addWidget(title_label)
 
         self._value_label = ColorCodedLabel()

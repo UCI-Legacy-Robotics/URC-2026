@@ -6,9 +6,11 @@ Control Mode, ...). Not for anything with sub-controls or its own live
 data stream — those get their own dedicated widget.
 """
 
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel
+from PyQt6.QtWidgets import QWidget, QVBoxLayout
 from PyQt6.QtCore import Qt
+from qfluentwidgets import CaptionLabel
 
+import theme
 from widgets.color_coded_label import ColorCodedLabel
 
 
@@ -17,14 +19,13 @@ class ModeBadgeWidget(QWidget):
     def __init__(self, title: str, colors: dict, default_mode: str, parent=None):
         super().__init__(parent)
         self._colors = colors
-        self._default_color = colors.get(default_mode, "#3a3a3a")
+        self._default_color = colors.get(default_mode, theme.NEUTRAL)
 
         layout = QVBoxLayout(self)
         layout.setContentsMargins(8, 6, 8, 6)
 
-        title_label = QLabel(title)
+        title_label = CaptionLabel(title)
         title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        title_label.setStyleSheet("color: #888; font-size: 10px;")
         layout.addWidget(title_label)
 
         self._mode_label = ColorCodedLabel()

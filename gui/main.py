@@ -5,6 +5,7 @@ import sys
 import threading
 from PyQt6.QtCore import QTimer
 from PyQt6.QtWidgets import QApplication
+import theme
 from ui.main_window import MainWindow
 from ui.camera_window import CameraWindow
 
@@ -20,37 +21,6 @@ os.environ.setdefault(
 # Vulkan texture") — force software rendering. setdefault so a machine
 # with working GPU passthrough can still override this before launch.
 os.environ.setdefault('QTWEBENGINE_CHROMIUM_FLAGS', '--disable-gpu')
-
-_STYLESHEET = """
-    QWidget {
-        background-color: #0a0a0a;
-        color: #e0e0e0;
-    }
-    QTabWidget::pane {
-        border: 1px solid #2a2a2a;
-    }
-    QTabBar::tab {
-        background: #141414;
-        color: #777;
-        padding: 8px 24px;
-        border: 1px solid #2a2a2a;
-    }
-    QTabBar::tab:selected {
-        background: #1e1e1e;
-        color: #ffffff;
-        border-bottom: 2px solid #4a9eff;
-    }
-    QTabBar::tab:hover:!selected {
-        background: #1a1a1a;
-        color: #aaa;
-    }
-    QLabel {
-        background: transparent;
-    }
-    QTextEdit {
-        border: 1px solid #2a2a2a;
-    }
-"""
 
 
 def _parse_args():
@@ -90,7 +60,7 @@ def main():
 
     app = QApplication(sys.argv)
     app.setApplicationName('Rover Base Station')
-    app.setStyleSheet(_STYLESHEET)
+    theme.apply_theme(app)
 
     if args.list_screens:
         _print_screens(app)

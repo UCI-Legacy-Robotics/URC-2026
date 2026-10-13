@@ -30,13 +30,12 @@ import threading
 from pathlib import Path
 
 from PyQt6.QtCore import Qt, QUrl
-from PyQt6.QtWidgets import (
-    QWidget, QVBoxLayout, QHBoxLayout, QDialog, QLineEdit, QPushButton,
-    QDoubleSpinBox, QListWidget, QListWidgetItem
-)
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QDialog, QListWidgetItem
 from PyQt6.QtWebEngineWidgets import QWebEngineView
 from PyQt6.QtWebEngineCore import QWebEnginePage
+from qfluentwidgets import DoubleSpinBox, LineEdit, ListWidget, PushButton
 
+import theme
 from stale_data import StaleDataWatcher
 
 _ASSETS_DIR = Path(__file__).resolve().parent.parent / "assets" / "gnss_map"
@@ -114,11 +113,11 @@ class _PinManagerDialog(QDialog):
         layout = QVBoxLayout(self)
 
         coord_row = QHBoxLayout()
-        self._lat_spin = QDoubleSpinBox()
+        self._lat_spin = DoubleSpinBox()
         self._lat_spin.setRange(-90.0, 90.0)
         self._lat_spin.setDecimals(6)
         self._lat_spin.setPrefix("lat ")
-        self._lon_spin = QDoubleSpinBox()
+        self._lon_spin = DoubleSpinBox()
         self._lon_spin.setRange(-180.0, 180.0)
         self._lon_spin.setDecimals(6)
         self._lon_spin.setPrefix("lon ")
@@ -127,21 +126,21 @@ class _PinManagerDialog(QDialog):
         layout.addLayout(coord_row)
 
         label_row = QHBoxLayout()
-        self._pin_label_edit = QLineEdit()
+        self._pin_label_edit = LineEdit()
         self._pin_label_edit.setPlaceholderText("Label (optional)")
-        self._add_pin_button = QPushButton("Add Pin")
+        self._add_pin_button = PushButton(theme.icon("mdi6.map-marker-plus"), "Add Pin")
         self._add_pin_button.clicked.connect(self._on_add_pin_clicked)
         label_row.addWidget(self._pin_label_edit)
         label_row.addWidget(self._add_pin_button)
         layout.addLayout(label_row)
 
-        self._pin_list = QListWidget()
+        self._pin_list = ListWidget()
         layout.addWidget(self._pin_list)
 
         pin_controls_row = QHBoxLayout()
-        self._remove_pin_button = QPushButton("Remove Selected")
+        self._remove_pin_button = PushButton(theme.icon("mdi6.map-marker-remove"), "Remove Selected")
         self._remove_pin_button.clicked.connect(self._on_remove_selected_pin_clicked)
-        self._clear_pins_button = QPushButton("Clear All")
+        self._clear_pins_button = PushButton(theme.icon("mdi6.trash-can-outline"), "Clear All")
         self._clear_pins_button.clicked.connect(self._on_clear_pins_clicked)
         pin_controls_row.addWidget(self._remove_pin_button)
         pin_controls_row.addWidget(self._clear_pins_button)
@@ -227,11 +226,13 @@ class GnssMapWidget(QWidget):
 
         button_row = QHBoxLayout()
 
-        self._center_on_rover_button = QPushButton("Center on Rover")
+        self._center_on_rover_button = PushButton(theme.icon("mdi6.crosshairs-gps"), "Center")
+        self._center_on_rover_button.setToolTip("Center map on rover")
         self._center_on_rover_button.clicked.connect(self.center_on_rover)
         button_row.addWidget(self._center_on_rover_button)
 
-        self._manage_pins_button = QPushButton("Manage Waypoints...")
+        self._manage_pins_button = PushButton(theme.icon("mdi6.map-marker-multiple"), "Waypoints...")
+        self._manage_pins_button.setToolTip("Manage waypoint pins")
         self._manage_pins_button.clicked.connect(self._on_manage_pins_clicked)
         button_row.addWidget(self._manage_pins_button)
 

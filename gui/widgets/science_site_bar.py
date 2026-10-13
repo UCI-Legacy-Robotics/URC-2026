@@ -14,13 +14,15 @@ persistence — ScienceTabWidget composes those concerns on top of it
 bar while one is running, in Step 7).
 """
 
-from PyQt6.QtWidgets import QWidget, QHBoxLayout, QLineEdit, QPushButton
+from PyQt6.QtWidgets import QWidget, QHBoxLayout
 from PyQt6.QtCore import pyqtSignal
+from qfluentwidgets import LineEdit, PushButton
 
+import theme
 from widgets.color_coded_label import ColorCodedLabel
 
-_NO_SITE_COLOR = "#3a3a3a"
-_SITE_SET_COLOR = "#1b5e20"
+_NO_SITE_COLOR = theme.NEUTRAL
+_SITE_SET_COLOR = theme.GREEN
 
 
 class ScienceSiteBar(QWidget):
@@ -35,11 +37,11 @@ class ScienceSiteBar(QWidget):
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(6)
 
-        self._input = QLineEdit()
+        self._input = LineEdit()
         self._input.setPlaceholderText("Site label (e.g. Outcrop North)")
         self._input.returnPressed.connect(self._on_confirm_clicked)
 
-        self._confirm_button = QPushButton("Set Current Site")
+        self._confirm_button = PushButton(theme.icon("mdi6.map-marker-check"), "Set Current Site")
         self._confirm_button.clicked.connect(self._on_confirm_clicked)
 
         self._badge = ColorCodedLabel()

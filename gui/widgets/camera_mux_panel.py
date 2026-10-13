@@ -25,17 +25,13 @@ grid tile's rather than being a second independent guess.
 """
 
 from PyQt6.QtCore import pyqtSignal
-from PyQt6.QtWidgets import QGridLayout, QLabel, QPushButton, QVBoxLayout, QWidget
+from PyQt6.QtWidgets import QGridLayout, QLabel, QWidget
+from qfluentwidgets import BodyLabel, PushButton
 
 from data_source import CAMERA_LABELS, CameraID
+from theme import CAMERA_STATE_COLORS as _STATE_COLORS
 from widgets.camera_feed_tracker import CameraFeedTracker
-
-_STATE_COLORS = {
-    "ON": "#3ba33b",
-    "OFF": "#888888",
-    "NO SIGNAL": "#c0392b",
-    "LOCKED": "#666666",
-}
+from widgets.common import SectionCard, set_button
 
 
 class _CameraMuxRow(QWidget):
@@ -56,16 +52,15 @@ class _CameraMuxRow(QWidget):
         layout.setContentsMargins(4, 2, 4, 2)
         layout.setSpacing(8)
 
-        self._label = QLabel(label)
-        self._label.setStyleSheet("font-size: 12px;")
+        self._label = BodyLabel(label)
         self._state_label = QLabel()
         self._state_label.setStyleSheet("font-size: 12px; font-family: monospace;")
         self._rate_label = QLabel()
         self._rate_label.setStyleSheet("font-size: 12px; font-family: monospace; color: #999;")
         self._fps_label = QLabel()
         self._fps_label.setStyleSheet("font-size: 12px; font-family: monospace; color: #999;")
-        self._button = QPushButton()
-        self._button.setFixedWidth(90)
+        self._button = PushButton()
+        self._button.setFixedWidth(110)
         self._button.clicked.connect(self._on_button_clicked)
 
         layout.addWidget(self._label, 0, 0)
@@ -115,24 +110,22 @@ class _CameraMuxRow(QWidget):
         self._rate_label.setText(f"{rate:.2f} Mbps")
         self._fps_label.setText(f"{fps:.1f} fps")
         self._button.setEnabled(not self._locked)
-        self._button.setText("Disable" if self.tracker.is_enabled() else "Enable")
+        if self._locked:
+            set_button(self._button, "Locked", "mdi6.lock")
+        elif self.tracker.is_enabled():
+            set_button(self._button, "Disable", "mdi6.video-off")
+        else:
+            set_button(self._button, "Enable", "mdi6.video")
 
 
-class CameraMuxPanel(QWidget):
+class CameraMuxPanel(SectionCard):
     """4 independent camera toggles — manual only, see module docstring."""
 
     camera_toggle_requested = pyqtSignal(str, bool)  # (camera_id, requested_enabled)
 
     def __init__(self, parent=None):
-        super().__init__(parent)
-
-        outer = QVBoxLayout(self)
-        outer.setContentsMargins(6, 6, 6, 6)
-        outer.setSpacing(4)
-
-        title = QLabel("CAMERA MUX")
-        title.setStyleSheet("color: #888; font-size: 10px; font-weight: bold;")
-        outer.addWidget(title)
+        super().__init__("Camera MUX", "mdi6.cctv", parent)
+        outer = self.body
 
         self._rows = {}
         for camera in CameraID:

@@ -18,15 +18,18 @@ only detecting a hardware reset if the rover reports
 estop_confirmed(False).
 """
 
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton
+from PyQt6.QtWidgets import QWidget, QVBoxLayout
 from PyQt6.QtCore import Qt, QTimer, pyqtSignal
+from qfluentwidgets import CaptionLabel
 
+import theme
 from widgets.color_coded_label import ColorCodedLabel
+from widgets.common import DangerButton
 
-_COLOR_READY = "#1a0a0a"
-_COLOR_PENDING = "#8a6d1a"
-_COLOR_CONFIRMED = "#d32f2f"
-_COLOR_NO_CONFIRMATION = "#e65100"
+_COLOR_READY = "#2a1414"
+_COLOR_PENDING = theme.AMBER
+_COLOR_CONFIRMED = theme.BRIGHT_RED
+_COLOR_NO_CONFIRMATION = theme.ORANGE
 
 # Placeholder — real threshold TBD with systems/electrical.
 _NO_CONFIRMATION_TIMEOUT_MS = 3000
@@ -51,20 +54,15 @@ class EstopWidget(QWidget):
         layout.setContentsMargins(4, 4, 4, 4)
         layout.setSpacing(2)
 
-        title_label = QLabel("E-STOP")
+        title_label = CaptionLabel("E-STOP")
         title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        title_label.setStyleSheet("color: #888; font-size: 10px;")
         layout.addWidget(title_label)
 
         self._status_label = ColorCodedLabel()
         layout.addWidget(self._status_label)
 
-        self._button = QPushButton("E-STOP")
-        self._button.setMinimumHeight(48)
-        self._button.setStyleSheet(
-            "QPushButton { font-weight: bold; font-size: 16px; } "
-            "QPushButton:enabled { border: 2px solid #ff4a4a; }"
-        )
+        self._button = DangerButton("E-STOP", icon_name="mdi6.alert-octagon", font_size=18)
+        self._button.setMinimumHeight(52)
         self._button.clicked.connect(self._on_button_clicked)
         layout.addWidget(self._button)
 

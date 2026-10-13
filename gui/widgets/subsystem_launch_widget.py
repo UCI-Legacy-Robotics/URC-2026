@@ -22,28 +22,21 @@ wires these to `DataSource.send_subsystem_command()`, which each
 DataSource implementation logs or no-ops on (see data_source.py).
 """
 
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QPushButton
+from PyQt6.QtWidgets import QWidget, QVBoxLayout
 from PyQt6.QtCore import pyqtSignal
+from qfluentwidgets import PushButton
 
+import theme
+from theme import STATUS_COLORS as _STATUS_COLORS, RUNNING_LIKE_STATUSES as _RUNNING_LIKE_STATUSES
 from widgets.mode_badge_widget import ModeBadgeWidget
 from widgets.color_coded_label import ColorCodedLabel
+from widgets.common import set_button
 
 _MODE_COLORS = {
-    "SCIENCE": "#1b5e20",
-    "ARM": "#0d47a1",
-    "NONE": "#3a3a3a",
+    "SCIENCE": theme.GREEN,
+    "ARM": theme.BLUE,
+    "NONE": theme.NEUTRAL,
 }
-
-_STATUS_COLORS = {
-    "IDLE": "#3a3a3a",
-    "STARTING": "#8a6d1a",
-    "RUNNING": "#1b5e20",
-    "STOPPING": "#8a6d1a",
-    "STOPPED": "#3a3a3a",
-    "ERROR": "#7a1f1f",
-}
-
-_RUNNING_LIKE_STATUSES = ("STARTING", "RUNNING")
 
 
 class SubsystemLaunchWidget(QWidget):
@@ -61,14 +54,14 @@ class SubsystemLaunchWidget(QWidget):
         layout.setSpacing(4)
 
         self._mode_badge = ModeBadgeWidget(
-            title="SUBSYSTEM LAUNCH", colors=_MODE_COLORS, default_mode="NONE"
+            title="SUBSYSTEM", colors=_MODE_COLORS, default_mode="NONE"
         )
         layout.addWidget(self._mode_badge)
 
         self._status_label = ColorCodedLabel()
         layout.addWidget(self._status_label)
 
-        self._launch_button = QPushButton()
+        self._launch_button = PushButton()
         self._launch_button.clicked.connect(self._on_button_clicked)
         layout.addWidget(self._launch_button)
 
@@ -123,9 +116,8 @@ class SubsystemLaunchWidget(QWidget):
         self._launch_button.setEnabled(launchable and self._status != "STOPPING")
 
         if self._status == "STOPPING":
-            text = "Stopping..."
+            set_button(self._launch_button, "Stopping...", "mdi6.dots-horizontal")
         elif self._status in _RUNNING_LIKE_STATUSES:
-            text = "Stop"
+            set_button(self._launch_button, "Stop", "mdi6.stop")
         else:
-            text = "Launch"
-        self._launch_button.setText(text)
+            set_button(self._launch_button, "Launch", "mdi6.rocket-launch")

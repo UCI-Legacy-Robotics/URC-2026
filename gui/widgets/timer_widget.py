@@ -15,6 +15,8 @@ by intervention logging.
 from PyQt6.QtWidgets import QWidget, QLabel, QHBoxLayout
 from PyQt6.QtCore import QTimer, pyqtSignal, Qt
 
+import theme
+
 
 class MissionTimerWidget(QWidget):
 
@@ -24,9 +26,10 @@ class MissionTimerWidget(QWidget):
     # Below this many remaining seconds, display switches to a warning color.
     WARNING_THRESHOLD_SECONDS = 60
 
-    _COLOR_NORMAL = "#e0e0e0"
+    _COLOR_NORMAL = theme.TEXT
     _COLOR_WARNING = "#ff4a4a"
     _COLOR_STOPPED = "#777777"
+    _LABEL_STYLE = "font-size: 26px; font-weight: bold; font-family: monospace; color: {color};"
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -40,9 +43,7 @@ class MissionTimerWidget(QWidget):
 
         self._label = QLabel("--:--")
         self._label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self._label.setStyleSheet(
-            f"font-size: 20px; font-weight: bold; color: {self._COLOR_STOPPED};"
-        )
+        self._label.setStyleSheet(self._LABEL_STYLE.format(color=self._COLOR_STOPPED))
 
         layout = QHBoxLayout(self)
         layout.setContentsMargins(8, 0, 8, 0)
@@ -74,9 +75,7 @@ class MissionTimerWidget(QWidget):
         self._qtimer.stop()
         self._remaining_seconds = 0
         self._label.setText("--:--")
-        self._label.setStyleSheet(
-            f"font-size: 20px; font-weight: bold; color: {self._COLOR_STOPPED};"
-        )
+        self._label.setStyleSheet(self._LABEL_STYLE.format(color=self._COLOR_STOPPED))
 
     def is_running(self) -> bool:
         return self._running
@@ -109,4 +108,4 @@ class MissionTimerWidget(QWidget):
         else:
             color = self._COLOR_NORMAL
 
-        self._label.setStyleSheet(f"font-size: 20px; font-weight: bold; color: {color};")
+        self._label.setStyleSheet(self._LABEL_STYLE.format(color=color))

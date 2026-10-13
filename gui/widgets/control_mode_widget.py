@@ -17,11 +17,12 @@ away only for things like Panorama) and real hardware (teleoperation
 via the game controller needs no launched subsystem or active mission).
 """
 
+import theme
 from widgets.mode_badge_widget import ModeBadgeWidget
 
 _COLORS = {
-    "TELEOPERATION": "#0d47a1",
-    "AUTONOMOUS": "#7a1f1f",
+    "TELEOPERATION": theme.BLUE,
+    "AUTONOMOUS": theme.RED,
 }
 
 

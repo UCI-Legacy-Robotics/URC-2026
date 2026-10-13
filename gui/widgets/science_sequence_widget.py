@@ -20,34 +20,18 @@ lowered by another sequence) layered on top of whatever the status-
 derived enablement would otherwise allow.
 """
 
-from PyQt6.QtWidgets import (
-    QWidget, QVBoxLayout, QLabel, QPushButton, QRadioButton, QButtonGroup
-)
+from PyQt6.QtWidgets import QVBoxLayout, QLabel, QButtonGroup
 from PyQt6.QtCore import Qt, pyqtSignal
+from qfluentwidgets import PushButton, RadioButton
 
-from widgets.mode_badge_widget import ModeBadgeWidget
+from theme import STATUS_COLORS as _STATUS_COLORS, RUNNING_LIKE_STATUSES as _RUNNING_LIKE_STATUSES
 from widgets.color_coded_label import ColorCodedLabel
-
-_STATUS_COLORS = {
-    "IDLE": "#3a3a3a",
-    "STARTING": "#8a6d1a",
-    "RUNNING": "#1b5e20",
-    "STOPPING": "#8a6d1a",
-    "STOPPED": "#3a3a3a",
-    "ERROR": "#7a1f1f",
-}
-
-_RUNNING_LIKE_STATUSES = ("STARTING", "RUNNING")
-
-_SEQUENCE_BADGE_COLORS = {"ACTIVE": "#1b5e20"}
+from widgets.common import SectionCard, readout_box as _fixed_text_box, set_button
 
 # Fixed-height text boxes for status message / GNSS / reading -- height is
 # hardcoded rather than derived from QLabel.fontMetrics() (which doesn't
 # reflect a stylesheet's font-size until the widget has been polished/
-# shown, so it can't be trusted at construction time). The point of a
-# fixed height is that a widget updating its own displayed text (a longer
-# status message, a new reading) never grows/shrinks the card and shifts
-# the rest of the dashboard around it.
+# shown, so it can't be trusted at construction time).
 _MESSAGE_BOX_HEIGHT = 44   # 2 rows at 12px
 _DATA_BOX_HEIGHT = 56      # up to 2 rows at 18px
 _DATA_BOX_FONT_SIZE = 18
@@ -60,44 +44,26 @@ _IMAGE_THUMB_WIDTH = 400
 _IMAGE_THUMB_HEIGHT = 300
 
 
-def _fixed_text_box(height: int, font_size: int) -> QLabel:
-    label = QLabel()
-    label.setWordWrap(True)
-    label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-    label.setFixedHeight(height)
-    label.setStyleSheet(
-        f"color: #ccc; font-size: {font_size}px; background: #161616; "
-        "border: 1px solid #2a2a2a; border-radius: 4px; padding: 2px;"
-    )
-    return label
-
-
-class ScienceSequenceWidget(QWidget):
+class ScienceSequenceWidget(SectionCard):
 
     launch_requested = pyqtSignal(str, str)  # (sequence, mode -- "" if launch_modes wasn't given)
     stop_requested = pyqtSignal(str)         # (sequence)
 
     def __init__(self, sequence: str, title: str, stoppable: bool,
+                 icon_name: str = None,
                  launch_modes: list[tuple[str, str]] | None = None,
                  show_gnss: bool = False,
                  show_image: bool = False, show_reading: bool = False,
                  reading_fields: list[tuple[str, str]] | None = None,
                  parent=None):
-        super().__init__(parent)
+        super().__init__(title, icon_name, parent)
         self.sequence = sequence
         self._stoppable = stoppable
         self._status = "IDLE"
         self._blocked = False
         self._blocked_reason = ""
 
-        layout = QVBoxLayout(self)
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(4)
-
-        self._title_badge = ModeBadgeWidget(
-            title=title.upper(), colors=_SEQUENCE_BADGE_COLORS, default_mode="ACTIVE"
-        )
-        layout.addWidget(self._title_badge)
+        layout = self.body
 
         self._status_label = ColorCodedLabel()
         layout.addWidget(self._status_label)
@@ -117,14 +83,14 @@ class ScienceSequenceWidget(QWidget):
             self._mode_buttons = {}
             self._mode_group = QButtonGroup(self)
             for i, (mode_key, mode_label) in enumerate(launch_modes):
-                button = QRadioButton(mode_label)
+                button = RadioButton(mode_label)
                 if i == 0:
                     button.setChecked(True)
                 self._mode_group.addButton(button)
                 self._mode_buttons[mode_key] = button
                 layout.addWidget(button)
 
-        self._launch_button = QPushButton()
+        self._launch_button = PushButton()
         self._launch_button.clicked.connect(self._on_button_clicked)
         layout.addWidget(self._launch_button)
 
@@ -139,7 +105,9 @@ class ScienceSequenceWidget(QWidget):
             self._image_label = QLabel()
             self._image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
             self._image_label.setFixedSize(_IMAGE_THUMB_WIDTH, _IMAGE_THUMB_HEIGHT)
-            self._image_label.setStyleSheet("background: #000; border: 1px solid #2a2a2a;")
+            self._image_label.setStyleSheet(
+                "background: #000; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px;"
+            )
             layout.addWidget(self._image_label, 0, Qt.AlignmentFlag.AlignHCenter)
 
         # reading_fields (e.g. NPK's nitrogen/phosphorus/potassium) splits
@@ -230,7 +198,7 @@ class ScienceSequenceWidget(QWidget):
         if self._blocked:
             self._launch_button.setEnabled(False)
             self._launch_button.setToolTip(self._blocked_reason)
-            self._launch_button.setText("Blocked")
+            set_button(self._launch_button, "Blocked", "mdi6.lock")
             return
 
         self._launch_button.setToolTip("")
@@ -238,12 +206,15 @@ class ScienceSequenceWidget(QWidget):
         if self._stoppable:
             self._launch_button.setEnabled(self._status != "STOPPING")
             if self._status == "STOPPING":
-                self._launch_button.setText("Stopping...")
+                set_button(self._launch_button, "Stopping...", "mdi6.dots-horizontal")
             elif self._status in _RUNNING_LIKE_STATUSES:
-                self._launch_button.setText("Stop")
+                set_button(self._launch_button, "Stop", "mdi6.stop")
             else:
-                self._launch_button.setText("Launch")
+                set_button(self._launch_button, "Launch", "mdi6.play")
         else:
             running = self._status in _RUNNING_LIKE_STATUSES or self._status == "STOPPING"
             self._launch_button.setEnabled(not running)
-            self._launch_button.setText("Running..." if running else "Launch")
+            if running:
+                set_button(self._launch_button, "Running...", "mdi6.dots-horizontal")
+            else:
+                set_button(self._launch_button, "Launch", "mdi6.play")

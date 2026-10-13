@@ -3,11 +3,13 @@ Main window layout skeleton.
 """
 
 from PyQt6.QtWidgets import (
-    QMainWindow, QWidget, QTabWidget, QVBoxLayout, QHBoxLayout,
-    QFrame, QLabel, QSizePolicy
+    QMainWindow, QWidget, QTabWidget, QVBoxLayout, QHBoxLayout, QSizePolicy
 )
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, QSize
+from qfluentwidgets import CaptionLabel
 
+import theme
+from widgets.common import SectionCard
 from state_machine import MissionState, HealthStateMachine
 from comms_health_controller import CommsHealthController
 from widgets.mission_sm_widget import MissionSmWidget
@@ -48,27 +50,32 @@ _TAB_INDEX_BY_MISSION_STATE = {
 _DIAGNOSTICS_TAB_INDEX = 4
 
 
-def _placeholder_box(title: str, min_width: int = 0, min_height: int = 0) -> QFrame:
-    """Small helper to make a labeled placeholder box with a visible border,
-    so the layout skeleton is legible before real widgets exist."""
-    frame = QFrame()
-    frame.setFrameShape(QFrame.Shape.StyledPanel)
-    frame.setStyleSheet(
-        "QFrame { border: 1px dashed #3a3a3a; border-radius: 4px; background: #111; }"
-    )
-    if min_width:
-        frame.setMinimumWidth(min_width)
-    if min_height:
-        frame.setMinimumHeight(min_height)
+# Tab icons in addTab() order -- indices must match
+# _TAB_INDEX_BY_MISSION_STATE/_DIAGNOSTICS_TAB_INDEX above.
+_TAB_ICONS = (
+    "mdi6.flask-outline",
+    "mdi6.package-variant-closed",
+    "mdi6.wrench",
+    "mdi6.navigation-variant",
+    "mdi6.stethoscope",
+)
 
-    label = QLabel(title)
+
+def _placeholder_box(title: str) -> SectionCard:
+    """Labeled placeholder card, so the layout skeleton is legible
+    before real widgets exist."""
+    card = SectionCard()
+    label = CaptionLabel(title)
     label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-    label.setStyleSheet("color: #666; font-size: 11px; border: none;")
     label.setWordWrap(True)
+    card.body.addWidget(label)
+    return card
 
-    layout = QVBoxLayout(frame)
-    layout.addWidget(label)
-    return frame
+
+def _wrap_in_card(widget: QWidget, title: str, icon_name: str) -> SectionCard:
+    card = SectionCard(title, icon_name)
+    card.body.addWidget(widget, 1)
+    return card
 
 
 class TopStrip(QWidget):
@@ -81,21 +88,23 @@ class TopStrip(QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setFixedHeight(170)
+        self.setFixedHeight(200)
 
         layout = QHBoxLayout(self)
-        layout.setContentsMargins(8, 6, 8, 6)
-        layout.setSpacing(12)
+        layout.setContentsMargins(8, 8, 8, 0)
+        layout.setSpacing(8)
 
         self.mission_sm_widget = MissionSmWidget()
-        self.mission_sm_widget.setMinimumWidth(280)
+        self.mission_sm_widget.setMinimumWidth(320)
         self.subsystem_launch = SubsystemLaunchWidget()
-        self.subsystem_launch.setMinimumWidth(220)
+        self.subsystem_launch.setMinimumWidth(200)
         self.electrical_cluster = ElectricalHealthCluster()
 
-        layout.addWidget(self.mission_sm_widget)
-        layout.addWidget(self.subsystem_launch)
-        layout.addWidget(self.electrical_cluster, 1)
+        layout.addWidget(_wrap_in_card(self.mission_sm_widget, "Mission", "mdi6.flag-checkered"))
+        layout.addWidget(_wrap_in_card(self.subsystem_launch, "Subsystem Launch", "mdi6.rocket-launch"))
+        layout.addWidget(
+            _wrap_in_card(self.electrical_cluster, "Electrical Health", "mdi6.lightning-bolt"), 1
+        )
 
 
 class Sidebar(QWidget):
@@ -108,37 +117,30 @@ class Sidebar(QWidget):
         self.setFixedWidth(340)
 
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(6, 6, 6, 6)
+        layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(8)
 
         self.gnss_map = GnssMapWidget()
         self.gnss_map.setMinimumHeight(220)
-        self.gnss_map.setSizePolicy(
-            QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding
-        )
+        map_card = _wrap_in_card(self.gnss_map, "GNSS", "mdi6.map")
+        map_card.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        layout.addWidget(map_card, 1)
 
-        layout.addWidget(self.gnss_map)
-        layout.addStretch()
-
+        modes_card = SectionCard("Rover Mode", "mdi6.gamepad-variant")
         self.control_mode = ControlModeWidget()
-        self.control_mode.setMinimumHeight(60)
-        layout.addWidget(self.control_mode)
-
         self.joystick_mode = JoystickModeWidget()
-        self.joystick_mode.setMinimumHeight(60)
-        layout.addWidget(self.joystick_mode)
+        modes_card.body.addWidget(self.control_mode)
+        modes_card.body.addWidget(self.joystick_mode)
+        layout.addWidget(modes_card)
 
-        bottom_stack = QVBoxLayout()
-        bottom_stack.setSpacing(8)
-
+        safety_card = SectionCard("Safety", "mdi6.shield-alert-outline")
         self.software_toggle = SoftwareEnableWidget()
-        self.software_toggle.setMinimumHeight(110)
+        self.software_toggle.setMinimumHeight(100)
         self.estop_button = EstopWidget()
         self.estop_button.setMinimumHeight(110)
-
-        bottom_stack.addWidget(self.software_toggle)
-        bottom_stack.addWidget(self.estop_button)
-        layout.addLayout(bottom_stack)
+        safety_card.body.addWidget(self.software_toggle)
+        safety_card.body.addWidget(self.estop_button)
+        layout.addWidget(safety_card)
 
 
 def _placeholder_tab(title: str) -> QWidget:
@@ -191,10 +193,12 @@ class MainWindow(QMainWindow):
         # -- main content: tabs (left) + sidebar (right) ----------------
         content = QWidget()
         content_layout = QHBoxLayout(content)
-        content_layout.setContentsMargins(6, 6, 6, 6)
-        content_layout.setSpacing(6)
+        content_layout.setContentsMargins(8, 8, 8, 8)
+        content_layout.setSpacing(8)
 
         self.tabs = QTabWidget()
+        self.tabs.setDocumentMode(True)
+        self.tabs.setIconSize(QSize(18, 18))
         self.science_tab = ScienceTabWidget()
         self.science_tab.launch_requested.connect(self._on_science_launch_requested)
         self.science_tab.stop_requested.connect(self._on_science_stop_requested)
@@ -211,6 +215,8 @@ class MainWindow(QMainWindow):
         self.tabs.addTab(self.equipment_tab, "Equipment Servicing")
         self.tabs.addTab(self.autonomous_nav_tab, "Autonomous Nav")
         self.tabs.addTab(_placeholder_tab("Diagnostics"), "Diagnostics")
+        for index, icon_name in enumerate(_TAB_ICONS):
+            self.tabs.setTabIcon(index, theme.icon(icon_name))
 
         self.tabs.setSizePolicy(
             QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding

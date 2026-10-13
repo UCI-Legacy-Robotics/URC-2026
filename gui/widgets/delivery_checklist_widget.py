@@ -19,47 +19,22 @@ its own, no cross-stage logic.
 Fully self-contained: no DataSource/bind_data_source, since Delivery is
 almost entirely teleoperated and this widget is just a running tally of
 completed tasks, not telemetry.
-
-Every frame/checkbox here sets its own explicit border/indicator style
-rather than relying on the app-wide dark stylesheet (main.py's
-_STYLESHEET only sets background/text color) -- a bare QFrame.StyledPanel
-and a default QCheckBox indicator both render with essentially no
-visible edge against a fully dark theme otherwise.
 """
 
 from PyQt6.QtCore import Qt, pyqtSignal
-from PyQt6.QtWidgets import (
-    QWidget, QVBoxLayout, QHBoxLayout, QLabel, QCheckBox,
-    QProgressBar, QPushButton, QFrame
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QProgressBar
+from qfluentwidgets import (
+    BodyLabel, CaptionLabel, CardWidget, CheckBox, PushButton, StrongBodyLabel,
+    SubtitleLabel, ToolButton
 )
 
+import theme
 from delivery_checklist_loader import load_delivery_checklist
 from widgets.color_coded_label import ColorCodedLabel
+from widgets.common import SectionCard
 
-_LOCKED_COLOR = "#3a3a3a"
-_UNLOCKED_COLOR = "#1b5e20"
-
-_SECTION_STYLE = (
-    "QFrame#stageSection { border: 1px solid #444; border-radius: 6px; "
-    "background: #141414; }"
-)
-_COUNTER_FRAME_STYLE = (
-    "QFrame#counterTask { border: 1px solid #3a3a3a; border-radius: 4px; "
-    "background: #1a1a1a; }"
-)
-_CHECKBOX_STYLE = (
-    "QCheckBox { font-size: 15px; spacing: 8px; } "
-    "QCheckBox::indicator { width: 22px; height: 22px; border: 1px solid #888; "
-    "border-radius: 4px; background: #1a1a1a; } "
-    "QCheckBox::indicator:hover { border: 1px solid #aaa; } "
-    "QCheckBox::indicator:checked { background: #1b5e20; border: 1px solid #3ba33b; }"
-)
-_STEP_BUTTON_STYLE = (
-    "QPushButton { font-size: 18px; font-weight: bold; color: #e0e0e0; "
-    "background: #1e1e1e; border: 1px solid #555; border-radius: 4px; } "
-    "QPushButton:hover { background: #2a2a2a; border: 1px solid #777; } "
-    "QPushButton:pressed { background: #333; }"
-)
+_LOCKED_COLOR = theme.NEUTRAL
+_UNLOCKED_COLOR = theme.GREEN
 
 
 class _PlusMinusCounter(QWidget):
@@ -80,19 +55,16 @@ class _PlusMinusCounter(QWidget):
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(6)
 
-        self._minus_button = QPushButton("−")
+        self._minus_button = ToolButton(theme.icon("mdi6.minus"))
         self._minus_button.setFixedSize(34, 34)
-        self._minus_button.setStyleSheet(_STEP_BUTTON_STYLE)
         self._minus_button.clicked.connect(lambda: self.set_value(self._value - 1))
 
-        self._value_label = QLabel(str(self._value))
+        self._value_label = StrongBodyLabel(str(self._value))
         self._value_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self._value_label.setFixedWidth(32)
-        self._value_label.setStyleSheet("font-size: 16px; font-weight: bold;")
 
-        self._plus_button = QPushButton("+")
+        self._plus_button = ToolButton(theme.icon("mdi6.plus"))
         self._plus_button.setFixedSize(34, 34)
-        self._plus_button.setStyleSheet(_STEP_BUTTON_STYLE)
         self._plus_button.clicked.connect(lambda: self.set_value(self._value + 1))
 
         layout.addWidget(self._minus_button)
@@ -122,6 +94,8 @@ class DeliveryChecklistWidget(QWidget):
         self._stage_sections = {}  # stage_id -> {"subtotal_label", "unlock_threshold", "threshold_badge"}
 
         layout = QVBoxLayout(self)
+        layout.setContentsMargins(6, 6, 6, 6)
+        layout.setSpacing(8)
 
         tasks_by_stage = {}
         for task in checklist["tasks"]:
@@ -132,29 +106,21 @@ class DeliveryChecklistWidget(QWidget):
 
         layout.addStretch()
 
-        self._total_label = QLabel()
-        self._total_label.setStyleSheet("font-size: 18px; font-weight: bold;")
-        layout.addWidget(self._total_label)
-
-        self._reset_button = QPushButton("Reset")
-        self._reset_button.setStyleSheet(_STEP_BUTTON_STYLE + "QPushButton { font-size: 14px; padding: 6px; }")
+        footer = QHBoxLayout()
+        self._total_label = SubtitleLabel()
+        footer.addWidget(self._total_label, 1)
+        self._reset_button = PushButton(theme.icon("mdi6.restart"), "Reset")
         self._reset_button.clicked.connect(self._on_reset_clicked)
-        layout.addWidget(self._reset_button)
+        footer.addWidget(self._reset_button)
+        layout.addLayout(footer)
 
         self._recompute_total()
 
     # -- section/row construction -----------------------------------------
 
-    def _build_stage_section(self, stage: dict, tasks: list) -> QFrame:
-        section = QFrame()
-        section.setObjectName("stageSection")
-        section.setFrameShape(QFrame.Shape.StyledPanel)
-        section.setStyleSheet(_SECTION_STYLE)
-        section_layout = QVBoxLayout(section)
-
-        header = QLabel(stage["label"])
-        header.setStyleSheet("font-size: 16px; font-weight: bold; border: none;")
-        section_layout.addWidget(header)
+    def _build_stage_section(self, stage: dict, tasks: list) -> SectionCard:
+        section = SectionCard(stage["label"], "mdi6.package-variant-closed")
+        section_layout = section.body
 
         for task in tasks:
             if task["type"] == "checkbox":
@@ -162,8 +128,7 @@ class DeliveryChecklistWidget(QWidget):
             elif task["type"] == "counter":
                 section_layout.addWidget(self._build_counter_row(task))
 
-        subtotal_label = QLabel()
-        subtotal_label.setStyleSheet("font-size: 14px; border: none;")
+        subtotal_label = CaptionLabel()
         section_layout.addWidget(subtotal_label)
 
         unlock_threshold = stage.get("unlock_threshold")
@@ -179,30 +144,23 @@ class DeliveryChecklistWidget(QWidget):
         }
         return section
 
-    def _build_checkbox_row(self, task: dict) -> QCheckBox:
-        checkbox = QCheckBox(f"{task['label']} (+{task['points']} pts)")
-        checkbox.setStyleSheet(_CHECKBOX_STYLE)
+    def _build_checkbox_row(self, task: dict) -> CheckBox:
+        checkbox = CheckBox(f"{task['label']} (+{task['points']} pts)")
         checkbox.stateChanged.connect(self._recompute_total)
         self._checkboxes.append((checkbox, task["points"], task["stage"]))
         return checkbox
 
-    def _build_counter_row(self, task: dict) -> QFrame:
-        frame = QFrame()
-        frame.setObjectName("counterTask")
-        frame.setFrameShape(QFrame.Shape.StyledPanel)
-        frame.setStyleSheet(_COUNTER_FRAME_STYLE)
+    def _build_counter_row(self, task: dict) -> CardWidget:
+        frame = CardWidget()
         frame_layout = QVBoxLayout(frame)
+        frame_layout.setContentsMargins(10, 8, 10, 8)
 
-        title = QLabel(task["label"])
-        title.setStyleSheet("font-size: 14px; font-weight: bold; border: none;")
-        frame_layout.addWidget(title)
+        frame_layout.addWidget(StrongBodyLabel(task["label"]))
 
         option_widgets = []
         for option in task["options"]:
             option_row = QHBoxLayout()
-            option_label = QLabel(f"{option['label']} ({option['points']} pts)")
-            option_label.setStyleSheet("font-size: 14px; border: none;")
-            option_row.addWidget(option_label)
+            option_row.addWidget(BodyLabel(f"{option['label']} ({option['points']} pts)"))
             option_row.addStretch()
 
             counter = _PlusMinusCounter()
@@ -214,11 +172,6 @@ class DeliveryChecklistWidget(QWidget):
         progress_bar = QProgressBar()
         progress_bar.setRange(0, task["total_points"])
         progress_bar.setFormat("%v / %m pts")
-        progress_bar.setStyleSheet(
-            "QProgressBar { border: 1px solid #555; border-radius: 4px; "
-            "text-align: center; font-size: 12px; background: #111; } "
-            "QProgressBar::chunk { background: #1b5e20; border-radius: 3px; }"
-        )
         frame_layout.addWidget(progress_bar)
 
         self._counter_tasks.append({

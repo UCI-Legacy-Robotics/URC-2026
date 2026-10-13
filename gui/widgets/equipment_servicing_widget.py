@@ -36,28 +36,17 @@ it's just a running tally an operator ticks off by hand, not telemetry.
 
 from pathlib import Path
 
-from PyQt6.QtWidgets import (
-    QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton
-)
-from PyQt6.QtGui import QValidator
-from PyQt6.QtCore import Qt, pyqtSignal
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
+from PyQt6.QtGui import QFont, QValidator
+from PyQt6.QtCore import pyqtSignal
+from qfluentwidgets import BodyLabel, LineEdit, PushButton, setFont
 
+from theme import STATUS_COLORS as _STATUS_COLORS, RUNNING_LIKE_STATUSES as _RUNNING_LIKE_STATUSES
 from widgets.checklist_widget import ChecklistWidget
-from widgets.mode_badge_widget import ModeBadgeWidget
 from widgets.color_coded_label import ColorCodedLabel
+from widgets.common import SectionCard, readout_box as _fixed_text_box, set_button
 
 _DEFAULT_CHECKLIST_PATH = Path(__file__).resolve().parent.parent / "equipment_servicing_checklist.json"
-
-_STATUS_COLORS = {
-    "IDLE": "#3a3a3a",
-    "STARTING": "#8a6d1a",
-    "RUNNING": "#1b5e20",
-    "STOPPING": "#8a6d1a",
-    "STOPPED": "#3a3a3a",
-    "ERROR": "#7a1f1f",
-}
-_RUNNING_LIKE_STATUSES = ("STARTING", "RUNNING")
-_SEQUENCE_BADGE_COLORS = {"ACTIVE": "#1b5e20"}
 
 _MESSAGE_BOX_HEIGHT = 44
 _DATA_BOX_HEIGHT = 40
@@ -65,32 +54,6 @@ _DATA_BOX_FONT_SIZE = 16
 
 _MIN_KEY_LENGTH = 3
 _MAX_KEY_LENGTH = 6
-
-_KEY_INPUT_STYLE = (
-    "QLineEdit { font-size: 18px; font-weight: bold; letter-spacing: 4px; "
-    "color: #e0e0e0; background: #1a1a1a; border: 1px solid #555; "
-    "border-radius: 4px; padding: 6px; } "
-    "QLineEdit:focus { border: 1px solid #888; }"
-)
-_STEP_BUTTON_STYLE = (
-    "QPushButton { font-size: 14px; font-weight: bold; color: #e0e0e0; "
-    "background: #1e1e1e; border: 1px solid #555; border-radius: 4px; padding: 8px; } "
-    "QPushButton:hover { background: #2a2a2a; border: 1px solid #777; } "
-    "QPushButton:pressed { background: #333; } "
-    "QPushButton:disabled { color: #666; border: 1px solid #3a3a3a; }"
-)
-
-
-def _fixed_text_box(height: int, font_size: int) -> QLabel:
-    label = QLabel()
-    label.setWordWrap(True)
-    label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-    label.setFixedHeight(height)
-    label.setStyleSheet(
-        f"color: #ccc; font-size: {font_size}px; background: #161616; "
-        "border: 1px solid #2a2a2a; border-radius: 4px; padding: 2px;"
-    )
-    return label
 
 
 class _LaunchKeyValidator(QValidator):
@@ -110,7 +73,7 @@ class _LaunchKeyValidator(QValidator):
         return (QValidator.State.Acceptable, text, pos)
 
 
-class _EquipmentSequenceCard(QWidget):
+class _EquipmentSequenceCard(SectionCard):
     """One Equipment Servicing sequence (Autonomous Typing or USB Read)
     -- generic over which one it is, same "one widget class, configured
     per instance" shape ScienceSequenceWidget uses. launch_requested/
@@ -121,22 +84,15 @@ class _EquipmentSequenceCard(QWidget):
     launch_requested = pyqtSignal(str, str)  # (sequence, key -- "" if key_input wasn't given)
     stop_requested = pyqtSignal(str)         # (sequence)
 
-    def __init__(self, sequence: str, title: str, key_input: bool = False,
-                 show_gnss: bool = False, parent=None):
-        super().__init__(parent)
+    def __init__(self, sequence: str, title: str, icon_name: str = None,
+                 key_input: bool = False, show_gnss: bool = False, parent=None):
+        super().__init__(title, icon_name, parent)
         self.sequence = sequence
         self._status = "IDLE"
         self._blocked = False
         self._blocked_reason = ""
 
-        layout = QVBoxLayout(self)
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(4)
-
-        self._title_badge = ModeBadgeWidget(
-            title=title.upper(), colors=_SEQUENCE_BADGE_COLORS, default_mode="ACTIVE"
-        )
-        layout.addWidget(self._title_badge)
+        layout = self.body
 
         self._status_label = ColorCodedLabel()
         layout.addWidget(self._status_label)
@@ -147,19 +103,17 @@ class _EquipmentSequenceCard(QWidget):
         self._key_input = None
         if key_input:
             key_row = QHBoxLayout()
-            key_label = QLabel("Launch key:")
-            key_row.addWidget(key_label)
-            self._key_input = QLineEdit()
+            key_row.addWidget(BodyLabel("Launch key:"))
+            self._key_input = LineEdit()
             self._key_input.setPlaceholderText("3-6 letters")
             self._key_input.setMaxLength(_MAX_KEY_LENGTH)
             self._key_input.setValidator(_LaunchKeyValidator(self))
-            self._key_input.setStyleSheet(_KEY_INPUT_STYLE)
+            setFont(self._key_input, 18, QFont.Weight.Bold)
             self._key_input.textChanged.connect(lambda _: self._refresh_button())
             key_row.addWidget(self._key_input, 1)
             layout.addLayout(key_row)
 
-        self._launch_button = QPushButton()
-        self._launch_button.setStyleSheet(_STEP_BUTTON_STYLE)
+        self._launch_button = PushButton()
         self._launch_button.clicked.connect(self._on_button_clicked)
         layout.addWidget(self._launch_button)
 
@@ -212,21 +166,21 @@ class _EquipmentSequenceCard(QWidget):
         if self._blocked:
             self._launch_button.setEnabled(False)
             self._launch_button.setToolTip(self._blocked_reason)
-            self._launch_button.setText("Blocked")
+            set_button(self._launch_button, "Blocked", "mdi6.lock")
             return
 
         self._launch_button.setToolTip("")
 
         if self._status == "STOPPING":
             self._launch_button.setEnabled(False)
-            self._launch_button.setText("Stopping...")
+            set_button(self._launch_button, "Stopping...", "mdi6.dots-horizontal")
         elif self._status in _RUNNING_LIKE_STATUSES:
             self._launch_button.setEnabled(True)
-            self._launch_button.setText("Stop")
+            set_button(self._launch_button, "Stop", "mdi6.stop")
         else:
             key_ready = self._key_input is None or len(self._current_key()) >= _MIN_KEY_LENGTH
             self._launch_button.setEnabled(key_ready)
-            self._launch_button.setText("Launch")
+            set_button(self._launch_button, "Launch", "mdi6.play")
             if self._key_input is not None and not key_ready:
                 self._launch_button.setToolTip(f"Program a {_MIN_KEY_LENGTH}-{_MAX_KEY_LENGTH} letter launch key first")
 
@@ -257,13 +211,14 @@ class EquipmentServicingWidget(QWidget):
         sequences_column.setSpacing(8)
 
         launch_key_card = _EquipmentSequenceCard(
-            sequence="LAUNCH_KEY", title="Autonomous Typing", key_input=True,
+            sequence="LAUNCH_KEY", title="Autonomous Typing", icon_name="mdi6.keyboard",
+            key_input=True,
         )
         self._register_sequence_card(launch_key_card)
         sequences_column.addWidget(launch_key_card)
 
         usb_read_card = _EquipmentSequenceCard(
-            sequence="USB_READ", title="USB Read", show_gnss=True,
+            sequence="USB_READ", title="USB Read", icon_name="mdi6.usb", show_gnss=True,
         )
         self._register_sequence_card(usb_read_card)
         sequences_column.addWidget(usb_read_card)

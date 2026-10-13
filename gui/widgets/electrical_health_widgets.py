@@ -20,18 +20,19 @@ isn't part of the diagnostics contract and so is evaluated here.
 from widgets.health_indicator_widget import DiagnosticsStatusIndicator, HealthIndicatorWidget
 from widgets.mode_badge_widget import ModeBadgeWidget
 from state_machine import HealthState
+import theme
 
 _LEVEL_COLORS = {
-    "OK": "#1b5e20",
-    "WARN": "#8a6d1a",
-    "ERROR": "#7a1f1f",
-    "STALE": "#4a4a2a",
+    "OK": theme.GREEN,
+    "WARN": theme.AMBER,
+    "ERROR": theme.RED,
+    "STALE": theme.STALE,
 }
 
 # FAULT_LATCHED gets a distinctly brighter red than the rest of the
 # cluster on latch — per the handoff, this is the most safety-critical
 # indicator here and needs to visually stand out from an ordinary ERROR.
-_FAULT_LATCHED_COLOR = "#d32f2f"
+_FAULT_LATCHED_COLOR = theme.BRIGHT_RED
 
 _BATTERY_STOP_VOLTAGE = 23.0
 _BATTERY_WARN_VOLTAGE = 24.5

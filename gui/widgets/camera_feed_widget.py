@@ -23,18 +23,17 @@ from PyQt6.QtGui import QImage, QPixmap
 from PyQt6.QtWidgets import QLabel, QVBoxLayout, QWidget
 
 from frame_decode import decode_frame_to_rgb
+from theme import CAMERA_STATE_COLORS as _STATE_COLORS
 from widgets.camera_feed_tracker import CameraFeedTracker
-
-_STATE_COLORS = {
-    "ON": "#3ba33b",
-    "OFF": "#888888",
-    "NO SIGNAL": "#c0392b",
-    "LOCKED": "#666666",
-}
 
 # Video area is locked to this aspect ratio (16:9 — a typical camera/
 # screen ratio, e.g. 1920x1080), letterboxed within whatever space the
 # grid cell gives this widget.
+_STATUS_STRIP_STYLE = (
+    'background: rgba(0, 0, 0, 0.35); font-size: 15px; font-family: monospace; '
+    'padding: 5px 8px; border-top-left-radius: 8px; border-top-right-radius: 8px; color: {color};'
+)
+
 _VIDEO_ASPECT_W = 16
 _VIDEO_ASPECT_H = 9
 
@@ -61,7 +60,10 @@ class CameraFeedWidget(QWidget):
         self.tracker.changed.connect(self._render)
 
         self.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
-        self.setStyleSheet('CameraFeedWidget { background-color: #1a1a1a; border-radius: 6px; }')
+        self.setStyleSheet(
+            'CameraFeedWidget { background-color: #17181b; border: 1px solid rgba(255, 255, 255, 0.08); '
+            'border-radius: 8px; }'
+        )
 
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
@@ -70,9 +72,7 @@ class CameraFeedWidget(QWidget):
         # Status strip in the chrome, above the image — never overlaid
         # on the video itself (handoff Step 3).
         self._status_strip = QLabel()
-        self._status_strip.setStyleSheet(
-            'background: #0d0d0d; font-size: 15px; font-family: monospace; padding: 5px 8px;'
-        )
+        self._status_strip.setStyleSheet(_STATUS_STRIP_STYLE.format(color=_STATE_COLORS["OFF"]))
         layout.addWidget(self._status_strip)
 
         self._video_label = QLabel()
@@ -153,7 +153,4 @@ class CameraFeedWidget(QWidget):
         self._status_strip.setText(
             f"{self._label_text}   {display_state}   {rate:.2f} Mbps   {fps:.1f} fps"
         )
-        self._status_strip.setStyleSheet(
-            'background: #0d0d0d; font-size: 15px; font-family: monospace; '
-            f'padding: 5px 8px; color: {_STATE_COLORS[display_state]};'
-        )
+        self._status_strip.setStyleSheet(_STATUS_STRIP_STYLE.format(color=_STATE_COLORS[display_state]))

@@ -50,28 +50,18 @@ Delivery.
 
 from pathlib import Path
 
-from PyQt6.QtWidgets import (
-    QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QComboBox,
-    QDoubleSpinBox, QPushButton, QListWidget, QListWidgetItem, QFrame
-)
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QListWidgetItem
 from PyQt6.QtCore import Qt, pyqtSignal
+from qfluentwidgets import ComboBox, DoubleSpinBox, LineEdit, ListWidget, PushButton
 
+import theme
+from theme import STATUS_COLORS as _STATUS_COLORS, RUNNING_LIKE_STATUSES as _RUNNING_LIKE_STATUSES
 from widgets.checklist_widget import ChecklistWidget
 from widgets.color_coded_label import ColorCodedLabel
+from widgets.common import DangerButton, SectionCard
 from autonomous_nav_store import AutonomousNavStore
 
 _DEFAULT_CHECKLIST_PATH = Path(__file__).resolve().parent.parent / "autonomous_nav_checklist.json"
-
-_STATUS_COLORS = {
-    "IDLE": "#3a3a3a",
-    "STARTING": "#8a6d1a",
-    "RUNNING": "#1b5e20",
-    "ARRIVED": "#1b5e20",
-    "STOPPING": "#8a6d1a",
-    "STOPPED": "#3a3a3a",
-    "ERROR": "#7a1f1f",
-}
-_RUNNING_LIKE_STATUSES = ("STARTING", "RUNNING")
 
 # (display label, stored value) -- stored value is exactly the
 # "accurate"/"object"/"post" vocabulary from the mission rules and from
@@ -83,36 +73,9 @@ _WAYPOINT_TYPES = [
 ]
 _TYPE_DISPLAY_BY_VALUE = {value: display for display, value in _WAYPOINT_TYPES}
 
-_ENTRY_STYLE = (
-    "QLineEdit, QComboBox, QDoubleSpinBox { font-size: 14px; color: #e0e0e0; "
-    "background: #1a1a1a; border: 1px solid #555; border-radius: 4px; padding: 4px; } "
-    "QLineEdit:focus, QComboBox:focus, QDoubleSpinBox:focus { border: 1px solid #888; } "
-    # QComboBox's popup list is a separate top-level view the app-wide
-    # dark stylesheet doesn't reach (main.py's _STYLESHEET only styles
-    # QWidget/QTabWidget/QLabel/QTextEdit) -- without this it renders
-    # with the OS's default light palette, standing out against every
-    # other dark control on the page.
-    "QComboBox QAbstractItemView { font-size: 14px; color: #e0e0e0; "
-    "background: #1a1a1a; border: 1px solid #555; "
-    "selection-background-color: #2a2a2a; selection-color: #ffffff; }"
-)
-_BUTTON_STYLE = (
-    "QPushButton { font-size: 14px; font-weight: bold; color: #e0e0e0; "
-    "background: #1e1e1e; border: 1px solid #555; border-radius: 4px; padding: 8px; } "
-    "QPushButton:hover { background: #2a2a2a; border: 1px solid #777; } "
-    "QPushButton:pressed { background: #333; } "
-    "QPushButton:disabled { color: #666; border: 1px solid #3a3a3a; }"
-)
-_ABORT_BUTTON_STYLE = (
-    "QPushButton { font-size: 14px; font-weight: bold; color: #e0e0e0; "
-    "background: #5a1f1f; border: 1px solid #7a1f1f; border-radius: 4px; padding: 8px; } "
-    "QPushButton:hover { background: #6e2626; } "
-    "QPushButton:pressed { background: #4a1919; } "
-    "QPushButton:disabled { color: #666; background: #1e1e1e; border: 1px solid #3a3a3a; }"
-)
 _MESSAGE_BOX_STYLE = (
-    "color: #ccc; font-size: 12px; background: #161616; "
-    "border: 1px solid #2a2a2a; border-radius: 4px; padding: 4px;"
+    f"color: {theme.TEXT}; font-size: 12px; background: rgba(255, 255, 255, 0.04); "
+    "border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px; padding: 4px;"
 )
 _ARRIVED_BANNER_STYLE = (
     "color: #ffffff; font-size: 22px; font-weight: bold; background: #1b8a3a; "
@@ -154,31 +117,26 @@ class AutonomousNavWidget(QWidget):
 
     # -- construction -------------------------------------------------------
 
-    def _build_entry_form(self) -> QFrame:
-        frame = QFrame()
-        frame.setStyleSheet(_ENTRY_STYLE)
-        form_layout = QVBoxLayout(frame)
+    def _build_entry_form(self) -> SectionCard:
+        frame = SectionCard("GNSS Waypoint", "mdi6.map-marker-plus")
+        form_layout = frame.body
 
-        title = QLabel("GNSS Waypoint")
-        title.setStyleSheet("font-size: 16px; font-weight: bold;")
-        form_layout.addWidget(title)
-
-        self._label_edit = QLineEdit()
+        self._label_edit = LineEdit()
         self._label_edit.setPlaceholderText("Label (e.g. \"GNSS Point 1\", \"Post A\")")
         self._label_edit.textChanged.connect(self._refresh_form)
         form_layout.addWidget(self._label_edit)
 
-        self._type_combo = QComboBox()
+        self._type_combo = ComboBox()
         for display, _value in _WAYPOINT_TYPES:
             self._type_combo.addItem(display)
         form_layout.addWidget(self._type_combo)
 
         coord_row = QHBoxLayout()
-        self._lat_spin = QDoubleSpinBox()
+        self._lat_spin = DoubleSpinBox()
         self._lat_spin.setRange(-90.0, 90.0)
         self._lat_spin.setDecimals(6)
         self._lat_spin.setPrefix("lat ")
-        self._lon_spin = QDoubleSpinBox()
+        self._lon_spin = DoubleSpinBox()
         self._lon_spin.setRange(-180.0, 180.0)
         self._lon_spin.setDecimals(6)
         self._lon_spin.setPrefix("lon ")
@@ -186,16 +144,15 @@ class AutonomousNavWidget(QWidget):
         coord_row.addWidget(self._lon_spin)
         form_layout.addLayout(coord_row)
 
-        self._send_button = QPushButton("Send Waypoint && Launch")
-        self._send_button.setStyleSheet(_BUTTON_STYLE)
+        self._send_button = PushButton(theme.icon("mdi6.send"), "Send Waypoint && Launch")
         self._send_button.clicked.connect(self._on_send_clicked)
         form_layout.addWidget(self._send_button)
 
         return frame
 
-    def _build_status_card(self) -> QFrame:
-        frame = QFrame()
-        form_layout = QVBoxLayout(frame)
+    def _build_status_card(self) -> SectionCard:
+        frame = SectionCard("Navigation", "mdi6.navigation-variant")
+        form_layout = frame.body
 
         self._status_label = ColorCodedLabel()
         form_layout.addWidget(self._status_label)
@@ -207,24 +164,17 @@ class AutonomousNavWidget(QWidget):
         self._message_label.setStyleSheet(_MESSAGE_BOX_STYLE)
         form_layout.addWidget(self._message_label)
 
-        self._abort_button = QPushButton("Abort")
-        self._abort_button.setStyleSheet(_ABORT_BUTTON_STYLE)
+        self._abort_button = DangerButton("Abort", icon_name="mdi6.cancel")
         self._abort_button.clicked.connect(self._on_abort_clicked)
         form_layout.addWidget(self._abort_button)
 
         self._refresh_status_display()
         return frame
 
-    def _build_waypoint_list(self) -> QFrame:
-        frame = QFrame()
-        layout = QVBoxLayout(frame)
-
-        title = QLabel("Waypoints Sent")
-        title.setStyleSheet("font-size: 14px; font-weight: bold;")
-        layout.addWidget(title)
-
-        self._waypoint_list = QListWidget()
-        layout.addWidget(self._waypoint_list)
+    def _build_waypoint_list(self) -> SectionCard:
+        frame = SectionCard("Waypoints Sent", "mdi6.map-marker-multiple")
+        self._waypoint_list = ListWidget()
+        frame.body.addWidget(self._waypoint_list)
 
         return frame
 

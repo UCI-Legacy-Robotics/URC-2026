@@ -45,8 +45,11 @@ not just "another sequence is busy" -- since editing the site label
 mid-sequence would mislabel whatever data is still in flight.
 """
 
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QMessageBox
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
 from PyQt6.QtCore import pyqtSignal
+from qfluentwidgets import MessageBox, PushButton
+
+import theme
 
 from widgets.science_site_bar import ScienceSiteBar
 from widgets.science_sequence_widget import ScienceSequenceWidget
@@ -89,6 +92,7 @@ class ScienceTabWidget(QWidget):
 
         bradford_cache = ScienceSequenceWidget(
             sequence="BRADFORD_CACHE", title="Bradford/Cache", stoppable=True,
+            icon_name="mdi6.flask-outline",
             launch_modes=[
                 ("SPECTRO", "Run Spectrometer Analysis"),
                 ("CACHE", "Collect to Cache"),
@@ -103,7 +107,7 @@ class ScienceTabWidget(QWidget):
         sequences_row.addWidget(bradford_cache)
 
         npk = ScienceSequenceWidget(
-            sequence="NPK", title="NPK Probe", stoppable=True,
+            sequence="NPK", title="NPK Probe", stoppable=True, icon_name="mdi6.test-tube",
             reading_fields=[
                 ("nitrogen_ppm", "N (ppm)"),
                 ("phosphorus_ppm", "P (ppm)"),
@@ -118,12 +122,14 @@ class ScienceTabWidget(QWidget):
 
         panorama = ScienceSequenceWidget(
             sequence="PANORAMA", title="Panorama", stoppable=False, show_image=True,
+            icon_name="mdi6.panorama-variant",
         )
         self._register_sequence_widget(panorama)
         sequences_row.addWidget(panorama)
 
         stratigraphy = ScienceSequenceWidget(
             sequence="STRATIGRAPHY", title="Stratigraphic Photo", stoppable=False, show_image=True,
+            icon_name="mdi6.layers-triple",
         )
         self._register_sequence_widget(stratigraphy)
         sequences_row.addWidget(stratigraphy)
@@ -131,7 +137,7 @@ class ScienceTabWidget(QWidget):
         layout.addLayout(sequences_row, 1)
 
         self._review_dialog = ScienceReviewDialog(self._store, parent=self)
-        self.review_button = QPushButton("Review Sites...")
+        self.review_button = PushButton(theme.icon("mdi6.history"), "Review Sites...")
         self.review_button.clicked.connect(self._review_dialog.exec)
         layout.addWidget(self.review_button)
 
@@ -183,13 +189,14 @@ class ScienceTabWidget(QWidget):
         owner = self._store.get_resource_owner(mode)
         if owner is not None and owner != current_site:
             resource_label = _RESOURCE_LABELS.get(mode, mode)
-            reply = QMessageBox.question(
-                self, f"{resource_label} in use",
+            confirm = MessageBox(
+                f"{resource_label} in use",
                 f"{resource_label} currently holds a sample from '{owner}' — overwrite with '{current_site}'?",
-                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
-                QMessageBox.StandardButton.No,
+                self.window(),
             )
-            if reply != QMessageBox.StandardButton.Yes:
+            confirm.yesButton.setText("Overwrite")
+            confirm.cancelButton.setText("Cancel")
+            if not confirm.exec():
                 return  # abort -- no command sent, no status change
         self._store.set_resource_owner(mode, current_site)
         self.launch_requested.emit(sequence, mode)

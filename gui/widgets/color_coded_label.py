@@ -19,6 +19,7 @@ class ColorCodedLabel(QLabel):
     def set_state(self, text: str, color: str):
         self.setText(text)
         self.setStyleSheet(
-            "font-size: 16px; font-weight: bold; color: #ffffff; "
-            f"background: {color}; border-radius: 4px; padding: 8px;"
+            "font-size: 15px; font-weight: 600; color: #ffffff; "
+            f"background: {color}; border: 1px solid rgba(255, 255, 255, 0.12); "
+            "border-radius: 8px; padding: 6px 10px;"
         )
